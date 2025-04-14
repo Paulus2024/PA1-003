@@ -1,0 +1,17 @@
+.icon-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 15px !important; /* Jarak antar ikon */
+    margin-top: 10px !important;
+}
+
+.icon-container a {
+    font-size: 24px !important; /* Ukuran ikon */
+    color: #000 !important;
+    transition: color 0.3s ease !important;
+}
+
+.icon-container a:hover {
+    color: #007bff !important; /* Efek hover */
+}
