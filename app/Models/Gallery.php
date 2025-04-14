@@ -14,7 +14,7 @@ class Gallery extends Model
 
 
     protected $fillable = [
-        'title',
+        'judul_galeri',
         'gambar_galeri'
     ];
 
