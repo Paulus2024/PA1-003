@@ -36,7 +36,7 @@
                     </button>
 
                     <!-- Form hapus --><!-- A (sesuaikan dengan nama route di web.php) -->
-                    <form action="{{ route('sekretaris.galleries.destroy', $item->id_galeri) }}" method="POST">
+                    <form action="{{ route('galleries.destroy', $item->id_galeri) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-outline-danger">Hapus</button>
@@ -49,7 +49,7 @@
         <!-- Modal Edit untuk masing-masing fasilitas - Tambah ini: Modal edit dalam loop -->
         <div class="modal fade" id="editModal{{ $item->id_galeri }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id_galeri }}" aria-hidden="true">
             <div class="modal-dialog">
-                <form action="{{ route('sekretaris.galleries.update', $item->id_galeri) }}" method="POST" enctype="multipart/form-data" class="modal-content">
+                <form action="{{ route('galleries.update', $item->id_galeri) }}" method="POST" enctype="multipart/form-data" class="modal-content">
                     @csrf
                     @method('PUT')
                     <div class="modal-header">
@@ -98,7 +98,7 @@
             </div>
             <div class="modal-body">
                 {{-- <form action="/upload-gambar" method="POST" enctype="multipart/form-data"> --}}
-                    <form action="{{ route('sekretaris.galleries.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('galleries.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                     <div class="mb-3">
                         <label for="nama_galeri" class="form-label">Judul Galeri</label>

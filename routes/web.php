@@ -25,35 +25,35 @@ use App\Http\Controllers\GalleryController;
 //=========================================================
 
 Route::get('/', function () {
-    return view('pengguna/page/home');
+    return view('pengguna/page/home/index_home');
 });
 
 Route::get('/about', function () {
-    return view('pengguna/page/about');
+    return view('pengguna/page/About/index_about');
 });
 
 Route::get('/alat', function () {
-    return view('pengguna/page/alat_pertanian');
+    return view('pengguna/page/Alat_Pertanian/index_alat_pertanian');
 });
 
 Route::get('/informasi', function () {
-    return view('pengguna/page/informasi');
+    return view('pengguna/page/Informasi/index_informasi');
 });
 
 Route::get('/pengurus', function () {
-    return view('pengguna/page/data_pengurus_desa');
+    return view('pengguna/page/Data_Pengurus_Desa/index_data_pengurus_desa');
 });
 
 Route::get('/galeri', function () {
-    return view('pengguna/page/galeri');
+    return view('pengguna/page/Galeri/index_galeri');
 });
 
 Route::get('/fasilitas', function () {
-    return view('pengguna/page/fasilitas');
+    return view('pengguna/page/Fasilitas/index_fasilitas');
 });
 
 Route::get('/contact', function () {
-    return view('pengguna/page/contact');
+    return view('pengguna/page/Contact/index_contact');
 });
 
 //=========================================================
@@ -138,14 +138,14 @@ Route::delete('/informasi_sekretaris/{id_fasilitas)', [InformasiDesaController::
 //     return view('dashboard/sekretaris/page/Galeri/index_galeri');
 // });
 // Daftar semua galeri (index)
-Route::get('/galleries', [GalleryController::class, 'index'])->name('sekretaris.galleries.index');
-Route::get('/galleries/create', [GalleryController::class, 'create'])->name('sekretaris.galleries.create');
-Route::post('/galleries', [GalleryController::class, 'store'])->name('sekretaris.galleries.store');
-Route::get('/galleries/{gallery}', [GalleryController::class, 'show'])->name('sekretaris.galleries.show');
-Route::get('/galleries/{gallery}/edit', [GalleryController::class, 'edit'])->name('sekretaris.galleries.edit');
-Route::put('/galleries/{gallery}', [GalleryController::class, 'update'])->name('sekretaris.galleries.update');
+Route::get('/galleries', [GalleryController::class, 'index'])->name('galleries.index');
+Route::get('/galleries/create', [GalleryController::class, 'create'])->name('galleries.create');
+Route::post('/galleries', [GalleryController::class, 'store'])->name('galleries.store');
+Route::get('/galleries/{gallery}', [GalleryController::class, 'show'])->name('galleries.show');
+Route::get('/galleries/{gallery}/edit', [GalleryController::class, 'edit'])->name('galleries.edit');
+Route::put('/galleries/{gallery}', [GalleryController::class, 'update'])->name('galleries.update');
 Route::patch('/galleries/{gallery}', [GalleryController::class, 'update']); // Biasanya disertakan juga untuk update sebagian
-Route::delete('/galleries/{gallery}', [GalleryController::class, 'destroy'])->name('sekretaris.galleries.destroy');
+Route::delete('/galleries/{gallery}', [GalleryController::class, 'destroy'])->name('galleries.destroy');
 
 Route::get('/data_pengurus_desa_sekretaris', function () {
     return view('dashboard/sekretaris/page/Data_Pengurus_Desa/index_data_pengurus_desa');
