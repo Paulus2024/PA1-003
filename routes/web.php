@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FasilitasDesaController;
 use App\Http\Controllers\InformasiDesaController;
+use App\Http\Controllers\GalleryController;
 
 
 /*
@@ -24,35 +25,35 @@ use App\Http\Controllers\InformasiDesaController;
 //=========================================================
 
 Route::get('/', function () {
-    return view('pengguna/page/Home/index_home');
+    return view('pengguna/page/home');
 });
 
 Route::get('/about', function () {
-    return view('pengguna/page/About/index_about');
+    return view('pengguna/page/about');
 });
 
 Route::get('/alat', function () {
-    return view('pengguna/page/Alat_Pertanian/index_alat_pertanian');
+    return view('pengguna/page/alat_pertanian');
 });
 
 Route::get('/informasi', function () {
-    return view('pengguna/page/Informasi/index_informasi');
+    return view('pengguna/page/informasi');
 });
 
 Route::get('/pengurus', function () {
-    return view('pengguna/page/Data_Pengurus_Desa/index_data_pengurus_desa');
+    return view('pengguna/page/data_pengurus_desa');
 });
 
 Route::get('/galeri', function () {
-    return view('pengguna/page/Galeri/index_galeri');
+    return view('pengguna/page/galeri');
 });
 
 Route::get('/fasilitas', function () {
-    return view('pengguna/page/Fasilitas/index_fasilitas');
+    return view('pengguna/page/fasilitas');
 });
 
 Route::get('/contact', function () {
-    return view('pengguna/page/Contact/index_contact');
+    return view('pengguna/page/contact');
 });
 
 //=========================================================
@@ -133,9 +134,18 @@ Route::put('/informasi_sekretaris/{id_fasilitas}', [InformasiDesaController::cla
 Route::delete('/informasi_sekretaris/{id_fasilitas)', [InformasiDesaController::class, 'destroy'])->name('sekretaris.informasi.destroy'); //untuk menghapus data
 //==========================================================
 
-Route::get('/galeri_sekretaris', function () {
-    return view('dashboard/sekretaris/page/Galeri/index_galeri');
-});
+// Route::get('/galeri_sekretaris', function () {
+//     return view('dashboard/sekretaris/page/Galeri/index_galeri');
+// });
+// Daftar semua galeri (index)
+Route::get('/galleries', [GalleryController::class, 'index'])->name('galleries.index');
+Route::get('/galleries/create', [GalleryController::class, 'create'])->name('galleries.create');
+Route::post('/galleries', [GalleryController::class, 'store'])->name('galleries.store');
+Route::get('/galleries/{gallery}', [GalleryController::class, 'show'])->name('galleries.show');
+Route::get('/galleries/{gallery}/edit', [GalleryController::class, 'edit'])->name('galleries.edit');
+Route::put('/galleries/{gallery}', [GalleryController::class, 'update'])->name('galleries.update');
+Route::patch('/galleries/{gallery}', [GalleryController::class, 'update']); // Biasanya disertakan juga untuk update sebagian
+Route::delete('/galleries/{gallery}', [GalleryController::class, 'destroy'])->name('galleries.destroy');
 
 Route::get('/data_pengurus_desa_sekretaris', function () {
     return view('dashboard/sekretaris/page/Data_Pengurus_Desa/index_data_pengurus_desa');
@@ -181,4 +191,4 @@ Route::get('/contact_bumdes', function () {
     return view('dashboard/bumdes/page/Contact/index_contact');
 });
 
-
+Route::resource('galleries', GalleryController::class);

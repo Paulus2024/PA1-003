@@ -3,10 +3,6 @@
 @section(section:'sekretaris_content')
 <header id="header" class="header d-flex align-items-center fixed-top">
     @include('dashboard.sekretaris.component.navbar')
-
-    <style>
-
-    </style>
 </header>
 
 <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
@@ -26,52 +22,21 @@
 
     <div class="container">
         <h1 class="text-center mb-4">Galeri Kami</h1>
+    @foreach($galleries as $item)
     <div class="row">
         <div class="col-md-4 mb-4">
             <div class="gallery-item">
-                <img src="assets/img/projects/design-2.jpg" class="img-fluid" alt="Gambar 1">
-                <div class="overlay">Deskripsi Gambar 1</div>
+                <img src="{{asset('storage/' . $item->image_path)}}" class="img-fluid" alt="Gambar 1">
+                <div class="overlay">{{$item->title}}</div>
             </div>
         </div>
-        <div class="col-md-4 mb-4">
-            <div class="gallery-item">
-                <img src="assets/img/projects/design-2.jpg" class="img-fluid" alt="Gambar 2">
-                <div class="overlay">Deskripsi Gambar 2</div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="gallery-item">
-                <img src="assets/img/projects/design-2.jpg" class="img-fluid" alt="Gambar 3">
-                <div class="overlay">Deskripsi Gambar 3</div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="gallery-item">
-                <img src="assets/img/projects/design-2.jpg" class="img-fluid" alt="Gambar 4">
-                <div class="overlay">Deskripsi Gambar 4</div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="gallery-item">
-                <img src="assets/img/projects/design-2.jpg" class="img-fluid" alt="Gambar 5">
-                <div class="overlay">Deskripsi Gambar 5</div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="gallery-item">
-                <img src="assets/img/projects/design-2.jpg" class="img-fluid" alt="Gambar 6">
-                <div class="overlay">Deskripsi Gambar 6</div>
-            </div>
-        </div>
-    </div>
 
-    </div>
+        <form action=""></form>
 
-  </section><!-- /Projects Section -->
+    @endforeach
 
-</main>
 
-  <footer id="footer" class="footer dark-background">
+<footer id="footer" class="footer dark-background">
     @include('pengguna.component.footer')
 </footer>
 
