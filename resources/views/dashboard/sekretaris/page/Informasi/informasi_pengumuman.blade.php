@@ -387,7 +387,7 @@
                 <div class="col-12">
                     <div class="d-grid gap-2">
                                                     <!-- A (sesuaikan dengan nama route di web.php) -->
-                    {{-- <a href="{{ route('sekretaris.fasilitas.create') }}" class="btn btn-success" type="button">Tambah Gambar Fasilitas Desa</a> --}}
+                    {{-- <a href="{{ route('sekretaris.informasi.create') }}" class="btn btn-success" type="button">Tambah Gambar Fasilitas Desa</a> --}}
                         <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#TambahGambar">Tambah Informasi Desa</button>
                     </div>
                 </div>
