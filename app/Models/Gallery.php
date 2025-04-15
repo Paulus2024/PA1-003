@@ -9,7 +9,7 @@ class Gallery extends Model
 {
     use HasFactory;
 
-    protected $table = 'galeri'; // Nama Table
+    protected $table = 'galleries'; // Nama Table
     protected $primaryKey = 'id_galeri'; // Nama Primary Key
 
 

@@ -140,7 +140,8 @@ Route::delete('/informasi_sekretaris/{id_fasilitas)', [InformasiDesaController::
 // Daftar semua galeri (index)
 Route::get('/galleries', [GalleryController::class, 'index'])->name('galleries.index');
 Route::get('/galleries/create', [GalleryController::class, 'create'])->name('galleries.create');
-Route::post('/galleries', [GalleryController::class, 'store'])->name('galleries.store');
+Route::post('/galleries', [GalleryController::class, 'sto
+re'])->name('galleries.store');
 Route::get('/galleries/{gallery}', [GalleryController::class, 'show'])->name('galleries.show');
 Route::get('/galleries/{gallery}/edit', [GalleryController::class, 'edit'])->name('galleries.edit');
 Route::put('/galleries/{gallery}', [GalleryController::class, 'update'])->name('galleries.update');
