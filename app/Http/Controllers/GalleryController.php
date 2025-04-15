@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Gallery;
 use Illuminate\Http\Request;
-use illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Storage;
 class GalleryController extends Controller
 {
     /**
@@ -31,18 +31,18 @@ class GalleryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
+            'judul_galeri' => 'required|string|max:255',
             'gambar_galeri' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $path = $request->file('gambar_galeri')->store('galeri', 'public');
 
         Gallery::create([
-            'nama_galeri' => $validated['nama_galeri'],
+            'judul_galeri' => $validated['judul_galeri'],
             'gambar_galeri' => $path
         ]);
 
-        return redirect()->route('sekretaris.galeri.index')->with('success', 'Data galeri berhasil ditambahkan!');
+        return redirect()->route('galleries.index')->with('success', 'Data galeri berhasil ditambahkan!');
     }
 
     /**
@@ -59,7 +59,7 @@ class GalleryController extends Controller
     public function edit(string $id)
     {
         $galleries = Gallery::findOrFail($id);
-        return view('dashboard.sekretaris.page.Galeri.edit_galeri', compact('gallery'));
+        return view('galleries.edit', compact('gallery'));
     }
 
     /**
@@ -69,23 +69,26 @@ class GalleryController extends Controller
     {
         $galleries = Gallery::findOrFail($id);
         $request->validate([
-            'title' => 'required|string|max:255',
-            'gambar_galeri' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'judul_galeri' => 'required|string|max:255',
+            'gambar_galeri' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 'nullable'
         ]);
+
+        $data = [
+            'judul_galeri' => $request->input('judul_galeri'),
+        ];
 
         if ($request->hasFile('gambar_galeri')) {
             // Hapus gambar lama jika ada
-            Storage::disk('public')->delete($galleries->gambar_galeri);
+            if ($galleries->gambar_galeri) {
+                Storage::disk('public')->delete($galleries->gambar_galeri);
+            }
             $path = $request->file('gambar_galeri')->store('galeri', 'public');
-
-            $path = $galleries->gambar_galeri;
+            $data['gambar_galeri'] = $path;
         }
 
-        $galleries->update([
-            'title' => $request->input('title'),
-            'gambar_galeri' => $path
-        ]);
-        return redirect()->route('sekretaris.galeri.index')->with('success', 'Data galeri berhasil diperbarui!');
+        $galleries->update($data);
+
+        return redirect()->route('galleries.index')->with('success', 'Data galeri berhasil diperbarui!');
     }
 
     /**
@@ -97,6 +100,6 @@ class GalleryController extends Controller
         Storage::disk('public')->delete($galleries->gambar_galeri);
         $galleries->delete();
 
-        return redirect()->route('sekretaris.galeri.index')->with('success', 'Data galeri berhasil dihapus!');
+        return redirect()->route('galleries.index')->with('success', 'Data galeri berhasil dihapus!');
     }
 }

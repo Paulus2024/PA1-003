@@ -22,26 +22,26 @@
 
     <div class="container">
         <h1 class="text-center mb-4">Galeri Kami</h1>
-    @foreach($galleries as $item)
+    {{-- TAMBAHKAN ROW DI LUAR LOOP --}}
     <div class="row">
+    @foreach($galleries as $item)
         <div class="col-md-4 mb-4">
             <div class="gallery-item">
-                <img src="{{asset('storage/' . $item->image_path)}}" class="img-fluid" alt="Gambar 1">
-                <div class="overlay">{{STR::limit(value: $item->title, limit: 50)}}</div>
-                <div class="d-flex gap-2">
-                    <!-- Tautan ke halaman edit -->
-                    <!-- Tombol Edit buka modal -->
-                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_galeri }}">
-                        Edit
-                    </button>
-
-                    <!-- Form hapus --><!-- A (sesuaikan dengan nama route di web.php) -->
-                    <form action="{{ route('galleries.destroy', $item->id_galeri) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger">Hapus</button>
-                    </form>
-                </div>
+                <img src="{{asset('storage/' . $item->gambar_galeri)}}" class="img-fluid" alt="Gambar 1">
+                <div class="overlay">{{Str::limit(value: $item->judul_galeri, limit: 50)}}</div>
+            </div>
+            <div class="d-flex gap-2">
+                <!-- Tautan ke halaman edit -->
+                <!-- Tombol Edit buka modal -->
+                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_galeri }}">
+                    Edit
+                </button>
+                <!-- Form hapus --><!-- A (sesuaikan dengan nama route di web.php) -->
+                <form action="{{ route('galleries.destroy', $item->id_galeri) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                </form>
             </div>
         </div>
 
@@ -74,6 +74,7 @@
         </div>
 
     @endforeach
+    </div> {{-- TUTUP TAG DIV ROW --}}
 
     <!-- Tombol untuk menambah fasilitas baru -->
     <div class="col-12">
@@ -85,37 +86,38 @@
     </div>
 
     </div><!-- End Portfolio Container -->
-</div>
-
+    </div>
+<br><br>
     <!--Open MODAL Create(Tambah)-->
-<div class="modal fade" id="TambahGambar" tabindex="-1" aria-labelledby="tambahgambar"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="TambahGambar">Tambah Data Galeri Baru</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                {{-- <form action="/upload-gambar" method="POST" enctype="multipart/form-data"> --}}
-                    <form action="{{ route('galleries.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                    <div class="mb-3">
-                        <label for="nama_galeri" class="form-label">Judul Galeri</label>
-                        <input type="text" class="form-control" id="nama_galeri" name="nama_galeri" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="gambar_galeri" class="form-label">Upload Gambar</label>
-                        <input type="file" class="form-control" id="gambar_galeri" name="gambar_galeri"
-                            required>
-                    </div>
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                </form>
+    <div class="modal fade" id="TambahGambar" tabindex="-1" aria-labelledby="tambahgambar"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="TambahGambar">Tambah Data Galeri Baru</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{-- <form action="/upload-gambar" method="POST" enctype="multipart/form-data"> --}}
+                        <form action="{{ route('galleries.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                        <div class="mb-3">
+                            <label for="judul_galeri" class="form-label">Judul Galeri</label>
+                            <input type="text" class="form-control" id="judul_galeri" name="judul_galeri" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="gambar_galeri" class="form-label">Upload Gambar</label>
+                            <input type="file" class="form-control" id="gambar_galeri" name="gambar_galeri"
+                                required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Simpan</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
     <!--Close MODAL Create(Tambah)-->
+</section>
 
 
 <footer id="footer" class="footer dark-background">
