@@ -28,26 +28,26 @@ class FasilitasDesaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'nama_fasilitas'      => 'required|string|max:255',
-            'deskripsi_fasilitas' => 'required|string',
-            'lokasi_fasilitas'    => 'required|string|max:255',
-            'gambar_fasilitas'    => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        public function store(Request $request)
+        {
+            $validated = $request->validate([
+                'nama_fasilitas'      => 'required|string|max:255',
+                'deskripsi_fasilitas' => 'required|string',
+                'lokasi_fasilitas'    => 'required|string|max:255',
+                'gambar_fasilitas'    => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
 
-        $path = $request->file('gambar_fasilitas')->store('fasilitas', 'public');
+            $path = $request->file('gambar_fasilitas')->store('fasilitas', 'public');
 
-        FasilitasDesa::create([
-            'nama_fasilitas'        => $validated['nama_fasilitas'],
-            'deskripsi_fasilitas'   => $validated['deskripsi_fasilitas'], // Sesuaikan nama field database (misalnya 'deskripsi')
-            'lokasi_fasilitas'      => $validated['lokasi_fasilitas'],    // Sesuaikan nama field database (misalnya 'lokasi')
-            'gambar_fasilitas'      => $path
-        ]);
+            FasilitasDesa::create([
+                'nama_fasilitas'        => $validated['nama_fasilitas'],
+                'deskripsi_fasilitas'   => $validated['deskripsi_fasilitas'], // Sesuaikan nama field database (misalnya 'deskripsi')
+                'lokasi_fasilitas'      => $validated['lokasi_fasilitas'],    // Sesuaikan nama field database (misalnya 'lokasi')
+                'gambar_fasilitas'      => $path
+            ]);
 
-        return redirect()->route('sekretaris.fasilitas.index')->with('success', 'Data fasilitas berhasil ditambahkan!');
-    }
+            return redirect()->route('sekretaris.fasilitas.index')->with('success', 'Data fasilitas berhasil ditambahkan!');
+        }
 
     /**
      * Display the specified resource.
