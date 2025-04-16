@@ -414,21 +414,26 @@
                             <input type="text" class="form-control" id="judul_informasi" name="judul_informasi" required>
                         </div>
                         <div class="mb-3">
-                            <label for="deskripsi_informasi" class="form-label">Deskripsi Informasi</label>
-                            <input type="text" class="form-control" id="deskripsi_informasi" name="deskripsi_informasi" required>
+                            <label for="lampiran_informasi" class="form-label">Lampiran Informasi</label><br>
+                            <input type="file" class="form-control" id="lampiran_informas" name="lampiran_informasi" required>
                         </div>
                         <div class="mb-3">
-                            <label for="kategori_informasi" class="form-label">Kategori Informasu\i</label>
-                            <textarea class="form-control" id="kategori_informasi" name="kategori_informasi" rows="3" required></textarea>
+                            <label for="deskripsi_informasi" class="form-label">Deskripsi Informasi</label><br>
+                            <textarea name="deskripsi_informasi" id="deskripsi_informasi" cols="30" rows="10"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="lokasi_fasilitas" class="form-label">Lokasi</label>
-                            <input type="text" class="form-control" id="lokasi_fasilitas" name="lokasi_fasilitas" required>
+                            <label for="kategori_informasi" class="form-label">Kategori Informasi</label><br>
+                            <input type="radio" id="berita" name="kategori_informasi" value="Berita" required>
+                            <label for="berita">Berita</label><br>
+                            <input type="radio" id="pengumuman" name="kategori_informasi" value="Pengumuman" required>
+                            <label for="pengumuman">Pengumuman</label>
                         </div>
                         <div class="mb-3">
-                            <label for="gambar_fasilitas" class="form-label">Upload Gambar</label>
-                            <input type="file" class="form-control" id="gambar_fasilitas" name="gambar_fasilitas"
-                                required>
+                            <label for="status_informasi" class="form-label">Status Informasi</label><br>
+                            <input type="radio" id="draft" name="status_informasi" value="Draft">
+                            <label for="draft">Draft</label><br>
+                            <input type="radio" id="publish" name="status_informasi" value="Publish">
+                            <label for="publish">Publish</label><br>
                         </div>
                         <button type="submit" class="btn btn-success">Simpan</button>
                     </form>
