@@ -407,7 +407,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- <form action="/upload-gambar" method="POST" enctype="multipart/form-data"> -->
-                        <form action="{{ route('sekretaris.fasilitas.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('sekretaris.informasi.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                         <div class="mb-3">
                             <label for="judul_informasi" class="form-label">Judul Informasi</label>
@@ -430,9 +430,9 @@
                         </div>
                         <div class="mb-3">
                             <label for="status_informasi" class="form-label">Status Informasi</label><br>
-                            <input type="radio" id="draft" name="status_informasi" value="Draft">
+                            <input type="radio" id="draft" name="status_informasi" value="0">
                             <label for="draft">Draft</label><br>
-                            <input type="radio" id="publish" name="status_informasi" value="Publish">
+                            <input type="radio" id="publish" name="status_informasi" value="1">
                             <label for="publish">Publish</label><br>
                         </div>
                         <button type="submit" class="btn btn-success">Simpan</button>

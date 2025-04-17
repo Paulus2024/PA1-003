@@ -125,7 +125,7 @@ Route::delete('/fasilitas_sekretaris/{id_fasilitas}', [FasilitasDesaController::
 // Route::get('/informasi_sekretaris', function () {
 //     return view('dashboard/sekretaris/page/Informasi/index_informasi');
 // });
-Route::get('/informasi_sekretaris', [InformasiDesaController::class, 'index'])->name('sekretaris.informasi.berita'); //untuk menampilkan
+Route::get('/sekretaris/page/Informasi/informasi_sekretaris', [InformasiDesaController::class, 'index'])->name('sekretaris.informasi.berita'); //untuk menampilkan
 
 Route::get('/informasi_pengumuman', [InformasiDesaController::class, 'index'])->name('sekretaris.informasi.pengumuman'); //untuk menampilkan
 

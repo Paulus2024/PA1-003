@@ -48,7 +48,7 @@ class InformasiDesaController extends Controller
             'status_informasi'     => $validated['status_informasi']
         ]);
 
-        return redirect()->route('sekretaris.informasi.index')->with('success', 'Data informasi berhasil ditambahkan!');
+        return redirect()->route('sekretaris.informasi_sekretaris.index')->with('success', 'Data informasi berhasil ditambahkan!');
     }
 
     /**
@@ -86,27 +86,27 @@ class InformasiDesaController extends Controller
             'judul_informasi'      => 'required|string|max:255',
             'deskripsi_informasi'  => 'required|string',
             'kategori_informasi'   => 'required|string|max:255',
-            'lampiran_informasi'   => 'required|file|mimes:jpeg,png,jpg,gif,pdf,doc, docx|max:2048',
-            'status_informasi'     => 'required|boolean',
+            'lampiran_informasi'   => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,doc, docx|max:2048',
+            'status_informasi'     => 'required|boolean'
         ]);
+
+        $dataUpdate = [
+            'judul_informasi'      => $request->judul_informasi,
+            'deskripsi_informasi'  => $request->deskripsi_informasi,
+            'kategori_informasi'   => $request->kategori_informasi,
+            'status_informasi'     => $request->status_informasi
+        ];
 
         if($request->hasFile('lampiran_informasi')){
             //Hapus Gambar Lama
-            Storage::disk('public')->delete($informasi->gambar_fasilitas);
+            Storage::disk('public')->delete($informasi->lampiran_informasi);
             //Upload Gambar Baru
-            $path = $request->file('lampiran_informasi')->storage('informasi', 'public');
-            $informasi->lampiran_informasi = $path;
+            $path = $request->file('lampiran_informasi')->store('informasi', 'public');
+            $dataUpdate['lampiran_informasi'] = $path;
         }
 
-        $informasi->update([
-            'judul_informasi'       => $request->judul_informasi,
-            'deskripsi_informasi'   => $request->deskripsi_informasi,
-            'kategori_informasi'    => $request->kategori_informasi,
-            'lampiran_informasi'    => $request->lampiran_informasi,
-            'status_informasi'      => $request->status_informasi
-        ]);
-
-        return redirect()->route('sekretaris.informassi.index')->with('success', 'Data informasi berhasil diperbarui!');
+        $informasi->update($dataUpdate);
+        return redirect()->route('sekretaris.informasi.index')->with('success', 'Data informasi berhasil diperbarui!');
     }
 
     /**

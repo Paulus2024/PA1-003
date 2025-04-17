@@ -10,7 +10,7 @@ class InformasiDesa extends Model
     use HasFactory;
 
     protected $table = 'informasi'; // Nama Table
-    protected $primarikey = 'id_informasi'; // Nama Primary Key
+    protected $primaryKey = 'id_informasi'; // Nama Primary Key
     protected $fillable = [
         'id_informasi',
         'judul_informasi',
