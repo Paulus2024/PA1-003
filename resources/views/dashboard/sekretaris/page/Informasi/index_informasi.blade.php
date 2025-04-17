@@ -415,7 +415,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="lampiran_informasi" class="form-label">Lampiran Informasi</label><br>
-                            <input type="file" class="form-control" id="lampiran_informas" name="lampiran_informasi" required>
+                            <input type="file" class="form-control" id="lampiran_informasi" name="lampiran_informasi" required>
                         </div>
                         <div class="mb-3">
                             <label for="deskripsi_informasi" class="form-label">Deskripsi Informasi</label><br>
