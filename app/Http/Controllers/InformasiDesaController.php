@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\InformasiDesa; // Mengimpor model InformasiDesa
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage; // Mengimpor Storage untuk mengelola file
 
 class InformasiDesaController extends Controller
@@ -38,8 +39,11 @@ class InformasiDesaController extends Controller
             'status_informasi'     => 'required|boolean',
         ]);
 
-        $path = $request->file('lampiran_informasi')->store('informasi', 'public');
+    //    Simpan File
+    $file = $request->file('lampiran_informasi');
+    $path = $file->store('informasi', 'public');
 
+        // simpan ke database
         InformasiDesa::create([
             'judul_informasi'      => $validated['judul_informasi'],
             'deskripsi_informasi'  => $validated['deskripsi_informasi'],
@@ -48,7 +52,14 @@ class InformasiDesaController extends Controller
             'status_informasi'     => $validated['status_informasi']
         ]);
 
-        return redirect()->route('sekretaris.informasi_sekretaris.index')->with('success', 'Data informasi berhasil ditambahkan!');
+        //berdasarkan kategori
+        if($validated['kategori_informasi'] === 'Berita') {
+            return Redirect()->route('informasi.berita')->with('success', 'Data informasi berhasil ditambahkan!');
+        } elseif($validated['kategori_informasi'] === 'Pengumuman') {
+                return Redirect()->route('informasi.pengumuman')->with('success', 'Data informasi berhasil ditambahkan!');
+        }
+
+        return redirect()->back()->with('success', 'Data informasi berhasil ditambahkan!');
     }
 
     /**
@@ -119,5 +130,17 @@ class InformasiDesaController extends Controller
         $informasi->delete();
 
         return redirect()->route('sekretaris.informasi.index')->with('success', 'Data berhasil di hapus');
+    }
+
+    public function pengumuman()
+    {
+        $informasi = InformasiDesa::where('kategori_informasi', 'Pengumuman')->get();
+        return view('dashboard.sekretaris.page.Informasi.informasi_pengumuman', compact('informasi'));
+    }
+
+    public function berita()
+    {
+        $informasi = InformasiDesa::where('kategori_informasi', 'Berita')->get();
+        return view('dashboard.sekretaris.page.Informasi.informasi_berita', compact('informasi'));
     }
 }

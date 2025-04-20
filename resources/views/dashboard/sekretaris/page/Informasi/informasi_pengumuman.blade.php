@@ -334,133 +334,133 @@
     </div> --}}
 
     {{-- 4 --}}
-@extends('dashboard.sekretaris.component.main')
+    @extends('dashboard.sekretaris.component.main')
 
-@section('sekretaris_content')
-    <header id="header" class="header d-flex align-items-center fixed-top">
-        @include('dashboard.sekretaris.component.navbar')
-    </header>
+    @section('sekretaris_content')
+        <header id="header" class="header d-flex align-items-center fixed-top">
+            @include('dashboard.sekretaris.component.navbar')
+        </header>
 
-    <!--Open Page Title-->
-    <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
-        <div class="container position-relative">
-        <h1>Informasi Desa</h1>
-        <nav class="breadcrumbs">
-            <ol>
-            <li><a href="{{url('/')}}">Home</a></li>
-            <li class="current">Informasi</li>
-            </ol>
-        </nav>
-        </div>
-    </div><!-- End Page Title -->
+        <!--Open Page Title-->
+        <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
+            <div class="container position-relative">
+            <h1>Informasi Desa</h1>
+            <nav class="breadcrumbs">
+                <ol>
+                <li><a href="{{url('/')}}">Home</a></li>
+                <li class="current">Informasi</li>
+                </ol>
+            </nav>
+            </div>
+        </div><!-- End Page Title -->
 
-    <!-- Blog Posts Section -->
-    <section id="blog-posts" class="blog-posts section">
-        <div class="container">
-            <div class="row gy-4">
-    <!-- Colom Di Looping Aforeach -->
-                @foreach ($informasi as $item)
-                    <div class="col-lg-4">
-                        <article class="position-relative h-100">
+        <!-- Blog Posts Section -->
+        <section id="blog-posts" class="blog-posts section">
+            <div class="container">
+                <div class="row gy-4">
+        <!-- Colom Di Looping Aforeach -->
+                    @foreach ($informasi as $item)
+                        <div class="col-lg-4">
+                            <article class="position-relative h-100">
 
-                            <div class="post-img position-relative overflow-hidden">
-                                <img src="{{ asset('storage/' .$item->lampiran_informasi)}}" class="img-fluid" alt="">
-                                <!-- <span class="post-date">December 12</span> -->
-                                <span class="post-date">{{ $item->created_at->format('F d') }}</span>
+                                <div class="post-img position-relative overflow-hidden">
+                                    <img src="{{ asset('storage/' .$item->lampiran_informasi)}}" class="img-fluid" alt="">
+                                    <!-- <span class="post-date">December 12</span> -->
+                                    <span class="post-date">{{ $item->created_at->format('F d') }}</span>
+                                </div>
+
+                            <div class="post-content d-flex flex-column">
+
+                                <h3 class="post-title">{{ $item->judul_informasi }}</h3>
+
+                                <p>
+                                    {{ $item->deskripsi_informasi }}
+                                </p>
+
                             </div>
 
-                        <div class="post-content d-flex flex-column">
+                        </article>
+                        </div><!-- End post list item -->
+                    @endforeach
 
-                            <h3 class="post-title">{{ $item->judul_informasi }}</h3>
-
-                            <p>
-                                {{ $item->deskripsi_informasi }}
-                            </p>
-
+                    <!-- Open Button To Modal -->
+                    <div class="col-12">
+                        <div class="d-grid gap-2">
+                                                        <!-- A (sesuaikan dengan nama route di web.php) -->
+                        {{-- <a href="{{ route('sekretaris.fasilitas.create') }}" class="btn btn-success" type="button">Tambah Gambar Fasilitas Desa</a> --}}
+                            <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#TambahGambar">Tambah Informasi Desa</button>
                         </div>
+                    </div>
+                    <!-- End Button To Modal -->
 
-                    </article>
-                    </div><!-- End post list item -->
-                @endforeach
+                </div>
+            </div>
 
-                <!-- Open Button To Modal -->
-                <div class="col-12">
-                    <div class="d-grid gap-2">
-                                                    <!-- A (sesuaikan dengan nama route di web.php) -->
-                    {{-- <a href="{{ route('sekretaris.fasilitas.create') }}" class="btn btn-success" type="button">Tambah Gambar Fasilitas Desa</a> --}}
-                        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#TambahGambar">Tambah Informasi Desa</button>
+            <!--Open MODAL Create(Tambah)-->
+        <div class="modal fade" id="TambahGambar" tabindex="-1" aria-labelledby="tambahgambar"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="TambahGambar">Tambah Data Informasi Baru</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- <form action="/upload-gambar" method="POST" enctype="multipart/form-data"> -->
+                            <form action="{{ route('sekretaris.informasi.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                            <div class="mb-3">
+                                <label for="judul_informasi" class="form-label">Judul Informasi</label>
+                                <input type="text" class="form-control" id="judul_informasi" name="judul_informasi" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="lampiran_informasi" class="form-label">Lampiran Informasi</label><br>
+                                <input type="file" class="form-control" id="lampiran_informasi" name="lampiran_informasi" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="deskripsi_informasi" class="form-label">Deskripsi Informasi</label><br>
+                                <textarea name="deskripsi_informasi" id="deskripsi_informasi" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="kategori_informasi" class="form-label">Kategori Informasi</label><br>
+                                <input type="radio" id="berita" name="kategori_informasi" value="Berita" required>
+                                <label for="berita">Berita</label><br>
+                                <input type="radio" id="pengumuman" name="kategori_informasi" value="Pengumuman" required>
+                                <label for="pengumuman">Pengumuman</label>
+                            </div>
+                            <div class="mb-3">
+                                <label for="status_informasi" class="form-label">Status Informasi</label><br>
+                                <input type="radio" id="draft" name="status_informasi" value="0">
+                                <label for="draft">Draft</label><br>
+                                <input type="radio" id="publish" name="status_informasi" value="1">
+                                <label for="publish">Publish</label><br>
+                            </div>
+                            <button type="submit" class="btn btn-success">Simpan</button>
+                        </form>
                     </div>
                 </div>
-                <!-- End Button To Modal -->
-
             </div>
         </div>
+            <!--Close MODAL Create(Tambah)-->
 
-        <!--Open MODAL Create(Tambah)-->
-    <div class="modal fade" id="TambahGambar" tabindex="-1" aria-labelledby="tambahgambar"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="TambahGambar">Tambah Data Informasi Baru</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- <form action="/upload-gambar" method="POST" enctype="multipart/form-data"> -->
-                        <form action="{{ route('sekretaris.informasi.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                        <div class="mb-3">
-                            <label for="judul_informasi" class="form-label">Judul Informasi</label>
-                            <input type="text" class="form-control" id="judul_informasi" name="judul_informasi" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="lampiran_informasi" class="form-label">Lampiran Informasi</label><br>
-                            <input type="file" class="form-control" id="lampiran_informasi" name="lampiran_informasi" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="deskripsi_informasi" class="form-label">Deskripsi Informasi</label><br>
-                            <textarea name="deskripsi_informasi" id="deskripsi_informasi" cols="30" rows="10"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="kategori_informasi" class="form-label">Kategori Informasi</label><br>
-                            <input type="radio" id="berita" name="kategori_informasi" value="Berita" required>
-                            <label for="berita">Berita</label><br>
-                            <input type="radio" id="pengumuman" name="kategori_informasi" value="Pengumuman" required>
-                            <label for="pengumuman">Pengumuman</label>
-                        </div>
-                        <div class="mb-3">
-                            <label for="status_informasi" class="form-label">Status Informasi</label><br>
-                            <input type="radio" id="draft" name="status_informasi" value="0">
-                            <label for="draft">Draft</label><br>
-                            <input type="radio" id="publish" name="status_informasi" value="1">
-                            <label for="publish">Publish</label><br>
-                        </div>
-                        <button type="submit" class="btn btn-success">Simpan</button>
-                    </form>
-                </div>
+        </section><!-- /Blog Posts Section -->
+
+        <!-- Blog Pagination Section -->
+        <section id="blog-pagination" class="blog-pagination section">
+
+            <div class="container">
+            <div class="d-flex justify-content-center">
+                <ul>
+                <li><a href="{{ url('/informasi_sekretaris')}}">Berita</a></li>
+                <li><a href="{{ url('/informasi_pengumuman')}}">Pengumuman</a></li>
+                </ul>
             </div>
-        </div>
-    </div>
-        <!--Close MODAL Create(Tambah)-->
+            </div>
 
-    </section><!-- /Blog Posts Section -->
+        </section><!-- /Blog Pagination Section -->
 
-    <!-- Blog Pagination Section -->
-    <section id="blog-pagination" class="blog-pagination section">
+        <footer id="footer" class="footer dark-background">
+            @include('pengguna.component.footer')
+        </footer>
 
-        <div class="container">
-        <div class="d-flex justify-content-center">
-            <ul>
-            <li><a href="{{ url('/informasi_sekretaris')}}">Berita</a></li>
-            <li><a href="{{ url('/informasi_pengumuman')}}">Pengumuman</a></li>
-            </ul>
-        </div>
-        </div>
-
-    </section><!-- /Blog Pagination Section -->
-
-    <footer id="footer" class="footer dark-background">
-        @include('pengguna.component.footer')
-    </footer>
-
-@endsection
+    @endsection
