@@ -13,7 +13,8 @@
         <li><a href="/fasilitas_sekretaris" class="{{ Request::is('fasilitas_sekretaris') ? 'active' : '' }}">Fasilitas</a></li>
         <li><a href="/informasi_sekretaris" class="{{ Request::is('informasi_sekretaris') ? 'active' : '' }}">Informasi</a></li>
         <li><a href="{{ route('galleries.index')}}" class="{{ Request::is('galleries.index') ? 'active' : '' }}">Galeri</a></li>
-        <li><a href="{{route(name:'data_pengurus_desa_sekretaris')}}" class="{{ Request::is('data_pengurus_desa_sekretaris') ? 'active' : '' }}">Data Pengurus Desa</a></li>
+        {{-- <li><a href="{{route('data_pengurus_desa_sekretaris.index')}}" class="{{ Request::is('data_pengurus_desa_sekretaris*') ? 'active' : '' }}">Data Pengurus Desa</a></li> --}}
+        <li><a href="/data_pengurus_desa_sekretaris" class="{{ Request::is('data_pengurus_desa_sekretaris') ? 'active' : '' }}">Data Pengurus Desa</a></li>
         <li><a href="/alat_pertanian_sekretaris" class="{{ Request::is('alat_pertanian_sekretaris') ? 'active' : '' }}">Alat Pertanian</a></li>
         <li><a href="/contact_sekretaris" class="{{Request::is('contact_sekretaris') ? 'active' : '' }}">Contact</a></li>
         <li><a href="/login" class="{{ Request::is('login') ? 'active' : '' }}">Login</a></li>

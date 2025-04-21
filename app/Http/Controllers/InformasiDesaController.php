@@ -144,4 +144,18 @@ class InformasiDesaController extends Controller
         return redirect()->route('sekretaris.informasi.index')->with('success', 'Data berhasil di hapus');
     }
 
+    public function convertToPdf($filename)
+    {
+        $inputPath = storage_path("app/public/dokumen/{$filename}");
+        $outputDir = storage_path("app/public/dokumen");
+
+        $command = "soffice --headless --convert-to pdf \"$inputPath\" --outdir \"$outputDir\"";
+        exec($command, $output, $return_var);
+
+        if ($return_var === 0) {
+            return response()->json(['message' => 'Berhasil convert ke PDF.']);
+        } else {
+            return response()->json(['message' => 'Gagal convert.'], 500);
+        }
+    }
 }

@@ -207,3 +207,8 @@ Route::get('/contact_bumdes', function () {
 });
 
 Route::resource('galleries', GalleryController::class);
+
+//=========================================================
+//convert pdf
+//==========================================================
+Route::get('/convert-pdf/{filename}', [InformasiDesaController::class, 'convertToPdf']);
