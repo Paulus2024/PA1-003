@@ -348,7 +348,7 @@
             <nav class="breadcrumbs">
                 <ol>
                 <li><a href="{{url('/')}}">Home</a></li>
-                <li class="current">Informasi</li>
+                <li class="current">Informasi1</li>
                 </ol>
             </nav>
             </div>
@@ -359,7 +359,7 @@
             <div class="container">
                 <div class="row gy-4">
         <!-- Colom Di Looping Aforeach -->
-                    @foreach ($informasi as $item)
+                    @foreach ($pengumuman as $item)
                         <div class="col-lg-4">
                             <article class="position-relative h-100">
 
@@ -451,8 +451,8 @@
             <div class="container">
             <div class="d-flex justify-content-center">
                 <ul>
-                <li><a href="{{ url('/informasi_sekretaris')}}">Berita</a></li>
-                <li><a href="{{ url('/informasi_pengumuman')}}">Pengumuman</a></li>
+                    <li><a href="{{ route('informasi.berita')}}" class="{{ Request::is('informasi_sekretaris') ? 'active' : '' }}">Berita</a></li>
+                    <li><a href="{{ route('informasi.pengumuman')}}" class="{{ Request::is('informasi_pengumuman') ? 'active' : '' }}">Pengumuman</a></li>
                 </ul>
             </div>
             </div>

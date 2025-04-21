@@ -12,10 +12,22 @@ class InformasiDesaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    // public function index()
+    // {
+    //     $informasi = InformasiDesa::all(); // Mengambil semua data dari model InformasiDesa
+    //     return view('dashboard.sekretaris.page.Informasi.index_informasi', compact('informasi')); // Mengirim data ke view
+    // }
+
+    public function index_pengumuman()
     {
-        $informasi = InformasiDesa::all(); // Mengambil semua data dari model InformasiDesa
-        return view('dashboard.sekretaris.page.Informasi.index_informasi', compact('informasi')); // Mengirim data ke view
+        $pengumuman = InformasiDesa::where('kategori_informasi', 'Pengumuman')->get();
+        return view('dashboard.sekretaris.page.Informasi.informasi_pengumuman', compact('pengumuman')); //compact('pengumuman')); // mengarah ke @foreach ($pengumuman as $item)
+    }
+
+    public function index_berita()
+    {
+        $berita = InformasiDesa::where('kategori_informasi', 'Berita')->get();
+        return view('dashboard.sekretaris.page.Informasi.index_informasi', compact('berita')); //compact('berita')); mengarah ke  @foreach ($berita as $item)
     }
 
     /**
@@ -132,15 +144,4 @@ class InformasiDesaController extends Controller
         return redirect()->route('sekretaris.informasi.index')->with('success', 'Data berhasil di hapus');
     }
 
-    public function pengumuman()
-    {
-        $informasi = InformasiDesa::where('kategori_informasi', 'Pengumuman')->get();
-        return view('dashboard.sekretaris.page.Informasi.informasi_pengumuman', compact('informasi'));
-    }
-
-    public function berita()
-    {
-        $informasi = InformasiDesa::where('kategori_informasi', 'Berita')->get();
-        return view('dashboard.sekretaris.page.Informasi.informasi_berita', compact('informasi'));
-    }
 }

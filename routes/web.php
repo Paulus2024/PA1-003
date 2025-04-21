@@ -125,13 +125,13 @@ Route::delete('/fasilitas_sekretaris/{id_fasilitas}', [FasilitasDesaController::
 // Route::get('/informasi_sekretaris', function () {
 //     return view('dashboard/sekretaris/page/Informasi/index_informasi');
 // });
-Route::get('/informasi/pengumuman', [InformasiDesaController::class, 'pengumuman']) -> name('informasi.pengumuman'); //error atau penyelesaian
+// Route::get('/informasi/pengumuman', [InformasiDesaController::class, 'index_pengumuman']) -> name('informasi.pengumuman'); //error atau penyelesaian
 
-Route::get('/informasi/berita', [InformasiDesaController::class, 'berita']) -> named('informasi.berita');
+// Route::get('/informasi/berita', [InformasiDesaController::class, 'index_berita']) -> name('informasi.berita');
 
-Route::get('/informasi_sekretaris', [InformasiDesaController::class, 'index'])->name('sekretaris.informasi.berita'); //untuk menampilkan
+Route::get('/informasi_sekretaris', [InformasiDesaController::class, 'index_berita'])->name('informasi.berita'); //untuk menampilkan
 
-Route::get('/informasi_pengumuman', [InformasiDesaController::class, 'index'])->name('sekretaris.informasi.pengumuman'); //untuk menampilkan
+Route::get('/informasi_pengumuman', [InformasiDesaController::class, 'index_pengumuman'])->name('informasi.pengumuman'); //untuk menampilkan
 
 Route::post('/informasi_sekretaris/store', [InformasiDesaController::class, 'store'])->name('sekretaris.informasi.store'); //untuk menyimpan data
 
