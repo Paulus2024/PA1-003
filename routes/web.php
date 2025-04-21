@@ -153,18 +153,16 @@ Route::put('/galleries/{gallery}', [GalleryController::class, 'update'])->name('
 Route::patch('/galleries/{gallery}', [GalleryController::class, 'update']); // Biasanya disertakan juga untuk update sebagian
 Route::delete('/galleries/{gallery}', [GalleryController::class, 'destroy'])->name('galleries.destroy');
 
-Route::get('/data_pengurus_desa_sekretaris', [GalleryController::class, 'index'])->name('data_pengurus_desa_sekretaris.index');
-Route::get('/data_pengurus_desa_sekretaris/create', [GalleryController::class, 'create'])->name('data_pengurus_desa_sekretaris.create');
-Route::post('/data_pengurus_desa_sekretaris', [GalleryController::class, 'store'])->name('data_pengurus_desa_sekretaris.store');
-Route::get('/data_pengurus_desa_sekretaris/{pengurus_desa}', [GalleryController::class, 'show'])->name('data_pengurus_desa_sekretaris.show');
-Route::get('/data_pengurus_desa_sekretaris/{pengurus_desa}/edit', [GalleryController::class, 'edit'])->name('data_pengurus_desa_sekretaris.edit');
-Route::put('/data_pengurus_desa_sekretaris/{pengurus_desa}', [GalleryController::class, 'update'])->name('data_pengurus_desa_sekretaris.update');
-Route::patch('/data_pengurus_desa_sekretaris/{pengurus_desa}', [GalleryController::class, 'update']); // Biasanya disertakan juga untuk update sebagian
-Route::delete('/data_pengurus_desa_sekretaris/{pengurus_desa}', [GalleryController::class, 'destroy'])->name('data_pengurus_desa_sekretaris.destroy');
+Route::get('/data_pengurus_desa_sekretaris', [DataPengurusDesaController::class, 'index'])->name('data_pengurus_desa.index');
+Route::get('/data_pengurus_desa_sekretaris/create', [DataPengurusDesaController::class, 'create'])->name('data_pengurus_desa.create');
+Route::post('/data_pengurus_desa_sekretaris', [DataPengurusDesaController::class, 'store'])->name('data_pengurus_desa.store');
+Route::get('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'show'])->name('data_pengurus_desa.show');
+Route::get('/data_pengurus_desa_sekretaris/{pengurus}/edit', [DataPengurusDesaController::class, 'edit'])->name('data_pengurus_desa.edit');
+Route::put('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'update'])->name('data_pengurus_desa.update');
+Route::patch('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'update']);
+Route::delete('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'destroy'])->name('data_pengurus_desa.destroy');
 
-Route::get('/data_pengurus_desa_sekretaris', function () {
-    return view('dashboard/sekretaris/page/Data_Pengurus_Desa/index_data_pengurus_desa');
-});
+
 
 Route::get('/alat_pertanian_sekretaris', function () {
     return view('dashboard/sekretaris/page/Alat_Pertanian/index_alat_pertanian');
