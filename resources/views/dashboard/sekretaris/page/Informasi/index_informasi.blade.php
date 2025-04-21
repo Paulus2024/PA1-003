@@ -364,8 +364,28 @@
                         <article class="position-relative h-100">
 
                             <div class="post-img position-relative overflow-hidden">
-                                <img src="{{ asset('storage/' .$item->lampiran_informasi)}}" class="img-fluid" alt="">
+                                {{-- <img src="{{ asset('storage/' .$item->lampiran_informasi)}}" class="img-fluid" alt=""> --}}
                                 <!-- <span class="post-date">December 12</span> -->
+<!--open-->
+@php
+    $path = 'storage/' . $item->lampiran_informasi;
+    $extension = pathinfo($item->lampiran_informasi, PATHINFO_EXTENSION);
+@endphp
+
+@if(in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
+    <img src="{{ asset($path) }}" class="img-fluid" alt="Gambar Informasi">
+@elseif($extension === 'pdf')
+    <iframe src="{{ asset($path) }}" width="100%" height="300px"></iframe>
+@elseif(in_array($extension, ['doc', 'docx']))
+    <a href="{{ asset($path) }}" target="_blank">
+        <img src="{{ asset('assets/img/doc-icon.png') }}" alt="Dokumen Word" style="height:100px;">
+        <p>Lihat Dokumen Word</p>
+    </a>
+@else
+    <a href="{{ asset($path) }}" target="_blank">Download File</a>
+@endif
+
+<!--close-->
                                 <span class="post-date">{{ $item->created_at->format('F d') }}</span>
                             </div>
 
