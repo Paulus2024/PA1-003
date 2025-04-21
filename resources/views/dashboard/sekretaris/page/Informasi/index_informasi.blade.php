@@ -378,7 +378,7 @@
     <iframe src="{{ asset($path) }}" width="100%" height="300px"></iframe>
 @elseif(in_array($extension, ['doc', 'docx']))
     <a href="{{ asset($path) }}" target="_blank">
-        <img src="{{ asset('assets/img/doc-icon.png') }}" alt="Dokumen Word" style="height:100px;">
+        <img src="{{ asset('assets/img/icon/word-icon.png') }}" alt="Dokumen Word" style="height:100px;">
         <p>Lihat Dokumen Word</p>
     </a>
 @else
