@@ -62,8 +62,8 @@ class DataPengurusDesaController extends Controller
      */
     public function edit(string $id)
     {
-        $galleries = DataPengurusDesa::findOrFail($id);
-        return view('galleries.edit', compact('gallery'));
+        $data_pengurus_desas = DataPengurusDesa::findOrFail($id);
+        return view('data_pengurus_desa.edit', compact('pengurus'));
     }
 
     /**
@@ -71,30 +71,33 @@ class DataPengurusDesaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $galleries = DataPengurusDesa::findOrFail($id);
+        $data_pengurus_desas = DataPengurusDesa::findOrFail($id);
         $request->validate([
             'nama_data_pengurus_desa' => 'required|string|max:255',
             'jabatan_data_pengurus_desa' => 'required|string|max:255',
-            'deskripsi_data_pengurus_desa' => 'required|string|max:255',
+            'deskripsi_data_pengurus_desa' => 'required|string|max:255','nullable',
             'gambar_data_pengurus_desa' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 'nullable'
         ]);
 
         $data = [
-            'judul_galeri' => $request->input('judul_galeri'),
+            'nama_data_pengurus_desa' => $request->input('nama_data_pengurus_desa'),
+            'jabatan_data_pengurus_desa' => $request->input('jabatan_data_pengurus_desa'),
+            'deskripsi_data_pengurus_desa' => $request->input('deskripsi_data_pengurus_desa'),
+            'gambar_data_pengurus_desa' => $path ?? null,
         ];
 
-        if ($request->hasFile('gambar_galeri')) {
+        if ($request->hasFile('gambar_data_pengurus_desa')) {
             // Hapus gambar lama jika ada
-            if ($galleries->gambar_galeri) {
-                Storage::disk('public')->delete($galleries->gambar_galeri);
+            if ($data_pengurus_desas->gambar_data_pengurus_desa) {
+                Storage::disk('public')->delete($data_pengurus_desas->gambar_data_pengurus_desa);
             }
-            $path = $request->file('gambar_galeri')->store('galeri', 'public');
-            $data['gambar_galeri'] = $path;
+            $path = $request->file('gambar_data_pengurus_desa')->store('pengurus', 'public');
+            $data['gambar_data_pengurus_desa'] = $path;
         }
 
-        $galleries->update($data);
+        $data_pengurus_desas->update($data);
 
-        return redirect()->route('galleries.index')->with('success', 'Data galeri berhasil diperbarui!');
+        return redirect()->route('data_pengurus_desa.index')->with('success', 'Data Pengurus Desa Berhasil Diperbarui!');
     }
 
     /**
@@ -102,10 +105,10 @@ class DataPengurusDesaController extends Controller
      */
     public function destroy(string $id)
     {
-        $galleries = DataPengurusDesa::findOrFail($id);
-        Storage::disk('public')->delete($galleries->gambar_galeri);
-        $galleries->delete();
+        $data_pengurus_desas = DataPengurusDesa::findOrFail($id);
+        Storage::disk('public')->delete($data_pengurus_desas->gambar_data_pengurus_desa);
+        $data_pengurus_desas->delete();
 
-        return redirect()->route('galleries.index')->with('success', 'Data galeri berhasil dihapus!');
+        return redirect()->route('data_pengurus_desa.index')->with('success', 'Data Pengurus Desa Berhasil Dihapus!');
     }
 }
