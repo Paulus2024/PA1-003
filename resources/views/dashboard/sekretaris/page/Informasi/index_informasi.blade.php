@@ -349,6 +349,7 @@
             <ol>
             <li><a href="{{url('/')}}">Home</a></li>
             <li class="current">Informasi</li>
+            <li class="current">Berita</li>
             </ol>
         </nav>
         </div>
@@ -366,26 +367,25 @@
                             <div class="post-img position-relative overflow-hidden">
                                 {{-- <img src="{{ asset('storage/' .$item->lampiran_informasi)}}" class="img-fluid" alt=""> --}}
                                 <!-- <span class="post-date">December 12</span> -->
-<!--open-->
-@php
-    $path = 'storage/' . $item->lampiran_informasi;
-    $extension = pathinfo($item->lampiran_informasi, PATHINFO_EXTENSION);
-@endphp
+                                <!--open-->
+                                @php
+                                    $path = 'storage/' . $item->lampiran_informasi;
+                                    $extension = pathinfo($item->lampiran_informasi, PATHINFO_EXTENSION);
+                                @endphp
 
-@if(in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
-    <img src="{{ asset($path) }}" class="img-fluid" alt="Gambar Informasi">
-@elseif($extension === 'pdf')
-    <iframe src="{{ asset($path) }}" width="100%" height="300px"></iframe>
-@elseif(in_array($extension, ['doc', 'docx']))
-    <a href="{{ asset($path) }}" target="_blank">
-        <img src="{{ asset('assets/img/icon/word-icon.png') }}" alt="Dokumen Word" style="height:100px;">
-        <p>Lihat Dokumen Word</p>
-    </a>
-@else
-    <a href="{{ asset($path) }}" target="_blank">Download File</a>
-@endif
-
-<!--close-->
+                                @if(in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
+                                    <img src="{{ asset($path) }}" class="img-fluid" alt="Gambar Informasi">
+                                @elseif($extension === 'pdf')
+                                    <iframe src="{{ asset($path) }}" width="100%" height="300px"></iframe>
+                                @elseif(in_array($extension, ['doc', 'docx']))
+                                    <a href="{{ asset($path) }}" target="_blank">
+                                        <img src="{{ asset('assets/img/icon/word-icon.png') }}" alt="Dokumen Word" style="height:100px;">
+                                        <p>Lihat Dokumen Word</p>
+                                    </a>
+                                @else
+                                    <a href="{{ asset($path) }}" target="_blank">Download File</a>
+                                @endif
+                                <!--close-->
                                 <span class="post-date">{{ $item->created_at->format('F d') }}</span>
                             </div>
 
@@ -397,11 +397,55 @@
                                 {{ $item->deskripsi_informasi }}
                             </p>
 
+                            <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_informasi }}">
+                                Edit
+                            </button>
+
                         </div>
 
                     </article>
                     </div><!-- End post list item -->
+
+                    <!-- Open MODAL Edit -->
+                    <div class="modal fade" id="editModal{{ $item->id_informasi }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id_informasi }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form action="{{ route('sekretaris.informasi.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="judul_informasi" class="form-label">Judul Informasi</label>
+                                    <input type="text" class="form-control" id="judul_informasi" name="judul_informasi" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="lampiran_informasi" class="form-label">Lampiran Informasi</label><br>
+                                    <input type="file" class="form-control" id="lampiran_informasi" name="lampiran_informasi" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="deskripsi_informasi" class="form-label">Deskripsi Informasi</label><br>
+                                    <textarea name="deskripsi_informasi" id="deskripsi_informasi" cols="30" rows="10"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="kategori_informasi" class="form-label">Kategori Informasi</label><br>
+                                    <input type="radio" id="berita" name="kategori_informasi" value="Berita" required>
+                                    <label for="berita">Berita</label><br>
+                                    <input type="radio" id="pengumuman" name="kategori_informasi" value="Pengumuman" required>
+                                    <label for="pengumuman">Pengumuman</label>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="status_informasi" class="form-label">Status Informasi</label><br>
+                                    <input type="radio" id="draft" name="status_informasi" value="0">
+                                    <label for="draft">Draft</label><br>
+                                    <input type="radio" id="publish" name="status_informasi" value="1">
+                                    <label for="publish">Publish</label><br>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Simpan Perubahan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Close MODAL Edit -->
                 @endforeach
+                <!-- End Colom Di Looping Aforeach -->
 
                 <!-- Open Button To Modal -->
                 <div class="col-12">
@@ -427,7 +471,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- <form action="/upload-gambar" method="POST" enctype="multipart/form-data"> -->
-                        <form action="{{ route('sekretaris.informasi.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('sekretaris.informasi.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                         <div class="mb-3">
                             <label for="judul_informasi" class="form-label">Judul Informasi</label>

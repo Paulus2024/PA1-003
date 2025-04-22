@@ -689,7 +689,7 @@
             </div>
         </div><!-- End Portfolio Item -->
 
-        <!-- Modal Edit untuk masing-masing fasilitas - Tambah ini: Modal edit dalam loop -->
+        <!-- Open Looping data fasilitas bagian edit -->
         <div class="modal fade" id="editModal{{ $item->id_fasilitas }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id_fasilitas }}" aria-hidden="true">
             <div class="modal-dialog">
                 <form action="{{ route('sekretaris.fasilitas.update', $item->id_fasilitas) }}" method="POST" enctype="multipart/form-data" class="modal-content">
@@ -724,6 +724,7 @@
             </div>
         </div>
         @endforeach
+        <!-- End Looping data fasilitas bagian edit -->
 
         <!-- Tombol untuk menambah fasilitas baru -->
         <div class="col-12">

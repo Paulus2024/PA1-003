@@ -55,6 +55,7 @@ class InformasiDesaController extends Controller
     // $file = $request->file('lampiran_informasi');
     // $path = $file->store('informasi', 'public');
 
+    // open simpan file
     $file = $request->file('lampiran_informasi');
     $originalName = $file->getClientOriginalName();
     $extension = $file->getClientOriginalExtension();
@@ -83,7 +84,7 @@ class InformasiDesaController extends Controller
             // Ubah nama file yang disimpan di database menjadi versi PDF
             $filePath = 'informasi/' . $filename . '.pdf';
     }
-
+    //close simpan file
 
         // simpan ke database
         InformasiDesa::create([
