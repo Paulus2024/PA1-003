@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
+use App\Http\Controllers\Sekretaris\ProfilController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FasilitasDesaController;
@@ -73,6 +75,11 @@ Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name(
 Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
+
 
 //=========================================================
 // Route Dashboard (Arah Login)
@@ -98,6 +105,12 @@ Route::get('/dashboard', function () {
 Route::get('/about_sekretaris', function () {
     return view('dashboard/sekretaris/page/About/index_about');
 });
+
+Route::middleware(['auth'])->prefix('sekretaris')->group(function () {
+    Route::get('/profil', [ProfilController::class, 'edit'])->name('sekretaris.profile.edit');
+    Route::post('/profil', [ProfilController::class, 'update'])->name('sekretaris.profile.update');
+});
+
 
 //==========================================================
 // Route Fasilitas Sekretaris
