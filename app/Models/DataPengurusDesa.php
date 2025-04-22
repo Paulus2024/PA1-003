@@ -9,7 +9,7 @@ class DataPengurusDesa extends Model
 {
     use HasFactory;
 
-    protected $table = 'data_pengurus_desa';
+    protected $table = 'data_pengurus_desas';
     protected $primaryKey = 'id_data_pengurus_desa';
 
 
