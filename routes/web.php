@@ -137,7 +137,8 @@ Route::post('/informasi_sekretaris/store', [InformasiDesaController::class, 'sto
 
 Route::put('/informasi_sekretaris/{id_fasilitas}', [InformasiDesaController::class, 'update'])->name('sekretaris.informasi.update'); //untuk mengupdate data
 
-Route::delete('/informasi_sekretaris/{id_fasilitas)', [InformasiDesaController::class, 'destroy'])->name('sekretaris.informasi.destroy'); //untuk menghapus data
+Route::delete('/informasi_sekretaris/{id_fasilitas}', [InformasiDesaController::class, 'destroy'])->name('sekretaris.informasi.destroy'); //untuk menghapus data
+
 //==========================================================
 
 // Route::get('/galeri_sekretaris', function () {

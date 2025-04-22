@@ -47,7 +47,7 @@ class InformasiDesaController extends Controller
             'judul_informasi'      => 'required|string|max:255',
             'deskripsi_informasi'  => 'required|string',
             'kategori_informasi'   => 'required|string|max:255',
-            'lampiran_informasi'   => 'required|file|mimes:jpeg,png,jpg,gif,pdf,doc, docx|max:2048',
+            'lampiran_informasi'   => 'required|file|mimes:jpeg,png,jpg,gif,pdf,doc,docx|max:2048',
             'status_informasi'     => 'required|boolean',
         ]);
 
@@ -76,7 +76,7 @@ class InformasiDesaController extends Controller
             //perubahan
             $command = "\"C:\\Program Files\\LibreOffice\\program\\soffice.exe\" --headless --convert-to pdf --outdir \"$storagePath\" \"$fullInputPath\"";
             exec($command, $output, $return_var);
-            dd($command, $output, $return_var);
+            // dd($command, $output, $return_var);
             //dd('sampai sini');
 
 
