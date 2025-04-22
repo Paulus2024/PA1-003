@@ -77,6 +77,7 @@ class InformasiDesaController extends Controller
             $command = "\"C:\\Program Files\\LibreOffice\\program\\soffice.exe\" --headless --convert-to pdf --outdir \"$storagePath\" \"$fullInputPath\"";
             exec($command, $output, $return_var);
             dd($command, $output, $return_var);
+            //dd('sampai sini');
 
 
             // Ubah nama file yang disimpan di database menjadi versi PDF
