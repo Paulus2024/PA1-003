@@ -24,7 +24,7 @@
                 <img src="{{ asset('storage/profile_photos/' . Auth::user()->photo) }}" alt="Profile Photo" class="rounded-circle" width="30" height="30">
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarSekretaris">
-                <li><a class="dropdown-item" href="{{ route('sekretaris.profil.edit') }}">Profil</a></li>
+                <li><a class="dropdown-item" href="{{ route('sekretaris.profile.edit') }}">Profil</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
                     <form action="{{ route('logout') }}" method="POST">
