@@ -355,6 +355,19 @@
         </div>
     </div><!-- End Page Title -->
 
+    <section id="blog-pagination" class="blog-pagination section mt-5">
+        <div class="container">
+            <ul class="nav nav-tabs justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('informasi_sekretaris') ? 'active' : '' }}" href="{{ route('informasi.berita') }}"> Berita </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('informasi_pengumuman') ? 'active' : '' }}" href="{{ route('informasi.pengumuman') }}"> Pengumuman </a>
+                </li>
+            </ul>
+        </div>
+    </section><!-- /Blog Pagination Section -->
+
     <!-- Blog Posts Section -->
     <section id="blog-posts" class="blog-posts section">
         <div class="container">
@@ -363,64 +376,52 @@
                 @foreach ($berita as $item)
                     <div class="col-lg-4">
                         <article class="position-relative h-100">
+                                <div class="post-img position-relative overflow-hidden">
+                                    {{-- <img src="{{ asset('storage/' .$item->lampiran_informasi)}}" class="img-fluid" alt=""> --}}
+                                    <!-- <span class="post-date">December 12</span> -->
+                                    <!--open-->
+                                    @php
+                                        $path = 'storage/' . $item->lampiran_informasi;
+                                        $extension = pathinfo($item->lampiran_informasi, PATHINFO_EXTENSION);
+                                    @endphp
 
-                            <div class="post-img position-relative overflow-hidden">
-                                {{-- <img src="{{ asset('storage/' .$item->lampiran_informasi)}}" class="img-fluid" alt=""> --}}
-                                <!-- <span class="post-date">December 12</span> -->
-                                <!--open-->
-                                @php
-                                    $path = 'storage/' . $item->lampiran_informasi;
-                                    $extension = pathinfo($item->lampiran_informasi, PATHINFO_EXTENSION);
-                                @endphp
+                                    @if(in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
+                                        <img src="{{ asset($path) }}" class="img-fluid" alt="Gambar Informasi">
+                                    @elseif($extension === 'pdf')
+                                        <iframe src="{{ asset($path) }}" width="100%" height="300px"></iframe>
+                                    @elseif(in_array($extension, ['doc', 'docx']))
+                                        <a href="{{ asset($path) }}" target="_blank">
+                                            <img src="{{ asset('assets/img/icon/word-icon.png') }}" alt="Dokumen Word" style="height:100px;">
+                                            <p>Lihat Dokumen Word</p>
+                                        </a>
+                                    @else
+                                        <a href="{{ asset($path) }}" target="_blank">Download File</a><!-- ini apa -->
+                                    @endif
+                                    <!--close-->
+                                    <span class="post-date">{{ $item->created_at->format('F d') }}</span><!-- waktu  -->
+                                </div>
 
-                                @if(in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
-                                    <img src="{{ asset($path) }}" class="img-fluid" alt="Gambar Informasi">
-                                @elseif($extension === 'pdf')
-                                    <iframe src="{{ asset($path) }}" width="100%" height="300px"></iframe>
-                                @elseif(in_array($extension, ['doc', 'docx']))
-                                    <a href="{{ asset($path) }}" target="_blank">
-                                        <img src="{{ asset('assets/img/icon/word-icon.png') }}" alt="Dokumen Word" style="height:100px;">
-                                        <p>Lihat Dokumen Word</p>
-                                    </a>
-                                @else
-                                    <a href="{{ asset($path) }}" target="_blank">Download File</a><!-- ini apa -->
-                                @endif
-                                <!--close-->
-                                <span class="post-date">{{ $item->created_at->format('F d') }}</span><!-- waktu  -->
+                            <div class="post-content d-flex flex-column">
+
+                                <h3 class="post-title">{{ $item->judul_informasi }}</h3>
+                                    <p>
+                                        {{ $item->deskripsi_informasi }}
+                                    </p>
+
+                                <div class="d-flex gap-2 mt-2">
+                                    <button type="button" class="btn btn-outline-warning w-50" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_informasi }}">
+                                        Edit
+                                    </button>
+
+                                    <form action="{{ route('sekretaris.informasi.destroy', $item->id_informasi) }}" method="POST" class="w-50" onsubmit="return confirm('apakah anda yakin ingin menghapus data ini ?');">
+                                        {{-- <button type="submit" class="btn btn-outline-danger w-50">Hapus</button> --}}
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger w-100">Hapus</button>
+                                    </form>
+                                </div>
                             </div>
-
-                        <div class="post-content d-flex flex-column">
-
-                            <h3 class="post-title">{{ $item->judul_informasi }}</h3>
-
-                            <p>
-                                {{ $item->deskripsi_informasi }}
-                            </p>
-                            <div class="d-flex gap-2 mt-2">
-                                <button type="button" class="btn btn-outline-warning w-50" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_informasi }}">
-                                    Edit
-                                </button>
-
-                                <form action="{{ route('sekretaris.informasi.destroy', $item->id_informasi) }}" method="POST" class="w-50">
-                                    {{-- <button type="submit" class="btn btn-outline-danger w-50">Hapus</button> --}}
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-outline-danger w-100">Hapus</button>
-                                </form>
-                            </div>
-                            {{-- <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_informasi }}">
-                                Edit
-                            </button>
-
-                            <form action="{{ route('sekretaris.informasi.destroy', $item->id_informasi) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-outline-danger">Hapus</button>
-                            </form> --}}
-
-                        </div>
-
-                    </article>
+                        </article>
                     </div><!-- End post list item -->
 
                     <!-- Open MODAL Edit -->
@@ -444,11 +445,11 @@
                                         @if ($item->lampiran_informasi)
                                             <p class="text-muted">File sebelumnya: <a href="{{ asset('storage/lampiran_informasi/' . $item->lampiran_informasi) }}" target="_blank">{{ $item->lampiran_informasi }}</a></p>
                                         @endif
-                                        <input type="file" class="form-control" id="lampiran_informasi" name="lampiran_informasi" required>
+                                        <input type="file" class="form-control" id="lampiran_informasi" name="lampiran_informasi">
                                     </div>
                                     <div class="mb-3">
                                         <label for="deskripsi_informasi" class="form-label">Deskripsi Informasi</label><br>
-                                        <textarea name="deskripsi_informasi" id="deskripsi_informasi" cols="30" rows="10"> {{ $item->deskripsi_informasi }} </textarea>
+                                        <textarea name="deskripsi_informasi" id="deskripsi_informasi" class="form-contro w-100" rows="10"> {{ $item->deskripsi_informasi }} </textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label for="kategori_informasi" class="form-label">Kategori Informasi</label><br>
@@ -511,7 +512,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="deskripsi_informasi" class="form-label">Deskripsi Informasi</label><br>
-                                <textarea name="deskripsi_informasi" id="deskripsi_informasi" cols="30" rows="10"></textarea>
+                                <textarea name="deskripsi_informasi" id="deskripsi_informasi" class="form-control w-100" rows="10"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="kategori_informasi" class="form-label">Kategori Informasi</label><br>
@@ -533,23 +534,24 @@
                 </div>
             </div>
         </div>
-            <!--Close MODAL Create(Tambah)-->
+        <!--Close MODAL Create(Tambah)-->
 
     </section><!-- /Blog Posts Section -->
 
+
+
     <!-- Blog Pagination Section -->
-    <section id="blog-pagination" class="blog-pagination section">
-
+    {{-- <section id="blog-pagination" class="blog-pagination section">
         <div class="container">
-        <div class="d-flex justify-content-center">
-            <ul>
-                <li><a href="{{ route('informasi.berita')}}" class="{{ Request::is('informasi_sekretaris') ? 'active' : '' }}">Berita</a></li>
-                <li><a href="{{ route('informasi.pengumuman')}}" class="{{ Request::is('informasi_pengumuman') ? 'active' : '' }}">Pengumuman</a></li>
-            </ul>
+            <div class="d-flex justify-content-center">
+                <ul>
+                    <li><a href="{{ route('informasi.berita')}}" class="{{ Request::is('informasi_sekretaris') ? 'active' : '' }}">Berita</a></li>
+                    <li><a href="{{ route('informasi.pengumuman')}}" class="{{ Request::is('informasi_pengumuman') ? 'active' : '' }}">Pengumuman</a></li>
+                </ul>
+            </div>
         </div>
-        </div>
-
-    </section><!-- /Blog Pagination Section -->
+    </section> --}}
+    <!-- /Blog Pagination Section -->
 
     <footer id="footer" class="footer dark-background">
         @include('pengguna.component.footer')

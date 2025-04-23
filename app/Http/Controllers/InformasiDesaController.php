@@ -147,7 +147,7 @@ class InformasiDesaController extends Controller
         $dataUpdate = [
             'judul_informasi'      => $request->judul_informasi,
             'deskripsi_informasi'  => $request->deskripsi_informasi,
-            'kategori_informasi'   => strtolower($request->kategori_informasi),
+            'kategori_informasi'   => $request->kategori_informasi,
             'status_informasi'     => $request->status_informasi
         ];
 
@@ -176,7 +176,7 @@ class InformasiDesaController extends Controller
             if (in_array($extension, ['doc', 'docx'])) {
                 //ubah path agar jadi format windows
                 $fullInputPath = str_replace( '/', '\\', storage_path("app/public/" . $filePath));
-                $storagePath = str_replace( '/', '\\', storage_Path("app/public/informasi"));
+                $storagePath = str_replace( '/', '\\', storage_path("app/public/informasi"));
                 // ==$command = "soffice --headless --convert-to pdf --outdir \"$storagePath\" \"$fullInputPath\"";
                 // exec($command);
                 //perubahan
@@ -203,10 +203,10 @@ class InformasiDesaController extends Controller
                 //simpan file yan benar
                 $filePath = 'informasi/' . $foundPdf;
 
-                $pdfPath = $storagePath . '\\' . $filename . '.pdf';
-                if (!file_exists($pdfPath)) {
-                    dd("PDF gagal dibuat", $pdfPath, $output, $return_var);
-                }
+                // $pdfPath = $storagePath . '\\' . $filename . '.pdf';
+                // if (!file_exists($pdfPath)) {
+                //     dd("PDF gagal dibuat", $pdfPath, $output, $return_var);
+                // }
 
 
                 //dd($command, $output, $return_var);// karena ini update, maka pakai ini untuk mengatasi bentrok dengan file lama yang ada
