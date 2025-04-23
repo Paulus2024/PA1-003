@@ -3,10 +3,12 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2025 at 04:19 AM
+-- Generation Time: Apr 21, 2025 at 03:57 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
+CREATE DATABASE pa1
+USE pa1
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -28,14 +30,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) NOT NULL,
-  `connection` text NOT NULL,
-  `queue` text NOT NULL,
-  `payload` longtext NOT NULL,
-  `exception` longtext NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `id` BIGINT(20) UNSIGNED NOT NULL,
+  `uuid` VARCHAR(255) NOT NULL,
+  `connection` TEXT NOT NULL,
+  `queue` TEXT NOT NULL,
+  `payload` LONGTEXT NOT NULL,
+  `exception` LONGTEXT NOT NULL,
+  `failed_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -130,8 +132,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2025_04_11_012935_create_galleries_table', 4),
 (12, '2025_04_09_013753_rename_lampiran_to_lampiran_informasi_in_informasi_table', 5),
 (13, '2025_04_14_065152_create_galleries_table', 6),
-(14, '2025_04_21_065657_create_data_pengurus_desas_table', 7),
-(15, '2025_04_22_020717_add_profile_fields_to_users_table', 8);
+(14, '2025_04_21_065657_create_data_pengurus_desas_table', 7);
 
 -- --------------------------------------------------------
 
@@ -179,16 +180,15 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `usertype` enum('user','bumdes','sekretaris') NOT NULL DEFAULT 'user',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `profile_photo` varchar(255) DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `address`, `password`, `usertype`, `created_at`, `updated_at`, `profile_photo`) VALUES
-(1, 'sekretaris', 'sekretaris@gmail.com', '081234567890', 'Taonmarisi', '$2y$10$RBx/PTkXxVCZ3DvFAFaQJe6tr3L9GE.CnZ1WbYZAYK28ZYDMwi5DG', 'sekretaris', '2025-04-06 00:11:43', '2025-04-06 00:11:43', NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `phone`, `address`, `password`, `usertype`, `created_at`, `updated_at`) VALUES
+(1, 'sekretaris', 'sekretaris@gmail.com', '081234567890', 'Taonmarisi', '$2y$10$RBx/PTkXxVCZ3DvFAFaQJe6tr3L9GE.CnZ1WbYZAYK28ZYDMwi5DG', 'sekretaris', '2025-04-06 00:11:43', '2025-04-06 00:11:43');
 
 --
 -- Indexes for dumped tables
@@ -278,7 +278,7 @@ ALTER TABLE `informasi`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
