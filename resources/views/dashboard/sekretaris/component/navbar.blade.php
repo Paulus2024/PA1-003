@@ -18,7 +18,7 @@
         <li><a href="{{ route('data_pengurus_desa.index') }}"class="{{ Request::is('data_pengurus_desa_sekretaris*') ? 'active' : '' }}">Data Pengurus Desa</a></li>
         <li><a href="/alat_pertanian_sekretaris" class="{{ Request::is('alat_pertanian_sekretaris') ? 'active' : '' }}">Alat Pertanian</a></li>
         <li><a href="/contact_sekretaris" class="{{Request::is('contact_sekretaris') ? 'active' : '' }}">Contact</a></li>
-        {{-- @auth
+        @auth
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarSekretaris" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="{{ asset('storage/profile_photos/' . Auth::user()->photo) }}" alt="Profile Photo" class="rounded-circle" width="30" height="30">
@@ -37,7 +37,7 @@
 
         @else
         <li><a href="/login" class="{{ Request::is('login') ? 'active' : '' }}">Login</a></li>
-        @endauth --}}
+        @endauth
 
     </ul>
     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
