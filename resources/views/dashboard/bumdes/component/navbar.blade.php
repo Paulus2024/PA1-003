@@ -8,6 +8,8 @@
 
     <nav id="navmenu" class="navmenu">
     <ul>
+        <li><a href="{{ route('galleries.index')}}" class="{{ Request::is('galleries.index') ? 'active' : '' }}">Galeri</a></li>
+
         <li><a href="/index_bumdes" class="active">Home</a></li>
         <li><a href="/about_bumdes">About</a></li>
         <li><a href="/fasilitas_bumdes">Fasilitas</a></li>
