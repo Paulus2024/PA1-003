@@ -21,7 +21,9 @@
         @auth
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarSekretaris" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{{ asset('storage/profile_photos/' . Auth::user()->photo) }}" alt="Profile Photo" class="rounded-circle" width="30" height="30">
+                <img src="{{ Auth::user()->profile_photo ? asset('storage/profile_photos/' . Auth::user()->profile_photo) : asset('default-avatar.png') }}"
+                alt="Profile Photo" class="rounded-circle" width="30" height="30">
+
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarSekretaris">
                 <li><a class="dropdown-item" href="{{ route('sekretaris.profile.edit') }}">Profil</a></li>
