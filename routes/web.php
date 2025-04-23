@@ -147,10 +147,10 @@ Route::get('/informasi_sekretaris', [InformasiDesaController::class, 'index_beri
 Route::get('/informasi_pengumuman', [InformasiDesaController::class, 'index_pengumuman'])->name('informasi.pengumuman'); //untuk menampilkan
 
 Route::post('/informasi_sekretaris/store', [InformasiDesaController::class, 'store'])->name('sekretaris.informasi.store'); //untuk menyimpan data
+//{id_informasi} berhubungan dengan <form action="{{ route('sekretaris.informasi.update', $item->id_informasi) }}" method="POST">, ini ada di xxx.blade.php
+Route::put('/informasi_sekretaris/{id_informasi}', [InformasiDesaController::class, 'update'])->name('sekretaris.informasi.update'); //untuk mengupdate data
 
-Route::put('/informasi_sekretaris/{id_fasilitas}', [InformasiDesaController::class, 'update'])->name('sekretaris.informasi.update'); //untuk mengupdate data
-
-Route::delete('/informasi_sekretaris/{id_fasilitas}', [InformasiDesaController::class, 'destroy'])->name('sekretaris.informasi.destroy'); //untuk menghapus data
+Route::delete('/informasi_sekretaris/{id_informasi}', [InformasiDesaController::class, 'destroy'])->name('sekretaris.informasi.destroy'); //untuk menghapus data
 
 //==========================================================
 
