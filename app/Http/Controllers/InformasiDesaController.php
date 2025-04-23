@@ -147,20 +147,68 @@ class InformasiDesaController extends Controller
         $dataUpdate = [
             'judul_informasi'      => $request->judul_informasi,
             'deskripsi_informasi'  => $request->deskripsi_informasi,
-            'kategori_informasi'   => $request->kategori_informasi,
+            'kategori_informasi'   => strtolower($request->kategori_informasi),
             'status_informasi'     => $request->status_informasi
         ];
 
         if($request->hasFile('lampiran_informasi')){
             //Hapus Gambar Lama
-            Storage::disk('public')->delete($informasi->lampiran_informasi);
+            if( $informasi->lampiran_informasi ) {
+                Storage::disk('public')->delete($informasi->lampiran_informasi);
+            }
+
             //Upload Gambar Baru
-            $path = $request->file('lampiran_informasi')->store('informasi', 'public');
-            $dataUpdate['lampiran_informasi'] = $path;
+            // $path = $request->file('lampiran_informasi')->store('informasi', 'public');
+            // $dataUpdate['lampiran_informasi'] = $path;
+
+            //$informasi->update($dataUpdate);
+
+            // open simpan file
+            $file = $request->file('lampiran_informasi');
+            $originalName = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '_' . pathinfo($originalName, PATHINFO_FILENAME);
+            $storagePath = storage_path('app/public/informasi');
+
+            if (!file_exists($storagePath)) {
+                mkdir($storagePath, 0777, true);
+            }
+
+            // Simpan file asli
+            $filePath = $file->storeAs('informasi', $filename . '.' . $extension, 'public');
+
+            // Jika Word, konversi ke PDF
+            if (in_array($extension, ['doc', 'docx'])) {
+                $fullInputPath = storage_path("app/public/" . $filePath);
+                // ==$command = "soffice --headless --convert-to pdf --outdir \"$storagePath\" \"$fullInputPath\"";
+                // exec($command);
+                //perubahan
+                $command = "\"C:\\Program Files\\LibreOffice\\program\\soffice.exe\" --headless --convert-to pdf --outdir \"$storagePath\" \"$fullInputPath\"";
+                exec($command, $output, $return_var);
+                // dd($command, $output, $return_var);
+                //dd('sampai sini');
+
+
+                // Ubah nama file yang disimpan di database menjadi versi PDF
+                $filePath = 'informasi/' . $filename . '.pdf';
+            }
+            //close simpan file
+
+            $dataUpdate['lampiran_informasi'] = $filePath;
+
         }
 
         $informasi->update($dataUpdate);
-        return redirect()->route('sekretaris.informasi.index')->with('success', 'Data informasi berhasil diperbarui!');
+
+        // return redirect()->route('sekretaris.informasi.index')->with('success', 'Data informasi berhasil diperbarui!');
+        if ($validated['kategori_informasi'] === 'Berita') {
+            return Redirect()->route('informasi.berita')->with('success', 'Data informasi berhasil ditambahkan!');
+        } elseif ($validated['kategori_informasi'] === 'Pengumuman') {
+            return Redirect()->route('informasi.pengumuman')->with('success', 'Data informasi berhasil ditambahkan!');
+        }
+
+        return redirect()->back()->with('success', 'Data informasi berhasil diperbaharui');
+
     }
 
     /**
