@@ -383,10 +383,10 @@
                                         <p>Lihat Dokumen Word</p>
                                     </a>
                                 @else
-                                    <a href="{{ asset($path) }}" target="_blank">Download File</a>
+                                    <a href="{{ asset($path) }}" target="_blank">Download File</a><!-- ini apa -->
                                 @endif
                                 <!--close-->
-                                <span class="post-date">{{ $item->created_at->format('F d') }}</span>
+                                <span class="post-date">{{ $item->created_at->format('F d') }}</span><!-- waktu  -->
                             </div>
 
                         <div class="post-content d-flex flex-column">
@@ -396,10 +396,27 @@
                             <p>
                                 {{ $item->deskripsi_informasi }}
                             </p>
+                            <div class="d-flex gap-2 mt-2">
+                                <button type="button" class="btn btn-outline-warning w-50" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_informasi }}">
+                                    Edit
+                                </button>
 
-                            <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_informasi }}">
+                                <form action="{{ route('sekretaris.informasi.destroy', $item->id_informasi) }}" method="POST" class="w-50">
+                                    {{-- <button type="submit" class="btn btn-outline-danger w-50">Hapus</button> --}}
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-outline-danger w-100">Hapus</button>
+                                </form>
+                            </div>
+                            {{-- <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_informasi }}">
                                 Edit
                             </button>
+
+                            <form action="{{ route('sekretaris.informasi.destroy', $item->id_informasi) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                            </form> --}}
 
                         </div>
 

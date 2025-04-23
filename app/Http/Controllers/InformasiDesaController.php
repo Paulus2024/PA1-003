@@ -99,7 +99,7 @@ class InformasiDesaController extends Controller
         if($validated['kategori_informasi'] === 'Berita') {
             return Redirect()->route('informasi.berita')->with('success', 'Data informasi berhasil ditambahkan!');
         } elseif($validated['kategori_informasi'] === 'Pengumuman') {
-                return Redirect()->route('informasi.pengumuman')->with('success', 'Data informasi berhasil ditambahkan!');
+            return Redirect()->route('informasi.pengumuman')->with('success', 'Data informasi berhasil ditambahkan!');
         }
 
         return redirect()->back()->with('success', 'Data informasi berhasil ditambahkan!');
@@ -174,12 +174,34 @@ class InformasiDesaController extends Controller
 
             // Jika Word, konversi ke PDF
             if (in_array($extension, ['doc', 'docx'])) {
-                $fullInputPath = storage_path("app/public/" . $filePath);
+                //ubah path agar jadi format windows
+                $fullInputPath = str_replace( '/', '\\', storage_path("app/public/" . $filePath));
+                $storagePath = str_replace( '/', '\\', storage_Path("app/public/informasi"));
                 // ==$command = "soffice --headless --convert-to pdf --outdir \"$storagePath\" \"$fullInputPath\"";
                 // exec($command);
                 //perubahan
+
+                //Jeda sejanak untuk memastikan filenya
+                sleep(1);
+
                 $command = "\"C:\\Program Files\\LibreOffice\\program\\soffice.exe\" --headless --convert-to pdf --outdir \"$storagePath\" \"$fullInputPath\"";
                 exec($command, $output, $return_var);
+
+                $convertedFiles = scandir($storagePath);
+                $foundPdf = null;
+                foreach($convertedFiles as $f){
+                    if(str_contains($f, $filename) && str_ends_with($f, '.pdf')){
+                        $foundPdf = $f;
+                        break;
+                    }
+                }
+
+                if(!$foundPdf){
+                    dd("PDF tidak ditemukan", $convertedFiles, $command, $output, $return_var);
+                }
+
+                //simpan file yan benar
+                $filePath = 'informasi/' . $foundPdf;
 
                 $pdfPath = $storagePath . '\\' . $filename . '.pdf';
                 if (!file_exists($pdfPath)) {
@@ -187,12 +209,12 @@ class InformasiDesaController extends Controller
                 }
 
 
-                dd($command, $output, $return_var);// karena ini update, maka pakai ini untuk mengatasi bentrok dengan file lama yang ada
+                //dd($command, $output, $return_var);// karena ini update, maka pakai ini untuk mengatasi bentrok dengan file lama yang ada
                 //dd('sampai sini');
 
 
                 // Ubah nama file yang disimpan di database menjadi versi PDF
-                $filePath = 'informasi/' . $filename . '.pdf';
+                // $filePath = 'informasi/' . $filename . '.pdf';
             }
             //close simpan file
 
@@ -209,9 +231,9 @@ class InformasiDesaController extends Controller
 
         // return redirect()->route('sekretaris.informasi.index')->with('success', 'Data informasi berhasil diperbarui!');
         if ($validated['kategori_informasi'] === 'Berita') {
-            return Redirect()->route('informasi.berita')->with('success', 'Data informasi berhasil ditambahkan!');
+            return Redirect()->route('informasi.berita')->with('success', 'Data informasi berhasil diubah!');
         } elseif ($validated['kategori_informasi'] === 'Pengumuman') {
-            return Redirect()->route('informasi.pengumuman')->with('success', 'Data informasi berhasil ditambahkan!');
+            return Redirect()->route('informasi.pengumuman')->with('success', 'Data informasi berhasil diubah!');
         }
 
         return redirect()->back()->with('success', 'Data informasi berhasil diperbaharui');
@@ -225,9 +247,21 @@ class InformasiDesaController extends Controller
     {
         $informasi = InformasiDesa::findOrFail($id);
         Storage::disk('public')->delete($informasi->lampiran_informasi);
+
+        //simpan jenis kategori sebelum dihapus
+        $kategori = $informasi->kategori_informasi;
+
+        // Hapus data dari database
         $informasi->delete();
 
-        return redirect()->route('sekretaris.informasi.index')->with('success', 'Data berhasil di hapus');
+        // return redirect()->route('informasi.berita')->with('success', 'Data berhasil di hapus');
+        if($kategori === 'Berita'){
+            return redirect()->route('informasi.berita')->with('success', 'Data berhasil di hapus');
+        }elseif($kategori === 'Pengumuman'){
+            return redirect()->route('informasi.pengumuman')->with('success', "Data berhasil di hapus");
+        }else{//jika kategori tidak di kenali, maka akan dibuat secara default aja
+            return redirect()->back()->with('success', 'Data berhasil di hapus');
+        }
     }
 
     public function convertToPdf($filename)
