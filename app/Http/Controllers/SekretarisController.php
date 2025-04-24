@@ -21,36 +21,58 @@ class SekretarisController extends Controller
         ]);
     }
 
+    use Illuminate\Support\Facades\Hash;
+    use Illuminate\Support\Facades\Storage;
+
     public function update(Request $request)
     {
+        $user = auth()->user();
+
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . Auth::id(),
-            'password' => 'nullable|min:6|confirmed',
-            'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed',
+            'profile_photo' => 'nullable|image|max:2048',
         ]);
 
-        $user = Auth::user();
+        // Update nama dan email
         $user->name = $request->name;
         $user->email = $request->email;
 
+        // ✅ Hash password jika diisi
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
 
+        // ✅ Simpan foto profil jika diupload
         if ($request->hasFile('profile_photo')) {
-            // Hapus foto lama jika ada
-            if ($user->profile_photo) {
+            if ($user->profile_photo && Storage::exists('public/profile_photos/' . $user->profile_photo)) {
                 Storage::delete('public/profile_photos/' . $user->profile_photo);
             }
 
-            $photoName = time() . '.' . $request->profile_photo->extension();
-            $request->profile_photo->storeAs('public/profile_photos', $photoName);
-            $user->profile_photo = $photoName;
+            $filename = time() . '.' . $request->file('profile_photo')->getClientOriginalExtension();
+            $request->file('profile_photo')->storeAs('public/profile_photos', $filename);
+            $user->profile_photo = $filename;
         }
 
         $user->save();
 
-        return redirect()->back()->with('success', 'Profil berhasil diperbarui.');
+        return back()->with('success', 'Profile updated successfully.');
+    }
+
+
+    public function deletePhoto(Request $request)
+    {
+        $user = auth()->user();
+
+        // Hapus foto dari storage
+        if ($user->profile_photo) {
+            Storage::delete('public/profile_photos/' . $user->profile_photo);
+        }
+
+        // Update kolom profile_photo di database menjadi null
+        $user->update(['profile_photo' => null]);
+
+        return redirect()->back()->with('success', 'Foto profil berhasil dihapus.');
     }
 }

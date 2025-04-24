@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\Sekretaris\ProfilController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SekretarisController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FasilitasDesaController;
 use App\Http\Controllers\InformasiDesaController;
@@ -109,8 +110,8 @@ Route::get('/about_sekretaris', function () {
 Route::middleware(['auth'])->prefix('sekretaris')->group(function () {
     Route::get('/profil', [ProfilController::class, 'edit'])->name('sekretaris.profile.edit');
     Route::post('/profil', [ProfilController::class, 'update'])->name('sekretaris.profile.update');
+    Route::delete('/sekretaris/profile/delete-photo', [SekretarisController::class, 'deletePhoto'])->name('sekretaris.profile.deletePhoto');
 });
-
 
 //==========================================================
 // Route Fasilitas Sekretaris
