@@ -447,14 +447,14 @@
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <label for="judul_informasi" class="form-label">Judul Informasi</label>
-                                            <input type="text" class="form-control" id="judul_informasi" name="judul_informasi" value="{{ $item->judul_informasi }}" required>
+                                            <input type="text" class="form-control" id="judul_informasi" name="judul_informasi" value="{{ $item->judul_informasi }}" required><!-- required berguna untuk mewajibkan diisi  -->
                                         </div>
                                         <div class="mb-3">
                                             <label for="lampiran_informasi" class="form-label">Lampiran Informasi</label><br>
                                             @if ($item->lampiran_informasi)
                                                 <p class="text-muted">File sebelumnya: <a href="{{ asset('storage/lampiran_informasi/' . $item->lampiran_informasi) }}" target="_blank">{{ $item->lampiran_informasi }}</a></p>
                                             @endif
-                                            <input type="file" class="form-control" id="lampiran_informasi" name="lampiran_informasi" required>
+                                            <input type="file" class="form-control" id="lampiran_informasi" name="lampiran_informasi">
                                         </div>
                                         <div class="mb-3">
                                             <label for="deskripsi_informasi" class="form-label">Deskripsi Informasi</label><br>
