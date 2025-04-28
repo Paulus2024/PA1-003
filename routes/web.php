@@ -210,9 +210,15 @@ Route::get('/data_pengurus_desa_bumdes', function () {
     return view('dashboard/bumdes/page/Data_Pengurus_Desa/index_data_pengurus_desa');
 });
 
+//============================================================
 Route::get('/alat_pertanian_bumdes', function () {
-    return view('dashboard/bumdes/page/Alat_Pertanian/index_alat_pertanian');
+   return view('dashboard/bumdes/page/Alat_Pertanian/index_alat_pertanian');
 });
+//============================================================
+//CRUD DATA PENGURUS DESA
+//============================================================
+//Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index'])->name('alat_pertanian.index');
+//============================================================
 
 Route::get('/contact_bumdes', function () {
     return view('dashboard/bumdes/page/Contact/index_contact');

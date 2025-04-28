@@ -32,17 +32,65 @@
 
         <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
 
+          <!-- Open Content -->
           <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-remodeling">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/projects/remodeling-1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>App 1</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/projects/remodeling-1.jpg" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="/detail_galeri" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Portfolio Item -->
+            <article class="position-relative h-100">
+
+                <!-- Wrapper konten gambar -->
+                <div class="portfolio-content h-100">
+
+                <!-- 🔽 Gambar dengan efek hover -->
+                <div class="img-hover-zoom">
+                    <img src="assets/img/projects/remodeling-1.jpg" class="img-fluid" alt="Foto Galeri">
+                </div>
+
+                <!-- Informasi yang tampil saat hover (jika ada) -->
+                <div class="portfolio-info">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4>App 1</h4>
+                        <div class="d-flex gap-2">
+                            <a href="/edit" class="btn btn-outline-warning">Edit</a>
+                            <form action="/hapus" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                            </form>
+                        </div>
+                    </div>
+                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                    <a href="assets/img/projects/remodeling-1.jpg" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link">
+                    <i class="bi bi-zoom-in"></i>
+                    </a>
+                    <a href="/detail_galeri" title="More Details" class="details-link">
+                    <i class="bi bi-link-45deg"></i>
+                    </a>
+                </div>
+                </div>
+
+                <!-- 🔽 Keterangan Tambahan di Bawah Gambar -->
+                <div class="mt-3 p-3 bg-white shadow-sm rounded-0">
+                <h5 class="fw-bold text-warning">Judul Alat</h5>
+                <p class="text-secondary">Keterangan Sewa Alat</p>
+
+                {{--<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal<!{{ $item->id_fasilitas }}">--}}
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#SewaAlatModal">
+                        Sewa Alat
+                    </button>
+                </div>
+                {{-- <div class="d-flex gap-2">
+                    <a href="/edit" class="btn btn-outline-warning">Edit</a>
+                    <form action="/hapus" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                    </form>
+                </div> --}}
+                </div>
+
+            </article>
+          </div>
+          <!-- Close Content -->
 
           <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-construction">
             <div class="portfolio-content h-100">

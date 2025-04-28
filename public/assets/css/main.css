@@ -1361,6 +1361,7 @@
     transition: 0.3s;
   }
 
+/* ============================================= */
   .projects .portfolio-content .portfolio-info {
     opacity: 0;
     position: absolute;
@@ -1370,6 +1371,19 @@
     background: rgba(0, 0, 0, 0.6);
     padding: 15px;
   }
+
+  .img-hover-zoom {
+      overflow: hidden;
+  }
+
+  .img-hover-zoom img {
+      transition: transform 0.3s ease;
+  }
+
+  .img-hover-zoom img:hover {
+      transform: scale(1.05);
+  }
+/* ============================================= */
 
   .projects .portfolio-content .portfolio-info h4 {
     font-size: 14px;
