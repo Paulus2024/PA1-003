@@ -21,22 +21,17 @@
         @auth
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarSekretaris" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{{ Auth::user()->profile_photo ? asset('storage/profile_photos/' . Auth::user()->profile_photo) : asset('default-avatar.png') }}"
-                alt="Profile Photo" class="rounded-circle" width="30" height="30">
-
+                Sekretaris
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarSekretaris">
-                <li><a class="dropdown-item" href="{{ route('sekretaris.profile.edit') }}">Profil</a></li>
-                <li><hr class="dropdown-divider"></li>
                 <li>
-                    <form action="{{ route('logout') }}" method="POST">
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
                         @csrf
                         <button type="submit" class="dropdown-item text-danger">Logout</button>
                     </form>
                 </li>
             </ul>
         </li>
-
         @else
         <li><a href="/login" class="{{ Request::is('login') ? 'active' : '' }}">Login</a></li>
         @endauth

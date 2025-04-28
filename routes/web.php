@@ -107,12 +107,6 @@ Route::get('/about_sekretaris', function () {
     return view('dashboard/sekretaris/page/About/index_about');
 });
 
-Route::middleware(['auth'])->prefix('sekretaris')->group(function () {
-    Route::get('/profil', [ProfilController::class, 'edit'])->name('sekretaris.profile.edit');
-    Route::post('/profil', [ProfilController::class, 'update'])->name('sekretaris.profile.update');
-    Route::delete('/sekretaris/profile/delete-photo', [SekretarisController::class, 'deletePhoto'])->name('sekretaris.profile.deletePhoto');
-});
-
 //==========================================================
 // Route Fasilitas Sekretaris
 //==========================================================
