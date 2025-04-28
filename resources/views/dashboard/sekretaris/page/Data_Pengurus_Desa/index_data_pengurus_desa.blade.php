@@ -10,7 +10,7 @@
         <h1>About</h1>
         <nav class="breadcrumbs">
             <ol>
-                <li><a href="/">Home</a></li>
+                <li><a href="{{ url('/') }}">Home</a></li>
                 <li class="current">Data Pengurus Desa</li>
             </ol>
         </nav>
@@ -26,32 +26,22 @@
     </div>
 
     <div class="container">
-
-        <!-- Tombol Tambah -->
-        <div class="col-12 mb-4">
-            <div class="d-grid gap-2">
-                <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#TambahGambar">Tambah Data Pengurus</button>
-            </div>
-        </div>
-
-        <!-- Row untuk semua pengurus -->
         <div class="row gy-5">
             @foreach ($data_pengurus_desas as $item)
             <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="100">
                 <div class="member-img">
-                    <img src="{{ asset('storage/' . $item->gambar_data_pengurus_desa) }}" class="img-fluid" alt="">
+                    <img src="{{ asset('storage/'. $item->gambar_data_pengurus_desa) }}" class="img-fluid" alt="">
                 </div>
                 <div class="member-info text-center">
                     <h4>{{ $item->nama_data_pengurus_desa }}</h4>
                     <span>{{ $item->jabatan_data_pengurus_desa }}</span>
                     <p>{{ $item->deskripsi_data_pengurus_desa }}</p>
                 </div>
-                <div class="d-flex gap-2 justify-content-center">
+                <div class="d-flex gap-2">
                     <!-- Tombol Edit -->
                     <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_data_pengurus_desa }}">
                         Edit
                     </button>
-
                     <!-- Form Hapus -->
                     <form action="{{ route('sekretaris.fasilitas.destroy', $item->id_data_pengurus_desa) }}" method="POST">
                         @csrf
@@ -73,19 +63,19 @@
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="nama_data_pengurus_desa" class="form-label">Nama Pengurus</label>
+                                <label class="form-label">Nama</label>
                                 <input type="text" class="form-control" name="nama_data_pengurus_desa" value="{{ $item->nama_data_pengurus_desa }}" required>
                             </div>
                             <div class="mb-3">
-                                <label for="jabatan_data_pengurus_desa" class="form-label">Jabatan Pengurus</label>
+                                <label class="form-label">Jabatan</label>
                                 <input type="text" class="form-control" name="jabatan_data_pengurus_desa" value="{{ $item->jabatan_data_pengurus_desa }}" required>
                             </div>
                             <div class="mb-3">
-                                <label for="deskripsi_data_pengurus_desa" class="form-label">Deskripsi Pengurus</label>
-                                <textarea class="form-control" name="deskripsi_data_pengurus_desa" required>{{ $item->deskripsi_data_pengurus_desa }}</textarea>
+                                <label class="form-label">Deskripsi</label>
+                                <input type="text" class="form-control" name="deskripsi_data_pengurus_desa" value="{{ $item->deskripsi_data_pengurus_desa }}" required>
                             </div>
                             <div class="mb-3">
-                                <label for="gambar_data_pengurus_desa" class="form-label">Gambar</label>
+                                <label class="form-label">Gambar</label>
                                 <input type="file" class="form-control" name="gambar_data_pengurus_desa">
                             </div>
                         </div>
@@ -96,34 +86,40 @@
                 </div>
             </div>
             @endforeach
-        </div> <!-- end row -->
+        </div>
 
-    </div> <!-- end container -->
+        <!-- Tombol Tambah -->
+        <div class="col-12 mt-4">
+            <div class="d-grid gap-2">
+                <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#TambahGambar">Tambah Data Pengurus</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal Tambah -->
-    <div class="modal fade" id="TambahGambar" tabindex="-1" aria-labelledby="tambahgambar" aria-hidden="true">
+    <div class="modal fade" id="TambahGambar" tabindex="-1" aria-labelledby="modalTitleTambah" aria-hidden="true">
         <div class="modal-dialog">
             <form action="{{ route('sekretaris.fasilitas.store') }}" method="POST" enctype="multipart/form-data" class="modal-content">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="tambahgambar">Tambah Data Pengurus Baru</h5>
+                    <h5 class="modal-title" id="modalTitleTambah">Tambah Data Pengurus Baru</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="nama_data_pengurus_desa" class="form-label">Nama Pengurus</label>
+                        <label class="form-label">Nama</label>
                         <input type="text" class="form-control" name="nama_data_pengurus_desa" required>
                     </div>
                     <div class="mb-3">
-                        <label for="jabatan_data_pengurus_desa" class="form-label">Jabatan</label>
+                        <label class="form-label">Jabatan</label>
                         <input type="text" class="form-control" name="jabatan_data_pengurus_desa" required>
                     </div>
                     <div class="mb-3">
-                        <label for="deskripsi_data_pengurus_desa" class="form-label">Deskripsi</label>
+                        <label class="form-label">Deskripsi</label>
                         <input type="text" class="form-control" name="deskripsi_data_pengurus_desa" required>
                     </div>
                     <div class="mb-3">
-                        <label for="gambar_data_pengurus_desa" class="form-label">Upload Gambar</label>
+                        <label class="form-label">Upload Gambar</label>
                         <input type="file" class="form-control" name="gambar_data_pengurus_desa" required>
                     </div>
                 </div>
@@ -133,10 +129,12 @@
             </form>
         </div>
     </div>
-
 </section>
 
 <footer id="footer" class="footer dark-background">
     @include('pengguna.component.footer')
 </footer>
+
+<!-- Tambahkan Script Bootstrap jika belum -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 @endsection

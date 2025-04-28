@@ -119,7 +119,7 @@ Route::get('/fasilitas_sekretaris/create', [FasilitasDesaController::class, 'cre
 
 Route::post('/fasilitas_sekretaris/store', [FasilitasDesaController::class, 'store'])->name('sekretaris.fasilitas.store');
 
-Route::get('/fasilitas/{id_fasilitas/edit', [FasilitasDesaController::class, 'edit'])->name('sekretaris.fasilitas.edit');
+Route::get('/fasilitas/{id_fasilitas}/edit', [FasilitasDesaController::class, 'edit'])->name('sekretaris.fasilitas.edit');
 
 Route::put('/fasilitas_sekretaris/{id_fasilitas}', [FasilitasDesaController::class, 'update'])->name('sekretaris.fasilitas.update');
 
