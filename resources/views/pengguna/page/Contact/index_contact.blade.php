@@ -10,7 +10,7 @@
       <h1>Contact</h1>
       <nav class="breadcrumbs">
         <ol>
-          <li><a href="index.html">Home</a></li>
+          <li><a href="/">Home</a></li>
           <li class="current">Contact</li>
         </ol>
       </nav>
