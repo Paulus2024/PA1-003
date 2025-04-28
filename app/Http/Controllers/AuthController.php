@@ -110,7 +110,7 @@ class AuthController extends Controller
         } else {
             return redirect('/dashboard');
         }
-    }   
+    }
 
 
     public function logout()
