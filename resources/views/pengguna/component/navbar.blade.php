@@ -18,23 +18,22 @@
         <li><a href="/contact">Contact</a></li>
         @auth
         <li class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
-                <img src="{{ asset('storage/profile_photos/' . Auth::user()->profile_photo) }}"
-                     alt="Profile" class="rounded-circle" width="32" height="32" style="object-fit: cover;">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{ asset(Auth::user()->photo ? 'storage/profile_photos/' . Auth::user()->photo : 'default.png') }}" alt="Profile" class="rounded-circle" width="30" height="30">
             </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="{{ route('profile.show') }}">Profil</a></li>
-                <li><a class="dropdown-item" href="{{ route('logout') }}"
-                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{{ route('profile') }}">Profil</a></li>
+                <li>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button class="dropdown-item" type="submit">Logout</button>
+                    </form>
+                </li>
             </ul>
         </li>
         @else
         <li><a href="{{ route('login') }}">Login</a></li>
         @endauth
-    </ul>
     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
     </nav>
 
