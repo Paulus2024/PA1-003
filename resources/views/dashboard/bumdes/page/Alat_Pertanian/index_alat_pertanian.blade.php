@@ -1,6 +1,6 @@
 @extends('dashboard.bumdes.component.main')
 
-@section(section:'bumdes_content')
+@section('bumdes_content')
 <header id="header" class="header d-flex align-items-center fixed-top">
     @include('dashboard.bumdes.component.navbar')
 </header>
@@ -18,6 +18,7 @@
   </div><!-- End Page Title -->
 
   <!-- Projects Section -->
+<main id="main">
   <section id="projects" class="projects section">
 
     <div class="container">
@@ -26,12 +27,19 @@
 
         <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
           <li data-filter="*" class="filter-active">All</li>
-          <li data-filter=".filter-remodeling">Alat Ringan</li>
-          <li data-filter=".filter-construction">Alat Berat</li>
+          <li data-filter=".filter-remodeling">Olah Lahan</li>
+          <li data-filter=".filter-construction">Pascapanen</li>
         </ul><!-- End Portfolio Filters -->
 
         <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
 
+  @if($alat_pertanian->isEmpty())
+    <div class="col-12">
+      <p class="text-danger text-center">Tidak ada data alat pertanian.</p>
+    </div>
+  @endif
+
+          @foreach ($alat_pertanian as $item)
           <!-- Open Content -->
           <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-remodeling">
             <article class="position-relative h-100">
@@ -41,24 +49,28 @@
 
                 <!-- 🔽 Gambar dengan efek hover -->
                 <div class="img-hover-zoom">
-                    <img src="assets/img/projects/remodeling-1.jpg" class="img-fluid" alt="Foto Galeri">
+                    <!-- <img src="assets/img/projects/remodeling-1.jpg" class="img-fluid" alt="Foto Galeri">-->
+                    <img src="{{ asset('storage/' . $item->gambar_alat) }}" class="img-fluid" alt="Foto {{ $item->nama_alat_pertanian }}">
                 </div>
 
                 <!-- Informasi yang tampil saat hover (jika ada) -->
                 <div class="portfolio-info">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4>Jenis Alat</h4><!-- jenis alat pertanian -->
+                        <h4> {{$item->jenis_alat_pertanian}} </h4><!-- jenis alat pertanian -->
                         <div class="d-flex gap-2">
-                            <a href="/edit" class="btn btn-outline-warning">Edit</a>
-                            <form action="/hapus" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
+                            <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_alat_pertanian}}">
+                                Edit
+                            </button>
+
+                            <form action="{{ route('bumdes.alat_pertanian.destroy', $item->id_alat_pertanian) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-outline-danger">Hapus</button>
                             </form>
                         </div>
                     </div>
-                    <p>Catatan Khusus</p><!-- Catatan Khusus -->
-                    <a href="assets/img/projects/remodeling-1.jpg" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link">
+                    <p>{{ $item->catatan }}</p><!-- Catatan Khusus -->
+                    <a href="{{ asset('storage/' . $item->gambar_alat) }}" title="{{ $item->jenis_alat_pertanian }}" data-gallery="portfolio-gallery-app" class="glightbox preview-link">
                     <i class="bi bi-zoom-in"></i>
                     </a>
                     <a href="/detail_galeri" title="More Details" class="details-link">
@@ -69,13 +81,13 @@
 
                 <!-- 🔽 Keterangan Tambahan di Bawah Gambar -->
                 <div class="mt-3 p-3 bg-white shadow-sm rounded-0">
-                <h5 class="fw-bold text-warning">Judul Alat</h5><!-- Nama Alat -->
-                <p class="text-secondary">Keterangan Sewa Alat</p><!-- Harga Sewa -->
-                <p class="text-secondary">Tersedi/tidak. Jumlah Alat Jika Tersedia</p>
+                <h5 class="fw-bold text-warning"> {{ $item->nama_alat_pertanian }} </h5><!-- Nama Alat -->
+                <p class="text-secondary"> {{ $item->harga_sewa }} </p><!-- Harga Sewa -->
+                <p class="text-secondary">{{ $item->status_alat }}|{{ $item->jumlah_alat }} </p><!-- Status -->
 
                 {{--<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal<!{{ $item->id_fasilitas }}">--}}
                 <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#SewaAlatModal">
+                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#SewaAlatModal{{ $item->id_alat_pertanian}}">
                         Sewa Alat
                     </button>
                 </div>
@@ -92,142 +104,12 @@
             </article>
           </div>
           <!-- Close Content -->
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-construction">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/projects/construction-1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Product 1</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/projects/construction-1.jpg" title="Product 1" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Portfolio Item -->
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-repairs">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/projects/repairs-1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Branding 1</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/projects/repairs-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Portfolio Item -->
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-design">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/projects/design-1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Books 1</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/projects/design-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Portfolio Item -->
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-remodeling">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/projects/remodeling-2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>App 2</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/projects/remodeling-2.jpg" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Portfolio Item -->
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-construction">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/projects/construction-2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Product 2</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/projects/construction-2.jpg" title="Product 2" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Portfolio Item -->
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-repairs">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/projects/repairs-2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Branding 2</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/projects/repairs-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Portfolio Item -->
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-design">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/projects/design-2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Books 2</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/projects/design-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Portfolio Item -->
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-remodeling">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/projects/remodeling-3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>App 3</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/projects/remodeling-3.jpg" title="App 3" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Portfolio Item -->
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-construction">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/projects/construction-3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Product 3</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/projects/construction-3.jpg" title="Product 3" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Portfolio Item -->
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-repairs">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/projects/repairs-3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Branding 3</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/projects/repairs-3.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Portfolio Item -->
-
-          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-design">
-            <div class="portfolio-content h-100">
-              <img src="assets/img/projects/design-3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Books 3</h4>
-                <p>Lorem ipsum, dolor sit amet consectetur</p>
-                <a href="assets/img/projects/design-3.jpg" title="Branding 3" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Portfolio Item -->
+          @endforeach
 
         </div><!-- End Portfolio Container -->
 
       </div>
+
 
     </div>
 

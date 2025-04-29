@@ -12,6 +12,6 @@ class AlatPertanianController extends Controller
     {
         // Mengambil semua data dari model AlatPertanian
         $alat_pertanian = AlatPertanian::all();
-        return view('alat_pertanian.index', compact('alat_pertanian'));
+        return view('dashboard.bumdes.page.Alat_Pertanian.index_alat_pertanian', compact('alat_pertanian'));
     }
 }
