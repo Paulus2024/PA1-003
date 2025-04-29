@@ -7,10 +7,10 @@
 
 <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
     <div class="container position-relative">
-        <h1>About</h1>
+        <h1>Data Pengurus Desa</h1>
         <nav class="breadcrumbs">
             <ol>
-                <li><a href="{{ url('/') }}">Home</a></li>
+                <li><a href="/index_sekretaris">Home</a></li>
                 <li class="current">Data Pengurus Desa</li>
             </ol>
         </nav>
