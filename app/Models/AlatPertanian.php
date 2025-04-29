@@ -14,6 +14,16 @@ class AlatPertanian extends Model
 
     protected $fillable = [
         'nama_alat_pertanian',
-        ''
-    ]
+        'jenis_alat',
+        'harga_sewa',
+        'status_alat',
+        'kumlah_alat',
+        'gambar_alat',
+        'catatan'
+    ];
+
+    protected $nullable = [
+        'create_at',
+        'update_at'
+    ];
 }
