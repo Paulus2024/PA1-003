@@ -99,7 +99,7 @@
     <!-- Modal Tambah -->
     <div class="modal fade" id="TambahGambar" tabindex="-1" aria-labelledby="modalTitleTambah" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="{{ route('sekretaris.fasilitas.store') }}" method="POST" enctype="multipart/form-data" class="modal-content">
+            <form action="{{ route('data_pengurus_desa.store') }}" method="POST" enctype="multipart/form-data" class="modal-content">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTitleTambah">Tambah Data Pengurus Baru</h5>

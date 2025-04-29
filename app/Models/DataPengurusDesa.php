@@ -12,12 +12,11 @@ class DataPengurusDesa extends Model
     protected $table = 'data_pengurus_desas';
     protected $primaryKey = 'id_data_pengurus_desa';
 
-
     protected $fillable = [
         'nama_data_pengurus_desa',
         'jabatan_data_pengurus_desa',
         'deskripsi_data_pengurus_desa',
-        'gambar_data_pengurus_desa'
+        'gambar_data_pengurus_desa',
     ];
 
     protected $nullable = [
@@ -25,3 +24,5 @@ class DataPengurusDesa extends Model
         'update_at'
     ];
 }
+
+

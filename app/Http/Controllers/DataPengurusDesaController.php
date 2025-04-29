@@ -29,25 +29,28 @@ class DataPengurusDesaController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'nama_data_pengurus_desa' => 'required|string|max:255',
-            'jabatan_data_pengurus_desa' => 'required|string|max:255',
-            'deskripsi_data_pengurus_desa' => 'required|string|max:255',
-            'gambar_data_pengurus_desa' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 'nullable'
-        ]);
+{
+    $request->validate([
+        'nama_data_pengurus_desa' => 'required|string|max:255',
+        'jabatan_data_pengurus_desa' => 'required|string|max:255',
+        'deskripsi_data_pengurus_desa' => 'required|string',
+        'gambar_data_pengurus_desa' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
 
-        $path = $request->file('gambar_data_pengurus_desa')->store('data_pengurus_desa', 'public');
-
-        DataPengurusDesa::create([
-            'nama_data_pengurus_desa' => $validated['nama_data_pengurus_desa'],
-            'jabatan_data_pengurus_desa' => $validated['jabatan_data_pengurus_desa'],
-            'deskripsi_data_pengurus_desa' => $validated['deskripsi_data_pengurus_desa'],
-            'gambar_data_pengurus_desa' => $path
-        ]);
-
-        return redirect()->route('data_pengurus_desa_sekretaris')->with('success', 'Data baru berhasil ditambahkan!');
+    $imagePath = null;
+    if ($request->hasFile('gambar_data_pengurus_desa')) {
+        $imagePath = $request->file('gambar_data_pengurus_desa')->store('pengurus_images', 'public');
     }
+
+    DataPengurusDesa::create([
+        'nama_data_pengurus_desa' => $request->nama_data_pengurus_desa,
+        'jabatan_data_pengurus_desa' => $request->jabatan_data_pengurus_desa,
+        'deskripsi_data_pengurus_desa' => $request->deskripsi_data_pengurus_desa,
+        'gambar_data_pengurus_desa' => $imagePath,
+    ]);
+
+    return redirect()->route('data_pengurus_desa.index')->with('success', 'Data pengurus berhasil ditambahkan.');
+}
 
     /**
      * Display the specified resource.
