@@ -30,7 +30,7 @@
             @foreach ($data_pengurus_desas as $item)
             <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="100">
                 <div class="member-img">
-                    <img src="{{ asset('storage/'. $item->gambar_data_pengurus_desa) }}" class="img-fluid" alt="">
+                    <img src="{{asset('storage/' . $item->gambar_data_pengurus_desa)}}" class="img-fluid" alt="">
                 </div>
                 <div class="member-info text-center">
                     <h4>{{ $item->nama_data_pengurus_desa }}</h4>

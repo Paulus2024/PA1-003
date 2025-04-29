@@ -38,11 +38,6 @@
               <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea</span></li>
             </ul>
             <p>Vitae autem velit excepturi fugit. Animi ad non. Eligendi et non nesciunt suscipit repellendus porro in quo eveniet. Molestias in maxime doloremque.</p>
-
-            <div class="watch-video d-flex align-items-center position-relative">
-              <i class="bi bi-play-circle"></i>
-              <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox stretched-link">Watch Video</a>
-            </div>
           </div>
         </div>
 
@@ -127,7 +122,7 @@
           <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="300">
             <i class="bi bi-easel flex-shrink-0"></i>
             <div>
-              <h4><a href="" class="stretched-link">Lorem Ipsum</a></h4>
+              <h4>Lorem Ipsum</h4>
               <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
             </div>
           </div><!-- End Icon Box -->
@@ -135,7 +130,7 @@
           <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="400">
             <i class="bi bi-patch-check flex-shrink-0"></i>
             <div>
-              <h4><a href="" class="stretched-link">Nemo Enim</a></h4>
+              <h4>Nemo Enim</h4>
               <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
             </div>
           </div><!-- End Icon Box -->
@@ -143,7 +138,7 @@
           <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="500">
             <i class="bi bi-brightness-high flex-shrink-0"></i>
             <div>
-              <h4><a href="" class="stretched-link">Dine Pad</a></h4>
+              <h4>Dine Pad</h4>
               <p>Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit. Sunt aut deserunt minus aut eligendi omnis</p>
             </div>
           </div><!-- End Icon Box -->
@@ -151,7 +146,7 @@
           <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="600">
             <i class="bi bi-brightness-high flex-shrink-0"></i>
             <div>
-              <h4><a href="" class="stretched-link">Tride clov</a></h4>
+              <h4>Tride clov</h4>
               <p>Est voluptatem labore deleniti quis a delectus et. Saepe dolorem libero sit non aspernatur odit amet. Et eligendi</p>
             </div>
           </div><!-- End Icon Box -->
