@@ -11,6 +11,7 @@ use App\Http\Controllers\FasilitasDesaController;
 use App\Http\Controllers\InformasiDesaController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\DataPengurusDesaController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +100,14 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.photo');
+    Route::post('/profile/delete-photo', [ProfileController::class, 'deletePhoto'])->name('profile.delete.photo');
+    Route::post('/profile/delete-account', [ProfileController::class, 'deleteAccount'])->name('profile.delete.account');
+});
 
 //=========================================================
 // Route Admin Sekretaris
