@@ -47,7 +47,7 @@
                 <!-- Informasi yang tampil saat hover (jika ada) -->
                 <div class="portfolio-info">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4>App 1</h4><!-- jenis alat pertanian -->
+                        <h4>Jenis Alat</h4><!-- jenis alat pertanian -->
                         <div class="d-flex gap-2">
                             <a href="/edit" class="btn btn-outline-warning">Edit</a>
                             <form action="/hapus" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
@@ -57,7 +57,7 @@
                             </form>
                         </div>
                     </div>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p><!-- Catatan Khusus -->
+                    <p>Catatan Khusus</p><!-- Catatan Khusus -->
                     <a href="assets/img/projects/remodeling-1.jpg" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link">
                     <i class="bi bi-zoom-in"></i>
                     </a>
