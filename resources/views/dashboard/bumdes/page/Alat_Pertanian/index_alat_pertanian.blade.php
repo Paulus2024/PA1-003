@@ -47,7 +47,7 @@
                 <!-- Informasi yang tampil saat hover (jika ada) -->
                 <div class="portfolio-info">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4>App 1</h4>
+                        <h4>App 1</h4><!-- jenis alat pertanian -->
                         <div class="d-flex gap-2">
                             <a href="/edit" class="btn btn-outline-warning">Edit</a>
                             <form action="/hapus" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
@@ -57,7 +57,7 @@
                             </form>
                         </div>
                     </div>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
+                    <p>Lorem ipsum, dolor sit amet consectetur</p><!-- Catatan Khusus -->
                     <a href="assets/img/projects/remodeling-1.jpg" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link">
                     <i class="bi bi-zoom-in"></i>
                     </a>
@@ -69,8 +69,9 @@
 
                 <!-- 🔽 Keterangan Tambahan di Bawah Gambar -->
                 <div class="mt-3 p-3 bg-white shadow-sm rounded-0">
-                <h5 class="fw-bold text-warning">Judul Alat</h5>
-                <p class="text-secondary">Keterangan Sewa Alat</p>
+                <h5 class="fw-bold text-warning">Judul Alat</h5><!-- Nama Alat -->
+                <p class="text-secondary">Keterangan Sewa Alat</p><!-- Harga Sewa -->
+                <p class="text-secondary">Tersedi/tidak. Jumlah Alat Jika Tersedia</p>
 
                 {{--<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal<!{{ $item->id_fasilitas }}">--}}
                 <div class="d-flex justify-content-end">
