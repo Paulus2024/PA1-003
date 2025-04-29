@@ -11,12 +11,9 @@ use App\Http\Controllers\FasilitasDesaController;
 use App\Http\Controllers\InformasiDesaController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\DataPengurusDesaController;
-<<<<<<< HEAD
-use App\Http\Controllers\AlatPertanianController;
-=======
-use App\Http\Controllers\ProfileController;
 
->>>>>>> 2d68c9605e4b867ecb9318c16cdc064b9e61f5a2
+use App\Http\Controllers\AlatPertanianController;
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
