@@ -17,7 +17,7 @@ class AlatPertanian extends Model
         'jenis_alat',
         'harga_sewa',
         'status_alat',
-        'kumlah_alat',
+        'jumlah_alat',
         'gambar_alat',
         'catatan'
     ];
