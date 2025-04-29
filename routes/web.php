@@ -11,8 +11,6 @@ use App\Http\Controllers\FasilitasDesaController;
 use App\Http\Controllers\InformasiDesaController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\DataPengurusDesaController;
-
-use App\Http\Controllers\AlatPertanianController;
 use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
@@ -180,17 +178,6 @@ Route::get('/data_pengurus_desa_sekretaris/{pengurus}/edit', [DataPengurusDesaCo
 Route::put('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'update'])->name('data_pengurus_desa.update');
 Route::patch('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'update']);
 Route::delete('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'destroy'])->name('data_pengurus_desa.destroy');
-
-
-
-Route::get('/alat_pertanian_sekretaris', [AlatPertanianController::class, 'index'])->name('alat-pertanian.index');
-Route::get('/alat_pertanian_sekretaris/create', [AlatPertanianController::class, 'create'])->name('alat-pertanian.create');
-Route::post('/alat_pertanian_sekretaris', [AlatPertanianController::class, 'store'])->name('alat-pertanian.store');
-Route::get('/alat_pertanian_sekretaris/{alatPertanian:slug}', [AlatPertanianController::class, 'show'])->name('alat-pertanian.show');
-Route::get('/alat_pertanian_sekretaris/{alatPertanian:slug}/edit', [AlatPertanianController::class, 'edit'])->name('alat-pertanian.edit');
-Route::put('/alat_pertanian_sekretaris/{alatPertanian:slug}', [AlatPertanianController::class, 'update'])->name('alat-pertanian.update');
-Route::delete('/alat_pertanian_sekretaris/{alatPertanian:slug}', [AlatPertanianController::class, 'destroy'])->name('alat-pertanian.destroy');
-
 
 Route::get('/alat_pertanian_sekretaris', function () {
     return view('dashboard/sekretaris/page/Alat_Pertanian/index_alat_pertanian');
