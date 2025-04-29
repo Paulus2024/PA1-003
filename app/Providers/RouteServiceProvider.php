@@ -27,10 +27,6 @@ class RouteServiceProvider extends ServiceProvider
     public function boot(): void
     {
         parent::boot();
-
-        Route::bind('/alat_pertanian_sekretaris', function ($value) {
-            return AlatPertanian::where('slug', $value)->firstOrFail();
-        });
         $this->configureRateLimiting();
 
         $this->routes(function () {

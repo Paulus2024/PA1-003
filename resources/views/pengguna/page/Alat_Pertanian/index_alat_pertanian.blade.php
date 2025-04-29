@@ -184,7 +184,6 @@
 
   </section><!-- /Projects Section -->
 
-</main>
 
   <footer id="footer" class="footer dark-background">
     @include('pengguna.component.footer')
