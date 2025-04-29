@@ -215,8 +215,18 @@ Route::get('/data_pengurus_desa_bumdes', function () {
 // Route::get('/alat_pertanian_bumdes', function () {
 //    return view('dashboard/bumdes/page/Alat_Pertanian/index_alat_pertanian');
 // });
-
+//============================================================
+// CRUD PEMINJAMAN ALAT PERTANIAN
+//============================================================
 Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index'])->name('alat_pertanian.index'); //untuk menampilkan data alat pertanian
+
+Route::post('/alat_pertanain_bumdes/store', [FasilitasDesaController::class, 'store'])->name('bumdes.alat_pertanian.store');
+
+//============================================================
+
+
+
+
 
 //============================================================
 //CRUD DATA PENGURUS DESA
