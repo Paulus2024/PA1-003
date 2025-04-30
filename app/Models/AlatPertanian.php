@@ -14,10 +14,11 @@ class AlatPertanian extends Model
 
     protected $fillable = [
         'nama_alat_pertanian',
-        'jenis_alat',
+        'jenis_alat_pertanian',
         'harga_sewa',
         'status_alat',
         'jumlah_alat',
+        'jumlah_tersedia',
         'gambar_alat',
         'catatan'
     ];

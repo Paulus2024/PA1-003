@@ -17,17 +17,21 @@ class AlatPertanianController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $test = $request->validate([
             'nama_alat_pertanian'       => 'required|string|max:255',
             'jenis_alat_pertanian'      => 'required|string',
             'harga_sewa'                => 'required|integer|min:0',
-            'status_alat'               => 'required|string|max:255',
             'jumlah_alat'               => 'required|string',
             'gambar_alat'               => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'catatan'                   => 'required|string|max:255',
         ]);
 
+        //upload gambar
         $path = $request->file('gambar_alat')->store('alat_pertanian', 'public');
+
+        //perkiraan untuk menentukan status alat tersedia atau tidak
+        $tersedia   = $test['jumlah_alat'];
+        $status     = $tersedia > 0 ? 'tersedia' : 'tidak tersedia';
 
         AlatPertanian::create([
             // 'nama_fasilitas'        => $validated['nama_fasilitas'],
@@ -35,15 +39,16 @@ class AlatPertanianController extends Controller
             // 'lokasi_fasilitas'      => $validated['lokasi_fasilitas'],    // Sesuaikan nama field database (misalnya 'lokasi')
             // 'gambar_fasilitas'      => $path
 
-            'nama_alat_pertanian'       => $validated['nama_alat_pertanian'],
-            'jenis_alat_pertanian'      => $validated['jenis_alat_pertanian'],
-            'harga_sewa'                => $validated['harga_sewa'],
+            'nama_alat_pertanian'       => $test['nama_alat_pertanian'],
+            'jenis_alat_pertanian'      => $test['jenis_alat_pertanian'],
+            'harga_sewa'                => $test['harga_sewa'],
+            'jumlah_alat'               => $test['jumlah_alat'],
+            'jumlah_tersedia'           => $tersedia,
             'status_alat'               => $status,
-            'jumlah_alat'               => $jumlah,
             'gambar_alat'               => $path,
-            'catatan'                   => $validated['catatan']
+            'catatan'                   => $test['catatan']
         ]);
-
-        return redirect()->route('sekretaris.alat_pertanian.index')->with('success', 'Data pertanian berhasil ditambahkan!');
+                                    //lihat di Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index'])->name('alat_pertanian.index'); untuk bagian route nya
+        return redirect()->route('alat_pertanian.index')->with('success', 'Data pertanian berhasil ditambahkan!');
     }
 }

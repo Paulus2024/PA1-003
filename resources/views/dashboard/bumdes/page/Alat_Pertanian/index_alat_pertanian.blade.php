@@ -161,7 +161,7 @@
 
                                 <div class="mb-3">
                                     <label for="jenis_alat_pertanian" class="form-lable"> <b> Jenis Alat Pertanian </b> </label><br>
-                                    <input type="radio" id="jenis_alat_pertanian" name="jenis_alat_pertanian" value="Olah Lahan" required>
+                                    <input type="radio" id="jenis_alat_pertanian" name="jenis_alat_pertanian" value="Olah_Lahan" required>
                                     <label for="jenis_alat_pertanian">Olah Lahan</label><br>
                                     <input type="radio" id="jenis_alat_pertanian" name="jenis_alat_pertanian" value="Pascapanen" required>
                                     <label for="jenis_alat_pertanian">Pascapanen</label><br>
