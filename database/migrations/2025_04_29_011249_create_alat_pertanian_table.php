@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama_alat_pertanian');
             $table->enum('jenis_alat_pertanian', ['AlatBerat', 'AlatRingan']);
             $table->integer('harga_sewa');
-            $table->enum('status_alat', ['tersedia', 'tidak_tersedia']);
+            $table->enum('status_alat', ['tersedia', 'tidak_tersedia'])->default('tersedia');
             $table->string('jumlah_alat');
             $table->string('gambar_alat');
             $table->text('catatan')->nullable();

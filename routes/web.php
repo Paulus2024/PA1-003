@@ -11,6 +11,7 @@ use App\Http\Controllers\InformasiDesaController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\DataPengurusDesaController;
 use App\Http\Controllers\AlatPertanianController;
+use App\Models\AlatPertanian;
 
 /*
 |--------------------------------------------------------------------------
@@ -211,16 +212,17 @@ Route::get('/data_pengurus_desa_bumdes', function () {
     return view('dashboard/bumdes/page/Data_Pengurus_Desa/index_data_pengurus_desa');
 });
 
+
+//============================================================
+// CRUD PEMINJAMAN ALAT PERTANIAN
 //============================================================
 // Route::get('/alat_pertanian_bumdes', function () {
 //    return view('dashboard/bumdes/page/Alat_Pertanian/index_alat_pertanian');
 // });
-//============================================================
-// CRUD PEMINJAMAN ALAT PERTANIAN
-//============================================================
+//=============================================================
 Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index'])->name('alat_pertanian.index'); //untuk menampilkan data alat pertanian
 
-Route::post('/alat_pertanain_bumdes/store', [FasilitasDesaController::class, 'store'])->name('bumdes.alat_pertanian.store');
+Route::post('/alat_pertanian_bumdes/store', [AlatPertanianController::class, 'store'])->name('bumdes.alat_pertanian.store');
 
 //============================================================
 

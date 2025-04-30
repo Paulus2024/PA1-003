@@ -38,8 +38,8 @@ class AlatPertanianController extends Controller
             'nama_alat_pertanian'       => $validated['nama_alat_pertanian'],
             'jenis_alat_pertanian'      => $validated['jenis_alat_pertanian'],
             'harga_sewa'                => $validated['harga_sewa'],
-            'status_alat'               => $validated['status_alat'],
-            'jumlah_alat'               => $validated['jumlah_alat'],
+            'status_alat'               => $status,
+            'jumlah_alat'               => $jumlah,
             'gambar_alat'               => $path,
             'catatan'                   => $validated['catatan']
         ]);

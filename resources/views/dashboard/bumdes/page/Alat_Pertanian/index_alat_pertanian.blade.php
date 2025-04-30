@@ -153,31 +153,51 @@
                             <form action="{{ route('bumdes.alat_pertanian.store') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
-                                {{-- <div class="mb-3">
-                                    <label for="nama_fasilitas" class="form-label">Nama Fasilitas</label>
-                                    <input type="text" class="form-control" id="nama_fasilitas" name="nama_fasilitas"
-                                        required>
-                                </div>
                                 <div class="mb-3">
-                                    <label for="deskripsi_fasilitas" class="form-label">Deskripsi</label>
-                                    <textarea class="form-control" id="deskripsi_fasilitas" name="deskripsi_fasilitas" rows="3" required></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="lokasi_fasilitas" class="form-label">Lokasi</label>
-                                    <input type="text" class="form-control" id="lokasi_fasilitas"
-                                        name="lokasi_fasilitas" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="gambar_fasilitas" class="form-label">Upload Gambar</label>
-                                    <input type="file" class="form-control" id="gambar_fasilitas"
-                                        name="gambar_fasilitas" required>
-                                </div> --}}
-
-                                <div class="mb-3">
-                                    <label for="nama_alat_pertanian" class="form-lable">Nama Alat Pertanian</label>
+                                    <label for="nama_alat_pertanian" class="form-lable"> <b> Nama Alat Pertanian </b> </label>
                                     <input type="text" class="form-control" name="nama_alat_pertanian" id="nama_alat_pertanian"
                                         placeholder="Nama Alat Pertanian" required>
                                 </div>
+
+                                <div class="mb-3">
+                                    <label for="jenis_alat_pertanian" class="form-lable"> <b> Jenis Alat Pertanian </b> </label><br>
+                                    <input type="radio" id="jenis_alat_pertanian" name="jenis_alat_pertanian" value="Olah Lahan" required>
+                                    <label for="jenis_alat_pertanian">Olah Lahan</label><br>
+                                    <input type="radio" id="jenis_alat_pertanian" name="jenis_alat_pertanian" value="Pascapanen" required>
+                                    <label for="jenis_alat_pertanian">Pascapanen</label><br>
+                                    <input type="radio" id="jenis_alat_pertanian" name="jenis_alat_pertanian" value="Lainnya" required>
+                                    <label for="jenis_alat_pertanian">Lainnya</label>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="harga_sewa" class="form-lable"> <b> Harga Sewa </b> </label>
+                                    <input type="text" class="form-control" name="harga_sewa" id="harga_sewa"
+                                        placeholder="Harga Sewa" required>
+                                </div>
+
+                                {{-- <div class="mb-3">
+                                    <label for="status_alat" class="form-lable">Status Alat</label>
+                                    <input type="text" class="form-control" name="status_alat" id="status_alat"
+                                        placeholder="Status Alat" required>
+                                </div> --}}
+
+                                <div class="mb-3">
+                                    <label for="jumlah_alat" class="form-lable"> <b> Jumlah Alat </b> </label>
+                                    <input type="text" class="form-control" name="jumlah_alat" id="jumlah_alat"
+                                        placeholder="Jumlah Alat" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="catatan" class="form-lable"> <b> Catatan Khusus </b> </label>
+                                    <input type="text" class="form-control" name="catatan" id="catatan"
+                                        placeholder="Catatan Khusus">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="gambar_alat" class="form-lable  "> <b> Upload Gambar Alat </b> </label>
+                                    <input type="file" class="form-control" name="gambar_alat" id="gambar_alat"
+                                        placeholder="Upload Gambar Alat" required>
+                                </div>
+
                                 <button type="submit" class="btn btn-success">Simpan</button>
                             </form>
                         </div>
