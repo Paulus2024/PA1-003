@@ -61,36 +61,33 @@
             referrerpolicy="no-referrer-when-downgrade">
         </iframe>
           </div>
+          <form action="{{ route('contact') }}" method="POST">
+            @csrf
+            <div class="row gy-4">
 
-          <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
-              <div class="row gy-4">
-
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                </div>
-
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-                </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
-                </div>
-
+              <div class="col-md-6">
+                <input type="text" name="name" class="form-control" placeholder="Your Name" required>
               </div>
+
+              <div class="col-md-6">
+                <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+              </div>
+
+              <div class="col-md-12">
+                <textarea name="message" class="form-control" rows="6" placeholder="Message" required></textarea>
+              </div>
+
+              <div class="col-md-12 text-center">
+                <button type="submit" style="background-color: #ffc107; color: black; border: none; padding: 10px 25px; border-radius: 5px; font-weight: bold;">
+                  Send Message
+                </button>
+              </div>
+
+            </div>
+            <div id="floating-message-container" style="position: fixed; bottom: 100px; right: 30px; z-index: 9999;">
+                <div id="floating-message" style="color: black; padding: 12px 18px; border-radius: 10px; font-weight: normal; box-shadow: 0 0 8px rgba(0,0,0,0.2); background: transparent; display: none; max-width: 300px;">
+                </div>
+            </div>
             </form>
           </div>
 
@@ -101,6 +98,31 @@
     </section>
 
   </main>
+
+  <script>
+    const messages = @json($allMessages->pluck('message'));
+    let index = 0;
+    const floatingMessage = document.getElementById('floating-message');
+
+    function showNextMessage() {
+      if (messages.length === 0) return;
+
+      floatingMessage.textContent = messages[index];
+      floatingMessage.style.display = 'block';
+
+      setTimeout(() => {
+        floatingMessage.style.display = 'none';
+
+        index = (index + 1) % messages.length;
+
+        setTimeout(() => {
+          showNextMessage();
+        }, 1000); // Jeda antar pesan
+      }, 3000); // Lama tampil pesan
+    }
+
+    document.addEventListener('DOMContentLoaded', showNextMessage);
+  </script>
 
   <footer id="footer" class="footer dark-background">
     @include('pengguna.component.footer')

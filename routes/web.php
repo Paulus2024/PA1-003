@@ -12,6 +12,7 @@ use App\Http\Controllers\InformasiDesaController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\DataPengurusDesaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MessageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -224,3 +225,8 @@ Route::resource('galleries', GalleryController::class);
 //convert pdf
 //==========================================================
 Route::get('/convert-pdf/{filename}', [InformasiDesaController::class, 'convertToPdf']);
+
+
+
+Route::get('/contact', [MessageController::class, 'index'])->name('contact');
+Route::post('/contact', [MessageController::class, 'store']);
