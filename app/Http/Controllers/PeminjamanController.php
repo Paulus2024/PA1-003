@@ -61,4 +61,15 @@ class PeminjamanController extends Controller
 
         return back()->with('success', 'Alat berhasil dikembalikan');
     }
+
+    public function history()
+    {
+        // Ambil semua peminjaman beserta data alat-nya, terbaru paling atas
+        $peminjaman = Peminjaman::with('alat')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Kembalikan view khusus histori
+        return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
+    }
 }

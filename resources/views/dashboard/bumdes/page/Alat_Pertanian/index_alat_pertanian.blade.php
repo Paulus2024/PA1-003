@@ -3,6 +3,14 @@
 @section('bumdes_content')
     <header id="header" class="header d-flex align-items-center fixed-top">
         @include('dashboard.bumdes.component.navbar')
+
+        <link rel="stylesheet" href="{{ asset('assets/css/fixed.css') }}">
+        <!-- di head layout utama -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+        <link href="{{ asset('assets/css/fixed.css') }}" rel="stylesheet">
+        @stack('styles')
+
     </header>
 
     <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
@@ -58,7 +66,7 @@
                                     <div class="portfolio-content h-100">
 
                                         <!-- 🔽 Gambar dengan efek hover -->
-                                        <div class="img-hover-zoom">
+                                        <div class="img-hover-zoom ratio-box">
                                             <!-- <img src="assets/img/projects/remodeling-1.jpg" class="img-fluid" alt="Foto Galeri">-->
                                             <img src="{{ asset('storage/' . $item->gambar_alat) }}" class="img-fluid"
                                                 alt="Foto {{ $item->nama_alat_pertanian }}">
@@ -182,9 +190,11 @@
                                         </div><!-- Modal Header -->
 
                                         <div class="modal-body"><!-- Modal Body -->
-                                            <form action="{{ route('alat_pertanian.pinjam') }}" method="POST">
+                                            <form action="{{ route('alat_pertanian.update', $item->id_alat_pertanian) }}"
+                                                method="POST">
                                                 <!-- Form untuk menyewa alat pertanian -->
                                                 @csrf
+                                                @method('PUT')
                                                 <div class="mb-3">
                                                     <label for="nama_alat_pertanian" class="form-lable"> <b> Nama Alat
                                                             Pertanian
@@ -225,10 +235,10 @@
                                                 </div>
 
                                                 <!-- <div class="mb-3">
-                                                                <label for="status_alat" class="form-lable">Status Alat</label>
-                                                                <input type="text" class="form-control" name="status_alat" id="status_alat"
-                                                                    placeholder="Status Alat" required>
-                                                            </div> -->
+                                                                            <label for="status_alat" class="form-lable">Status Alat</label>
+                                                                            <input type="text" class="form-control" name="status_alat" id="status_alat"
+                                                                                placeholder="Status Alat" required>
+                                                                        </div> -->
 
                                                 <div class="mb-3">
                                                     <label for="jumlah_alat" class="form-lable"> <b> Jumlah Alat </b>
@@ -244,12 +254,12 @@
                                                         id="catatan" value="{{ $item->catatan }}"">
                                                 </div>
                                                 <!-- <div class="mb-3">
-                                                        <label for="gambar_alat" class="form-lable  "> <b> Upload Gambar Alat
-                                                            </b>
-                                                        </label>
-                                                        <input type="file" class="form-control" name="gambar_alat"
-                                                            id="gambar_alat" value="{{ $item->gambar_alat }}" required>
-                                                    </div> -->
+                                                                    <label for="gambar_alat" class="form-lable  "> <b> Upload Gambar Alat
+                                                                        </b>
+                                                                    </label>
+                                                                    <input type="file" class="form-control" name="gambar_alat"
+                                                                        id="gambar_alat" value="{{ $item->gambar_alat }}" required>
+                                                                </div> -->
                                                 <div class="mb-3">
                                                     <label for="gambar_alat" class="form-label"><b>Gambar Alat
                                                             Lama</b></label><br>
@@ -338,10 +348,10 @@
                                     </div>
 
                                     <!-- <div class="mb-3">
-                                                                <label for="status_alat" class="form-lable">Status Alat</label>
-                                                                <input type="text" class="form-control" name="status_alat" id="status_alat"
-                                                                    placeholder="Status Alat" required>
-                                                            </div> -->
+                                                                            <label for="status_alat" class="form-lable">Status Alat</label>
+                                                                            <input type="text" class="form-control" name="status_alat" id="status_alat"
+                                                                                placeholder="Status Alat" required>
+                                                                        </div> -->
 
                                     <div class="mb-3">
                                         <label for="jumlah_alat" class="form-lable"> <b> Jumlah Alat </b> </label>
@@ -396,6 +406,15 @@
 
 
         </section><!-- /Projects Section -->
+
+        <!-- Tombol Histori Pemesanan (Fixed) -->
+        <a href="{{ route('pemesanan.history') }}" class="btn btn-primary btn-historipemesanan-icon"
+            title="Lihat Histori Pemesanan">
+
+            <i class="bi bi-clock-history"></i>
+
+        </a>
+
 
     </main>
 

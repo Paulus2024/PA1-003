@@ -48,7 +48,62 @@ class AlatPertanianController extends Controller
             'gambar_alat'               => $path,
             'catatan'                   => $test['catatan']
         ]);
-                                    //lihat di Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index'])->name('alat_pertanian.index'); untuk bagian route nya
+        //lihat di Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index'])->name('alat_pertanian.index'); untuk bagian route nya
         return redirect()->route('alat_pertanian.index')->with('success', 'Data pertanian berhasil ditambahkan!');
+    }
+
+    public function update(Request $minta, $id)
+    {
+        $alat = AlatPertanian::findOrFail($id);
+
+        $validated = $minta->validate([
+            'nama_alat_pertanian'       => 'required|string|max:255',
+            'jenis_alat_pertanian'      => 'required|string',
+            'harga_sewa'                => 'required|integer|min:0',
+            'jumlah_alat'               => 'required|string',
+            'catatan'                   => 'nullable|string|max:255',
+            'gambar_alat'               => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $tersedia = $validated['jumlah_alat'];
+        $status = $tersedia > 0 ? 'tersedia' : 'tidak tersedia';
+
+        //chek jika user mengupload gambar baru
+        if ($minta->hasFile('gambar_alat')) {
+            //hapus gambar lama
+            if ($alat->gambar_alat && Storage::disk('public')->exists($alat->gambar_alat)) {
+                Storage::disk('public')->delete($alat->gambar_alat);
+            }
+
+            //simpan gambar baru
+            $gambar = $minta->file('gambar_alat');
+            $path = $gambar->storage('alat_pertanian', 'public');
+            $alat->gambar_alat = $path;
+        }
+
+        //update dala lainnya
+        $alat->update([
+            'nama_alat_pertanian' => $validated['nama_alat_pertanian'],
+            'jenis_alat_pertanian' => $validated['jenis_alat_pertanian'],
+            'harga_sewa' => $validated['harga_sewa'],
+            'jumlah_alat' => $validated['jumlah_alat'],
+            'jumlah_tersedia' => $tersedia,
+            'status_alat' => $status,
+            'catatan' => $validated['catatan'],
+            // 'gambar_alat' sudah di-update di atas jika ada file baru
+        ]);
+
+        return redirect()
+            ->route('alat_pertanian.index')
+            ->with('success', 'Data alat berhasil diperbarui!');
+    }
+
+    public function destroy($id)
+    {
+        $alat_pertanian = AlatPertanian::findOrFail($id);
+        Storage::disk('public')->delete($alat_pertanian->gambar_alat);
+        $alat_pertanian->delete();
+
+        return redirect()->route('alat_pertanian.index')->with('success', 'Data berhasil dihapus!');
     }
 }

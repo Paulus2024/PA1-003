@@ -228,6 +228,11 @@ Route::post('/alat_pertanian_bumdes/store', [AlatPertanianController::class, 'st
 
 Route::delete('alat_pertanian_bumdes/{alat}', [AlatPertanianController::class, 'destroy'])->name('bumdes.alat_pertanian.destroy');
 
+Route::put('alat_pertanian/{id}', [AlatPertanianController::class, 'update'])->name('alat_pertanian.update');
+
+// Menampilkan halaman histori pemesanan (hanya untuk Bumdes)
+Route::get('/alat-pertanian/histori', [PeminjamanController::class, 'history'])->name('pemesanan.history');
+
 //peminjaman
 Route::post('alat_pertanian/pinjam', [PeminjamanController::class, 'store'])->name('alat_pertanian.pinjam');
 
