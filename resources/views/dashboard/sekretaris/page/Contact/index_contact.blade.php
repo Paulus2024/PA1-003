@@ -75,10 +75,6 @@
                 </div>
 
                 <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                </div>
-
-                <div class="col-md-12">
                   <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
                 </div>
 
@@ -100,7 +96,7 @@
 
     </section>
 
-  </main>
+  </main>   
 
   <footer id="footer" class="footer dark-background">
     @include('pengguna.component.footer')
