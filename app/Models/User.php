@@ -28,7 +28,7 @@ class User extends Authenticatable
 
 
     protected $attributes = [//kotakatik #############################################################################
-        'usertype' => 'user', // Default usertype
+        'usertype' => 'bumdes', // Default usertype
     ];
 
     /**

@@ -11,7 +11,7 @@ class Peminjaman extends Model
     protected $table = 'peminjaman'; // Nama Table
     protected $fillable = [
         'alat_pertanian_id',
-        'peminjama',
+        'peminjam',
         'tanggal_pinjam',
         'tanggal_kembali',
         'status',

@@ -226,6 +226,8 @@ Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index'])-
 
 Route::post('/alat_pertanian_bumdes/store', [AlatPertanianController::class, 'store'])->name('bumdes.alat_pertanian.store');
 
+Route::delete('alat_pertanian_bumdes/{alat}', [AlatPertanianController::class, 'destroy'])->name('bumdes.alat_pertanian.destroy');
+
 //peminjaman
 Route::post('alat_pertanian/pinjam', [PeminjamanController::class, 'store'])->name('alat_pertanian.pinjam');
 
