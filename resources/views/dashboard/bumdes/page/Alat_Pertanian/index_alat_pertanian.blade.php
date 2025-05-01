@@ -19,7 +19,8 @@
 
     <!-- Projects Section -->
     <main id="main">
-        <section id="projects" class="projects section mb-5"><!-- Kenapa Harus Ada mb-5, padahal sebelumnya tidak ada pada file view lain -->
+        <section id="projects" class="projects section mb-5">
+            <!-- Kenapa Harus Ada mb-5, padahal sebelumnya tidak ada pada file view lain -->
 
             <div class="container">
 
@@ -141,7 +142,8 @@
             </div>
 
             <!-- open model tambah -->
-            <div class="modal fade" id="TambahAlatPertanian" tabindex="-1" aria-labelledby="TambahAlatPertanian" aria-hidden="true">
+            <div class="modal fade" id="TambahAlatPertanian" tabindex="-1" aria-labelledby="TambahAlatPertanian"
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -150,7 +152,7 @@
                         </div>
                         <div class="modal-body">
                             {{-- <form action="/upload-gambar" method="POST" enctype="multipart/form-data"> --}}
-                            <form action="{{ route('bumdes.alat_pertanian.store') }}" method="POST"
+                            {{-- <form action="{{ route('bumdes.alat_pertanian.store') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
@@ -175,11 +177,11 @@
                                         placeholder="Harga Sewa" required>
                                 </div>
 
-                                {{-- <div class="mb-3">
+                                <!-- <div class="mb-3">
                                     <label for="status_alat" class="form-lable">Status Alat</label>
                                     <input type="text" class="form-control" name="status_alat" id="status_alat"
                                         placeholder="Status Alat" required>
-                                </div> --}}
+                                </div> -->
 
                                 <div class="mb-3">
                                     <label for="jumlah_alat" class="form-lable"> <b> Jumlah Alat </b> </label>
@@ -199,7 +201,25 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-success">Simpan</button>
+                            </form> --}}
+                            <form action="{{ route('alat_pertanian.pinjam') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="alat_id" value="{{ $item->id_alat_pertanian }}">
+                                <div class="mb-3">
+                                    <label>Peminjam</label>
+                                    <input type="text" name="peminjam" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Tanggal Pinjam</label>
+                                    <input type="date" name="tanggal_pinjam" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Tanggal Kembali</label>
+                                    <input type="date" name="tanggal_kembali" class="form-control" required>
+                                </div>
+                                <button class="btn btn-success">Pinjam</button>
                             </form>
+
                         </div>
                     </div>
                 </div>

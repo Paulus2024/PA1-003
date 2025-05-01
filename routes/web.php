@@ -12,6 +12,8 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\DataPengurusDesaController;
 use App\Http\Controllers\AlatPertanianController;
 use App\Models\AlatPertanian;
+use App\Http\Controllers\PeminjamanController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -91,9 +93,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/index_bumdes', function () {
         return view('dashboard.bumdes.page.Home.index_home');
     })->name('dashboard.bumdes');
-//sekretaris
-    Route::get('/index_sekretaris', function () {//kode didalamnya akan di eksekusi jika route ini di akses
-        return view('dashboard.sekretaris.page.Home.index_home');//saya meu membuat route ini untuk mengarahkan ke halaman dashboard sekretaris
+    //sekretaris
+    Route::get('/index_sekretaris', function () { //kode didalamnya akan di eksekusi jika route ini di akses
+        return view('dashboard.sekretaris.page.Home.index_home'); //saya meu membuat route ini untuk mengarahkan ke halaman dashboard sekretaris
     })->name('dashboard.sekretaris');
 });
 
@@ -121,7 +123,7 @@ Route::middleware(['auth'])->prefix('sekretaris')->group(function () {
 //     return view('dashboard/sekretaris/page/Fasilitas/index_fasilitas');
 // });
 Route::get('/fasilitas_sekretaris', [FasilitasDesaController::class, 'index'])->name('sekretaris.fasilitas.index');
-                                                                                                    // A
+// A
 // Route::get('/fasilitas_sekretaris/create', [FasilitasDesaController::class, 'create'])->name('sekretaris.fasilitas.create');
 
 Route::post('/fasilitas_sekretaris/store', [FasilitasDesaController::class, 'store'])->name('sekretaris.fasilitas.store');
@@ -192,7 +194,7 @@ Route::get('/contact_sekretaris', function () {
 // Route Admin Bumdes
 //=========================================================
 
-Route ::get('/about_bumdes', function () {
+Route::get('/about_bumdes', function () {
     return view('dashboard/bumdes/page/About/index_about');
 });
 
@@ -223,6 +225,14 @@ Route::get('/data_pengurus_desa_bumdes', function () {
 Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index'])->name('alat_pertanian.index'); //untuk menampilkan data alat pertanian
 
 Route::post('/alat_pertanian_bumdes/store', [AlatPertanianController::class, 'store'])->name('bumdes.alat_pertanian.store');
+
+//peminjaman
+Route::post('alat_pertanian/pinjam', [PeminjamanController::class, 'store'])->name('alat_pertanian.pinjam');
+
+Route::patch('alat_pertanian/kembali/{id}', [PeminjamanController::class, 'kembalikan'])->name('alat_pertanian.kembali');
+
+// Menampilkan daftar peminjaman untuk admin/bumdes
+Route::get('peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
 
 //============================================================
 
