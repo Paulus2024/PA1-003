@@ -43,7 +43,7 @@
                         Edit
                     </button>
                     <!-- Form Hapus -->
-                    <form action="{{ route('sekretaris.fasilitas.destroy', $item->id_data_pengurus_desa) }}" method="POST">
+                    <form action="{{ route('data_pengurus_desa.destroy', $item->id_data_pengurus_desa) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-outline-danger">Hapus</button>
@@ -54,7 +54,7 @@
             <!-- Modal Edit -->
             <div class="modal fade" id="editModal{{ $item->id_data_pengurus_desa }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id_data_pengurus_desa }}" aria-hidden="true">
                 <div class="modal-dialog">
-                    <form action="{{ route('sekretaris.fasilitas.update', $item->id_data_pengurus_desa) }}" method="POST" enctype="multipart/form-data" class="modal-content">
+                    <form action="{{ route('data_pengurus_desa.update', $item->id_data_pengurus_desa) }}" method="POST" enctype="multipart/form-data" class="modal-content">
                         @csrf
                         @method('PUT')
                         <div class="modal-header">
