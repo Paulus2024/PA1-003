@@ -36,6 +36,7 @@
                             <th>Tanggal Pinjam</th>
                             <th>Tanggal Kembali</th>
                             <th>Status</th>
+                            <th>Kontrol</th>
                         </tr>
                     </thead>
                     <tbody>
