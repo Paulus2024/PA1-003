@@ -54,7 +54,11 @@ class FasilitasDesaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        //cari fasilitas berdasarkan primary key
+        $item = FasilitasDesa::findOrFail($id);
+
+        //tampilkan view detail di folder pengunjung
+        return view('pengunjung.fasilitas.show', compact('item'));
     }
 
     /**

@@ -54,9 +54,17 @@ Route::get('/galeri', function () {
     return view('pengguna/page/Galeri/index_galeri');
 });
 
-Route::get('/fasilitas', function () {
-    return view('pengguna/page/Fasilitas/index_fasilitas');
-});
+//===========================================================
+//Rooute Fasilitas P;engunjung
+//===========================================================
+// Route::get('/fasilitas', function () {
+//     return view('pengguna/page/Fasilitas/index_fasilitas');
+// });
+//===========================================================
+
+Route::get('/fasilitas/{id}', [FasilitasDesaController::class, 'show'])->name('pengunjung.fasilitas.show');
+
+//===========================================================
 
 Route::get('/contact', function () {
     return view('pengguna/page/Contact/index_contact');
