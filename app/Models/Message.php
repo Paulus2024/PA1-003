@@ -7,8 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
-    use HasFactory;
-
-    // Tambahkan baris ini agar bisa mass assign data dari request
     protected $fillable = ['name', 'email', 'message'];
 }

@@ -227,6 +227,6 @@ Route::resource('galleries', GalleryController::class);
 Route::get('/convert-pdf/{filename}', [InformasiDesaController::class, 'convertToPdf']);
 
 
-
 Route::get('/contact', [MessageController::class, 'index'])->name('contact');
-Route::post('/contact', [MessageController::class, 'store']);
+Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
+

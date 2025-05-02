@@ -83,7 +83,7 @@
                   <div class="error-message"></div>
                   <div class="sent-message">Your message has been sent. Thank you!</div>
 
-                  <button type="submit">Send Message</button>
+                  <button type="submit" class="btn btn-warning text-white rounded-pill px-4 py-2">Send Message</button>
                 </div>
 
               </div>
@@ -96,7 +96,7 @@
 
     </section>
 
-  </main>   
+  </main>
 
   <footer id="footer" class="footer dark-background">
     @include('pengguna.component.footer')
