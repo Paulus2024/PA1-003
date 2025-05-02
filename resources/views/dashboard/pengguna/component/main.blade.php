@@ -24,9 +24,9 @@
   <link href="{{URL:: asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
   <link href="{{URL:: asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
   <link href="{{URL:: asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
-  <!-- Open Untuk class="icon-container" -->
-  <!-- <link rel="stylesheet" href="{{URL:: asset('assets/css/button_crud.css') }}"> -->
-  <!-- Close Untuk class="icon-container" -->
+  {{-- Open Untuk class="icon-container" --}}
+  {{-- <link rel="stylesheet" href="{{URL:: asset('assets/css/button_crud.css') }}"> --}}
+  {{-- Close Untuk class="icon-container" --}}
 
 
 <link href="{{URL:: asset('assets/css/main.css') }}" rel="stylesheet">
@@ -35,7 +35,7 @@
 <body class="index-page">
 
     <main class="main">
-        @yield('sekretaris_content')
+        @yield('pengguna_content')
     </main>
 
 

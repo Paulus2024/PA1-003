@@ -55,14 +55,14 @@ Route::get('/galeri', function () {
 });
 
 //===========================================================
-//Rooute Fasilitas P;engunjung
+//Rooute Fasilitas Pengunjung
 //===========================================================
 // Route::get('/fasilitas', function () {
 //     return view('pengguna/page/Fasilitas/index_fasilitas');
 // });
 //===========================================================
 
-Route::get('/fasilitas/{id}', [FasilitasDesaController::class, 'show'])->name('pengunjung.fasilitas.show');
+Route::get('/fasilitas', [FasilitasDesaController::class, 'index'])->name('pengunjung.fasilitas.index');
 
 //===========================================================
 

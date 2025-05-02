@@ -15,6 +15,8 @@ class FasilitasDesaController extends Controller
     {
         $fasilitas/*1*/ = FasilitasDesa::all();//nama variabel bebas = Nama Model::all();
         return view('dashboard.sekretaris.page.Fasilitas.index_fasilitas', compact('fasilitas')); //mengambil data dari database dan mengirim ke view| fasilitas.index = nama route| compact('fasilitas') = nama variabel yang dikirim ke view /*1*/
+
+
     }
 
     /**

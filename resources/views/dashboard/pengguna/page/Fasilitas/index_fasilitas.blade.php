@@ -1,4 +1,4 @@
-@extends('pengguna.main')
+@extends('dashboard.pengguna.component.main')
 
 @section('pengguna_content')
     <header id="header" class="header d-flex align-items-center fixed-top">
