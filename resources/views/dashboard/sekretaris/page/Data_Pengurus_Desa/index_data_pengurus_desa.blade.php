@@ -25,30 +25,31 @@
         <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
     </div>
 
+
     <div class="container">
         <div class="row gy-5">
             @foreach ($data_pengurus_desas as $item)
-            <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="400">
                 <div class="member-img">
-                    <img src="{{asset('storage/' . $item->gambar_data_pengurus_desa)}}" class="img-fluid" alt="">
+                    <img src="{{ asset('storage/' . $item->gambar_data_pengurus_desa) }}"alt="{{ $item->nama_data_pengurus_desa }}"class="img-fluid" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
                 </div>
                 <div class="member-info text-center">
-                    <h4>{{ $item->nama_data_pengurus_desa }}</h4>
-                    <span>{{ $item->jabatan_data_pengurus_desa }}</span>
-                    <p>{{ $item->deskripsi_data_pengurus_desa }}</p>
+                <h4>{{ $item->nama_data_pengurus_desa }}</h4>
+                <span>{{ $item->jabatan_data_pengurus_desa }}</span>
+                <p>{{ $item->deskripsi_data_pengurus_desa }}</p>
                 </div>
-                <div class="d-flex gap-2">
-                    <!-- Tombol Edit -->
-                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_data_pengurus_desa }}">
-                        Edit
-                    </button>
-                    <!-- Form Hapus -->
-                    <form action="{{ route('data_pengurus_desa.destroy', $item->id_data_pengurus_desa) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger">Hapus</button>
-                    </form>
-                </div>
+            </div>
+            <div class="d-flex gap-2">
+                <!-- Tombol Edit -->
+                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_data_pengurus_desa }}">
+                    Edit
+                </button>
+                <!-- Form Hapus -->
+                <form action="{{ route('data_pengurus_desa.destroy', $item->id_data_pengurus_desa) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                </form>
             </div>
 
             <!-- Modal Edit -->
