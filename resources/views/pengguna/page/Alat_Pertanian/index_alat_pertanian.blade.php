@@ -7,11 +7,11 @@
 
 <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
     <div class="container position-relative">
-      <h1>Projects</h1>
+      <h1>Alat Pertanian</h1>
       <nav class="breadcrumbs">
         <ol>
           <li><a href="/">Home</a></li>
-          <li class="current">Projects</li>
+          <li class="current">Alat Pertanian</li>
         </ol>
       </nav>
     </div>
@@ -184,7 +184,6 @@
 
   </section><!-- /Projects Section -->
 
-</main>
 
   <footer id="footer" class="footer dark-background">
     @include('pengguna.component.footer')

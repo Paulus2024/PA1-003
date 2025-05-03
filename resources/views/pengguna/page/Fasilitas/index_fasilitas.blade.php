@@ -73,6 +73,17 @@
     </div><!-- End Page Title -->
     <!-- Projects Section -->
     <section id="projects" class="projects section">
+<div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
+    <div class="container position-relative">
+      <h1>Fasilitas</h1>
+      <nav class="breadcrumbs">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li class="current">Fasilitas</li>
+        </ol>
+      </nav>
+    </div>
+  </div><!-- End Page Title -->
 
         <div class="container">
 

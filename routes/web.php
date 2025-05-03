@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\Sekretaris\ProfilController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SekretarisController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FasilitasDesaController;
 use App\Http\Controllers\InformasiDesaController;
@@ -15,6 +16,8 @@ use App\Models\AlatPertanian;
 use App\Http\Controllers\PeminjamanController;
 
 
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MessageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -114,18 +117,19 @@ Route::get('/dashboard', function () {
     return view('dashboard/masyarakat/page/Home/index_home');
 })->middleware('auth');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/delete-photo', [ProfileController::class, 'deletePhoto'])->name('profile.photo.delete');
+    Route::post('/profile/delete-account', [ProfileController::class, 'deleteAccount'])->name('profile.account.delete');
+});
+
 //=========================================================
 // Route Admin Sekretaris
 //=========================================================
 Route::get('/about_sekretaris', function () {
     return view('dashboard/sekretaris/page/About/index_about');
 });
-
-Route::middleware(['auth'])->prefix('sekretaris')->group(function () {
-    Route::get('/profil', [ProfilController::class, 'edit'])->name('sekretaris.profile.edit');
-    Route::post('/profil', [ProfilController::class, 'update'])->name('sekretaris.profile.update');
-});
-
 
 //==========================================================
 // Route Fasilitas Sekretaris
@@ -136,10 +140,12 @@ Route::middleware(['auth'])->prefix('sekretaris')->group(function () {
 Route::get('/fasilitas_sekretaris', [FasilitasDesaController::class, 'index'])->name('sekretaris.fasilitas.index');
 // A
 // Route::get('/fasilitas_sekretaris/create', [FasilitasDesaController::class, 'create'])->name('sekretaris.fasilitas.create');
+                                                                                                    // A
+Route::get('/fasilitas_sekretaris/create', [FasilitasDesaController::class, 'create'])->name('sekretaris.fasilitas.create');
 
 Route::post('/fasilitas_sekretaris/store', [FasilitasDesaController::class, 'store'])->name('sekretaris.fasilitas.store');
 
-// Route::get('/fasilitas/{id_fasilitas/edit', [FasilitasDesaController::class, 'edit'])->name('sekretaris.fasilitas.edit');
+Route::get('/fasilitas/{id_fasilitas}/edit', [FasilitasDesaController::class, 'edit'])->name('sekretaris.fasilitas.edit');
 
 Route::put('/fasilitas_sekretaris/{id_fasilitas}', [FasilitasDesaController::class, 'update'])->name('sekretaris.fasilitas.update');
 
@@ -190,8 +196,6 @@ Route::get('/data_pengurus_desa_sekretaris/{pengurus}/edit', [DataPengurusDesaCo
 Route::put('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'update'])->name('data_pengurus_desa.update');
 Route::patch('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'update']);
 Route::delete('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'destroy'])->name('data_pengurus_desa.destroy');
-
-
 
 Route::get('/alat_pertanian_sekretaris', function () {
     return view('dashboard/sekretaris/page/Alat_Pertanian/index_alat_pertanian');
@@ -301,3 +305,7 @@ Route::get('/alat-pertanian/histori-masyarakat', [PeminjamanController::class, '
 Route::get('/galeri_masyarakat', [GalleryController::class, 'index_masyarakat'])->name('galeri.masyarakat');
 
 Route::get('/data_pengurus_desa_masyarakat', [DataPengurusDesaController::class, 'index_masyarakat'])->name('data_pengurus_desa.masyarakat');
+
+Route::get('/contact', [MessageController::class, 'index'])->name('contact');
+Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
+
