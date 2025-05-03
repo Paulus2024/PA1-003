@@ -105,6 +105,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/index_sekretaris', function () { //kode didalamnya akan di eksekusi jika route ini di akses
         return view('dashboard.sekretaris.page.Home.index_home'); //saya meu membuat route ini untuk mengarahkan ke halaman dashboard sekretaris
     })->name('dashboard.sekretaris');
+
+    // Route::get('/index_pengguna', function () {
+    //     return view('dashboard.pengguna.page.Home.index_home');
+    // })->name('dashboard.pengguna');
 });
 
 Route::get('/dashboard', function () {
