@@ -10,7 +10,8 @@
     <ul>
         <li><a href="/" class="active">Home</a></li>
         <li><a href="/about">About</a></li>
-        <li><a href="{{ route('pengunjung.fasilitas.index') }}">Fasilitas1 Desa</a></li>
+        {{-- <li><a href="{{ route('pengunjung.fasilitas.index') }}">Fasilitas1 Desa</a></li> --}}
+        <li><a href="/fasilitas">Fasilitas Desa</a></li>
         <li><a href="/informasi">Informasi</a></li>
         <li><a href="/galeri">Galeri</a></li>
         <li><a href="/pengurus">Data Pengurus Desa</a></li>
