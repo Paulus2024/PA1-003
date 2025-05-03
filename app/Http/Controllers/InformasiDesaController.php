@@ -30,6 +30,18 @@ class InformasiDesaController extends Controller
         return view('dashboard.sekretaris.page.Informasi.index_informasi', compact('berita')); //compact('berita')); mengarah ke  @foreach ($berita as $item)
     }
 
+    public function index_berita_masyarakat()
+    {
+        $berita_masyarakat = InformasiDesa::where('kategori_informasi', 'berita')->get();
+        return view('dashboard.masyarakat.page.Informasi.index_informasi', compact('berita_masyarakat'));
+    }
+
+    public function index_pengumuman_masyarakat()
+    {
+        $pengumuman_masyarakat = InformasiDesa::where('kategori_informasi', 'Pengumuman')->get();
+        return view('dashboard.masyarakat.page.Informasi.informasi_pengumuman', compact('pengumuman_masyarakat'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

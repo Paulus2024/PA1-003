@@ -107,8 +107,11 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard.sekretaris');
 });
 
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware('auth');
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard/masyarakat/page/Home/index_home');
 })->middleware('auth');
 
 //=========================================================
@@ -238,7 +241,7 @@ Route::delete('alat_pertanian_bumdes/{alat}', [AlatPertanianController::class, '
 
 Route::put('alat_pertanian/{id}', [AlatPertanianController::class, 'update'])->name('alat_pertanian.update');
 
-// Menampilkan halaman histori pemesanan (hanya untuk Bumdes)
+// Menampilkan halaman histori pemesanan (untuk Bumdes)
 Route::get('/alat-pertanian/histori', [PeminjamanController::class, 'history'])->name('pemesanan.history');
 
 //peminjaman
@@ -271,3 +274,30 @@ Route::resource('galleries', GalleryController::class);
 //convert pdf
 //==========================================================
 Route::get('/convert-pdf/{filename}', [InformasiDesaController::class, 'convertToPdf']);
+
+//==========================================================
+// Route Masyarakat
+//==========================================================
+Route::get('/index_masyarakat', [FasilitasDesaController::class, 'index_masyarakat'])->name('index.masyarakat');
+
+Route::get('/about_masyarakat', function () {
+    return view('dashboard.masyarakat.page.About.index_about');
+})->name('dashboard.masyarakat');
+
+Route::get('/fasilitas_masyarakat', [FasilitasDesaController::class, 'index_masyarakat'])->name('fasilitas.masyarakat');
+
+//informasi=================================================
+Route::get('/informasi_masyarakat', [InformasiDesaController::class, 'index_berita_masyarakat'])->name('informasi.masyarakat');
+
+Route::get('/informasi_pengumuman_masyarakat', [InformasiDesaController::class, 'index_pengumuman_masyarakat'])->name('pengumuman.masyarakat');
+//==========================================================
+
+//alat pertanian============================================
+Route::get('/alat_pertanian_masyarakat', [AlatPertanianController::class, 'index_masyarakat'])->name('alat_pertanian.masyarakat');
+// Menampilkan halaman histori pemesanan (untuk Masyarakat)
+Route::get('/alat-pertanian/histori-masyarakat', [PeminjamanController::class, 'historyMasyarakat'])->name('pemesanan.history.masyarakat');
+//==========================================================
+
+Route::get('/galeri_masyarakat', [GalleryController::class, 'index_masyarakat'])->name('galeri.masyarakat');
+
+Route::get('/data_pengurus_desa_masyarakat', [DataPengurusDesaController::class, 'index_masyarakat'])->name('data_pengurus_desa.masyarakat');

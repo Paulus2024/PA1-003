@@ -13,12 +13,16 @@ class FasilitasDesaController extends Controller
      */
     public function index()
     {
-        $fasilitas/*1*/ = FasilitasDesa::all();//nama variabel bebas = Nama Model::all();
+        $fasilitas/*1*/ = FasilitasDesa::all(); //nama variabel bebas = Nama Model::all();
         return view('dashboard.sekretaris.page.Fasilitas.index_fasilitas', compact('fasilitas')); //mengambil data dari database dan mengirim ke view| fasilitas.index = nama route| compact('fasilitas') = nama variabel yang dikirim ke view /*1*/
-
 
     }
 
+    public function index_masyarakat()
+    {
+        $fasilitas_masyarakat = FasilitasDesa::all();
+        return view('dashboard.masyarakat.page.fasilitas.index_fasilitas', compact('fasilitas_masyarakat'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -30,38 +34,38 @@ class FasilitasDesaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-        public function store(Request $request)
-        {
-            $validated = $request->validate([
-                'nama_fasilitas'      => 'required|string|max:255',
-                'deskripsi_fasilitas' => 'required|string',
-                'lokasi_fasilitas'    => 'required|string|max:255',
-                'gambar_fasilitas'    => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            ]);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nama_fasilitas'      => 'required|string|max:255',
+            'deskripsi_fasilitas' => 'required|string',
+            'lokasi_fasilitas'    => 'required|string|max:255',
+            'gambar_fasilitas'    => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-            $path = $request->file('gambar_fasilitas')->store('fasilitas', 'public');
+        $path = $request->file('gambar_fasilitas')->store('fasilitas', 'public');
 
-            FasilitasDesa::create([
-                'nama_fasilitas'        => $validated['nama_fasilitas'],
-                'deskripsi_fasilitas'   => $validated['deskripsi_fasilitas'], // Sesuaikan nama field database (misalnya 'deskripsi')
-                'lokasi_fasilitas'      => $validated['lokasi_fasilitas'],    // Sesuaikan nama field database (misalnya 'lokasi')
-                'gambar_fasilitas'      => $path
-            ]);
+        FasilitasDesa::create([
+            'nama_fasilitas'        => $validated['nama_fasilitas'],
+            'deskripsi_fasilitas'   => $validated['deskripsi_fasilitas'], // Sesuaikan nama field database (misalnya 'deskripsi')
+            'lokasi_fasilitas'      => $validated['lokasi_fasilitas'],    // Sesuaikan nama field database (misalnya 'lokasi')
+            'gambar_fasilitas'      => $path
+        ]);
 
-            return redirect()->route('sekretaris.fasilitas.index')->with('success', 'Data fasilitas berhasil ditambahkan!');
-        }
+        return redirect()->route('sekretaris.fasilitas.index')->with('success', 'Data fasilitas berhasil ditambahkan!');
+    }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //cari fasilitas berdasarkan primary key
-        $item = FasilitasDesa::findOrFail($id);
+    // public function show(string $id)
+    // {
+    //     //cari fasilitas berdasarkan primary key
+    //     $item = FasilitasDesa::findOrFail($id);
 
-        //tampilkan view detail di folder pengunjung
-        return view('pengunjung.fasilitas.show', compact('item'));
-    }
+    //     //tampilkan view detail di folder pengunjung
+    //     return view('pengunjung.fasilitas.show', compact('item'));
+    // }
 
     /**
      * Show the form for editing the specified resource.

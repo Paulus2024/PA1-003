@@ -11,7 +11,7 @@ class PeminjamanController extends Controller
 {
     public function index()
     {
-        $data = Peminjaman::with('alat')->get(); // pastikan relasi 'alat' ada di model Peminjaman
+        $data = Peminjaman::with('alat')->get();
         return view('dashboard.bumdes.page.Alat_Pertanian.index_alat_pertanian', compact('data'));
     }
 
@@ -72,4 +72,12 @@ class PeminjamanController extends Controller
         // Kembalikan view khusus histori
         return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
     }
+
+    public function historyMasyarakat()
+    {
+        $peminjamanMasyarakat = Peminjaman::with('alat')
+            ->orderBy('created_at', 'desc')
+            ->get();
+            
+        return view('dashboard.masyarakat.page.Alat_Pertanian.histori_pemesanan', compact('peminjamanMasyarakat'));}
 }

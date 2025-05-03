@@ -15,6 +15,13 @@ class AlatPertanianController extends Controller
         return view('dashboard.bumdes.page.Alat_Pertanian.index_alat_pertanian', compact('alat_pertanian'));
     }
 
+    public function index_masyarakat()
+    {
+        // Mengambil semua data dari model AlatPertanian
+        $alat_pertanian = AlatPertanian::all();
+        return view('dashboard.masyarakat.page.Alat_Pertanian.index_alat_pertanian', compact('alat_pertanian'));
+        }
+
     public function store(Request $request)
     {
         $test = $request->validate([

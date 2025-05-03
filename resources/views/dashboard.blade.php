@@ -4,6 +4,6 @@
 
 @section('content')
 <div class="container mt-5">
-    <h1>Welcome to the Dashboard</h1>
+    <h1>Welcome to the Dashboard Masyarakat</h1>
 </div>
 @endsection

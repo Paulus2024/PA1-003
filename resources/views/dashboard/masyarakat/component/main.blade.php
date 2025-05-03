@@ -35,7 +35,7 @@
 <body class="index-page">
 
     <main class="main">
-        @yield('content')
+        @yield('masyarakat_content')
     </main>
 
 
