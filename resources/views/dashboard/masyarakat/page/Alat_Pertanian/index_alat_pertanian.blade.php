@@ -1,8 +1,8 @@
-@extends('dashboard.bumdes.component.main')
+@extends('dashboard.masyarakat.component.main')
 
-@section('bumdes_content')
+@section('masyarakat_content')
     <header id="header" class="header d-flex align-items-center fixed-top">
-        @include('dashboard.bumdes.component.navbar')
+        @include('dashboard.masyarakat.component.navbar')
 
         <link rel="stylesheet" href="{{ asset('assets/css/fixed.css') }}">
         <!-- di head layout utama -->
@@ -291,114 +291,6 @@
 
                 </div><!-- Open Isotope Layout -->
 
-                <div class="row mt-4"><!-- Open Row -->
-                    <div class="col-12"><!-- Open Button Tambah Alat Pertanian -->
-                        <div class="d-grid gap-2">
-
-                            <button class="btn btn-success" type="button" data-bs-toggle="modal"
-                                data-bs-target="#TambahAlatPertanian">Tambah Gambar Alat Pertanian</button>
-                        </div>
-                    </div><!-- Close Button Tambah Alat Pertanian -->
-                </div><!-- Close Row -->
-
-                <!-- open model tambah -->
-                <div class="modal fade" id="TambahAlatPertanian" tabindex="-1" aria-labelledby="TambahAlatPertanian"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="TambahAlatPertanian">Tambah Data Alat Pertanian Baru</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-
-
-                                {{-- <form action="/upload-gambar" method="POST" enctype="multipart/form-data"> --}}
-                                <form action="{{ route('bumdes.alat_pertanian.store') }}" method="POST"
-                                    enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label for="nama_alat_pertanian" class="form-lable"> <b> Nama Alat Pertanian
-                                            </b>
-                                        </label>
-                                        <input type="text" class="form-control" name="nama_alat_pertanian"
-                                            id="nama_alat_pertanian" placeholder="Nama Alat Pertanian" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="jenis_alat_pertanian" class="form-lable"> <b> Jenis Alat Pertanian
-                                            </b>
-                                        </label><br>
-                                        <input type="radio" id="jenis_alat_pertanian" name="jenis_alat_pertanian"
-                                            value="Olah_Lahan" required>
-                                        <label for="jenis_alat_pertanian">Olah Lahan</label><br>
-                                        <input type="radio" id="jenis_alat_pertanian" name="jenis_alat_pertanian"
-                                            value="Pascapanen" required>
-                                        <label for="jenis_alat_pertanian">Pascapanen</label><br>
-                                        <input type="radio" id="jenis_alat_pertanian" name="jenis_alat_pertanian"
-                                            value="Lainnya" required>
-                                        <label for="jenis_alat_pertanian">Lainnya</label>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="harga_sewa" class="form-lable"> <b> Harga Sewa </b> </label>
-                                        <input type="text" class="form-control" name="harga_sewa" id="harga_sewa"
-                                            placeholder="Harga Sewa" required>
-                                    </div>
-
-                                    <!-- <div class="mb-3">
-                                                                            <label for="status_alat" class="form-lable">Status Alat</label>
-                                                                            <input type="text" class="form-control" name="status_alat" id="status_alat"
-                                                                                placeholder="Status Alat" required>
-                                                                        </div> -->
-
-                                    <div class="mb-3">
-                                        <label for="jumlah_alat" class="form-lable"> <b> Jumlah Alat </b> </label>
-                                        <input type="text" class="form-control" name="jumlah_alat" id="jumlah_alat"
-                                            placeholder="Jumlah Alat" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="catatan" class="form-lable"> <b> Catatan Khusus </b> </label>
-                                        <input type="text" class="form-control" name="catatan" id="catatan"
-                                            placeholder="Catatan Khusus">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="gambar_alat" class="form-lable  "> <b> Upload Gambar Alat </b>
-                                        </label>
-                                        <input type="file" class="form-control" name="gambar_alat" id="gambar_alat"
-                                            placeholder="Upload Gambar Alat" required>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-success">Simpan</button>
-                                </form>
-
-
-                                {{-- <form action="{{ route('alat_pertanian.pinjam') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="alat_id" value="{{ $item->id_alat_pertanian }}">
-                                        <div class="mb-3">
-                                            <label>Peminjam</label>
-                                            <input type="text" name="peminjam" class="form-control" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label>Tanggal Pinjam</label>
-                                            <input type="date" name="tanggal_pinjam" class="form-control" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label>Tanggal Kembali</label>
-                                            <input type="date" name="tanggal_kembali" class="form-control" required>
-                                        </div>
-                                        <button class="btn btn-success">Pinjam</button>
-                                    </form> --}}
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- close modal tambah -->
-
                 <!-- </div> -->
 
             </div><!-- End Projects Container -->
@@ -408,7 +300,7 @@
         </section><!-- /Projects Section -->
 
         <!-- Tombol Histori Pemesanan (Fixed) -->
-        <a href="{{ route('pemesanan.history') }}" class="btn btn-primary btn-historipemesanan-icon"
+        <a href="{{ route('pemesanan.history.masyarakat') }}" class="btn btn-primary btn-historipemesanan-icon"
             title="Lihat Histori Pemesanan">
 
             <i class="bi bi-clock-history"></i>

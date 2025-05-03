@@ -7,6 +7,11 @@
     <!-- Hero Section -->
     <section id="hero" class="hero section dark-background">
 
+
+@section('content')
+<div class="container mt-5">
+    <h1>Welcome to the Dashboard Masyarakat</h1>
+</div>
         <div class="info d-flex align-items-center">
         <div class="container">
             <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="100">
