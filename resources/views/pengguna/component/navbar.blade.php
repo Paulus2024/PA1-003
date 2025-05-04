@@ -7,7 +7,7 @@
     </a>
 
     <nav id="navmenu" class="navmenu">
-    <ul>
+    {{-- <ul>
         <li><a href="/" class="active">Home</a></li>
         <li><a href="/about">About</a></li>
         <!-- <li><a href="{{ route('pengunjung.fasilitas.index') }}">Fasilitas1 Desa</a></li> -->
@@ -18,7 +18,7 @@
         <li><a href="/alat">Alat Pertanian</a></li>
         <li><a href="/contact">Contact</a></li>
         <li><a href="/login">Login</a></li>
-    </ul>
+    </ul> --}}
     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         <ul>
             <li><a href="/" class="{{ request()->is('/') ? 'active' : '' }}">Home</a></li>

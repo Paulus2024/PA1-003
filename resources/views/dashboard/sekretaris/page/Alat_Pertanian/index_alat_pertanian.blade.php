@@ -1,191 +1,282 @@
-    @extends('dashboard.sekretaris.component.main')
+@extends('dashboard.sekretaris.component.main')
 
-    @section('sekretaris_content')
+@section('sekretaris_content')
     <header id="header" class="header d-flex align-items-center fixed-top">
         @include('dashboard.sekretaris.component.navbar')
+
+        <link rel="stylesheet" href="{{ asset('assets/css/fixed.css') }}">
+        <!-- di head layout utama -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+        <link href="{{ asset('assets/css/fixed.css') }}" rel="stylesheet">
+        @stack('styles')
+
     </header>
 
-    <div class="page-title dark-background" style="background-image: url({{ asset('assets/img/page-title-bg.jpg') }});">
+    <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
         <div class="container position-relative">
-            <h1>Alat Pertanian</h1>
+            <h1>Projects</h1>
             <nav class="breadcrumbs">
                 <ol>
-                    <li><a href="/index_sekretaris">Home</a></li>
-                    <li class="current">Alat Pertanian</li>
+                    <li><a href="/">Home</a></li>
+                    <li class="current">Projects</li>
                 </ol>
             </nav>
         </div>
     </div><!-- End Page Title -->
 
-    <section id="projects" class="projects section">
 
-        <div class="container">
+    <main id="main">
+        <section id="projects" class="projects section mb-5 pb-5"><!-- Projects Section -->
+            <!-- Kenapa Harus Ada mb-5, padahal sebelumnya tidak ada pada file view lain -->
 
-        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+            <div class="container"><!-- Open Projects Container -->
 
-            <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-remodeling">Alat Ringan</li>
-            <li data-filter=".filter-construction">Alat Berat</li>
-            </ul><!-- End Portfolio Filters -->
+                <!-- <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200"> -->
 
-            <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-remodeling">
-                <div class="portfolio-content h-100">
-                <img src="assets/img/projects/remodeling-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>App 1</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a href="assets/img/projects/remodeling-1.jpg" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="/detail_galeri" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-                </div>
-            </div><!-- End Portfolio Item -->
+                <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+                    <!-- Open Isotope Layout -->
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-construction">
-                <div class="portfolio-content h-100">
-                <img src="assets/img/projects/construction-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Product 1</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a href="assets/img/projects/construction-1.jpg" title="Product 1" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-                </div>
-            </div><!-- End Portfolio Item -->
+                    <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+                        <!-- Open Portfolio Filters -->
+                        <li data-filter="*" class="filter-active">All</li>
+                        <li data-filter=".filter-Olah_Lahan">Olah Lahan</li>
+                        <li data-filter=".filter-Pascapanen">Pascapanen</li>
+                        <li data-filter=".filter-Lainnya">Lainnya</li>
+                    </ul><!-- End Portfolio Filters -->
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-repairs">
-                <div class="portfolio-content h-100">
-                <img src="assets/img/projects/repairs-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Branding 1</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a href="assets/img/projects/repairs-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-                </div>
-            </div><!-- End Portfolio Item -->
+                    <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+                        <!-- Open Row Isotope Container -->
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-design">
-                <div class="portfolio-content h-100">
-                <img src="assets/img/projects/design-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Books 1</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a href="assets/img/projects/design-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-                </div>
-            </div><!-- End Portfolio Item -->
+                        {{-- @if ($alat_pertanian->isEmpty())
+                            <div class="col-12">
+                            <p class="text-danger text-center">Tidak ada data alat pertanian.</p>
+                            </div>
+                            @endif --}}
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-remodeling">
-                <div class="portfolio-content h-100">
-                <img src="assets/img/projects/remodeling-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>App 2</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a href="assets/img/projects/remodeling-2.jpg" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-                </div>
-            </div><!-- End Portfolio Item -->
+                        @foreach ($alat_pertanian as $item)
+                            <!-- Looping Alat Pertanian -->
+                            <!-- Open Content -->
+                            <div
+                                class="col-lg-4 col-md-6 portfolio-item isotope-item filter-{{ $item->jenis_alat_pertanian }}">
+                                <article class="position-relative h-100">
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-construction">
-                <div class="portfolio-content h-100">
-                <img src="assets/img/projects/construction-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Product 2</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a href="assets/img/projects/construction-2.jpg" title="Product 2" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-                </div>
-            </div><!-- End Portfolio Item -->
+                                    <!-- Wrapper konten gambar -->
+                                    <div class="portfolio-content h-100">
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-repairs">
-                <div class="portfolio-content h-100">
-                <img src="assets/img/projects/repairs-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Branding 2</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a href="assets/img/projects/repairs-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-                </div>
-            </div><!-- End Portfolio Item -->
+                                        <!-- 🔽 Gambar dengan efek hover -->
+                                        <div class="img-hover-zoom ratio-box">
+                                            <!-- <img src="assets/img/projects/remodeling-1.jpg" class="img-fluid" alt="Foto Galeri">-->
+                                            <img src="{{ asset('storage/' . $item->gambar_alat) }}" class="img-fluid"
+                                                alt="Foto {{ $item->nama_alat_pertanian }}">
+                                        </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-design">
-                <div class="portfolio-content h-100">
-                <img src="assets/img/projects/design-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Books 2</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a href="assets/img/projects/design-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-                </div>
-            </div><!-- End Portfolio Item -->
+                                        <!-- Informasi yang tampil saat hover (jika ada) -->
+                                        <div class="portfolio-info">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h4> {{ $item->jenis_alat_pertanian }} </h4>
+                                                <!-- jenis alat pertanian -->
+                                            </div>
+                                            <p>{{ $item->catatan }}</p><!-- Catatan Khusus -->
+                                            <a href="{{ asset('storage/' . $item->gambar_alat) }}"
+                                                title="{{ $item->jenis_alat_pertanian }}"
+                                                data-gallery="portfolio-gallery-app" class="glightbox preview-link">
+                                                <i class="bi bi-zoom-in"></i>
+                                            </a>
+                                            <a href="/detail_galeri" title="More Details" class="details-link">
+                                                <i class="bi bi-link-45deg"></i>
+                                            </a>
+                                        </div>
+                                    </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-remodeling">
-                <div class="portfolio-content h-100">
-                <img src="assets/img/projects/remodeling-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>App 3</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a href="assets/img/projects/remodeling-3.jpg" title="App 3" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-                </div>
-            </div><!-- End Portfolio Item -->
+                                    <!-- 🔽 Keterangan Tambahan di Bawah Gambar -->
+                                    <div class="mt-3 p-3 bg-white shadow-sm rounded-0">
+                                        <h5 class="fw-bold text-warning"> {{ $item->nama_alat_pertanian }} </h5>
+                                        <!-- Nama Alat -->
+                                        <p class="text-secondary"> {{ $item->harga_sewa }} </p><!-- Harga Sewa -->
+                                        <p class="text-secondary">{{ $item->status_alat }}|{{ $item->jumlah_alat }}
+                                        </p>
+                                        <!-- Status -->
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-construction">
-                <div class="portfolio-content h-100">
-                <img src="assets/img/projects/construction-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Product 3</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a href="assets/img/projects/construction-3.jpg" title="Product 3" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-                </div>
-            </div><!-- End Portfolio Item -->
+                                        {{-- <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal<!{{ $item->id_fasilitas }}"> --}}
+                                        <div class="d-flex justify-content-end">
+                                            <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                                                data-bs-target="#SewaAlatPertanian{{ $item->id_alat_pertanian }}">
+                                                Sewa Alat
+                                            </button>
+                                        </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-repairs">
-                <div class="portfolio-content h-100">
-                <img src="assets/img/projects/repairs-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Branding 3</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a href="assets/img/projects/repairs-3.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-                </div>
-            </div><!-- End Portfolio Item -->
+                                    </div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-design">
-                <div class="portfolio-content h-100">
-                <img src="assets/img/projects/design-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Books 3</h4>
-                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                    <a href="assets/img/projects/design-3.jpg" title="Branding 3" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="project-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-                </div>
-            </div><!-- End Portfolio Item -->
+                                </article>
+                            </div>
+                            <!-- Close Content -->
 
-            </div><!-- End Portfolio Container -->
 
-        </div>
+                            <!-- Modal Sewa Alat Pertanian -->
+                            <div class="modal fade" id="SewaAlatPertanian{{ $item->id_alat_pertanian }}" tabindex="-1"
+                                aria-labelledby="TambahAlatPertanian" aria-hidden="true">
+                                <div class="modal-dialog"><!-- Modal Dialog -->
+                                    <div class="modal-content"><!-- Modal Content -->
+                                        <div class="modal-header"><!-- Modal Header -->
+                                            <h5 class="modal-title" id="SewaAlatPertanian">Tambah Data Alat Pertanian Baru
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div><!-- Modal Header -->
 
-        </div>
+                                        <div class="modal-body"><!-- Modal Body -->
+                                            <form action="{{ route('alat_pertanian.pinjam') }}" method="POST">
+                                                <!-- Form untuk menyewa alat pertanian -->
+                                                @csrf
+                                                <input type="hidden" name="alat_id"
+                                                    value="{{ $item->id_alat_pertanian }}">
+                                                <div class="mb-3">
+                                                    <label>Peminjam</label>
+                                                    <input type="text" name="peminjam" class="form-control" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Tanggal Pinjam</label>
+                                                    <input type="date" name="tanggal_pinjam" class="form-control"
+                                                        required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Tanggal Kembali</label>
+                                                    <input type="date" name="tanggal_kembali" class="form-control"
+                                                        required>
+                                                </div>
+                                                <button class="btn btn-success">Pinjam</button>
+                                            </form><!-- Form untuk menyewa alat pertanian -->
 
-    </section><!-- /Projects Section -->
-    @endsection
+                                        </div><!-- Modal Body -->
+                                    </div><!-- Modal Content -->
+                                </div><!-- Modal Dialog -->
+                            </div>
+                            <!-- Modal Sewa Alat Pertanian -->
 
-    @section('footer')
+                            <!-- Modal Edit Alat Pertanian -->
+                            <div class="modal fade" id="EditAlatPertanian{{ $item->id_alat_pertanian }}" tabindex="-1"
+                                aria-labelledby="TambahAlatPertanian" aria-hidden="true">
+                                <div class="modal-dialog"><!-- Modal Dialog -->
+                                    <div class="modal-content"><!-- Modal Content -->
+                                        <div class="modal-header"><!-- Modal Header -->
+                                            <h5 class="modal-title" id="EditAlatPertanian">Tambah Data Alat Pertanian Baru
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div><!-- Modal Header -->
+
+                                        <div class="modal-body"><!-- Modal Body -->
+                                            <form action="{{ route('alat_pertanian.update', $item->id_alat_pertanian) }}"
+                                                method="POST">
+                                                <!-- Form untuk menyewa alat pertanian -->
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="mb-3">
+                                                    <label for="nama_alat_pertanian" class="form-lable"> <b> Nama Alat
+                                                            Pertanian
+                                                        </b>
+                                                    </label>
+                                                    <input type="text" class="form-control" name="nama_alat_pertanian"
+                                                        id="nama_alat_pertanian" value="{{ $item->nama_alat_pertanian }}"
+                                                        required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="jenis_alat_pertanian" class="form-lable"> <b> Jenis Alat
+                                                            Pertanian
+                                                        </b>
+                                                    </label><br>
+                                                    <input type="radio" id="jenis_alat_pertanian"
+                                                        name="jenis_alat_pertanian" value="Olah_Lahan"
+                                                        {{ $item->jenis_alat_pertanian == 'Olah_Lahan' ? 'checked' : '' }}
+                                                        required>
+                                                    <label for="jenis_alat_pertanian">Olah Lahan</label><br>
+                                                    <input type="radio" id="jenis_alat_pertanian"
+                                                        name="jenis_alat_pertanian" value="Pascapanen"
+                                                        {{ $item->jenis_alat_pertanian == 'Pascapanen' ? 'checked' : '' }}
+                                                        required>
+                                                    <label for="jenis_alat_pertanian">Pascapanen</label><br>
+                                                    <input type="radio" id="jenis_alat_pertanian"
+                                                        name="jenis_alat_pertanian" value="Lainnya"
+                                                        {{ $item->jenis_alat_pertanian == 'Lainnya' ? 'checked' : '' }}
+                                                        required>
+                                                    <label for="jenis_alat_pertanian">Lainnya</label>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="harga_sewa" class="form-lable"> <b> Harga Sewa </b>
+                                                    </label>
+                                                    <input type="text" class="form-control" name="harga_sewa"
+                                                        id="harga_sewa" value="{{ $item->harga_sewa }}" required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="jumlah_alat" class="form-lable"> <b> Jumlah Alat </b>
+                                                    </label>
+                                                    <input type="text" class="form-control" name="jumlah_alat"
+                                                        id="jumlah_alat" value="{{ $item->jumlah_alat }}" required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="catatan" class="form-lable"> <b> Catatan Khusus </b>
+                                                    </label>
+                                                    <input type="text" class="form-control" name="catatan"
+                                                        id="catatan" value="{{ $item->catatan }}"">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="gambar_alat" class="form-label"><b>Gambar Alat
+                                                            Lama</b></label><br>
+                                                    <img src="{{ asset('storage/gambar_alat/' . $item->gambar_alat) }}"
+                                                        alt="Gambar Alat Lama" width="150">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="gambar_alat" class="form-label"><b>Upload Gambar Alat
+                                                            Baru</b></label>
+                                                    <input type="file" class="form-control" name="gambar_alat"
+                                                        id="gambar_alat">
+                                                </div>
+
+                                                <button class="btn btn-success">Simpan</button>
+                                            </form><!-- Form untuk menyewa alat pertanian -->
+
+                                        </div><!-- Modal Body -->
+                                    </div><!-- Modal Content -->
+                                </div><!-- Modal Dialog -->
+                            </div>
+                            <!-- Modal Edit Alat Pertanian -->
+                        @endforeach
+                        <!-- Looping Alat Pertanian -->
+
+                    </div><!-- Close Row Isotope Container -->
+
+
+
+                </div><!-- Open Isotope Layout -->
+
+                <!-- </div> -->
+
+            </div><!-- End Projects Container -->
+
+
+
+        </section><!-- /Projects Section -->
+
+        <!-- Tombol Histori Pemesanan (Fixed) -->
+        <a href="{{ route('pemesanan.history.masyarakat') }}" class="btn btn-primary btn-historipemesanan-icon"
+            title="Lihat Histori Pemesanan">
+
+            <i class="bi bi-clock-history"></i>
+
+        </a>
+
+
+    </main>
+
     <footer id="footer" class="footer dark-background">
         @include('pengguna.component.footer')
     </footer>
-    @endsection
+@endsection

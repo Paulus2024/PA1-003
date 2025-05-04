@@ -77,21 +77,6 @@
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <h4> {{ $item->jenis_alat_pertanian }} </h4>
                                                 <!-- jenis alat pertanian -->
-                                                <div class="d-flex gap-2">
-                                                    <button type="button" class="btn btn-outline-warning"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#EditAlatPertanian{{ $item->id_alat_pertanian }}">
-                                                        Edit
-                                                    </button>
-
-                                                    <form
-                                                        action="{{ route('bumdes.alat_pertanian.destroy', $item->id_alat_pertanian) }}"
-                                                        method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-outline-danger">Hapus</button>
-                                                    </form>
-                                                </div>
                                             </div>
                                             <p>{{ $item->catatan }}</p><!-- Catatan Khusus -->
                                             <a href="{{ asset('storage/' . $item->gambar_alat) }}"
@@ -121,14 +106,7 @@
                                                 Sewa Alat
                                             </button>
                                         </div>
-                                        {{-- <div class="d-flex gap-2">
-                                            <a href="/edit" class="btn btn-outline-warning">Edit</a>
-                                            <form action="/hapus" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-outline-danger">Hapus</button>
-                                            </form>
-                                        </div> --}}
+
                                     </div>
 
                                 </article>
@@ -234,12 +212,6 @@
                                                         id="harga_sewa" value="{{ $item->harga_sewa }}" required>
                                                 </div>
 
-                                                <!-- <div class="mb-3">
-                                                                            <label for="status_alat" class="form-lable">Status Alat</label>
-                                                                            <input type="text" class="form-control" name="status_alat" id="status_alat"
-                                                                                placeholder="Status Alat" required>
-                                                                        </div> -->
-
                                                 <div class="mb-3">
                                                     <label for="jumlah_alat" class="form-lable"> <b> Jumlah Alat </b>
                                                     </label>
@@ -253,13 +225,7 @@
                                                     <input type="text" class="form-control" name="catatan"
                                                         id="catatan" value="{{ $item->catatan }}"">
                                                 </div>
-                                                <!-- <div class="mb-3">
-                                                                    <label for="gambar_alat" class="form-lable  "> <b> Upload Gambar Alat
-                                                                        </b>
-                                                                    </label>
-                                                                    <input type="file" class="form-control" name="gambar_alat"
-                                                                        id="gambar_alat" value="{{ $item->gambar_alat }}" required>
-                                                                </div> -->
+
                                                 <div class="mb-3">
                                                     <label for="gambar_alat" class="form-label"><b>Gambar Alat
                                                             Lama</b></label><br>
