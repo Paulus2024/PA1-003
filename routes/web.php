@@ -118,7 +118,7 @@ Route::get('/dashboard', function () {
 })->middleware('auth');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.show');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/delete-photo', [ProfileController::class, 'deletePhoto'])->name('profile.photo.delete');
     Route::post('/profile/delete-account', [ProfileController::class, 'deleteAccount'])->name('profile.account.delete');
