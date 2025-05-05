@@ -1,9 +1,8 @@
 <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
-    <a href="index.html" class="logo d-flex align-items-center">
-    <!-- Uncomment the line below if you also wish to use an image logo -->
-    <!-- <img src="assets/img/logo.png" alt=""> -->
-    <h1 class="sitename">UpConstruction</h1> <span>.</span>
+    <a href="/index_masyarakat" class="logo d-flex align-items-center">
+        <img src="{{ asset('assets/img/8.png') }}" alt="Logo">
+    <h1 class="sitename">Desa</h1> <span>Taon Marisi</span>
     </a>
 
     <nav id="navmenu" class="navmenu">

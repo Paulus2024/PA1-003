@@ -1,8 +1,7 @@
 <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
     <a href="/index_sekretaris" class="logo d-flex align-items-center {{ Request::is('index_sekretaris') ? 'active' : '' }}">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <img src="{{ asset('assets/img/8.png') }}" alt="Logo">
         <h1 class="sitename">Desa</h1> <span>Taon Marisi</span>
     </a>
 
