@@ -16,6 +16,14 @@ class GalleryController extends Controller
         return view('dashboard.sekretaris.page.Galeri.index_galeri', compact('galleries')); //mengambil data dari database dan mengirim ke view| fasilitas.index = nama route| compact('fasilitas') = nama variabel yang dikirim ke view /*1*/
 
     }
+    public function index_masyarakat()
+    {
+        $galleries = Gallery::all(); // Atau sesuai model kamu
+        return view('dashboard.masyarakat.page.Galeri.index_galeri', compact('galleries'));
+    }
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -58,7 +66,7 @@ class GalleryController extends Controller
      */
     public function edit(string $id)
     {
-        $galleries = Gallery::findOrFail($id);
+        $gallery = Gallery::findOrFail($id);
         return view('galleries.edit', compact('gallery'));
     }
 

@@ -8,14 +8,14 @@
 
     <nav id="navmenu" class="navmenu">
     <ul>
-        <li><a href="/index_masyarakat" class="active">Home</a></li>
-        <li><a href="/about_masyarakat">About</a></li>
-        <li><a href="/fasilitas_masyarakat">Fasilitas Desa</a></li>
-        <li><a href="/informasi_masyarakat">Informasi</a></li>
-        <li><a href="/galeri_masyarakat">Galeri</a></li>
-        <li><a href="/data_pengurus_desa_masyarakat">Data Pengurus Desa</a></li>
-        <li><a href="/alat_pertanian_masyarakat">Alat Pertanian</a></li>
-        <li><a href="/contact_masyarakat">Contact</a></li>
+        <li><a href="/index_masyarakat" class="{{ request()->is('index_masyarakat') ? 'active' : '' }}">Home</a></li>
+        <li><a href="/about_masyarakat" class="{{ request()->is('about_masyarakat') ? 'active' : '' }}">About</a></li>
+        <li><a href="/fasilitas_masyarakat" class="{{ request()->is('fasilitas_masyarakat') ? 'active' : '' }}">Fasilitas Desa</a></li>
+        <li><a href="/informasi_masyarakat" class="{{ request()->is('informasi_masyarakat') ? 'active' : '' }}">Informasi</a></li>
+        <li><a href="/galeri_masyarakat" class="{{ request()->is('galeri_masyarakat') ? 'active' : '' }}">Galeri</a></li>
+        <li><a href="/data_pengurus_desa_masyarakat" class="{{ request()->is('data_pengurus_desa_masyarakat') ? 'active' : '' }}">Data Pengurus Desa</a></li>
+        <li><a href="/alat_pertanian_masyarakat" class="{{ request()->is('alat_pertanian_masyarakat') ? 'active' : '' }}">Alat Pertanian</a></li>
+        <li><a href="/contact_masyarakat" class="{{ request()->is('contact_masyarakat') ? 'active' : '' }}">Contact</a></li>
         <li><a href="/login">Login</a></li>
     </ul>
     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
