@@ -197,9 +197,10 @@ Route::put('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaControl
 Route::patch('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'update']);
 Route::delete('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'destroy'])->name('data_pengurus_desa.destroy');
 
-Route::get('/alat_pertanian_sekretaris', function () {
-    return view('dashboard/sekretaris/page/Alat_Pertanian/index_alat_pertanian');
-});
+// Route::get('/alat_pertanian_sekretaris', function () {
+//     return view('dashboard/sekretaris/page/Alat_Pertanian/index_alat_pertanian');
+// });
+Route::get('/alat_pertanian_sekretaris', [AlatPertanianController::class, 'index_sekretaris'])->name('alat_pertanian_sekretaris');
 
 Route::get('/contact_sekretaris', function () {
     return view('dashboard/sekretaris/page/Contact/index_contact');
