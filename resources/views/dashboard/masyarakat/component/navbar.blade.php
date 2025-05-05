@@ -17,8 +17,24 @@
         <li><a href="/alat_pertanian_masyarakat" class="{{ request()->is('alat_pertanian_masyarakat') ? 'active' : '' }}">Alat Pertanian</a></li>
         <li><a href="/contact_masyarakat" class="{{ request()->is('contact_masyarakat') ? 'active' : '' }}">Contact</a></li>
         <li><a href="/login">Login</a></li>
+        @auth
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
+                <img src="{{ asset('storage/profile_photos/' . Auth::user()->profile_photo) }}"
+                     alt="Profile" class="rounded-circle" width="32" height="32" style="object-fit: cover;">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="{{ route('profile.show') }}">Profil</a></li>
+                <li><a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </ul>
+        </li>
+        @else
+        <li><a href="{{ route('login') }}">Login</a></li>
+        @endauth
     </ul>
     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
     </nav>
-
-</div>
