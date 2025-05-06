@@ -14,8 +14,6 @@ use App\Http\Controllers\DataPengurusDesaController;
 use App\Http\Controllers\AlatPertanianController;
 use App\Models\AlatPertanian;
 use App\Http\Controllers\PeminjamanController;
-
-
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MessageController;
 /*
@@ -312,5 +310,6 @@ Route::get('/galeri_masyarakat', [GalleryController::class, 'index_masyarakat'])
 Route::get('/data_pengurus_desa_masyarakat', [DataPengurusDesaController::class, 'index_masyarakat'])->name('data_pengurus_desa.masyarakat');
 
 Route::get('/contact', [MessageController::class, 'index'])->name('contact');
-Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
+Route::post('/contact', [MessageController::class, 'store']); 
 
+Route::get('/contact_masyarakat', [MessageController::class, 'index_masyarakat']);
