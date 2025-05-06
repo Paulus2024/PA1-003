@@ -10,7 +10,7 @@
             <h1>Projects</h1>
             <nav class="breadcrumbs">
                 <ol>
-                    <li><a href="/">Home</a></li>
+                    <li><a href="{{ route('index.masyarakat')}}">Home</a></li>
                     <li class="current">Galeri</li>
                 </ol>
             </nav>

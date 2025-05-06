@@ -18,7 +18,7 @@
             <h1>Projects</h1>
             <nav class="breadcrumbs">
                 <ol>
-                    <li><a href="/">Home</a></li>
+                    <li><a href="{{ route('index.masyarakat')}}">Home</a></li>
                     <li class="current">Projects</li>
                 </ol>
             </nav>
@@ -95,7 +95,18 @@
                                         <h5 class="fw-bold text-warning"> {{ $item->nama_alat_pertanian }} </h5>
                                         <!-- Nama Alat -->
                                         <p class="text-secondary"> {{ $item->harga_sewa }} </p><!-- Harga Sewa -->
-                                        <p class="text-secondary">{{ $item->status_alat }}|{{ $item->jumlah_alat }}
+                                        {{-- <p class="text-secondary">{{ $item->status_alat }}|{{ $item->jumlah_alat }}
+                                        </p> --}}
+                                        <p>
+                                            @if ($item->status_alat == 'tersedia')
+                                                <span class="badge bg-success">
+                                                    {{ ucfirst($item->status_alat) }} ({{ $item->jumlah_alat }})
+                                                </span>
+                                            @else
+                                                <span class="badge bg-danger">
+                                                    {{ ucfirst($item->status_alat) }} ({{ $item->jumlah_alat}})
+                                                </span>
+                                            @endif
                                         </p>
                                         <!-- Status -->
 

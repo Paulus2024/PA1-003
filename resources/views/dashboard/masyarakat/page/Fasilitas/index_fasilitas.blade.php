@@ -66,7 +66,7 @@
             <h1>Fasilitas</h1>
             <nav class="breadcrumbs">
                 <ol>
-                    <li><a href="/index_sekretaris">Home</a></li>
+                    <li><a href="{{ route('index.masyarakat')}}">Home</a></li>
                     <li class="current">Fasilitas</li>
                 </ol>
             </nav>

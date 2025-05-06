@@ -141,7 +141,7 @@ Route::get('/about_sekretaris', function () {
 Route::get('/fasilitas_sekretaris', [FasilitasDesaController::class, 'index'])->name('sekretaris.fasilitas.index');
 // A
 // Route::get('/fasilitas_sekretaris/create', [FasilitasDesaController::class, 'create'])->name('sekretaris.fasilitas.create');
-                                                                                                    // A
+// A
 Route::get('/fasilitas_sekretaris/create', [FasilitasDesaController::class, 'create'])->name('sekretaris.fasilitas.create');
 
 Route::post('/fasilitas_sekretaris/store', [FasilitasDesaController::class, 'store'])->name('sekretaris.fasilitas.store');
@@ -285,7 +285,10 @@ Route::get('/convert-pdf/{filename}', [InformasiDesaController::class, 'convertT
 //==========================================================
 // Route Masyarakat
 //==========================================================
-Route::get('/index_masyarakat', [FasilitasDesaController::class, 'index_masyarakat'])->name('index.masyarakat');
+// Route::get('/index_masyarakat', [FasilitasDesaController::class, 'index_masyarakat'])->name('index.masyarakat');
+Route::get('/index_masyarakat', function () {
+    return view('dashboard.masyarakat.page.Home.index_home');
+})->name('index.masyarakat');
 
 Route::get('/about_masyarakat', function () {
     return view('dashboard.masyarakat.page.About.index_about');
@@ -310,6 +313,6 @@ Route::get('/galeri_masyarakat', [GalleryController::class, 'index_masyarakat'])
 Route::get('/data_pengurus_desa_masyarakat', [DataPengurusDesaController::class, 'index_masyarakat'])->name('data_pengurus_desa.masyarakat');
 
 Route::get('/contact', [MessageController::class, 'index'])->name('contact');
-Route::post('/contact', [MessageController::class, 'store']); 
+Route::post('/contact', [MessageController::class, 'store']);
 
 Route::get('/contact_masyarakat', [MessageController::class, 'index_masyarakat']);
