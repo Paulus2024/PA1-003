@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - UpConstruction Bootstrap Template</title>
+  <title>Desa Taon Marisi</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -23,10 +23,7 @@
   <link href="{{URL:: asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
   <link href="{{URL:: asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
   <link href="{{URL:: asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
-  <link href="{{URL:: asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
-  <!-- Open Untuk class="icon-container" -->
-  <!-- <link rel="stylesheet" href="{{URL:: asset('assets/css/button_crud.css') }}"> -->
-  <!-- Close Untuk class="icon-container" -->
+<link href="{{URL:: asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
 
 <link href="{{URL:: asset('assets/css/main.css') }}" rel="stylesheet">
@@ -83,3 +80,5 @@
 </body>
 
 </html>
+
+

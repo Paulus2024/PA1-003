@@ -2887,8 +2887,10 @@
     border-radius: 5px;
 }
 .gallery-item img {
-    transition: transform 0.5s ease;
+    image-rendering: auto;
 }
+
+
 .gallery-item:hover img {
     transform: scale(1.1);
 }
