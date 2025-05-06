@@ -287,7 +287,7 @@ Route::get('/index_masyarakat', [FasilitasDesaController::class, 'index_masyarak
 
 Route::get('/about_masyarakat', function () {
     return view('dashboard.masyarakat.page.About.index_about');
-})->name('dashboard.masyarakat');
+})->name('about.masyarakat');
 
 Route::get('/fasilitas_masyarakat', [FasilitasDesaController::class, 'index_masyarakat'])->name('fasilitas.masyarakat');
 

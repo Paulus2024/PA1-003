@@ -8,14 +8,14 @@
 
     <nav id="navmenu" class="navmenu">
     <ul>
-        <li><a href="/index_masyarakat" class="active">Home</a></li>
-        <li><a href="/about_masyarakat">About</a></li>
-        <li><a href="/fasilitas_masyarakat">Fasilitas Desa</a></li>
-        <li><a href="/informasi_masyarakat">Informasi</a></li>
-        <li><a href="/galeri_masyarakat">Galeri</a></li>
-        <li><a href="/data_pengurus_desa_masyarakat">Data Pengurus Desa</a></li>
-        <li><a href="/alat_pertanian_masyarakat">Alat Pertanian</a></li>
-        <li><a href="/contact_masyarakat">Contact</a></li>
+        <li><a href="{{ route('index.masyarakat')}}" class="{{Request::is('index_masyarakat') ? 'active' : ''}}">Home</a></li>
+        <li><a href="{{ route('about.masyarakat')}}" class="{{Request::is('about_masyarakat') ? 'active' : ''}}">About</a></li><!-- (nama route) about.masyarakat akan menghasilkan URL about_masyarakat dan ini yang di buat di bagian href dan request -->
+        <li><a href="{{ route('fasilitas.masyarakat')}}" class="{{Request::is('fasilitas_masyarakat') ? 'active' : ''}}" >Fasilitas Desa</a></li>
+        <li><a href="{{ route('informasi.masyarakat')}}" class="{{Request::is('informasi_masyarakat') ? 'active' : ''}}">Informasi</a></li>
+        <li><a href="{{ route('galeri.masyarakat')}}" class="{{Request::is('galeri_masyarakat') ? 'active' : ''}}">Galeri</a></li>
+        <li><a href="{{ route('data_pengurus_desa.masyarakat')}}" class="{{Request::is('data_pengurus_desa_masyarakat')}}">Data Pengurus Desa</a></li>
+        <li><a href="{{ route('alat_pertanian.masyarakat')}}" class="{{Request::is('alat_pertanian_masyarakat')}}">Alat Pertanian</a></li>
+        <li><a href="{{ route('contact')}}" class="{{Request::is('contact')}}">Contact</a></li>
         <li><a href="/login">Login</a></li>
     </ul>
     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
