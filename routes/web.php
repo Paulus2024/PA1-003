@@ -14,8 +14,6 @@ use App\Http\Controllers\DataPengurusDesaController;
 use App\Http\Controllers\AlatPertanianController;
 use App\Models\AlatPertanian;
 use App\Http\Controllers\PeminjamanController;
-
-
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MessageController;
 /*
@@ -32,6 +30,9 @@ use App\Http\Controllers\MessageController;
 //=========================================================
 // Route Pengguna
 //=========================================================
+Route::get('/contact_masyarakat', function () {
+    return view('dashboard.masyarakat.page.Contact.index_contact');
+});
 
 Route::get('/', function () {
     return view('pengguna/page/home/index_home');
@@ -118,7 +119,7 @@ Route::get('/dashboard', function () {
 })->middleware('auth');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.show');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/delete-photo', [ProfileController::class, 'deletePhoto'])->name('profile.photo.delete');
     Route::post('/profile/delete-account', [ProfileController::class, 'deleteAccount'])->name('profile.account.delete');
@@ -187,6 +188,7 @@ Route::get('/galleries/{gallery}/edit', [GalleryController::class, 'edit'])->nam
 Route::put('/galleries/{gallery}', [GalleryController::class, 'update'])->name('galleries.update');
 Route::patch('/galleries/{gallery}', [GalleryController::class, 'update']); // Biasanya disertakan juga untuk update sebagian
 Route::delete('/galleries/{gallery}', [GalleryController::class, 'destroy'])->name('galleries.destroy');
+Route::get('/masyarakat/galeri', [GalleryController::class, 'index_masyarakat']);
 
 Route::get('/data_pengurus_desa_sekretaris', [DataPengurusDesaController::class, 'index'])->name('data_pengurus_desa.index');
 Route::get('/data_pengurus_desa_sekretaris/create', [DataPengurusDesaController::class, 'create'])->name('data_pengurus_desa.create');
@@ -196,7 +198,7 @@ Route::get('/data_pengurus_desa_sekretaris/{pengurus}/edit', [DataPengurusDesaCo
 Route::put('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'update'])->name('data_pengurus_desa.update');
 Route::patch('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'update']);
 Route::delete('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'destroy'])->name('data_pengurus_desa.destroy');
-
+Route::get('/masyarakat/data_pengurus_desa', [GalleryController::class, 'index_masyarakat']);
 // Route::get('/alat_pertanian_sekretaris', function () {
 //     return view('dashboard/sekretaris/page/Alat_Pertanian/index_alat_pertanian');
 // });
@@ -308,5 +310,6 @@ Route::get('/galeri_masyarakat', [GalleryController::class, 'index_masyarakat'])
 Route::get('/data_pengurus_desa_masyarakat', [DataPengurusDesaController::class, 'index_masyarakat'])->name('data_pengurus_desa.masyarakat');
 
 Route::get('/contact', [MessageController::class, 'index'])->name('contact');
-Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
+Route::post('/contact', [MessageController::class, 'store']); 
 
+Route::get('/contact_masyarakat', [MessageController::class, 'index_masyarakat']);

@@ -9,8 +9,14 @@ class MessageController extends Controller
 {
     public function index()
     {
-        $allMessages = Message::latest()->get(); 
+        $allMessages = Message::latest()->get();
         return view('pengguna.page.Contact.index_contact', compact('allMessages'));
+    }
+
+    public function index_masyarakat()
+    {
+        $allMessages = Message::latest()->get();
+        return view('dashboard.masyarakat.page.Contact.index_contact', compact('allMessages'));
     }
 
     public function store(Request $request)
