@@ -14,8 +14,9 @@ class Peminjaman extends Model
         'peminjam',
         'tanggal_pinjam',
         'tanggal_kembali',
-        'status',
+        'status_peminjaman',
     ];
+
 
     public function alat()
     {

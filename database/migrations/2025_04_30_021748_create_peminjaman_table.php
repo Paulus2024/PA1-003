@@ -20,7 +20,7 @@ return new class extends Migration
             $t->string('pemijaman');
             $t->date('tanggal_pinjam');
             $t->date('tanggal_kembali');
-            $t->enum('status_peminjaman',['menunggu', 'disetujui', 'ditolak'])->default('mmenunggu');
+            $t->enum('status_peminjaman',['menunggu', 'disetujui', 'ditolak'])->default('menunggu');
             $t->timestamps();
         });
     }
