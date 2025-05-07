@@ -35,7 +35,7 @@
                 <label for="name" class="form-label">Full Name</label>
                 <div class="input-wrapper">
                     <input type="text" id="name" name="name" class="form-control"
-                           placeholder="" required>
+                           placeholder="Enter Your Full Name" required>
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                         <circle cx="12" cy="7" r="4"></circle>
@@ -47,7 +47,7 @@
                 <label for="email" class="form-label">Email Address</label>
                 <div class="input-wrapper">
                     <input type="email" id="email" name="email" class="form-control"
-                           placeholder="" required>
+                           placeholder="Enter Your Email" required>
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                         <polyline points="22,6 12,13 2,6"></polyline>
@@ -59,7 +59,7 @@
                 <label for="phone" class="form-label">Phone Number</label>
                 <div class="input-wrapper">
                     <input type="text" id="phone" name="phone" class="form-control"
-                           placeholder="" required>
+                           placeholder="Enter Your Phone Number" required>
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                     </svg>
@@ -70,7 +70,7 @@
                 <label for="address" class="form-label">Address</label>
                 <div class="input-wrapper">
                     <input type="text" id="address" name="address" class="form-control"
-                           placeholder="" required>
+                           placeholder="Enter Your Address" required>
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                         <circle cx="12" cy="10" r="3"></circle>
@@ -82,7 +82,7 @@
                 <label for="password" class="form-label">Password</label>
                 <div class="input-wrapper">
                     <input type="password" id="password" name="password" class="form-control"
-                           placeholder="" required>
+                           placeholder="Make Your Password" required>
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -94,7 +94,7 @@
                 <label for="password_confirmation" class="form-label">Confirm Password</label>
                 <div class="input-wrapper">
                     <input type="password" id="password_confirmation" name="password_confirmation"
-                           class="form-control" placeholder="" required>
+                           class="form-control" placeholder="Confirm Your Password" required>
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>

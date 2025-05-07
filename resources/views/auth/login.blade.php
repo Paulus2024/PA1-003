@@ -22,7 +22,7 @@
                 <label for="email" class="form-label">Email Address</label>
                 <div class="input-wrapper">
                     <input type="email" id="email" name="email" class="form-control"
-                           placeholder="" required autofocus>
+                           placeholder="Enter Your Email" required autofocus>
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                         <polyline points="22,6 12,13 2,6"></polyline>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="input-wrapper">
                     <input type="password" id="password" name="password" class="form-control"
-                           placeholder="" required>
+                           placeholder="Enter Your Password" required>
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
