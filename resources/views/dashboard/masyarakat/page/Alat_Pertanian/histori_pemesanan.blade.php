@@ -48,7 +48,20 @@
                                 <td>{{ $p->peminjam }}</td>
                                 <td>{{ $p->tanggal_pinjam }}</td>
                                 <td>{{ $p->tanggal_kembali }}</td>
-                                <td>{{ $p->status }}</td>
+                                <td>{{ $p->alat->status_alat }}</td>
+                                <td>{{ ucfirst($p->status_peminjaman) }}</td>
+                                <td>
+                                    @if($p->status_peminjaman == 'menunggu')
+                                    <form action="{{ route('peminjaman.approve',$p->) }}" method="POST" class="d-inline">
+                                        @csrf @method('PATCH')
+                                        <button class="btn btn-sm btn-success">Setuju</button>
+                                    </form>
+                                    @else
+                                    <span class="text-muted">
+                                        -
+                                    </span>
+                                    @endif
+                                </td>
                                 {{-- <td>
                                     @if ($p->status == 'menunggu')
                                         <a href="{{ route('alat_pertanian.masyarakat.show', $p->id) }}"

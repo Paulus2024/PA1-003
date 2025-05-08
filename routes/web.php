@@ -114,7 +114,7 @@ Route::middleware(['auth'])->group(function () {
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware('auth');
-Route::get('/dashboard', function () {
+Route::get('/index_masyarakat', function () {
     return view('dashboard/masyarakat/page/Home/index_home');
 })->middleware('auth');
 
