@@ -191,7 +191,8 @@
 
                                         <div class="modal-body"><!-- Modal Body -->
                                             <form action="{{ route('alat_pertanian.update', $item->id_alat_pertanian) }}"
-                                                method="POST">
+                                                method="POST"
+                                                enctype="multipart/form-data">
                                                 <!-- Form untuk menyewa alat pertanian -->
                                                 @csrf
                                                 @method('PUT')
@@ -251,7 +252,7 @@
                                                     <label for="catatan" class="form-lable"> <b> Catatan Khusus </b>
                                                     </label>
                                                     <input type="text" class="form-control" name="catatan"
-                                                        id="catatan" value="{{ $item->catatan }}"">
+                                                        id="catatan" value="{{ $item->catatan }}">
                                                 </div>
                                                 <!-- <div class="mb-3">
                                                                     <label for="gambar_alat" class="form-lable  "> <b> Upload Gambar Alat
