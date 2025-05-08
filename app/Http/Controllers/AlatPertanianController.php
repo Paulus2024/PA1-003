@@ -91,7 +91,8 @@ class AlatPertanianController extends Controller
 
             //simpan gambar baru
             $gambar = $minta->file('gambar_alat');
-            $path = $gambar->storage('alat_pertanian', 'public');
+            // $path = $gambar->storage('alat_pertanian', 'public');
+            $path = $minta->file('gambar_alat')->store('alat_pertanian', 'public');
             $alat->gambar_alat = $path;
         }
 
@@ -104,6 +105,7 @@ class AlatPertanianController extends Controller
             'jumlah_tersedia' => $tersedia,
             'status_alat' => $status,
             'catatan' => $validated['catatan'],
+            'gambar_alat' => $path ?? $alat->gambar_alat, // Tetap gunakan gambar lama jika tidak ada gambar baru
             // 'gambar_alat' sudah di-update di atas jika ada file baru
         ]);
 

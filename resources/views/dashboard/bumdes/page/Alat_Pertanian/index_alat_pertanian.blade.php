@@ -84,8 +84,7 @@
                                                         Edit
                                                     </button>
 
-                                                    <form
-                                                        action="{{ route('bumdes.alat_pertanian.destroy', $item->id_alat_pertanian) }}"
+                                                    <form action="{{ route('bumdes.alat_pertanian.destroy', $item->id_alat_pertanian) }}"
                                                         method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
                                                         @csrf
                                                         @method('DELETE')
@@ -252,19 +251,19 @@
                                                     <label for="catatan" class="form-lable"> <b> Catatan Khusus </b>
                                                     </label>
                                                     <input type="text" class="form-control" name="catatan"
-                                                        id="catatan" value="{{ $item->catatan }}">
+                                                        id="catatan" value="{{ $item->catatan }}"">
                                                 </div>
-                                                <!-- <div class="mb-3">
+                                                {{-- <div class="mb-3">
                                                                     <label for="gambar_alat" class="form-lable  "> <b> Upload Gambar Alat
                                                                         </b>
                                                                     </label>
                                                                     <input type="file" class="form-control" name="gambar_alat"
                                                                         id="gambar_alat" value="{{ $item->gambar_alat }}" required>
-                                                                </div> -->
+                                                                </div> --}}
                                                 <div class="mb-3">
                                                     <label for="gambar_alat" class="form-label"><b>Gambar Alat
                                                             Lama</b></label><br>
-                                                    <img src="{{ asset('storage/gambar_alat/' . $item->gambar_alat) }}"
+                                                    <img src="{{ asset('storage/' . $item->gambar_alat) }}"
                                                         alt="Gambar Alat Lama" width="150">
                                                 </div>
 
@@ -316,8 +315,7 @@
 
 
                                 {{-- <form action="/upload-gambar" method="POST" enctype="multipart/form-data"> --}}
-                                <form action="{{ route('bumdes.alat_pertanian.store') }}" method="POST"
-                                    enctype="multipart/form-data">
+                                <form action="{{ route('bumdes.alat_pertanian.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="nama_alat_pertanian" class="form-lable"> <b> Nama Alat Pertanian
