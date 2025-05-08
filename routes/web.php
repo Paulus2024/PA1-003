@@ -259,6 +259,8 @@ Route::patch('alat_pertanian/kembali/{id}', [PeminjamanController::class, 'kemba
 // Menampilkan daftar peminjaman untuk admin/bumdes
 Route::get('peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
 
+Route::patch('peminjaman/{id}/approve', [PeminjamanController::class, 'approve'])->name('paminjaman.approve');
+
 //============================================================
 
 

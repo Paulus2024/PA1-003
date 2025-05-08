@@ -29,22 +29,32 @@ class PeminjamanController extends Controller
             return back()->withErrors('Maaf, alat tidak tersedia');
         }
 
-        // kurangi tersedia
+        // kurangi tersedia dan update status
         $alat->decrement('jumlah_tersedia');
         if ($alat->jumlah_tersedia == 0) {
             $alat->status_alat = 'tidak_tersedia';
         }
         $alat->save();
 
-        // simpan peminjaman
+        // simpan peminjaman dengan status menunggu
+        // karena peminjaman ini belum disetujui oleh admin
         Peminjaman::create([
             'alat_pertanian_id' => $r->alat_id,
             'peminjam'          => $r->peminjam,
             'tanggal_pinjam'    => $r->tanggal_pinjam,
             'tanggal_kembali'   => $r->tanggal_kembali,
+            'status_peminjaman' => 'menunggu',
         ]);
 
-        return back()->with('success', 'Peminjaman berhasil dibuat');
+        return back()->with('success', 'Peminjaman berhasil dibuat', 'Mohon tunggu konfirmasi dari BUMDES');
+    }
+
+    public function approve($id){
+        $pinjam = Peminjaman::findOrFail($id);
+        $pinjam->status_peminjaman = 'disetujui';
+        $pinjam->save;
+
+        return back()->with('success', 'peminjaman disetujui');
     }
 
     public function kembalikan($id)
@@ -78,6 +88,6 @@ class PeminjamanController extends Controller
         $peminjamanMasyarakat = Peminjaman::with('alat')
             ->orderBy('created_at', 'desc')
             ->get();
-            
+
         return view('dashboard.masyarakat.page.Alat_Pertanian.histori_pemesanan', compact('peminjamanMasyarakat'));}
 }

@@ -17,7 +17,7 @@ return new class extends Migration
                 ->constrained('alat_pertanian', 'id_alat_pertanian')//bagian ini menandakan bahwa kolom alat_pertanain_id adalah foreigin key yang mengacu pada kolom id_alat_pertanian di table alat_pertanian
                 ->onUpdate('cascade')//jika ada perubahan pada id_alat_pertanian di table alat_pertanian, maka id_alat_pertanian di table peminjaman juga akan berubah
                 ->onDelete('cascade');
-            $t->string('pemijaman');
+            $t->string('peminjaman');
             $t->date('tanggal_pinjam');
             $t->date('tanggal_kembali');
             $t->enum('status_peminjaman',['menunggu', 'disetujui', 'ditolak'])->default('menunggu');

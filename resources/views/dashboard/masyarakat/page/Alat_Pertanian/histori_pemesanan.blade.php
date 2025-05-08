@@ -36,7 +36,8 @@
                             <th>Tanggal Pinjam</th>
                             <th>Tanggal Kembali</th>
                             <th>Status</th>
-                            <th>Kontrol</th>
+                            <th>Status Peminjaman</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,7 +48,7 @@
                                 <td>{{ $p->peminjam }}</td>
                                 <td>{{ $p->tanggal_pinjam }}</td>
                                 <td>{{ $p->tanggal_kembali }}</td>
-                                <td>{{ ucfirst($p->status) }}</td>
+                                <td>{{ $p->status }}</td>
                                 {{-- <td>
                                     @if ($p->status == 'menunggu')
                                         <a href="{{ route('alat_pertanian.masyarakat.show', $p->id) }}"
