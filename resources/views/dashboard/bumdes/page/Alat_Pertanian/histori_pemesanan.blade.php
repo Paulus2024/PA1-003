@@ -32,7 +32,7 @@
                     <thead>
                         <tr>
                             <th>Nama Alat</th>
-                            <th>Peminjam</th>
+                            <th>Nama Peminjam</th>
                             <th>Tanggal Pinjam</th>
                             <th>Tanggal Kembali</th>
                             <th>Status</th>
@@ -48,23 +48,24 @@
                                 <td>{{ $p->tanggal_kembali }}</td>
                                 <td>{{ ucfirst($p->status) }}</td>
                             </tr> --}}
-                                                        <tr>
+                            <tr>
                                 <td>{{ $p->alat->nama_alat_pertanian }}</td>
-                                <td>{{ $p->peminjam }}</td>
+                                <td>{{ $p->nama_peminjam }}</td>
                                 <td>{{ $p->tanggal_pinjam }}</td>
                                 <td>{{ $p->tanggal_kembali }}</td>
                                 <td>{{ $p->alat->status_alat }}</td>
                                 <td>{{ ucfirst($p->status_peminjaman) }}</td>
                                 <td>
-                                    @if($p->status_peminjaman == 'menunggu')
-                                    <form action="{{ route('peminjaman.approve',$p->) }}" method="POST" class="d-inline">
-                                        @csrf @method('PATCH')
-                                        <button class="btn btn-sm btn-success">Setuju</button>
-                                    </form>
+                                    @if ($p->status_peminjaman == 'menunggu')
+                                        <form action="{{ route('peminjaman.approve', $p->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf @method('PATCH')
+                                            <button class="btn btn-sm btn-success">Setuju</button>
+                                        </form>
                                     @else
-                                    <span class="text-muted">
-                                        -
-                                    </span>
+                                        <span class="text-muted">
+                                            -
+                                        </span>
                                     @endif
                                 </td>
                                 {{-- <td>
@@ -79,20 +80,22 @@
                                     @endif
                                 </td> --}}
                                 <td>
-                                    @if($p->status == 'menunggu')<!-- jika status masih menunggu maka kontrol untuk di edit dan dihapus akan muncul -->
-                                    <div class="d-flex gap-2">
-                                        <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ $p->alat_pertanian_id }}">
-                                            Edit
-                                        </button>
+                                    @if ($p->status == 'menunggu')
+                                        <!-- jika status masih menunggu maka kontrol untuk di edit dan dihapus akan muncul -->
+                                        <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                                                data-bs-target="#editModal{{ $p->alat_pertanian_id }}">
+                                                Edit
+                                            </button>
 
-                                        <form action="{{ route('sekretaris.fasilitas.destroy', $p->alat_pertanian_id) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-outline-danger">Hapus</button>
-                                        </form>
-                                    </div>
+                                            <form
+                                                action="{{ route('sekretaris.fasilitas.destroy', $p->alat_pertanian_id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                                            </form>
+                                        </div>
                                     @endif
                                 </td>
                             </tr>

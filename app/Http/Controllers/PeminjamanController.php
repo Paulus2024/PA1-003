@@ -40,7 +40,7 @@ class PeminjamanController extends Controller
         // karena peminjaman ini belum disetujui oleh admin
         Peminjaman::create([
             'alat_pertanian_id' => $r->alat_id,
-            'peminjam'          => $r->peminjam,
+            'nama_peminjam'     => $r->nama_peminjam,
             'tanggal_pinjam'    => $r->tanggal_pinjam,
             'tanggal_kembali'   => $r->tanggal_kembali,
             'status_peminjaman' => 'menunggu',
@@ -49,10 +49,11 @@ class PeminjamanController extends Controller
         return back()->with('success', 'Peminjaman berhasil dibuat', 'Mohon tunggu konfirmasi dari BUMDES');
     }
 
-    public function approve($id){
+    public function approve($id)
+    {
         $pinjam = Peminjaman::findOrFail($id);
         $pinjam->status_peminjaman = 'disetujui';
-        $pinjam->save;
+        $pinjam->save();
 
         return back()->with('success', 'peminjaman disetujui');
     }
@@ -89,5 +90,6 @@ class PeminjamanController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('dashboard.masyarakat.page.Alat_Pertanian.histori_pemesanan', compact('peminjamanMasyarakat'));}
+        return view('dashboard.masyarakat.page.Alat_Pertanian.histori_pemesanan', compact('peminjamanMasyarakat'));
+    }
 }
