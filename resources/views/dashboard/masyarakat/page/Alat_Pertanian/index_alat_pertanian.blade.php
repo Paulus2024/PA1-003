@@ -144,8 +144,8 @@
                                                 <input type="hidden" name="alat_id"
                                                     value="{{ $item->id_alat_pertanian }}">
                                                 <div class="mb-3">
-                                                    <label>Peminjam</label>
-                                                    <input type="text" name="peminjam" class="form-control" required>
+                                                    <label>Nama Peminjam</label>
+                                                    <input type="text" name="nama_peminjam" class="form-control" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label>Tanggal Pinjam</label>

@@ -19,7 +19,7 @@ class PeminjamanController extends Controller
     {
         $r->validate([
             'alat_id'         => 'required|exists:alat_pertanian,id_alat_pertanian',
-            'peminjam'        => 'required|string',
+            'nama_peminjam'   => 'required|string',
             'tanggal_pinjam'  => 'required|date',
             'tanggal_kembali' => 'required|date|after_or_equal:tanggal_pinjam',
         ]);
