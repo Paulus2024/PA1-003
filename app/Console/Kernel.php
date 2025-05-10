@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('messages:delete-old')->hourly();
+        $schedule->command('messages:delete-old')->everyMinute();
     }
 
     /**

@@ -9,12 +9,12 @@ use Carbon\Carbon;
 class DeleteOldMessages extends Command
 {
     protected $signature = 'messages:delete-old';
-    protected $description = 'Hapus pesan yang berumur lebih dari 24 jam';
+    protected $description = 'Delete contact messages older than 24 hours';
 
     public function handle()
     {
-        $deleted = Message::where('created_at', '<', now()->subHours(24))->delete();
+        Message::where('created_at', '<', Carbon::now()->subDay())->delete();
 
-        $this->info("Pesan lama yang dihapus: $deleted");
+        $this->info('Pesan yang lebih dari 24 jam telah dihapus.');
     }
 }
