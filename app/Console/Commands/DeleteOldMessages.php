@@ -3,28 +3,18 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Models\Message;
+use Carbon\Carbon;
 
 class DeleteOldMessages extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'app:delete-old-messages';
+    protected $signature = 'messages:delete-old';
+    protected $description = 'Hapus pesan yang berumur lebih dari 24 jam';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Command description';
-
-    /**
-     * Execute the console command.
-     */
     public function handle()
     {
-        Message::where('created_at', '<', now()->subDay())->delete();
+        $deleted = Message::where('created_at', '<', now()->subHours(24))->delete();
+
+        $this->info("Pesan lama yang dihapus: $deleted");
     }
 }
