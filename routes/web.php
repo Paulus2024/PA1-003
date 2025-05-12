@@ -254,12 +254,14 @@ Route::get('/alat-pertanian/histori', [PeminjamanController::class, 'history'])-
 //peminjaman
 Route::post('alat_pertanian/pinjam', [PeminjamanController::class, 'store'])->name('alat_pertanian.pinjam');
 
-Route::patch('alat_pertanian/kembali/{id}', [PeminjamanController::class, 'kembalikan'])->name('alat_pertanian.kembali');
+Route::patch('/alat_pertanian/kembali/{id}', [PeminjamanController::class, 'kembalikan'])->name('alat_pertanian.kembali');
 
 // Menampilkan daftar peminjaman untuk admin/bumdes
-Route::get('peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
+Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
 
-Route::patch('peminjaman/{id}/approve', [PeminjamanController::class, 'approve'])->name('peminjaman.approve');
+Route::patch('/peminjaman/{id}/approve', [PeminjamanController::class, 'approve'])->name('peminjaman.approve');
+
+Route::patch('/peminjaman/{id}/cancel', [PeminjamanController::class, 'cancel'])->name('peminjaman.cancel');
 
 //============================================================
 

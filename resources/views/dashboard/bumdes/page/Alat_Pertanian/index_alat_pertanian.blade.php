@@ -84,7 +84,8 @@
                                                         Edit
                                                     </button>
 
-                                                    <form action="{{ route('bumdes.alat_pertanian.destroy', $item->id_alat_pertanian) }}"
+                                                    <form
+                                                        action="{{ route('bumdes.alat_pertanian.destroy', $item->id_alat_pertanian) }}"
                                                         method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
                                                         @csrf
                                                         @method('DELETE')
@@ -155,7 +156,8 @@
                                                     value="{{ $item->id_alat_pertanian }}">
                                                 <div class="mb-3">
                                                     <label>Nama Peminjam</label>
-                                                    <input type="text" name="nama_peminjam" class="form-control" required>
+                                                    <input type="text" name="nama_peminjam" class="form-control" placeholder="Nama Peminjam"
+                                                        required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label>Tanggal Pinjam</label>
@@ -166,6 +168,11 @@
                                                     <label>Tanggal Kembali</label>
                                                     <input type="date" name="tanggal_kembali" class="form-control"
                                                         required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Jumlah Alat Yang Di Sewa</label>
+                                                    <input name="jumlah_alat_di_sewa" min="1" max="2" type="number" id="typeNumber"
+                                                        class="form-control" placeholder="Min 1 & Max 2" />
                                                 </div>
                                                 <button class="btn btn-success">Pinjam</button>
                                             </form><!-- Form untuk menyewa alat pertanian -->
@@ -182,7 +189,7 @@
                                 <div class="modal-dialog"><!-- Modal Dialog -->
                                     <div class="modal-content"><!-- Modal Content -->
                                         <div class="modal-header"><!-- Modal Header -->
-                                            <h5 class="modal-title" id="EditAlatPertanian">Tambah Data Alat Pertanian Baru
+                                            <h5 class="modal-title" id="EditAlatPertanian">Edit Data Alat Pertanian Baru
                                             </h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
@@ -190,8 +197,7 @@
 
                                         <div class="modal-body"><!-- Modal Body -->
                                             <form action="{{ route('alat_pertanian.update', $item->id_alat_pertanian) }}"
-                                                method="POST"
-                                                enctype="multipart/form-data">
+                                                method="POST" enctype="multipart/form-data">
                                                 <!-- Form untuk menyewa alat pertanian -->
                                                 @csrf
                                                 @method('PUT')
@@ -235,10 +241,10 @@
                                                 </div>
 
                                                 <!-- <div class="mb-3">
-                                                                            <label for="status_alat" class="form-lable">Status Alat</label>
-                                                                            <input type="text" class="form-control" name="status_alat" id="status_alat"
-                                                                                placeholder="Status Alat" required>
-                                                                        </div> -->
+                                                                                                <label for="status_alat" class="form-lable">Status Alat</label>
+                                                                                                <input type="text" class="form-control" name="status_alat" id="status_alat"
+                                                                                                    placeholder="Status Alat" required>
+                                                                                            </div> -->
 
                                                 <div class="mb-3">
                                                     <label for="jumlah_alat" class="form-lable"> <b> Jumlah Alat </b>
@@ -302,72 +308,76 @@
                 </div><!-- Close Row -->
 
                 <!-- open model tambah -->
-<div class="modal fade" id="TambahAlatPertanian" tabindex="-1" aria-labelledby="TambahAlatPertanianLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="TambahAlatPertanianLabel">Tambah Data Alat Pertanian Baru</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('bumdes.alat_pertanian.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="nama_alat_pertanian" class="form-label"><b>Nama Alat Pertanian</b></label>
-                        <input type="text" class="form-control" name="nama_alat_pertanian" id="nama_alat_pertanian"
-                            placeholder="Nama Alat Pertanian" required>
-                    </div>
+                <div class="modal fade" id="TambahAlatPertanian" tabindex="-1"
+                    aria-labelledby="TambahAlatPertanianLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="TambahAlatPertanianLabel">Tambah Data Alat Pertanian Baru</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ route('bumdes.alat_pertanian.store') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="nama_alat_pertanian" class="form-label"><b>Nama Alat
+                                                Pertanian</b></label>
+                                        <input type="text" class="form-control" name="nama_alat_pertanian"
+                                            id="nama_alat_pertanian" placeholder="Nama Alat Pertanian" required>
+                                    </div>
 
-                    <div class="mb-3">
-                        <label for="jenis_alat_pertanian" class="form-label"><b>Jenis Alat Pertanian</b></label><br>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="jenis_alat_pertanian" id="olah_lahan"
-                                value="Olah_Lahan" required>
-                            <label class="form-check-label" for="olah_lahan">Olah Lahan</label>
+                                    <div class="mb-3">
+                                        <label for="jenis_alat_pertanian" class="form-label"><b>Jenis Alat
+                                                Pertanian</b></label><br>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="jenis_alat_pertanian"
+                                                id="olah_lahan" value="Olah_Lahan" required>
+                                            <label class="form-check-label" for="olah_lahan">Olah Lahan</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="jenis_alat_pertanian"
+                                                id="pascapanen" value="Pascapanen" required>
+                                            <label class="form-check-label" for="pascapanen">Pascapanen</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="jenis_alat_pertanian"
+                                                id="lainnya" value="Lainnya" required>
+                                            <label class="form-check-label" for="lainnya">Lainnya</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="harga_sewa" class="form-label"><b>Harga Sewa</b></label>
+                                        <input type="number" class="form-control" name="harga_sewa" id="harga_sewa"
+                                            placeholder="Harga Sewa" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="jumlah_alat" class="form-label"><b>Jumlah Alat</b></label>
+                                        <input type="number" class="form-control" name="jumlah_alat" id="jumlah_alat"
+                                            placeholder="Jumlah Alat" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="catatan" class="form-label"><b>Catatan Khusus</b></label>
+                                        <textarea class="form-control" name="catatan" id="catatan" rows="3" placeholder="Catatan Khusus"></textarea>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="gambar_alat" class="form-label"><b>Upload Gambar Alat</b></label>
+                                        <input type="file" class="form-control" name="gambar_alat" id="gambar_alat"
+                                            required>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-success">Simpan</button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="jenis_alat_pertanian" id="pascapanen"
-                                value="Pascapanen" required>
-                            <label class="form-check-label" for="pascapanen">Pascapanen</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="jenis_alat_pertanian" id="lainnya"
-                                value="Lainnya" required>
-                            <label class="form-check-label" for="lainnya">Lainnya</label>
-                        </div>
                     </div>
-
-                    <div class="mb-3">
-                        <label for="harga_sewa" class="form-label"><b>Harga Sewa</b></label>
-                        <input type="number" class="form-control" name="harga_sewa" id="harga_sewa"
-                            placeholder="Harga Sewa" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="jumlah_alat" class="form-label"><b>Jumlah Alat</b></label>
-                        <input type="number" class="form-control" name="jumlah_alat" id="jumlah_alat"
-                            placeholder="Jumlah Alat" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="catatan" class="form-label"><b>Catatan Khusus</b></label>
-                        <textarea class="form-control" name="catatan" id="catatan" rows="3"
-                            placeholder="Catatan Khusus"></textarea>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="gambar_alat" class="form-label"><b>Upload Gambar Alat</b></label>
-                        <input type="file" class="form-control" name="gambar_alat" id="gambar_alat" required>
-                    </div>
-
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- close modal tambah -->
+                </div>
+                <!-- close modal tambah -->
 
                 <!-- </div> -->
 
