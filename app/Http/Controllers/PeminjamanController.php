@@ -5,63 +5,100 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AlatPertanian;
 use App\Models\Peminjaman;
+use Illuminate\Support\Facades\Gate;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 
 class PeminjamanController extends Controller
 {
     public function index()
     {
-        $peminjaman = Peminjaman::with('alat')->get();
-        return view('dashboard.bumdes.page.Alat_Pertanian.index_alat_pertanian', compact('peminjaman'));
+        $peminjaman = Peminjaman::with('alat')->paginate(10);
+        return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
     }
 
     public function store(Request $r)
     {
-        $r->validate([
-            'alat_id'               => 'required|exists:alat_pertanian,id_alat_pertanian',
-            'nama_peminjam'         => 'required|string',
-            'tanggal_pinjam'        => 'required|date',
-            'tanggal_kembali'       => 'required|date|after_or_equal:tanggal_pinjam',
-            'jumlah_alat_di_sewa'   => 'required|integer|min:1|max:2',
-        ]);
+        try {
+            $r->validate([
+                'alat_id'               => 'required|exists:alat_pertanian,id_alat_pertanian',
+                'nama_peminjam'         => 'required|string',
+                'tanggal_pinjam'        => 'required|date', // Validasi format input
+                'tanggal_kembali'       => 'required|date|after_or_equal:tanggal_pinjam', // Validasi input format and after
+                'jumlah_alat_di_sewa'   => 'required|integer|min:1|max:2',
+            ]);
 
-        $alat = AlatPertanian::findOrFail($r->alat_id); //ambil data alat
 
-        if ($alat->jumlah_tersedia < $r->jumlah_alat_di_sewa) {
-            return back()->withErrors(['jumlah_alat_di_sewa' => 'Stok alat tidak mencukupi. Hanya tersedia ' . $alat->jumlah_tersedia . 'unit']);
+            $alat = AlatPertanian::findOrFail($r->alat_id);
+
+            if ($alat->jumlah_tersedia < $r->jumlah_alat_di_sewa) {
+                return back()->withErrors(['jumlah_alat_di_sewa' => 'Stok alat tidak mencukupi. Hanya tersedia ' . $alat->jumlah_tersedia . 'unit']);
+            }
+
+            $alat->jumlah_tersedia -= $r->jumlah_alat_di_sewa;
+            $alat->status_alat = $alat->jumlah_tersedia > 0 ? 'tersedia' : 'tidak_tersedia';
+
+            if ($alat->jumlah_tersedia < 0) {
+                $alat->jumlah_tersedia = 0;
+                $alat->status_alat = 'tidak_tersedia';
+            }
+
+            $alat->save();
+
+            // Hapus konversi, karena sudah dalam format yang benar
+            $tanggal_pinjam = $r->tanggal_pinjam;
+            $tanggal_kembali = $r->tanggal_kembali;
+
+            dd([
+                'alat_pertanian_id'     => $r->alat_id,
+                'nama_peminjam'         => $r->nama_peminjam,
+                'jumlah_alat_di_sewa'   => $r->jumlah_alat_di_sewa,
+                'tanggal_pinjam'        => $r->tanggal_pinjam,
+                'tanggal_kembali'       => $r->tanggal_kembali,
+                'status_peminjaman'     => 'menunggu',
+            ]);
+
+            Peminjaman::create([
+                'alat_pertanian_id'     => $r->alat_id,
+                'nama_peminjam'         => $r->nama_peminjam,
+                'jumlah_alat_di_sewa'   => $r->jumlah_alat_di_sewa,
+                'tanggal_pinjam'        => $tanggal_pinjam,  // Simpan langsung
+                'tanggal_kembali'       => $tanggal_kembali,   // Simpan langsung
+                'status_peminjaman'     => 'menunggu',
+            ]);
+
+            return back()->with([
+                'success' => 'Peminjaman Alat Berhasil Diajukan',
+                'info'    => 'Silahkan Tunggu Konfirmasi Dari Admin',
+                'alat'    => $alat,
+            ]);
+        } catch (\Exception $e) {
+            Log::error($e);
+            return back()->with('error', 'Terjadi kesalahan saat memproses peminjaman.');
         }
-
-        // kurangi ketersediaan alat sebanyak jumlah alat yang di pinjam
-        $alat->jumlah_tersedia -= $r->jumlah_alat_di_sewa;
-        if ($alat->jumlah_tersedia == 0) {
-            $alat->status_alat = 'tidak_tersedia';
-        }
-        $alat->save();
-
-        // simpan peminjaman ke database dengan status menunggu karena peminjaman ini belum disetujui oleh admin
-        Peminjaman::create([
-            'alat_pertanian_id'     => $r->alat_id,
-            'nama_peminjam'         => $r->nama_peminjam,
-            'jumlah_alat_di_sewa'   => $r->jumlah_alat_di_sewa,
-            'tanggal_pinjam'        => $r->tanggal_pinjam,
-            'tanggal_kembali'       => $r->tanggal_kembali,
-            'status_peminjaman'     => 'menunggu',
-        ]);
-
-        return back()->with([
-            'success' => 'Peminjaman Alat Berhasil Di Ajukan',
-            'info'    => 'Silahkan Tunggu Konfirmasi Dari Admin',
-            'alat'    => $alat,
-        ]);
     }
 
+    // public function approve($id)
+    // {
+    //     $pinjam = Peminjaman::findOrFail($id);
+    //     $pinjam->status_peminjaman = 'disetujui';
+    //     $pinjam->save();
+
+    //     return back()->with('success', 'peminjaman disetujui');
+    // }
     public function approve($id)
     {
-        $pinjam = Peminjaman::findOrFail($id);
-        $pinjam->status_peminjaman = 'disetujui';
-        $pinjam->save();
+        // Otorisasi: Pastikan hanya admin yang bisa menyetujui
+        if (Gate::allows('approve-peminjaman')) { // Ganti 'approve-peminjaman' dengan ability yang sesuai
+            $pinjam = Peminjaman::findOrFail($id);
+            $pinjam->status_peminjaman = 'disetujui';
+            $pinjam->save();
 
-        return back()->with('success', 'peminjaman disetujui');
+            return back()->with('success', 'Peminjaman disetujui');
+        } else {
+            abort(403, 'Anda tidak memiliki izin untuk menyetujui peminjaman.');
+        }
     }
 
     public function kembalikan($id)
@@ -73,6 +110,11 @@ class PeminjamanController extends Controller
         // tambah kembali tersedia (saat alat di kembalikan, maka jumlah alat yang tersedia akan bertambah)
         $alat = $pinjam->alat;
         $alat->jumlah_tersedia += $pinjam->jumlah_alat_di_sewa;
+
+        if ($alat->jumlah_tersedia > $alat->jumlah_alat) {
+            $alat->jumlah_tersedia = $alat->jumlah_alat;
+        }
+
         $alat->status_alat = 'tersedia';
         $alat->save();
 
@@ -130,16 +172,23 @@ class PeminjamanController extends Controller
         $pinjam = Peminjaman::findOrFail($id);
 
         //hanya bisa membatalkan jika status masih menunggu
-        if($pinjam->status === 'menunggu'){
+        if ($pinjam->status_peminjaman === 'menunggu') {
             $pinjam->status_peminjaman = 'dibatalkan';
             $pinjam->save();
 
             //kembalikan jumlah ketersediaan alat
             $alat = $pinjam->alat;
             $alat->jumlah_tersedia += $pinjam->jumlah_alat_di_sewa;
-            $alat->status_alat  = 'tersedia';
+
+            if ($alat->jumlah_tersedia > $alat->jumlah_alat) {
+                $alat->jumlah_tersedia = $alat->jumlah_alat;
+            }
+
+            $alat->status_alat = $alat->jumlah_tersedia > 0 ? 'tersedia' : 'tidak_tersedia';
             $alat->save();
+
+            return back()->with('success', 'Peminjaman dibatalkan.');
         }
-        return back()->with('success', 'Peminjaman dibatalkan');
+        return back()->with('error', 'Peminjaman tidak dapat dibatalkan karena statusnya bukan menunggu.');
     }
 }

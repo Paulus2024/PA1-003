@@ -62,7 +62,7 @@
                                         <!-- Form Action Untuk Cancle -->
                                         <form action="{{ route('peminjaman.cancel', $p->id) }}" method="POST" class="d-inline">
                                             @csrf
-                                            @method('PATCH')
+                                            @method('PUT')
                                             <button type="submit" class="btn btn-outline-danger">Batalkan</button>
                                         </form>
 
