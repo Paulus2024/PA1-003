@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Gate;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
-
 class PeminjamanController extends Controller
 {
     public function index()
@@ -21,14 +20,13 @@ class PeminjamanController extends Controller
     public function store(Request $r)
     {
         try {
-            $r->validate([
-                'alat_id'               => 'required|exists:alat_pertanian,id_alat_pertanian',
-                'nama_peminjam'         => 'required|string',
-                'tanggal_pinjam'        => 'required|date', // Validasi format input
-                'tanggal_kembali'       => 'required|date|after_or_equal:tanggal_pinjam', // Validasi input format and after
-                'jumlah_alat_di_sewa'   => 'required|integer|min:1|max:2',
-            ]);
-
+            //   $r->validate([
+            //     'alat_id'               => 'required|exists:alat_pertanian,id_alat_pertanian',
+            //     'nama_peminjam'         => 'required|string',
+            //     'tanggal_pinjam'        => 'required|date', // Hapus date_format
+            //     'tanggal_kembali'       => 'required|date|after_or_equal:tanggal_pinjam', // Hapus date_format
+            //     'jumlah_alat_di_sewa'   => 'required|integer|min:1|max:2',
+            // ]);
 
             $alat = AlatPertanian::findOrFail($r->alat_id);
 
@@ -45,40 +43,45 @@ class PeminjamanController extends Controller
             }
 
             $alat->save();
-
-            // Hapus konversi, karena sudah dalam format yang benar
-            $tanggal_pinjam = $r->tanggal_pinjam;
-            $tanggal_kembali = $r->tanggal_kembali;
-
-            dd([
+            $dataPeminjaman = [
                 'alat_pertanian_id'     => $r->alat_id,
                 'nama_peminjam'         => $r->nama_peminjam,
                 'jumlah_alat_di_sewa'   => $r->jumlah_alat_di_sewa,
                 'tanggal_pinjam'        => $r->tanggal_pinjam,
                 'tanggal_kembali'       => $r->tanggal_kembali,
                 'status_peminjaman'     => 'menunggu',
-            ]);
+            ];
 
-            Peminjaman::create([
-                'alat_pertanian_id'     => $r->alat_id,
-                'nama_peminjam'         => $r->nama_peminjam,
-                'jumlah_alat_di_sewa'   => $r->jumlah_alat_di_sewa,
-                'tanggal_pinjam'        => $tanggal_pinjam,  // Simpan langsung
-                'tanggal_kembali'       => $tanggal_kembali,   // Simpan langsung
-                'status_peminjaman'     => 'menunggu',
-            ]);
+            try {
 
-            return back()->with([
-                'success' => 'Peminjaman Alat Berhasil Diajukan',
-                'info'    => 'Silahkan Tunggu Konfirmasi Dari Admin',
-                'alat'    => $alat,
-            ]);
+                $peminjaman = Peminjaman::create([
+                    'alat_pertanian_id'     => $r->alat_id,
+                    'nama_peminjam'         => $r->nama_peminjam,
+                    'jumlah_alat_di_sewa'   => $r->jumlah_alat_di_sewa,
+                    'tanggal_pinjam'        => $r->tanggal_pinjam,
+                    'tanggal_kembali'       => $r->tanggal_kembali,
+                    'status_peminjaman'     => 'menunggu',
+                ]);
+                dd($dataPeminjaman);
+
+
+                return back()->with([
+                    'success' => 'Peminjaman Alat Berhasil Diajukan',
+                    'info'    => 'Silahkan Tunggu Konfirmasi Dari Admin',
+                    'alat'    => $alat,
+                ]);
+            } catch (\Exception $createError) {
+
+                Log::error($createError); // Log error
+
+                return back()->with('error', 'Terjadi kesalahan saat memproses peminjaman.');
+            }
+            dd($dataPeminjaman);
         } catch (\Exception $e) {
             Log::error($e);
             return back()->with('error', 'Terjadi kesalahan saat memproses peminjaman.');
         }
     }
-
     // public function approve($id)
     // {
     //     $pinjam = Peminjaman::findOrFail($id);

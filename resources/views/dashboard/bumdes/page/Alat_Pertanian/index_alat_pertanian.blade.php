@@ -86,10 +86,12 @@
 
                                                         <form
                                                             action="{{ route('bumdes.alat_pertanian.destroy', $item->id_alat_pertanian) }}"
-                                                            method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                                            method="POST"
+                                                            onsubmit="return confirm('Yakin ingin menghapus?')">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                                                            <button type="submit"
+                                                                class="btn btn-outline-danger">Hapus</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -116,7 +118,8 @@
 
                                             {{-- <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal<!{{ $item->id_fasilitas }}"> --}}
                                             <div class="d-flex justify-content-end">
-                                                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                                                <button type="button" class="btn btn-outline-warning"
+                                                    data-bs-toggle="modal"
                                                     data-bs-target="#SewaAlatPertanian{{ $item->id_alat_pertanian }}">
                                                     Sewa Alat
                                                 </button>
@@ -142,7 +145,7 @@
                                     <div class="modal-dialog"><!-- Modal Dialog -->
                                         <div class="modal-content"><!-- Modal Content -->
                                             <div class="modal-header"><!-- Modal Header -->
-                                                <h5 class="modal-title" id="SewaAlatPertanian">Tambah Data Alat Pertanian Baru
+                                                <h5 class="modal-title" id="SewaAlatPertanian">Sewa Alat Pertanian
                                                 </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
@@ -156,8 +159,8 @@
                                                         value="{{ $item->id_alat_pertanian }}">
                                                     <div class="mb-3">
                                                         <label>Nama Peminjam</label>
-                                                        <input type="text" name="nama_peminjam" class="form-control" placeholder="Nama Peminjam"
-                                                            required>
+                                                        <input type="text" name="nama_peminjam" class="form-control"
+                                                            placeholder="Nama Peminjam" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label>Tanggal Pinjam</label>
@@ -171,8 +174,9 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label>Jumlah Alat Yang Di Sewa</label>
-                                                        <input name="jumlah_alat_di_sewa" min="1" max="2" type="number" id="typeNumber"
-                                                            class="form-control" placeholder="Min 1 & Max 2" />
+                                                        <input name="jumlah_alat_di_sewa" min="1" max="2"
+                                                            type="number" id="typeNumber" class="form-control"
+                                                            placeholder="Min 1 & Max 2" />
                                                     </div>
                                                     <button class="btn btn-success">Pinjam</button>
                                                 </form><!-- Form untuk menyewa alat pertanian -->
@@ -184,19 +188,21 @@
                                 <!-- Modal Sewa Alat Pertanian -->
 
                                 <!-- Modal Edit Alat Pertanian -->
-                                <div class="modal fade" id="EditAlatPertanian{{ $item->id_alat_pertanian }}" tabindex="-1"
-                                    aria-labelledby="TambahAlatPertanian" aria-hidden="true">
+                                <div class="modal fade" id="EditAlatPertanian{{ $item->id_alat_pertanian }}"
+                                    tabindex="-1" aria-labelledby="TambahAlatPertanian" aria-hidden="true">
                                     <div class="modal-dialog"><!-- Modal Dialog -->
                                         <div class="modal-content"><!-- Modal Content -->
                                             <div class="modal-header"><!-- Modal Header -->
-                                                <h5 class="modal-title" id="EditAlatPertanian">Edit Data Alat Pertanian Baru
+                                                <h5 class="modal-title" id="EditAlatPertanian">Edit Data Alat Pertanian
+                                                    Baru
                                                 </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div><!-- Modal Header -->
 
                                             <div class="modal-body"><!-- Modal Body -->
-                                                <form action="{{ route('alat_pertanian.update', $item->id_alat_pertanian) }}"
+                                                <form
+                                                    action="{{ route('alat_pertanian.update', $item->id_alat_pertanian) }}"
                                                     method="POST" enctype="multipart/form-data">
                                                     <!-- Form untuk menyewa alat pertanian -->
                                                     @csrf
@@ -206,13 +212,14 @@
                                                                 Pertanian
                                                             </b>
                                                         </label>
-                                                        <input type="text" class="form-control" name="nama_alat_pertanian"
-                                                            id="nama_alat_pertanian" value="{{ $item->nama_alat_pertanian }}"
-                                                            required>
+                                                        <input type="text" class="form-control"
+                                                            name="nama_alat_pertanian" id="nama_alat_pertanian"
+                                                            value="{{ $item->nama_alat_pertanian }}" required>
                                                     </div>
 
                                                     <div class="mb-3">
-                                                        <label for="jenis_alat_pertanian" class="form-lable"> <b> Jenis Alat
+                                                        <label for="jenis_alat_pertanian" class="form-lable"> <b> Jenis
+                                                                Alat
                                                                 Pertanian
                                                             </b>
                                                         </label><br>
@@ -241,10 +248,10 @@
                                                     </div>
 
                                                     <!-- <div class="mb-3">
-                                                                                                    <label for="status_alat" class="form-lable">Status Alat</label>
-                                                                                                    <input type="text" class="form-control" name="status_alat" id="status_alat"
-                                                                                                        placeholder="Status Alat" required>
-                                                                                                </div> -->
+                                                                                                        <label for="status_alat" class="form-lable">Status Alat</label>
+                                                                                                        <input type="text" class="form-control" name="status_alat" id="status_alat"
+                                                                                                            placeholder="Status Alat" required>
+                                                                                                    </div> -->
 
                                                     <div class="mb-3">
                                                         <label for="jumlah_alat" class="form-lable"> <b> Jumlah Alat </b>
@@ -313,7 +320,8 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="TambahAlatPertanianLabel">Tambah Data Alat Pertanian Baru</h5>
+                                    <h5 class="modal-title" id="TambahAlatPertanianLabel">Tambah Data Alat Pertanian Baru
+                                    </h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -332,18 +340,20 @@
                                             <label for="jenis_alat_pertanian" class="form-label"><b>Jenis Alat
                                                     Pertanian</b></label><br>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="jenis_alat_pertanian"
-                                                    id="olah_lahan" value="Olah_Lahan" required>
+                                                <input class="form-check-input" type="radio"
+                                                    name="jenis_alat_pertanian" id="olah_lahan" value="Olah_Lahan"
+                                                    required>
                                                 <label class="form-check-label" for="olah_lahan">Olah Lahan</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="jenis_alat_pertanian"
-                                                    id="pascapanen" value="Pascapanen" required>
+                                                <input class="form-check-input" type="radio"
+                                                    name="jenis_alat_pertanian" id="pascapanen" value="Pascapanen"
+                                                    required>
                                                 <label class="form-check-label" for="pascapanen">Pascapanen</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="jenis_alat_pertanian"
-                                                    id="lainnya" value="Lainnya" required>
+                                                <input class="form-check-input" type="radio"
+                                                    name="jenis_alat_pertanian" id="lainnya" value="Lainnya" required>
                                                 <label class="form-check-label" for="lainnya">Lainnya</label>
                                             </div>
                                         </div>
@@ -356,8 +366,8 @@
 
                                         <div class="mb-3">
                                             <label for="jumlah_alat" class="form-label"><b>Jumlah Alat</b></label>
-                                            <input type="number" class="form-control" name="jumlah_alat" id="jumlah_alat"
-                                                placeholder="Jumlah Alat" required>
+                                            <input type="number" class="form-control" name="jumlah_alat"
+                                                id="jumlah_alat" placeholder="Jumlah Alat" required>
                                         </div>
 
                                         <div class="mb-3">
@@ -367,8 +377,8 @@
 
                                         <div class="mb-3">
                                             <label for="gambar_alat" class="form-label"><b>Upload Gambar Alat</b></label>
-                                            <input type="file" class="form-control" name="gambar_alat" id="gambar_alat"
-                                                required>
+                                            <input type="file" class="form-control" name="gambar_alat"
+                                                id="gambar_alat" required>
                                         </div>
 
                                         <button type="submit" class="btn btn-success">Simpan</button>
