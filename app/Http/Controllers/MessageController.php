@@ -4,18 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Message;
+use Carbon\Carbon;
 
 class MessageController extends Controller
 {
     public function index()
     {
-        $allMessages = Message::latest()->get();
+        $allMessages = Message::where('created_at', '>=', Carbon::now()->subHours(24))
+                              ->latest()
+                              ->get();
+
         return view('pengguna.page.Contact.index_contact', compact('allMessages'));
     }
 
     public function index_masyarakat()
     {
-        $allMessages = Message::latest()->get();
+        $allMessages = Message::where('created_at', '>=', Carbon::now()->subHours(24))
+                              ->latest()
+                              ->get();
+
         return view('dashboard.masyarakat.page.Contact.index_contact', compact('allMessages'));
     }
 
