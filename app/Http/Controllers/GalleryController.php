@@ -22,6 +22,18 @@ class GalleryController extends Controller
         return view('dashboard.masyarakat.page.Galeri.index_galeri', compact('galleries'));
     }
 
+        public function index_bumdes()
+    {
+        $galleries = Gallery::all(); // Atau sesuai model kamu
+        return view('dashboard.bumdes.page.Galeri.index_galeri', compact('galleries'));
+    }
+
+        public function index_penguna()
+    {
+        $galleries = Gallery::all(); // Atau sesuai model kamu
+        return view('pengguna.page.Galeri.index_galeri', compact('galleries'));
+    }
+
 
 
 

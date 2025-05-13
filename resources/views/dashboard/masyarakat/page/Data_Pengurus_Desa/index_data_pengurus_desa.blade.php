@@ -10,8 +10,8 @@
             <h1>About</h1>
             <nav class="breadcrumbs">
                 <ol>
-                    <li><a href="/">Home</a></li>
-                    <li class="current">About</li>
+                    <li><a href="'index.masyarakat'">Home</a></li>
+                    <li class="current">Data Pengurus Desa</li>
                 </ol>
             </nav>
         </div>

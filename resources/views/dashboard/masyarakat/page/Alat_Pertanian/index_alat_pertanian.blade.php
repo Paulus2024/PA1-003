@@ -18,8 +18,8 @@
             <h1>Projects</h1>
             <nav class="breadcrumbs">
                 <ol>
-                    <li><a href="/">Home</a></li>
-                    <li class="current">Projects</li>
+                    <li><a href="'index.masyarakat'">Home</a></li>
+                    <li class="current">Alat Pertanian</li>
                 </ol>
             </nav>
         </div>

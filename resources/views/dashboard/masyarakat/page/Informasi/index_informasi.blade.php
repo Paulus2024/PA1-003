@@ -11,7 +11,7 @@
             <h1>Informasi Desa</h1>
             <nav class="breadcrumbs">
                 <ol>
-                    <li><a href="{{ url('/') }}">Home</a></li>
+                    <li><a href="index.masyarakat">Home</a></li>
                     <li class="current">Informasi</li>
                     <li class="current">Berita1</li>
                 </ol>
