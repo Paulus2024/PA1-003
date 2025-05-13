@@ -27,4 +27,9 @@ class AlatPertanian extends Model
         'create_at',
         'update_at'
     ];
+
+    public function peminjaman()
+    {
+        return $this->hasMany(Peminjaman::class, 'alat_pertanian_id');
+    }
 }

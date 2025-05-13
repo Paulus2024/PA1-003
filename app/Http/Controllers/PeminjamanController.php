@@ -16,6 +16,20 @@ class PeminjamanController extends Controller
     {
         $peminjaman = Peminjaman::with('alat')->paginate(10);
         return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
+
+        foreach ($alat as $item) {
+            $totalDipinjam = $item->peminjaman()->where('status_peminjaman', 'disetujui')->sum('jumlah_alat_di_sewa');
+            $item->jumlah_tersedia -= $totalDipinjam;
+
+            if ($item->jumlah_tersedia <= 0) {
+                $item->status_alat = 'tidak tersedia';
+            } else {
+                $item->status_alat = 'tersedia';
+            }
+            $item->save();
+        }
+
+        return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman', 'alat'));
     }
 
     public function store(Request $request)
@@ -39,8 +53,18 @@ class PeminjamanController extends Controller
         DB::beginTransaction();
         try {
             // Update stok alat
+            // $alat->jumlah_tersedia -= $validated['jumlah_alat_di_sewa'];
+            // $alat->jumlah_tersedia = max(0, $alat->jumlah_tersedia); // hindari negatif
+            // $alat->status_alat = $alat->jumlah_tersedia > 0 ? 'tersedia' : 'tidak_tersedia';
+            // $alat->save();
+            $alat = AlatPertanian::find($request->alat_id); // pastikan ambil data dari DB
+
             $alat->jumlah_tersedia -= $validated['jumlah_alat_di_sewa'];
-            $alat->status_alat = $alat->jumlah_tersedia > 0 ? 'tersedia' : 'tidak tersedia';
+            $alat->jumlah_tersedia = max(0, $alat->jumlah_tersedia); // hindari negatif
+
+            // Penting: pastikan enum cocok dengan isi database
+            $alat->status_alat = $alat->jumlah_tersedia > 0 ? 'tersedia' : 'tidak_tersedia';
+
             $alat->save();
 
             // Buat peminjaman

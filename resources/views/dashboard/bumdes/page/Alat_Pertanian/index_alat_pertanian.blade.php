@@ -107,16 +107,21 @@
                                             </div>
                                         </div>
 
-                                        <!-- 🔽 Keterangan Tambahan di Bawah Gambar -->
+                                        <!-- Status Alat Pertanian dan Jumlah Alat Tersedia -->
                                         <div class="mt-3 p-3 bg-white shadow-sm rounded-0">
-                                            <h5 class="fw-bold text-warning"> {{ $item->nama_alat_pertanian }} </h5>
-                                            <!-- Nama Alat -->
-                                            <p class="text-secondary"> {{ $item->harga_sewa }} </p><!-- Harga Sewa -->
-                                            <p class="text-secondary">{{ $item->status_alat }}|{{ $item->jumlah_alat }}
+                                            <h5 class="fw-bold text-warning">{{ $item->nama_alat_pertanian }}</h5>
+                                            <p class="text-secondary">{{ $item->harga_sewa }}</p>
+                                            
+                                            <p class="text-secondary">
+                                                Status:
+                                                @if ($item->status_alat == 'tersedia')
+                                                    <span class="badge bg-success">Tersedia</span>
+                                                @else
+                                                    <span class="badge bg-danger">Tidak Tersedia</span>
+                                                @endif
+                                                | Tersedia: {{ $item->jumlah_tersedia }} / {{ $item->jumlah_alat }}
                                             </p>
-                                            <!-- Status -->
 
-                                            {{-- <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal<!{{ $item->id_fasilitas }}"> --}}
                                             <div class="d-flex justify-content-end">
                                                 <button type="button" class="btn btn-outline-warning"
                                                     data-bs-toggle="modal"
@@ -124,16 +129,8 @@
                                                     Sewa Alat
                                                 </button>
                                             </div>
-                                            {{-- <div class="d-flex gap-2">
-                                                <a href="/edit" class="btn btn-outline-warning">Edit</a>
-                                                <form action="/hapus" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-outline-danger">Hapus</button>
-                                                </form>
-                                            </div> --}}
                                         </div>
-
+                                        <!-- Status Alat Pertanian dan Jumlah Alat Tersedia -->
                                     </article>
                                 </div>
                                 <!-- Close Content -->
@@ -248,10 +245,10 @@
                                                     </div>
 
                                                     <!-- <div class="mb-3">
-                                                                                                        <label for="status_alat" class="form-lable">Status Alat</label>
-                                                                                                        <input type="text" class="form-control" name="status_alat" id="status_alat"
-                                                                                                            placeholder="Status Alat" required>
-                                                                                                    </div> -->
+                                                                                                            <label for="status_alat" class="form-lable">Status Alat</label>
+                                                                                                            <input type="text" class="form-control" name="status_alat" id="status_alat"
+                                                                                                                placeholder="Status Alat" required>
+                                                                                                        </div> -->
 
                                                     <div class="mb-3">
                                                         <label for="jumlah_alat" class="form-lable"> <b> Jumlah Alat </b>
