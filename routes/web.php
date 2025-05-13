@@ -10,7 +10,8 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\DataPengurusDesaController;
 use App\Http\Controllers\AlatPertanianController;
 use App\Http\Controllers\PeminjamanController;
-use App\Http\Controllers\AboutUsController; // Tambahkan ini - Import AboutUsController
+use App\Http\Controllers\AboutController; // Corrected class name
+
 
 /*
 |--------------------------------------------------------------------------
@@ -99,13 +100,6 @@ Route::middleware(['auth'])->group(function () {
 //=========================================================
 Route::middleware(['auth'])->group(function () {
 
-    //About us
-    Route::get('about_us', [AboutUsController::class, 'index'])->name('sekretaris.about_us.index');
-    Route::get('about_us/create', [AboutUsController::class, 'create'])->name('sekretaris.about_us.create');
-    Route::post('about_us', [AboutUsController::class, 'store'])->name('sekretaris.about_us.store');
-    Route::get('about_us/edit/{id}', [AboutUsController::class, 'edit'])->name('sekretaris.about_us.edit');
-    Route::put('about_us/update/{id}', [AboutUsController::class, 'update'])->name('sekretaris.about_us.update');
-    Route::delete('about_us/delete/{id}', [AboutUsController::class, 'destroy'])->name('sekretaris.about_us.destroy');
     Route::get('/fasilitas_sekretaris', [FasilitasDesaController::class, 'index'])->name('sekretaris.fasilitas.index');
     Route::get('/fasilitas_sekretaris/create', [FasilitasDesaController::class, 'create'])->name('sekretaris.fasilitas.create');
     Route::post('/fasilitas_sekretaris/store', [FasilitasDesaController::class, 'store'])->name('sekretaris.fasilitas.store');
@@ -142,6 +136,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/contact_sekretaris', function () {
         return view('dashboard/sekretaris/page/Contact/index_contact');
     });
+
+    // About Routes (Sekretaris) - ADD THESE LINES
+    Route::resource('/about_sekretaris', AboutController::class)->names([
+        'index' => 'abouts.index',
+        'create' => 'abouts.create',
+        'store' => 'abouts.store',
+        'show' => 'abouts.show',
+        'edit' => 'abouts.edit',
+        'update' => 'abouts.update',
+        'destroy' => 'abouts.destroy',
+    ]);
 });
 
 //=========================================================

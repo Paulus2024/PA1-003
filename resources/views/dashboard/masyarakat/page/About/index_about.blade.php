@@ -5,12 +5,12 @@
         @include('dashboard.masyarakat.component.navbar')
     </header>
 
-    <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
+    <div class="page-title dark-background" style="background-image: url({{ asset('assets/img/page-title-bg.jpg') }});">
         <div class="container position-relative">
             <h1>About</h1>
             <nav class="breadcrumbs">
                 <ol>
-                    <li><a href="'index.masyarakat'">Home</a></li>
+                    <li><a href="{{ route('index.masyarakat') }}">Home</a></li>
                     <li class="current">About</li>
                 </ol>
             </nav>
@@ -22,9 +22,15 @@
 
         <div class="container">
 
+            @if($about)
             <div class="row position-relative">
 
-                <div class="col-lg-7 about-img" data-aos="zoom-out" data-aos-delay="200"><img src="assets/img/about.jpg">
+                <div class="col-lg-7 about-img" data-aos="zoom-out" data-aos-delay="200">
+                    @if ($about->gambar1)
+                    <img src="{{ asset('storage/' . $about->gambar1) }}" class="img-fluid" alt="Gambar 1">
+                    @else
+                    <img src="{{ asset('assets/img/about.jpg') }}" alt="Gambar Default" class="img-fluid">
+                    @endif
                 </div>
 
                 <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
@@ -32,7 +38,7 @@
                     <div class="our-story">
                         <h4>Tahun Berdiri</h4>
                         <h3>History</h3>
-                        <p>history</p>
+                        <p>{!! $about->sejarah !!}</p>
                         <ul>
                             <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commo</span>
                             </li>
@@ -52,6 +58,9 @@
                 </div>
 
             </div>
+            @else
+            <p>Tidak ada data About yang tersedia.</p>
+            @endif
 
         </div>
 
@@ -75,7 +84,7 @@
                         <i class="bi bi-people color-pink flex-shrink-0"></i>
                         <div>
                             <p><b>Penduduk</b></p>
-                            <span data-purecounter-start="0" data-purecounter-end="15000" data-purecounter-duration="1"
+                            <span data-purecounter-start="0" data-purecounter-end="{{ $about ? $about->jumlah_penduduk : '0' }}" data-purecounter-duration="1"
                                 class="purecounter"></span>
 
                         </div>
@@ -98,7 +107,7 @@
                         <i class="fas fa-map color-green flex-shrink-0"></i>
                         <div>
                             <p><b>Luas Wilayah</b></p>
-                            <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1"
+                            <span data-purecounter-start="0" data-purecounter-end="{{ $about ? $about->luas_wilayah : '0' }}" data-purecounter-duration="1"
                                 class="purecounter"></span>
                         </div>
                     </div>
@@ -109,7 +118,7 @@
                         <i class="bi bi-people color-pink flex-shrink-0"></i>
                         <div>
                             <p><b>Perangkat Desa</b></p>
-                            <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1"
+                            <span data-purecounter-start="0" data-purecounter-end="{{ $about ? $about->jumlah_perangkat_desa : '0' }}" data-purecounter-duration="1"
                                 class="purecounter"></span>
                         </div>
                     </div>
@@ -128,13 +137,15 @@
 
             <div class="row justify-content-around gy-4">
                 <div class="features-image col-lg-6" data-aos="fade-up" data-aos-delay="100"><img
-                        src="assets/img/alt-services.jpg" alt=""></div>
+                        src="{{ asset('assets/img/alt-services.jpg') }}" alt=""></div>
 
                 <div class="col-lg-5 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
                     <h3>VISI & MISI</h3>
-                    <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima
-                        temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi</p>
-
+                    @if($about)
+                    <p>{!! $about->visi_misi !!}</p>
+                    @else
+                    <p>Tidak ada data Visi Misi</p>
+                    @endif
                     <div class="icon-box d-flex position-relative" data-aos="fade-up" data-aos-delay="300">
                         <i class="bi bi-easel flex-shrink-0"></i>
                         <div>
@@ -285,7 +296,7 @@
                                 <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img"
                                     alt="">
                                 <h3>Saul Goodman</h3>
-                                <h4>Ceo &amp; Founder</h4>
+                                <h4>Ceo & Founder</h4>
                                 <div class="stars">
                                     <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
                                         class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
