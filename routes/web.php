@@ -85,12 +85,6 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard.sekretaris.page.Home.index_home');
     })->name('dashboard.sekretaris');
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware('auth');
-Route::get('/index_masyarakat', function () {
-    return view('dashboard/masyarakat/page/Home/index_home');
-})->middleware('auth');
     Route::get('/dashboard', function () {
         return view('dashboard/masyarakat/page/Home/index_home');
     })->name('dashboard');
@@ -106,27 +100,6 @@ Route::get('/index_masyarakat', function () {
 //=========================================================
 Route::middleware(['auth'])->group(function () {
 
-<<<<<<< HEAD
-=======
-//==========================================================
-// Route Fasilitas Sekretaris
-//==========================================================
-// Route::get('/fasilitas_sekretaris', function () {
-//     return view('dashboard/sekretaris/page/Fasilitas/index_fasilitas');
-// });
-Route::get('/fasilitas_sekretaris', [FasilitasDesaController::class, 'index'])->name('sekretaris.fasilitas.index');
-// A
-// Route::get('/fasilitas_sekretaris/create', [FasilitasDesaController::class, 'create'])->name('sekretaris.fasilitas.create');
-// A
-Route::get('/fasilitas_sekretaris/create', [FasilitasDesaController::class, 'create'])->name('sekretaris.fasilitas.create');
-    //About us
-    Route::get('about_us', [AboutUsController::class, 'index'])->name('sekretaris.about_us.index');
-    Route::get('about_us/create', [AboutUsController::class, 'create'])->name('sekretaris.about_us.create');
-    Route::post('about_us', [AboutUsController::class, 'store'])->name('sekretaris.about_us.store');
-    Route::get('about_us/edit/{id}', [AboutUsController::class, 'edit'])->name('sekretaris.about_us.edit');
-    Route::put('about_us/update/{id}', [AboutUsController::class, 'update'])->name('sekretaris.about_us.update');
-    Route::delete('about_us/delete/{id}', [AboutUsController::class, 'destroy'])->name('sekretaris.about_us.destroy');
->>>>>>> 60107da08621f775843aad9adf40573b0b01ea8a
     Route::get('/fasilitas_sekretaris', [FasilitasDesaController::class, 'index'])->name('sekretaris.fasilitas.index');
     Route::get('/fasilitas_sekretaris/create', [FasilitasDesaController::class, 'create'])->name('sekretaris.fasilitas.create');
     Route::post('/fasilitas_sekretaris/store', [FasilitasDesaController::class, 'store'])->name('sekretaris.fasilitas.store');
@@ -215,71 +188,6 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-Route::get('/fasilitas_bumdes', function () {
-    return view('dashboard/bumdes/page/Fasilitas/index_fasilitas');
-});
-
-Route::get('/informasi_bumdes', function () {
-    return view('dashboard/bumdes/page/Informasi/index_informasi');
-});
-
-Route::get('/galeri_bumdes', function () {
-    return view('dashboard/bumdes/page/Galeri/index_galeri');
-});
-
-Route::get('/data_pengurus_desa_bumdes', function () {
-    return view('dashboard/bumdes/page/Data_Pengurus_Desa/index_data_pengurus_desa');
-});
-
-
-//============================================================
-// CRUD PEMINJAMAN ALAT PERTANIAN
-//============================================================
-// Route::get('/alat_pertanian_bumdes', function () {
-//    return view('dashboard/bumdes/page/Alat_Pertanian/index_alat_pertanian');
-// });
-//=============================================================
-Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index'])->name('alat_pertanian.index'); //untuk menampilkan data alat pertanian
-
-Route::post('/alat_pertanian_bumdes/store', [AlatPertanianController::class, 'store'])->name('bumdes.alat_pertanian.store');
-
-Route::delete('alat_pertanian_bumdes/{alat}', [AlatPertanianController::class, 'destroy'])->name('bumdes.alat_pertanian.destroy');
-
-Route::put('alat_pertanian/{id}', [AlatPertanianController::class, 'update'])->name('alat_pertanian.update');
-
-// Menampilkan halaman histori pemesanan (untuk Bumdes)
-Route::get('/alat-pertanian/histori', [PeminjamanController::class, 'history'])->name('pemesanan.history');
-
-//peminjaman
-Route::post('alat_pertanian/pinjam', [PeminjamanController::class, 'store'])->name('alat_pertanian.pinjam');
-
-Route::patch('/alat_pertanian/kembali/{id}', [PeminjamanController::class, 'kembalikan'])->name('alat_pertanian.kembali');
-
-// Menampilkan daftar peminjaman untuk admin/bumdes
-Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
-
-Route::patch('/peminjaman/{id}/approve', [PeminjamanController::class, 'approve'])->name('peminjaman.approve');
-
-Route::patch('/peminjaman/{id}/cancel', [PeminjamanController::class, 'cancel'])->name('peminjaman.cancel');
-
-//============================================================
-
-
-
-
-
-//============================================================
-//CRUD DATA PENGURUS DESA
-//============================================================
-//Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index'])->name('alat_pertanian.index');
-//============================================================
-
-Route::get('/contact_bumdes', function () {
-    return view('dashboard/bumdes/page/Contact/index_contact');
-});
-
-Route::resource('galleries', GalleryController::class);
-
 //=========================================================
 // Route Masyarakat (Protected Routes - Authentication Required)
 //=========================================================
@@ -303,38 +211,3 @@ Route::middleware(['auth'])->group(function () {
 // Route Convert PDF (No Authentication Required)
 //=========================================abou
 Route::get('/convert-pdf/{filename}', [InformasiDesaController::class, 'convertToPdf']);
-
-//==========================================================
-// Route Masyarakat
-//==========================================================
-// Route::get('/index_masyarakat', [FasilitasDesaController::class, 'index_masyarakat'])->name('index.masyarakat');
-Route::get('/index_masyarakat', function () {
-    return view('dashboard.masyarakat.page.Home.index_home');
-})->name('index.masyarakat');
-
-Route::get('/about_masyarakat', function () {
-    return view('dashboard.masyarakat.page.About.index_about');
-})->name('about.masyarakat');
-
-Route::get('/fasilitas_masyarakat', [FasilitasDesaController::class, 'index_masyarakat'])->name('fasilitas.masyarakat');
-
-//informasi=================================================
-Route::get('/informasi_masyarakat', [InformasiDesaController::class, 'index_berita_masyarakat'])->name('informasi.masyarakat');
-
-Route::get('/informasi_pengumuman_masyarakat', [InformasiDesaController::class, 'index_pengumuman_masyarakat'])->name('pengumuman.masyarakat');
-//==========================================================
-
-//alat pertanian============================================
-Route::get('/alat_pertanian_masyarakat', [AlatPertanianController::class, 'index_masyarakat'])->name('alat_pertanian.masyarakat');
-// Menampilkan halaman histori pemesanan (untuk Masyarakat)
-Route::get('/alat-pertanian/histori-masyarakat', [PeminjamanController::class, 'historyMasyarakat'])->name('pemesanan.history.masyarakat');
-//==========================================================
-
-Route::get('/galeri_masyarakat', [GalleryController::class, 'index_masyarakat'])->name('galeri.masyarakat');
-
-Route::get('/data_pengurus_desa_masyarakat', [DataPengurusDesaController::class, 'index_masyarakat'])->name('data_pengurus_desa.masyarakat');
-
-Route::get('/contact', [MessageController::class, 'index'])->name('contact');
-Route::post('/contact', [MessageController::class, 'store']);
-
-Route::get('/contact_masyarakat', [MessageController::class, 'index_masyarakat']);
