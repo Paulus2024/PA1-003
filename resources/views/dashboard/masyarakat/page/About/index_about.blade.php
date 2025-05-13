@@ -11,6 +11,7 @@
             <nav class="breadcrumbs">
                 <ol>
                     <li><a href="{{ route('index.masyarakat')}}">Home</a></li>
+                    <li><a href="'index.masyarakat'">Home</a></li>
                     <li class="current">About</li>
                 </ol>
             </nav>

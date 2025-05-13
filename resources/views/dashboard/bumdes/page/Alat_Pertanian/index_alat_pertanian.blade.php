@@ -24,6 +24,17 @@
                 </nav>
             </div>
         </div><!-- End Page Title -->
+    <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
+        <div class="container position-relative">
+            <h1>Projects</h1>
+            <nav class="breadcrumbs">
+                <ol>
+                    <li><a href="/index_bumdes">Home</a></li>
+                    <li class="current">Alat Pertanian</li>
+                </ol>
+            </nav>
+        </div>
+    </div><!-- End Page Title -->
 
 
         <main id="main">
@@ -111,7 +122,7 @@
                                         <div class="mt-3 p-3 bg-white shadow-sm rounded-0">
                                             <h5 class="fw-bold text-warning">{{ $item->nama_alat_pertanian }}</h5>
                                             <p class="text-secondary">{{ $item->harga_sewa }}</p>
-                                            
+
                                             <p class="text-secondary">
                                                 Status:
                                                 @if ($item->status_alat == 'tersedia')

@@ -12,6 +12,8 @@
                 <ol>
                     <li><a href="{{ route('index.masyarakat')}}">Home</a></li>
                     <li class="current">About</li>
+                    <li><a href="'index.masyarakat'">Home</a></li>
+                    <li class="current">Data Pengurus Desa</li>
                 </ol>
             </nav>
         </div>

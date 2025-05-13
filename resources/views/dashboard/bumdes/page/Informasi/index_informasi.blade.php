@@ -10,8 +10,8 @@
       <h1>Blog</h1>
       <nav class="breadcrumbs">
         <ol>
-          <li><a href="/">Home</a></li>
-          <li class="current">Blog</li>
+          <li><a href="/index_bumdes">Home</a></li>
+          <li class="current">Informasi</li>
         </ol>
       </nav>
     </div>

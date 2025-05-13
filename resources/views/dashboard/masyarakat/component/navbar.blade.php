@@ -2,7 +2,7 @@
 
     <a href="/index_masyarakat" class="logo d-flex align-items-center">
         <img src="{{ asset('assets/img/8.png') }}" alt="Logo">
-    <h1 class="sitename">Desa</h1> <span>Taon Marisi</span>
+        <h1 class="sitename">Desa</h1><span><b>Taon Marisi</b></span>
     </a>
 
     <nav id="navmenu" class="navmenu">

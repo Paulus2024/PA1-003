@@ -20,6 +20,8 @@
                 <ol>
                     <li><a href="{{ route('index.masyarakat')}}">Home</a></li>
                     <li class="current">Projects</li>
+                    <li><a href="'index.masyarakat'">Home</a></li>
+                    <li class="current">Alat Pertanian</li>
                 </ol>
             </nav>
         </div>

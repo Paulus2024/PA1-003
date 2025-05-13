@@ -10,8 +10,8 @@
       <h1>Projects</h1>
       <nav class="breadcrumbs">
         <ol>
-          <li><a href="/">Home</a></li>
-          <li class="current">Projects</li>
+          <li><a href="/index_bumdes">Home</a></li>
+          <li class="current">Fasilitas</li>
         </ol>
       </nav>
     </div>
@@ -19,7 +19,7 @@
 
   <!-- Projects Section -->
   <section id="projects" class="projects section">
-    
+
     <div class="container">
 
         <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">

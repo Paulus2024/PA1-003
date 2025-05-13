@@ -16,8 +16,8 @@
             <h1>Histori Pemesanan Alat</h1>
             <nav class="breadcrumbs">
                 <ol>
-                    <li><a href="{{ url('/') }}">Home</a></li>
-                    <li class="current">Fasilitas</li>
+                    <li><a href="/index_bumdes">Home</a></li>
+                    <li class="current">Hisori Pemesanan</li>
                 </ol>
             </nav>
         </div>
