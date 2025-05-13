@@ -108,7 +108,7 @@ class AuthController extends Controller
         } elseif ($user->usertype === 'sekretaris') {
             return redirect()->route('dashboard.sekretaris');
         } else {
-            return redirect('/dashboard');
+            return redirect('/index_masyarakat');
         }
     }
 

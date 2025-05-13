@@ -10,7 +10,12 @@
             <h1>About</h1>
             <nav class="breadcrumbs">
                 <ol>
+<<<<<<< HEAD
                     <li><a href="{{ route('index.masyarakat') }}">Home</a></li>
+=======
+                    <li><a href="{{ route('index.masyarakat')}}">Home</a></li>
+                    <li><a href="'index.masyarakat'">Home</a></li>
+>>>>>>> 60107da08621f775843aad9adf40573b0b01ea8a
                     <li class="current">About</li>
                 </ol>
             </nav>

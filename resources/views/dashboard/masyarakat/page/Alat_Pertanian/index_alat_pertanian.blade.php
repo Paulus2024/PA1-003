@@ -18,6 +18,8 @@
             <h1>Projects</h1>
             <nav class="breadcrumbs">
                 <ol>
+                    <li><a href="{{ route('index.masyarakat')}}">Home</a></li>
+                    <li class="current">Projects</li>
                     <li><a href="'index.masyarakat'">Home</a></li>
                     <li class="current">Alat Pertanian</li>
                 </ol>
@@ -95,7 +97,18 @@
                                         <h5 class="fw-bold text-warning"> {{ $item->nama_alat_pertanian }} </h5>
                                         <!-- Nama Alat -->
                                         <p class="text-secondary"> {{ $item->harga_sewa }} </p><!-- Harga Sewa -->
-                                        <p class="text-secondary">{{ $item->status_alat }}|{{ $item->jumlah_alat }}
+                                        {{-- <p class="text-secondary">{{ $item->status_alat }}|{{ $item->jumlah_alat }}
+                                        </p> --}}
+                                        <p>
+                                            @if ($item->status_alat == 'tersedia')
+                                                <span class="badge bg-success">
+                                                    {{ ucfirst($item->status_alat) }} ({{ $item->jumlah_alat }})
+                                                </span>
+                                            @else
+                                                <span class="badge bg-danger">
+                                                    {{ ucfirst($item->status_alat) }} ({{ $item->jumlah_alat}})
+                                                </span>
+                                            @endif
                                         </p>
                                         <!-- Status -->
 
@@ -133,8 +146,8 @@
                                                 <input type="hidden" name="alat_id"
                                                     value="{{ $item->id_alat_pertanian }}">
                                                 <div class="mb-3">
-                                                    <label>Peminjam</label>
-                                                    <input type="text" name="peminjam" class="form-control" required>
+                                                    <label>Nama Peminjam</label>
+                                                    <input type="text" name="nama_peminjam" class="form-control" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label>Tanggal Pinjam</label>

@@ -32,9 +32,10 @@
                     <thead>
                         <tr>
                             <th>Nama Alat</th>
-                            <th>Peminjam</th>
+                            <th>Nama Peminjam</th>
                             <th>Tanggal Pinjam</th>
                             <th>Tanggal Kembali</th>
+                            <th>Jumlah Alat Di Sewa</th>
                             <th>Status</th>
                             <th>Kontrol</th>
                         </tr>
@@ -43,10 +44,47 @@
                         @foreach ($peminjaman as $p)
                             <tr>
                                 <td>{{ $p->alat->nama_alat_pertanian }}</td>
-                                <td>{{ $p->peminjam }}</td>
+                                <td>{{ $p->nama_peminjam }}</td>
                                 <td>{{ $p->tanggal_pinjam }}</td>
                                 <td>{{ $p->tanggal_kembali }}</td>
-                                <td>{{ ucfirst($p->status) }}</td>
+                                <td>{{ $p->jumlah_alat_di_sewa }}</td>
+                                <td>{{ $p->alat->status_alat }}</td>
+                                <td>{{ ucfirst($p->status_peminjaman) }}</td>
+                                <td>
+                                    @if ($p->status_peminjaman == 'menunggu')
+                                        <!-- Form Action UNtuk Mengubah Status -->
+                                        <form action="{{ route('peminjaman.approve', $p->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf @method('PATCH')
+                                            <button class="btn btn-sm btn-success">Setuju</button>
+                                        </form>
+
+                                        <!-- Form Action Untuk Cancle -->
+                                        <form action="{{ route('peminjaman.cancel', $p->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-outline-danger">Batalkan</button>
+                                        </form>
+
+                                    @else
+                                        <span class="text-muted">
+                                            -
+                                        </span>
+                                    @endif
+                                </td>
+
+                                <td>
+                                    @if ($p->status_peminjaman == 'menunggu')
+                                        <!-- jika status masih menunggu maka kontrol untuk di edit dan dihapus akan muncul -->
+                                        <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                                                data-bs-target="#editModal{{ $p->alat_pertanian_id }}">
+                                                Edit
+                                            </button>
+
+                                        </div>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

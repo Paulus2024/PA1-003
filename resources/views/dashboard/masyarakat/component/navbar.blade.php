@@ -15,6 +15,15 @@
         <li><a href="{{ route('data_pengurus_desa.masyarakat')}}" class="{{Request::is('data_pengurus_desa_masyarakat')}}">Data Pengurus Desa</a></li>
         <li><a href="{{ route('alat_pertanian.masyarakat')}}" class="{{Request::is('alat_pertanian_masyarakat')}}">Alat Pertanian</a></li>
         <li><a href="{{ route('contact')}}" class="{{Request::is('contact')}}">Contact</a></li>
+        <li><a href="/login">Login</a></li>
+        {{-- <li><a href="/index_masyarakat" class="{{ request()->is('index_masyarakat') ? 'active' : '' }}">Home</a></li>
+        <li><a href="/about_masyarakat" class="{{ request()->is('about_masyarakat') ? 'active' : '' }}">About</a></li>
+        <li><a href="/fasilitas_masyarakat" class="{{ request()->is('fasilitas_masyarakat') ? 'active' : '' }}">Fasilitas Desa</a></li>
+        <li><a href="/informasi_masyarakat" class="{{ request()->is('informasi_masyarakat') ? 'active' : '' }}">Informasi</a></li>
+        <li><a href="/galeri_masyarakat" class="{{ request()->is('galeri_masyarakat') ? 'active' : '' }}">Galeri</a></li>
+        <li><a href="/data_pengurus_desa_masyarakat" class="{{ request()->is('data_pengurus_desa_masyarakat') ? 'active' : '' }}">Data Pengurus Desa</a></li>
+        <li><a href="/alat_pertanian_masyarakat" class="{{ request()->is('alat_pertanian_masyarakat') ? 'active' : '' }}">Alat Pertanian</a></li>
+        <li><a href="/contact_masyarakat" class="{{ request()->is('contact_masyarakat') ? 'active' : '' }}">Contact</a></li> --}}
         @auth
         <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">

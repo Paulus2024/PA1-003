@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+use Illuminate\Support\Facades\Gate;
 
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -23,6 +24,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('approve-peminjaman', function ($user) {
+            // Logika untuk menentukan apakah user boleh menyetujui peminjaman
+            return $user->hasRole('admin'); // Contoh: hanya admin yang boleh
+        });
     }
 }
