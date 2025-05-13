@@ -1,8 +1,8 @@
-@extends('dashboard.masyarakat.component.main')
+@extends('dashboard.sekretaris.component.main')
 
-@section('masyarakat_content')
+@section('sekretaris_content')
     <header id="header" class="header d-flex align-items-center fixed-top">
-        @include('dashboard.masyarakat.component.navbar')
+        @include('dashboard.sekretaris.component.navbar')
     </header>
 
     <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
@@ -10,7 +10,7 @@
             <h1>About Us</h1>
             <nav class="breadcrumbs">
                 <ol>
-                    <li><a href="{{ route('index.masyarakat') }}">Home</a></li>
+                    <li><a href="{{ route('dashboard.sekretaris') }}">Home</a></li>
                     <li class="current">About Us</li>
                 </ol>
             </nav>
@@ -21,6 +21,10 @@
     <section id="about" class="about section">
 
         <div class="container">
+
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
 
             @if ($aboutUs)  {{-- Cek apakah ada data AboutUs --}}
 
@@ -53,7 +57,7 @@
                             </button>
 
                             <!-- Form Hapus -->
-                            <form action="{{ route('sekretaris.about_us.destroy', $aboutUs->id) }}" method="POST">
+                            <form action="{{ route('sekretaris.about_us.destroy', session('aboutUsId')) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data About Us ini?')">Hapus</button>
@@ -88,7 +92,7 @@
     <!-- Modal Edit -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="{{ route('sekretaris.about_us.update', $aboutUs->id) }}" method="POST"
+            <form action="{{ route('sekretaris.about_us.update', session('aboutUsId')) }}" method="POST"
                 enctype="multipart/form-data" class="modal-content">
                 @csrf
                 @method('PUT')
@@ -149,6 +153,6 @@
     <!-- End Modal Edit -->
 
     <footer id="footer" class="footer dark-background">
-        @include('pengguna.component.footer')
+        @include('dashboard.sekretaris.component.footer')
     </footer>
 @endsection
