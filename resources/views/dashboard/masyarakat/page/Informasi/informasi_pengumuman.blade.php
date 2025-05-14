@@ -8,11 +8,10 @@
     <!--Open Page Title-->
     <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
         <div class="container position-relative">
-            <h1>Informasi Desa</h1>
+            <h1>Informasi</h1>
             <nav class="breadcrumbs">
                 <ol>
                     <li><a href="{{ route('index.masyarakat')}}">Home</a></li>
-                    <li><a href="'index.masyarakat'">Home</a></li>
                     <li class="current">Informasi</li>
                     <li class="current">Pengumuman</li>
                 </ol>

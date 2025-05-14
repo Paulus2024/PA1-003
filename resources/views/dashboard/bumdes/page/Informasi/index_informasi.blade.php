@@ -7,7 +7,7 @@
 
 <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
     <div class="container position-relative">
-      <h1>Blog</h1>
+      <h1>Informasi</h1>
       <nav class="breadcrumbs">
         <ol>
           <li><a href="/index_bumdes">Home</a></li>
