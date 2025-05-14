@@ -15,7 +15,6 @@
         <li><a href="{{ route('data_pengurus_desa.masyarakat')}}" class="{{Request::is('data_pengurus_desa_masyarakat')}}">Data Pengurus Desa</a></li>
         <li><a href="{{ route('alat_pertanian.masyarakat')}}" class="{{Request::is('alat_pertanian_masyarakat')}}">Alat Pertanian</a></li>
         <li><a href="{{ route('contact')}}" class="{{Request::is('contact')}}">Contact</a></li>
-        <li><a href="/login">Login</a></li>
         {{-- <li><a href="/index_masyarakat" class="{{ request()->is('index_masyarakat') ? 'active' : '' }}">Home</a></li>
         <li><a href="/about_masyarakat" class="{{ request()->is('about_masyarakat') ? 'active' : '' }}">About</a></li>
         <li><a href="/fasilitas_masyarakat" class="{{ request()->is('fasilitas_masyarakat') ? 'active' : '' }}">Fasilitas Desa</a></li>
