@@ -76,6 +76,7 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <h4> {{ $item->jenis_alat_pertanian }} </h4>
                                                     <!-- jenis alat pertanian -->
+
                                                 </div>
                                                 <p>{{ $item->catatan }}</p><!-- Catatan Khusus -->
                                                 <a href="{{ asset('storage/' . $item->gambar_alat) }}"
@@ -116,6 +117,7 @@
                                     </article>
                                 </div>
                                 <!-- Close Content -->
+
 
                                 <!-- Modal Sewa Alat Pertanian -->
                                 <div class="modal fade" id="SewaAlatPertanian{{ $item->id_alat_pertanian }}" tabindex="-1"
@@ -164,6 +166,7 @@
                                     </div><!-- Modal Dialog -->
                                 </div>
                                 <!-- Modal Sewa Alat Pertanian -->
+
                             @endforeach
                             <!-- Looping Alat Pertanian -->
 
@@ -173,15 +176,18 @@
 
                 </div><!-- End Projects Container -->
 
+
+
             </section><!-- /Projects Section -->
 
             <!-- Tombol Histori Pemesanan (Fixed) -->
-            <a href="{{ route('pemesanan.history') }}" class="btn btn-primary btn-historipemesanan-icon"
+            <a href="{{ route('pemesanan.history.sekretaris') }}" class="btn btn-primary btn-historipemesanan-icon"
                 title="Lihat Histori Pemesanan">
 
                 <i class="bi bi-clock-history"></i>
 
             </a>
+
 
         </main>
 

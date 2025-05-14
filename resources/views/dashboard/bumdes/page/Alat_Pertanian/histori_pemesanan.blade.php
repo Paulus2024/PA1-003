@@ -70,26 +70,74 @@
 
                                 <td>
                                     @if ($p->status_peminjaman == 'menunggu')
-                                    <div class="d-flex gap-2">
-                                        <!-- Form Action Untuk Cancle -->
-                                        <form action="{{ route('peminjaman.cancel', $p->id) }}" method="POST"
-                                            class="d-inline">
-                                            @csrf
-                                            @method('PUT')
-                                            <button type="submit" class="btn btn-outline-danger">Batalkan</button>
-                                        </form>
-
                                         <div class="d-flex gap-2">
-                                            <button type="button" class="btn btn-outline-warning"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#editModal{{ $p->alat_pertanian_id }}">
-                                                Edit
-                                            </button>
+                                            <!-- Form Action Untuk Cancle -->
+                                            <form action="{{ route('peminjaman.cancel', $p->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="btn btn-outline-danger">Batalkan</button>
+                                            </form>
+
+                                            <div class="d-flex gap-2">
+                                                <button type="button" class="btn btn-outline-warning"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#editSewa{{ $p->alat_pertanian_id }}">
+                                                    Edit
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
                                     @endif
                                 </td>
                             </tr>
+
+                            <!-- Modal Edit Sewa Alat Pertanian -->
+                            <div class="modal fade" id="editSewa{{ $p->alat_pertanian_id }}" tabindex="-1"
+                                aria-labelledby="EditSewa" aria-hidden="true">
+                                <div class="modal-dialog"><!-- Modal Dialog -->
+                                    <div class="modal-content"><!-- Modal Content -->
+                                        <div class="modal-header"><!-- Modal Header -->
+                                            <h5 class="modal-title" id="editSewa">Edit Sewa Alat Pertanian
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div><!-- Modal Header -->
+
+                                        <div class="modal-body"><!-- Modal Body -->
+                                            <form action="{{ route('peminjaman.update', $p->id) }}" method="POST">
+                                                <!-- Form untuk menyewa alat pertanian -->
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="alat_id"
+                                                    value="{{ $p->alat_pertanian_id }}">
+                                                <div class="mb-3">
+                                                    <label>Nama Peminjam</label>
+                                                    <input type="text" name="nama_peminjam" class="form-control"
+                                                        value="{{ ($p->nama_peminjam) }}" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Tanggal Pinjam</label>
+                                                    <input type="date" name="tanggal_pinjam" class="form-control"
+                                                        value="{{ $p->tanggal_pinjam }}" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Tanggal Kembali</label>
+                                                    <input type="date" name="tanggal_kembali" class="form-control"
+                                                        value="{{ $p->tanggal_kembali }}" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Jumlah Alat Yang Di Sewa</label>
+                                                    <input name="jumlah_alat_di_sewa" min="1" max="2"
+                                                        type="number" id="typeNumber" class="form-control"
+                                                        value="{{ $p->jumlah_alat_di_sewa }}" />
+                                                </div>
+                                                <button class="btn btn-success">Simpan</button>
+                                            </form><!-- Form untuk menyewa alat pertanian -->
+                                        </div><!-- Modal Body -->
+                                    </div><!-- Modal Content -->
+                                </div><!-- Modal Dialog -->
+                            </div>
+                            <!-- Modal Edit Sewa Alat Pertanian -->
                         @endforeach
                     </tbody>
                 </table>
