@@ -84,12 +84,12 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard.sekretaris.page.Home.index_home');
     })->name('dashboard.sekretaris');
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware('auth');
-Route::get('/index_masyarakat', function () {
-    return view('dashboard/masyarakat/page/Home/index_home');
-})->middleware('auth');
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->middleware('auth');
+    Route::get('/index_masyarakat', function () {
+        return view('dashboard/masyarakat/page/Home/index_home');
+    })->middleware('auth');
     Route::get('/dashboard', function () {
         return view('dashboard/masyarakat/page/Home/index_home');
     })->name('dashboard');
@@ -105,17 +105,17 @@ Route::get('/index_masyarakat', function () {
 //=========================================================
 Route::middleware(['auth'])->group(function () {
 
-//==========================================================
-// Route Fasilitas Sekretaris
-//==========================================================
-// Route::get('/fasilitas_sekretaris', function () {
-//     return view('dashboard/sekretaris/page/Fasilitas/index_fasilitas');
-// });
-Route::get('/fasilitas_sekretaris', [FasilitasDesaController::class, 'index'])->name('sekretaris.fasilitas.index');
-// A
-// Route::get('/fasilitas_sekretaris/create', [FasilitasDesaController::class, 'create'])->name('sekretaris.fasilitas.create');
-// A
-Route::get('/fasilitas_sekretaris/create', [FasilitasDesaController::class, 'create'])->name('sekretaris.fasilitas.create');
+    //==========================================================
+    // Route Fasilitas Sekretaris
+    //==========================================================
+    // Route::get('/fasilitas_sekretaris', function () {
+    //     return view('dashboard/sekretaris/page/Fasilitas/index_fasilitas');
+    // });
+    Route::get('/fasilitas_sekretaris', [FasilitasDesaController::class, 'index'])->name('sekretaris.fasilitas.index');
+    // A
+    // Route::get('/fasilitas_sekretaris/create', [FasilitasDesaController::class, 'create'])->name('sekretaris.fasilitas.create');
+    // A
+    Route::get('/fasilitas_sekretaris/create', [FasilitasDesaController::class, 'create'])->name('sekretaris.fasilitas.create');
     //About us
     Route::get('about_us', [AboutUsController::class, 'index'])->name('sekretaris.about_us.index');
     Route::get('about_us/create', [AboutUsController::class, 'create'])->name('sekretaris.about_us.create');
@@ -186,13 +186,24 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index'])->name('alat_pertanian.index');
+    Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index_sekretaris'])->name('alat_pertanian.index_sekretaris');
+    Route::get('/alat_pertanian_masyarakat', [AlatPertanianController::class, 'index_masyarakat'])->name('alat_pertanian.index_masyarakat');
+
     Route::post('/alat_pertanian_bumdes/store', [AlatPertanianController::class, 'store'])->name('bumdes.alat_pertanian.store');
+    //    Route::post('/alat_pertanian_bumdes/store', [AlatPertanianController::class, 'store_sekretaris'])->name('sekretaris.alat_pertanian.store');
+    //    Route::post('/alat_pertanian_bumdes/store', [AlatPertanianController::class, 'store_masyarakat'])->name('masyarakat.alat_pertanian.store');
+
     Route::delete('alat_pertanian_bumdes/{alat}', [AlatPertanianController::class, 'destroy'])->name('bumdes.alat_pertanian.destroy');
     Route::put('alat_pertanian/{id}', [AlatPertanianController::class, 'update'])->name('alat_pertanian.update');
 
     Route::get('/alat-pertanian/histori', [PeminjamanController::class, 'history'])->name('pemesanan.history');
+
     Route::post('alat_pertanian/pinjam', [PeminjamanController::class, 'store'])->name('alat_pertanian.pinjam');
+    //Route::post('alat_pertanian/pinjam/sekretaris', [PeminjamanController::class, 'store_sekretaris'])->name('alat_pertanian.pinjam.sekretaris');
+    //Route::post('alat_pertanian/pinjam/masyarakat', [PeminjamanController::class, 'store_masyarakat'])->name('alat_pertanian.pinjam.masyarakat');
+
     Route::patch('alat_pertanian/kembali/{id}', [PeminjamanController::class, 'kembalikan'])->name('alat_pertanian.kembali');
+
     Route::get('peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
 
     Route::get('/contact_bumdes', function () {

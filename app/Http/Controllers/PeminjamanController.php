@@ -79,8 +79,21 @@ class PeminjamanController extends Controller
 
             DB::commit();
 
-            return redirect()->route('alat_pertanian.index')
-                ->with('success', 'Peminjaman berhasil diajukan. Menunggu persetujuan admin.');
+            // ✅ DETEKSI ROLE USER
+            $role = auth()->user()->role;
+
+            if ($role == 'bumdes') {
+                return redirect()->route('alat_pertanian.index')
+                    ->with('success', 'Peminjaman berhasil diajukan. Menunggu persetujuan admin.');
+            } elseif ($role == 'sekretaris') {
+                return redirect()->route('alat_pertanian.index_sekretaris')
+                    ->with('success', 'Peminjaman berhasil diajukan.');
+            } elseif ($role == 'masyarakat') {
+                return redirect()->route('alat_pertanian.index_masyarakat')
+                    ->with('success', 'Peminjaman berhasil diajukan.');
+            } else {
+                return redirect()->back()->with('success', 'Peminjaman berhasil diajukan.');
+            }
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error saat memproses peminjaman: ' . $e->getMessage());

@@ -18,7 +18,7 @@
             <h1>Projects</h1>
             <nav class="breadcrumbs">
                 <ol>
-                    <li><a href="{{ route('index.masyarakat')}}">Home</a></li>
+                    <li><a href="{{ route('index.masyarakat') }}">Home</a></li>
                     <li class="current">Projects</li>
                     <li><a href="'index.masyarakat'">Home</a></li>
                     <li class="current">Alat Pertanian</li>
@@ -79,6 +79,7 @@
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <h4> {{ $item->jenis_alat_pertanian }} </h4>
                                                 <!-- jenis alat pertanian -->
+
                                             </div>
                                             <p>{{ $item->catatan }}</p><!-- Catatan Khusus -->
                                             <a href="{{ asset('storage/' . $item->gambar_alat) }}"
@@ -92,36 +93,29 @@
                                         </div>
                                     </div>
 
-                                    <!-- 🔽 Keterangan Tambahan di Bawah Gambar -->
+                                    <!-- Status Alat Pertanian dan Jumlah Alat Tersedia -->
                                     <div class="mt-3 p-3 bg-white shadow-sm rounded-0">
-                                        <h5 class="fw-bold text-warning"> {{ $item->nama_alat_pertanian }} </h5>
-                                        <!-- Nama Alat -->
-                                        <p class="text-secondary"> {{ $item->harga_sewa }} </p><!-- Harga Sewa -->
-                                        {{-- <p class="text-secondary">{{ $item->status_alat }}|{{ $item->jumlah_alat }}
-                                        </p> --}}
-                                        <p>
-                                            @if ($item->status_alat == 'tersedia')
-                                                <span class="badge bg-success">
-                                                    {{ ucfirst($item->status_alat) }} ({{ $item->jumlah_alat }})
-                                                </span>
-                                            @else
-                                                <span class="badge bg-danger">
-                                                    {{ ucfirst($item->status_alat) }} ({{ $item->jumlah_alat}})
-                                                </span>
-                                            @endif
-                                        </p>
-                                        <!-- Status -->
+                                        <h5 class="fw-bold text-warning">{{ $item->nama_alat_pertanian }}</h5>
+                                        <p class="text-secondary">{{ $item->harga_sewa }}</p>
 
-                                        {{-- <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal<!{{ $item->id_fasilitas }}"> --}}
+                                        <p class="text-secondary">
+                                            Status:
+                                            @if ($item->status_alat == 'tersedia')
+                                                <span class="badge bg-success">Tersedia</span>
+                                            @else
+                                                <span class="badge bg-danger">Tidak Tersedia</span>
+                                            @endif
+                                            | Tersedia: {{ $item->jumlah_tersedia }} / {{ $item->jumlah_alat }}
+                                        </p>
+
                                         <div class="d-flex justify-content-end">
                                             <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
                                                 data-bs-target="#SewaAlatPertanian{{ $item->id_alat_pertanian }}">
                                                 Sewa Alat
                                             </button>
                                         </div>
-
                                     </div>
-
+                                    <!-- Status Alat Pertanian dan Jumlah Alat Tersedia -->
                                 </article>
                             </div>
                             <!-- Close Content -->
@@ -129,11 +123,11 @@
 
                             <!-- Modal Sewa Alat Pertanian -->
                             <div class="modal fade" id="SewaAlatPertanian{{ $item->id_alat_pertanian }}" tabindex="-1"
-                                aria-labelledby="TambahAlatPertanian" aria-hidden="true">
+                                aria-labelledby="SewaAlatPertanian" aria-hidden="true">
                                 <div class="modal-dialog"><!-- Modal Dialog -->
                                     <div class="modal-content"><!-- Modal Content -->
                                         <div class="modal-header"><!-- Modal Header -->
-                                            <h5 class="modal-title" id="SewaAlatPertanian">Tambah Data Alat Pertanian Baru
+                                            <h5 class="modal-title" id="SewaAlatPertanian">Sewa Alat Pertanian
                                             </h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
@@ -147,7 +141,8 @@
                                                     value="{{ $item->id_alat_pertanian }}">
                                                 <div class="mb-3">
                                                     <label>Nama Peminjam</label>
-                                                    <input type="text" name="nama_peminjam" class="form-control" required>
+                                                    <input type="text" name="nama_peminjam" class="form-control"
+                                                        placeholder="Nama Peminjam" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label>Tanggal Pinjam</label>
@@ -159,6 +154,12 @@
                                                     <input type="date" name="tanggal_kembali" class="form-control"
                                                         required>
                                                 </div>
+                                                <div class="mb-3">
+                                                    <label>Jumlah Alat Yang Di Sewa</label>
+                                                    <input name="jumlah_alat_di_sewa" min="1" max="2"
+                                                        type="number" id="typeNumber" class="form-control"
+                                                        placeholder="Min 1 & Max 2" />
+                                                </div>
                                                 <button class="btn btn-success">Pinjam</button>
                                             </form><!-- Form untuk menyewa alat pertanian -->
 
@@ -167,119 +168,19 @@
                                 </div><!-- Modal Dialog -->
                             </div>
                             <!-- Modal Sewa Alat Pertanian -->
-
-                            <!-- Modal Edit Alat Pertanian -->
-                            <div class="modal fade" id="EditAlatPertanian{{ $item->id_alat_pertanian }}" tabindex="-1"
-                                aria-labelledby="TambahAlatPertanian" aria-hidden="true">
-                                <div class="modal-dialog"><!-- Modal Dialog -->
-                                    <div class="modal-content"><!-- Modal Content -->
-                                        <div class="modal-header"><!-- Modal Header -->
-                                            <h5 class="modal-title" id="EditAlatPertanian">Tambah Data Alat Pertanian Baru
-                                            </h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div><!-- Modal Header -->
-
-                                        <div class="modal-body"><!-- Modal Body -->
-                                            <form action="{{ route('alat_pertanian.update', $item->id_alat_pertanian) }}"
-                                                method="POST">
-                                                <!-- Form untuk menyewa alat pertanian -->
-                                                @csrf
-                                                @method('PUT')
-                                                <div class="mb-3">
-                                                    <label for="nama_alat_pertanian" class="form-lable"> <b> Nama Alat
-                                                            Pertanian
-                                                        </b>
-                                                    </label>
-                                                    <input type="text" class="form-control" name="nama_alat_pertanian"
-                                                        id="nama_alat_pertanian" value="{{ $item->nama_alat_pertanian }}"
-                                                        required>
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <label for="jenis_alat_pertanian" class="form-lable"> <b> Jenis Alat
-                                                            Pertanian
-                                                        </b>
-                                                    </label><br>
-                                                    <input type="radio" id="jenis_alat_pertanian"
-                                                        name="jenis_alat_pertanian" value="Olah_Lahan"
-                                                        {{ $item->jenis_alat_pertanian == 'Olah_Lahan' ? 'checked' : '' }}
-                                                        required>
-                                                    <label for="jenis_alat_pertanian">Olah Lahan</label><br>
-                                                    <input type="radio" id="jenis_alat_pertanian"
-                                                        name="jenis_alat_pertanian" value="Pascapanen"
-                                                        {{ $item->jenis_alat_pertanian == 'Pascapanen' ? 'checked' : '' }}
-                                                        required>
-                                                    <label for="jenis_alat_pertanian">Pascapanen</label><br>
-                                                    <input type="radio" id="jenis_alat_pertanian"
-                                                        name="jenis_alat_pertanian" value="Lainnya"
-                                                        {{ $item->jenis_alat_pertanian == 'Lainnya' ? 'checked' : '' }}
-                                                        required>
-                                                    <label for="jenis_alat_pertanian">Lainnya</label>
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <label for="harga_sewa" class="form-lable"> <b> Harga Sewa </b>
-                                                    </label>
-                                                    <input type="text" class="form-control" name="harga_sewa"
-                                                        id="harga_sewa" value="{{ $item->harga_sewa }}" required>
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <label for="jumlah_alat" class="form-lable"> <b> Jumlah Alat </b>
-                                                    </label>
-                                                    <input type="text" class="form-control" name="jumlah_alat"
-                                                        id="jumlah_alat" value="{{ $item->jumlah_alat }}" required>
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <label for="catatan" class="form-lable"> <b> Catatan Khusus </b>
-                                                    </label>
-                                                    <input type="text" class="form-control" name="catatan"
-                                                        id="catatan" value="{{ $item->catatan }}"">
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <label for="gambar_alat" class="form-label"><b>Gambar Alat
-                                                            Lama</b></label><br>
-                                                    <img src="{{ asset('storage/gambar_alat/' . $item->gambar_alat) }}"
-                                                        alt="Gambar Alat Lama" width="150">
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <label for="gambar_alat" class="form-label"><b>Upload Gambar Alat
-                                                            Baru</b></label>
-                                                    <input type="file" class="form-control" name="gambar_alat"
-                                                        id="gambar_alat">
-                                                </div>
-
-                                                <button class="btn btn-success">Simpan</button>
-                                            </form><!-- Form untuk menyewa alat pertanian -->
-
-                                        </div><!-- Modal Body -->
-                                    </div><!-- Modal Content -->
-                                </div><!-- Modal Dialog -->
-                            </div>
-                            <!-- Modal Edit Alat Pertanian -->
                         @endforeach
                         <!-- Looping Alat Pertanian -->
 
                     </div><!-- Close Row Isotope Container -->
 
-
-
                 </div><!-- Open Isotope Layout -->
 
-                <!-- </div> -->
-
             </div><!-- End Projects Container -->
-
-
 
         </section><!-- /Projects Section -->
 
         <!-- Tombol Histori Pemesanan (Fixed) -->
-        <a href="{{ route('pemesanan.history.masyarakat') }}" class="btn btn-primary btn-historipemesanan-icon"
+        <a href="{{ route('pemesanan.history') }}" class="btn btn-primary btn-historipemesanan-icon"
             title="Lihat Histori Pemesanan">
 
             <i class="bi bi-clock-history"></i>

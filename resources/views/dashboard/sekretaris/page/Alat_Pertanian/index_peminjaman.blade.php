@@ -1,6 +1,6 @@
-@extends('dashboard.bumdes.component.main')
+@extends('dashboard.sekretaris.component.main')
 
-@section('masyarakat_content')
+@section('sekretaris_content')
 <main class="p-4">
   <h1>Daftar Peminjaman Alat</h1>
 

@@ -24,18 +24,6 @@
                 </nav>
             </div>
         </div><!-- End Page Title -->
-    <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
-        <div class="container position-relative">
-            <h1>Projects</h1>
-            <nav class="breadcrumbs">
-                <ol>
-                    <li><a href="/index_bumdes">Home</a></li>
-                    <li class="current">Alat Pertanian</li>
-                </ol>
-            </nav>
-        </div>
-    </div><!-- End Page Title -->
-
 
         <main id="main">
             <section id="projects" class="projects section mb-5 pb-5"><!-- Projects Section -->
@@ -256,10 +244,10 @@
                                                     </div>
 
                                                     <!-- <div class="mb-3">
-                                                                                                            <label for="status_alat" class="form-lable">Status Alat</label>
-                                                                                                            <input type="text" class="form-control" name="status_alat" id="status_alat"
-                                                                                                                placeholder="Status Alat" required>
-                                                                                                        </div> -->
+                                                                                                                        <label for="status_alat" class="form-lable">Status Alat</label>
+                                                                                                                        <input type="text" class="form-control" name="status_alat" id="status_alat"
+                                                                                                                            placeholder="Status Alat" required>
+                                                                                                                    </div> -->
 
                                                     <div class="mb-3">
                                                         <label for="jumlah_alat" class="form-lable"> <b> Jumlah Alat </b>

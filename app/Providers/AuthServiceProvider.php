@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('approve-peminjaman', function ($user) {
             // Logika untuk menentukan apakah user boleh menyetujui peminjaman
-            return $user->hasRole('admin'); // Contoh: hanya admin yang boleh
+            return $user->hasRole('bumdes'); // Contoh: hanya admin yang boleh
         });
     }
 }
