@@ -48,24 +48,19 @@
                                 <td>{{ $p->tanggal_pinjam }}</td>
                                 <td>{{ $p->tanggal_kembali }}</td>
                                 <td>{{ $p->jumlah_alat_di_sewa }}</td>
-                                <td>{{ $p->alat->status_alat }}</td>
+                                {{-- <td>{{ $p->alat->status_alat }}</td> --}}
                                 <td>{{ ucfirst($p->status_peminjaman) }}</td>
                                 <td>
                                     @if ($p->status_peminjaman == 'menunggu')
-                                        <!-- Form Action UNtuk Mengubah Status -->
-                                        <form action="{{ route('peminjaman.approve', $p->id) }}" method="POST"
-                                            class="d-inline">
-                                            @csrf @method('PATCH')
-                                            <button class="btn btn-sm btn-success">Setuju</button>
-                                        </form>
-
-                                        <!-- Form Action Untuk Cancle -->
-                                        <form action="{{ route('peminjaman.cancel', $p->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('PUT')
-                                            <button type="submit" class="btn btn-outline-danger">Batalkan</button>
-                                        </form>
-
+                                        <!-- Form Action Untuk Mengubah Status -->
+                                        <div class="d-flex gap-2">
+                                            <!-- Form Untuk setujui -->
+                                            <form action="{{ route('peminjaman.approve', $p->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf @method('PATCH')
+                                                <button class="btn btn-sm btn-success">Setuju</button>
+                                            </form>
+                                        </div>
                                     @else
                                         <span class="text-muted">
                                             -
@@ -75,14 +70,23 @@
 
                                 <td>
                                     @if ($p->status_peminjaman == 'menunggu')
-                                        <!-- jika status masih menunggu maka kontrol untuk di edit dan dihapus akan muncul -->
+                                    <div class="d-flex gap-2">
+                                        <!-- Form Action Untuk Cancle -->
+                                        <form action="{{ route('peminjaman.cancel', $p->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-outline-danger">Batalkan</button>
+                                        </form>
+
                                         <div class="d-flex gap-2">
-                                            <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-outline-warning"
+                                                data-bs-toggle="modal"
                                                 data-bs-target="#editModal{{ $p->alat_pertanian_id }}">
                                                 Edit
                                             </button>
-
                                         </div>
+                                    </div>
                                     @endif
                                 </td>
                             </tr>
