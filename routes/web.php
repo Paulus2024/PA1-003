@@ -147,6 +147,7 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/galleries/{gallery}', [GalleryController::class, 'update']);
     Route::delete('/galleries/{gallery}', [GalleryController::class, 'destroy'])->name('galleries.destroy');
     Route::get('/galeri', [GalleryController::class, 'index_bumdes'])->name('/galeri_bumdes');
+    Route::get('/galeri', [GalleryController::class, 'index_pengguna'])->name('/galeri');
 
 
     Route::get('/data_pengurus_desa_sekretaris', [DataPengurusDesaController::class, 'index'])->name('data_pengurus_desa.index');
