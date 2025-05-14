@@ -146,6 +146,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/galleries/{gallery}', [GalleryController::class, 'update'])->name('galleries.update');
     Route::patch('/galleries/{gallery}', [GalleryController::class, 'update']);
     Route::delete('/galleries/{gallery}', [GalleryController::class, 'destroy'])->name('galleries.destroy');
+    Route::get('/galeri', [GalleryController::class, 'index_bumdes'])->name('/galeri_bumdes');
+    
 
     Route::get('/data_pengurus_desa_sekretaris', [DataPengurusDesaController::class, 'index'])->name('data_pengurus_desa.index');
     Route::get('/data_pengurus_desa_sekretaris/create', [DataPengurusDesaController::class, 'create'])->name('data_pengurus_desa.create');
@@ -155,6 +157,11 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'update'])->name('data_pengurus_desa.update');
     Route::patch('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'update']);
     Route::delete('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'destroy'])->name('data_pengurus_desa.destroy');
+    Route::get('/masyarakat/data-pengurus-desa', [DataPengurusDesaController::class, 'indexMasyarakat'])->name('pengurusdesa.masyarakat');
+
+    Route::get('index_bumdes', [DataPengurusDesaController::class, 'index_bumdes'])->name('/data_pengurus_desa_bumdes');
+    Route::get('/pengguna/data-pengurus-desa', [DataPengurusDesaController::class, 'indexPengguna'])->name('pengurusdesa.pengguna');
+
 
     Route::get('/alat_pertanian_sekretaris', [AlatPertanianController::class, 'index_sekretaris'])->name('alat_pertanian_sekretaris');
 

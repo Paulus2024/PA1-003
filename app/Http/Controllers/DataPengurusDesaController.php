@@ -17,21 +17,21 @@ class DataPengurusDesaController extends Controller
         return view('dashboard.sekretaris.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas')); //mengambil data dari database dan mengirim ke view| fasilitas.index = nama route| compact('fasilitas') = nama variabel yang dikirim ke view /*1*/
     }
 
-    public function index_masyarakat()
+     public function indexMasyarakat()
     {
-        $data_pengurus_desas = DataPengurusDesa::all(); // Atau sesuai model kamu
+        $data_pengurus_desas = DataPengurusDesa::all();
         return view('dashboard.masyarakat.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
     }
 
-        public function index_bumdes()
-    {
-        $data_pengurus_desas = DataPengurusDesa::all(); // Atau sesuai model kamu
-        return view('dashboard.bumdes.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
-    }
+public function index_bumdes()
+{
+    $data_pengurus_desas = DataPengurusDesa::all();
+    return view('dashboard.bumdes.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
+}
 
-        public function index_pengguna()
+    public function indexPengguna()
     {
-        $data_pengurus_desas = DataPengurusDesa::all(); // Atau sesuai model kamu
+        $data_pengurus_desas = DataPengurusDesa::all();
         return view('pengguna.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
     }
 
