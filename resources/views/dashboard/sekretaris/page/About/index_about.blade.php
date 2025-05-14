@@ -8,12 +8,12 @@
     <div class="page-title dark-background" style="background-image: url({{ asset('assets/img/page-title-bg.jpg') }});">
         <div class="container position-relative">
             <h1>About</h1>
-          <nav class="breadcrumbs">
-    <ol>
-        <li><a href="{{ route('dashboard.sekretaris') }}">Home</a></li>
-        <li class="current">About</li>
-    </ol>
-</nav>
+            <nav class="breadcrumbs">
+                <ol>
+                    <li><a href="{{ route('dashboard.sekretaris') }}">Home</a></li>
+                    <li class="current">About</li>
+                </ol>
+            </nav>
         </div>
     </div><!-- End Page Title -->
 
@@ -24,7 +24,7 @@
             <h1 class="text-center mb-4">Tentang Desa Kami</h1>
 
             <!-- Tombol untuk menambah About baru -->
-            <div class="col-12">
+            <div class="col-12">    
                 <div class="d-grid gap-2">
                     <button class="btn btn-success" type="button" data-bs-toggle="modal"
                         data-bs-target="#TambahAbout">Tambah Data About</button>
@@ -123,8 +123,8 @@
                                         <label for="gambar1" class="form-label">Gambar 1</label>
                                         <input type="file" class="form-control" id="gambar1" name="gambar1">
                                         @if ($about->gambar1)
-                                            <img src="{{ asset('storage/' . $about->gambar1) }}"
-                                                alt="Gambar 1" class="img-fluid mt-2" style="max-width: 150px;">
+                                            <img src="{{ asset('storage/' . $about->gambar1) }}" alt="Gambar 1"
+                                                class="img-fluid mt-2" style="max-width: 150px;">
                                         @endif
                                     </div>
 
@@ -132,8 +132,8 @@
                                         <label for="gambar2" class="form-label">Gambar 2</label>
                                         <input type="file" class="form-control" id="gambar2" name="gambar2">
                                         @if ($about->gambar2)
-                                            <img src="{{ asset('storage/' . $about->gambar2) }}"
-                                                alt="Gambar 2" class="img-fluid mt-2" style="max-width: 150px;">
+                                            <img src="{{ asset('storage/' . $about->gambar2) }}" alt="Gambar 2"
+                                                class="img-fluid mt-2" style="max-width: 150px;">
                                         @endif
                                     </div>
                                 </div>
@@ -157,7 +157,8 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="tambahAboutLabel">Tambah Data About Baru</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form action="{{ route('abouts.store') }}" method="POST" enctype="multipart/form-data">

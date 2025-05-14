@@ -118,12 +118,13 @@ Route::middleware(['auth'])->group(function () {
     // A
     Route::get('/fasilitas_sekretaris/create', [FasilitasDesaController::class, 'create'])->name('sekretaris.fasilitas.create');
     //About us
-    Route::get('about_us', [AboutUsController::class, 'index'])->name('sekretaris.about_us.index');
-    Route::get('about_us/create', [AboutUsController::class, 'create'])->name('sekretaris.about_us.create');
-    Route::post('about_us', [AboutUsController::class, 'store'])->name('sekretaris.about_us.store');
-    Route::get('about_us/edit/{id}', [AboutUsController::class, 'edit'])->name('sekretaris.about_us.edit');
-    Route::put('about_us/update/{id}', [AboutUsController::class, 'update'])->name('sekretaris.about_us.update');
-    Route::delete('about_us/delete/{id}', [AboutUsController::class, 'destroy'])->name('sekretaris.about_us.destroy');
+    Route::get('about_us', [AboutController::class, 'index'])->name('sekretaris.about_us.index');
+    Route::get('about_us/create', [AboutController::class, 'create'])->name('sekretaris.about_us.create');
+    Route::post('about_us', [AboutController::class, 'store'])->name('sekretaris.about_us.store');
+    Route::get('about_us/edit/{id}', [AboutController::class, 'edit'])->name('sekretaris.about_us.edit');
+    Route::put('about_us/update/{id}', [AboutController::class, 'update'])->name('sekretaris.about_us.update');
+    Route::delete('about_us/delete/{id}', [AboutController::class, 'destroy'])->name('sekretaris.about_us.destroy');
+
     Route::get('/fasilitas_sekretaris', [FasilitasDesaController::class, 'index'])->name('sekretaris.fasilitas.index');
     Route::get('/fasilitas_sekretaris/create', [FasilitasDesaController::class, 'create'])->name('sekretaris.fasilitas.create');
     Route::post('/fasilitas_sekretaris/store', [FasilitasDesaController::class, 'store'])->name('sekretaris.fasilitas.store');
