@@ -7,11 +7,10 @@
 
     <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
         <div class="container position-relative">
-            <h1>Projects</h1>
+            <h1>Galeri</h1>
             <nav class="breadcrumbs">
                 <ol>
-                    <li><a href="{{ route('index.masyarakat')}}">Home</a></li>
-                    <li><a href="index.masyarakat">Home</a></li>
+                    <li><a href="{{ route('index.masyarakat') }}">Home</a></li>
                     <li class="current">Galeri</li>
                 </ol>
             </nav>
