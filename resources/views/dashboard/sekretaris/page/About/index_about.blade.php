@@ -1,152 +1,212 @@
-@extends('dashboard.masyarakat.component.main')
+@extends('dashboard.sekretaris.component.main')
 
-@section('masyarakat_content')
+@section(section: 'sekretaris_content')
     <header id="header" class="header d-flex align-items-center fixed-top">
-        @include('dashboard.masyarakat.component.navbar')
+        @include('dashboard.sekretaris.component.navbar')
     </header>
 
-    <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
+    <div class="page-title dark-background" style="background-image: url({{ asset('assets/img/page-title-bg.jpg') }});">
         <div class="container position-relative">
-            <h1>About Us</h1>
-            <nav class="breadcrumbs">
-                <ol>
-                    <li><a href="{{ route('index.masyarakat') }}">Home</a></li>
-                    <li class="current">About Us</li>
-                </ol>
-            </nav>
+            <h1>About</h1>
+          <nav class="breadcrumbs">
+    <ol>
+        <li><a href="{{ route('dashboard.sekretaris') }}">Home</a></li>
+        <li class="current">About</li>
+    </ol>
+</nav>
         </div>
     </div><!-- End Page Title -->
 
-    <!-- About Section -->
-    <section id="about" class="about section">
+    <!-- Projects Section -->
+    <section id="projects" class="projects section">
 
         <div class="container">
+            <h1 class="text-center mb-4">Tentang Desa Kami</h1>
 
-            @if ($aboutUs)  {{-- Cek apakah ada data AboutUs --}}
-
-            <div class="row position-relative">
-
-                <div class="col-lg-7 about-img" data-aos="zoom-out" data-aos-delay="200">
-                    @if ($aboutUs->gambar1)
-                        <img src="{{ asset('storage/about_us/' . $aboutUs->gambar1) }}" alt="Gambar 1" class="img-fluid">
-                    @else
-                        <img src="assets/img/about.jpg" alt="Default Image" class="img-fluid">
-                    @endif
+            <!-- Tombol untuk menambah About baru -->
+            <div class="col-12">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-success" type="button" data-bs-toggle="modal"
+                        data-bs-target="#TambahAbout">Tambah Data About</button>
                 </div>
+            </div>
 
-                <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
-                    <h2 class="inner-title">Desa Taonmarisi</h2>
-                    <div class="our-story">
-                        <h4>Tahun Berdiri</h4>
-                        <h3>History</h3>
-                        <p>{{ $aboutUs->sejarah }}</p>
+            <br><br>
 
-                        <p><b>Jumlah Penduduk:</b> {{ $aboutUs->jumlah_penduduk }}</p>
-                        <p><b>Luas Wilayah:</b> {{ $aboutUs->luas_wilayah }}</p>
-                        <p><b>Jumlah Perangkat Desa:</b> {{ $aboutUs->jumlah_perangkat_desa }}</p>
+            <div class="row">
+                @if ($about)
+                    <div class="col-md-12 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Sejarah</h5>
+                                <p class="card-text">{!! $about->sejarah !!}</p>
 
-                        <div class="d-flex gap-2">
-                            <!-- Tombol Edit (Buka Modal) -->
-                            <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
-                                data-bs-target="#editModal">
-                                Edit
-                            </button>
+                                <h5 class="card-title">Visi Misi</h5>
+                                <p class="card-text">{!! $about->visi_misi !!}</p>
 
-                            <!-- Form Hapus -->
-                            <form action="{{ route('sekretaris.about_us.destroy', $aboutUs->id) }}" method="POST">
+                                <p class="card-text">Jumlah Penduduk: {{ $about->jumlah_penduduk }}</p>
+                                <p class="card-text">Luas Wilayah: {{ $about->luas_wilayah }}</p>
+                                <p class="card-text">Jumlah Perangkat Desa: {{ $about->jumlah_perangkat_desa }}</p>
+
+                                @if ($about->gambar1)
+                                    <img src="{{ asset('storage/' . $about->gambar1) }}" class="img-fluid mb-3"
+                                        alt="Gambar 1">
+                                @endif
+
+                                @if ($about->gambar2)
+                                    <img src="{{ asset('storage/' . $about->gambar2) }}" class="img-fluid mb-3"
+                                        alt="Gambar 2">
+                                @endif
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex gap-2">
+                                        <!-- Tombol Edit buka modal -->
+                                        <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                                            data-bs-target="#editModal{{ $about->id }}">
+                                            Edit
+                                        </button>
+                                        <!-- Form hapus -->
+                                        <form action="{{ route('abouts.destroy', $about->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Edit -->
+                    <div class="modal fade" id="editModal{{ $about->id }}" tabindex="-1"
+                        aria-labelledby="editModalLabel{{ $about->id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form action="{{ route('abouts.update', $about->id) }}" method="POST"
+                                enctype="multipart/form-data" class="modal-content">
                                 @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus data About Us ini?')">Hapus</button>
+                                @method('PUT')
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel{{ $about->id }}">Edit Data About</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="sejarah" class="form-label">Sejarah</label>
+                                        <textarea class="form-control" id="sejarah" name="sejarah" rows="3">{{ $about->sejarah }}</textarea>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="visi_misi" class="form-label">Visi Misi</label>
+                                        <textarea class="form-control" id="visi_misi" name="visi_misi" rows="3">{{ $about->visi_misi }}</textarea>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="jumlah_penduduk" class="form-label">Jumlah Penduduk</label>
+                                        <input type="number" class="form-control" id="jumlah_penduduk"
+                                            name="jumlah_penduduk" value="{{ $about->jumlah_penduduk }}">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="luas_wilayah" class="form-label">Luas Wilayah</label>
+                                        <input type="text" class="form-control" id="luas_wilayah" name="luas_wilayah"
+                                            value="{{ $about->luas_wilayah }}">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="jumlah_perangkat_desa" class="form-label">Jumlah Perangkat Desa</label>
+                                        <input type="number" class="form-control" id="jumlah_perangkat_desa"
+                                            name="jumlah_perangkat_desa" value="{{ $about->jumlah_perangkat_desa }}">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="gambar1" class="form-label">Gambar 1</label>
+                                        <input type="file" class="form-control" id="gambar1" name="gambar1">
+                                        @if ($about->gambar1)
+                                            <img src="{{ asset('storage/' . $about->gambar1) }}"
+                                                alt="Gambar 1" class="img-fluid mt-2" style="max-width: 150px;">
+                                        @endif
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="gambar2" class="form-label">Gambar 2</label>
+                                        <input type="file" class="form-control" id="gambar2" name="gambar2">
+                                        @if ($about->gambar2)
+                                            <img src="{{ asset('storage/' . $about->gambar2) }}"
+                                                alt="Gambar 2" class="img-fluid mt-2" style="max-width: 150px;">
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">Simpan Perubahan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                @else
+                    <p>Belum ada data About yang tersedia.</p>
+                @endif
+            </div>
+
+            <br><br>
+
+            <!--Open MODAL Create(Tambah)-->
+            <div class="modal fade" id="TambahAbout" tabindex="-1" aria-labelledby="tambahAboutLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="tambahAboutLabel">Tambah Data About Baru</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('abouts.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="sejarah" class="form-label">Sejarah</label>
+                                    <textarea class="form-control" id="sejarah" name="sejarah" rows="3" required></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="visi_misi" class="form-label">Visi Misi</label>
+                                    <textarea class="form-control" id="visi_misi" name="visi_misi" rows="3" required></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="jumlah_penduduk" class="form-label">Jumlah Penduduk</label>
+                                    <input type="number" class="form-control" id="jumlah_penduduk"
+                                        name="jumlah_penduduk">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="luas_wilayah" class="form-label">Luas Wilayah</label>
+                                    <input type="text" class="form-control" id="luas_wilayah" name="luas_wilayah">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="jumlah_perangkat_desa" class="form-label">Jumlah Perangkat Desa</label>
+                                    <input type="number" class="form-control" id="jumlah_perangkat_desa"
+                                        name="jumlah_perangkat_desa">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="gambar1" class="form-label">Gambar 1</label>
+                                    <input type="file" class="form-control" id="gambar1" name="gambar1">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="gambar2" class="form-label">Gambar 2</label>
+                                    <input type="file" class="form-control" id="gambar2" name="gambar2">
+                                </div>
+
+                                <button type="submit" class="btn btn-success">Simpan</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-
-            @else {{-- Jika tidak ada data AboutUs --}}
-
-            <p>Belum ada data About Us. Silakan tambahkan data.</p>
-            <a href="{{ route('sekretaris.about_us.create') }}" class="btn btn-success">Buat Data About Us</a>
-
-            @endif
-
-        </div>
-
-    </section><!-- /About Section -->
-
-    <!-- Stats Counter Section -->
-    <section id="stats-counter" class="stats-counter section">
-
-        <!-- Section Title -->
-        <div class="container section-title" data-aos="fade-up">
-            <h2>Visi & Misi</h2>
-            <p>{{ $aboutUs->visi_misi }}</p>  {{-- Menampilkan Visi Misi dari database --}}
-        </div><!-- End Section Title -->
-
-    </section><!-- /Stats Counter Section -->
-
-    <!-- Modal Edit -->
-    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <form action="{{ route('sekretaris.about_us.update', $aboutUs->id) }}" method="POST"
-                enctype="multipart/form-data" class="modal-content">
-                @csrf
-                @method('PUT')
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Edit About Us</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                </div>
-                <div class="modal-body">
-
-                    <div class="mb-3">
-                        <label for="gambar1" class="form-label">Gambar 1</label>
-                        <input type="file" class="form-control" name="gambar1">
-                        @if ($aboutUs->gambar1)
-                            <img src="{{ asset('storage/about_us/' . $aboutUs->gambar1) }}" alt="Current Image" width="100">
-                        @endif
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="visi_misi" class="form-label">Visi Misi</label>
-                        <textarea class="form-control" name="visi_misi" rows="3" required>{{ $aboutUs->visi_misi }}</textarea>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="gambar2" class="form-label">Gambar 2</label>
-                        <input type="file" class="form-control" name="gambar2">
-                        @if ($aboutUs->gambar2)
-                            <img src="{{ asset('storage/about_us/' . $aboutUs->gambar2) }}" alt="Current Image" width="100">
-                        @endif
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="sejarah" class="form-label">Sejarah</label>
-                        <textarea class="form-control" name="sejarah" rows="5" required>{{ $aboutUs->sejarah }}</textarea>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="jumlah_penduduk" class="form-label">Jumlah Penduduk</label>
-                        <input type="number" class="form-control" name="jumlah_penduduk" value="{{ $aboutUs->jumlah_penduduk }}">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="luas_wilayah" class="form-label">Luas Wilayah</label>
-                        <input type="text" class="form-control" name="luas_wilayah" value="{{ $aboutUs->luas_wilayah }}">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="jumlah_perangkat_desa" class="form-label">Jumlah Perangkat Desa</label>
-                        <input type="number" class="form-control" name="jumlah_perangkat_desa" value="{{ $aboutUs->jumlah_perangkat_desa }}">
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Simpan Perubahan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- End Modal Edit -->
+            <!--Close MODAL Create(Tambah)-->
+    </section>
 
     <footer id="footer" class="footer dark-background">
         @include('pengguna.component.footer')
