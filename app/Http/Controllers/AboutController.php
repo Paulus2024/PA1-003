@@ -33,6 +33,11 @@ class AboutController extends Controller
         return view('dashboard.sekretaris.page.about.index_about');  // You might not need this if you're using a modal
     }
 
+    public function indexMasyarakat ()
+    {
+        $about = About::first();
+        return view('dashboard.masyarakat.page.About.index_about', compact('about'));
+    }
     /**
      * Store a newly created About entry in storage.
      */

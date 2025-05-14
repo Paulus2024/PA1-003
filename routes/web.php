@@ -247,3 +247,5 @@ Route::middleware(['auth'])->group(function () {
 // Route Convert PDF (No Authentication Required)
 //=========================================abou
 Route::get('/convert-pdf/{filename}', [InformasiDesaController::class, 'convertToPdf']);
+
+Route::get('/about_masyarakat', [AboutController::class, 'indexMasyarakat'])->name('about.masyarakat');
