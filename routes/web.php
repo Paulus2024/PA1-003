@@ -199,7 +199,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index'])->name('alat_pertanian.index');
-    Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index_sekretaris'])->name('alat_pertanian.index_sekretaris');
+    // Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index_sekretaris'])->name('alat_pertanian.index_sekretaris');
     Route::get('/alat_pertanian_masyarakat', [AlatPertanianController::class, 'index_masyarakat'])->name('alat_pertanian.index_masyarakat');
 
     Route::post('/alat_pertanian_bumdes/store', [AlatPertanianController::class, 'store'])->name('bumdes.alat_pertanian.store');
@@ -216,6 +216,10 @@ Route::middleware(['auth'])->group(function () {
     //Route::post('alat_pertanian/pinjam/masyarakat', [PeminjamanController::class, 'store_masyarakat'])->name('alat_pertanian.pinjam.masyarakat');
 
     Route::patch('alat_pertanian/kembali/{id}', [PeminjamanController::class, 'kembalikan'])->name('alat_pertanian.kembali');
+
+    Route::patch('/peminjaman/{id}/approve', [PeminjamanController::class, 'approve'])->name('peminjaman.approve');
+
+    Route::patch('/peminjaman/{id}/cancel', [PeminjamanController::class, 'cancel'])->name('peminjaman.cancel');
 
     Route::get('peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
 
