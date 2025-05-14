@@ -146,7 +146,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/galleries/{gallery}', [GalleryController::class, 'update'])->name('galleries.update');
     Route::patch('/galleries/{gallery}', [GalleryController::class, 'update']);
     Route::delete('/galleries/{gallery}', [GalleryController::class, 'destroy'])->name('galleries.destroy');
-    Route::get('/galeri', [GalleryController::class, 'index_bumdes'])->name('/galeri_bumdes');
+    Route::get('/galeri_bumdes', [GalleryController::class, 'index_bumdes'])->name('galeri_bumdes');
     Route::get('/galeri', [GalleryController::class, 'index_pengguna'])->name('/galeri');
 
 
