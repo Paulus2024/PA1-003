@@ -199,7 +199,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index'])->name('alat_pertanian.index');
-    // Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index_sekretaris'])->name('alat_pertanian.index_sekretaris');
+    Route::get('/alat_pertanian_sekretaris', [AlatPertanianController::class, 'index_sekretaris'])->name('alat_pertanian.index_sekretaris');
     Route::get('/alat_pertanian_masyarakat', [AlatPertanianController::class, 'index_masyarakat'])->name('alat_pertanian.index_masyarakat');
 
     Route::post('/alat_pertanian_bumdes/store', [AlatPertanianController::class, 'store'])->name('bumdes.alat_pertanian.store');
@@ -211,8 +211,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/alat-pertanian/histori', [PeminjamanController::class, 'history'])->name('pemesanan.history');
 
     Route::get('/alat-pertanian/histori/sekretaris', [PeminjamanController::class, 'history_sekretaris'])->name('pemesanan.history.sekretaris');
-
-    Route::get('/alat-pertanian/histori/masyarakat', [PeminjamanController::class, 'history_sekretaris'])->name('pemesanan.history.masyarakat');
 
     Route::post('alat_pertanian/pinjam', [PeminjamanController::class, 'store'])->name('alat_pertanian.pinjam');
 
@@ -243,7 +241,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/informasi_masyarakat', [InformasiDesaController::class, 'index_berita_masyarakat'])->name('informasi.masyarakat');
     Route::get('/informasi_pengumuman_masyarakat', [InformasiDesaController::class, 'index_pengumuman_masyarakat'])->name('pengumuman.masyarakat');
     Route::get('/alat_pertanian_masyarakat', [AlatPertanianController::class, 'index_masyarakat'])->name('alat_pertanian.masyarakat');
-    Route::get('/alat-pertanian/histori-masyarakat', [PeminjamanController::class, 'historyMasyarakat'])->name('pemesanan.history.masyarakat');
+    Route::get('/alat-pertanian/histori-masyarakat', [PeminjamanController::class, 'history_masyarakat'])->name('pemesanan.history.masyarakat');
     Route::get('/galeri_masyarakat', [GalleryController::class, 'index_masyarakat'])->name('galeri.masyarakat');
     Route::get('/data_pengurus_desa_masyarakat', [DataPengurusDesaController::class, 'index_masyarakat'])->name('data_pengurus_desa.masyarakat');
 
@@ -252,5 +250,5 @@ Route::middleware(['auth'])->group(function () {
 
 //=========================================================
 // Route Convert PDF (No Authentication Required)
-//=========================================abou
+//=========================================================
 Route::get('/convert-pdf/{filename}', [InformasiDesaController::class, 'convertToPdf']);

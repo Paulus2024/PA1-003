@@ -126,7 +126,7 @@
             </div>
         </section><!-- End Projects Section -->
 
-        <a href="{{ route('alat_pertanian.index') }}" class="btn btn-primary btn-kembali-icon"
+        <a href="{{ route('alat_pertanian.index_sekretaris') }}" class="btn btn-primary btn-kembali-icon"
             title="Lihat Histori Pemesanan">
 
             <i class="bi bi-arrow-left-circle"></i>

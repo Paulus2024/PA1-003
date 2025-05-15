@@ -12,45 +12,45 @@ use Illuminate\Support\Facades\DB;
 
 class PeminjamanController extends Controller
 {
-    // public function index()
-    // {
-    //     $peminjaman = Peminjaman::with('alat')->paginate(10);
-    //     return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
-
-    //     foreach ($alat as $item) {
-    //         $totalDipinjam = $item->peminjaman()->where('status_peminjaman', 'disetujui')->sum('jumlah_alat_di_sewa');
-    //         $item->jumlah_tersedia -= $totalDipinjam;
-
-    //         if ($item->jumlah_tersedia <= 0) {
-    //             $item->status_alat = 'tidak tersedia';
-    //         } else {
-    //             $item->status_alat = 'tersedia';
-    //         }
-    //         $item->save();
-    //     }
-
-    //     return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman', 'alat'));
-    // }
     public function index()
     {
-        // Ambil role pengguna saat ini
-        $role = auth()->user()->role;
+        $peminjaman = Peminjaman::with('alat')->paginate(10);
+        return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
 
-        if ($role == 'bumdes') {
-            // Jika pengguna role bumdes, tampilkan semua peminjaman
-            $peminjaman = Peminjaman::with('alat')->paginate(10);
-        } elseif ($role == 'sekretaris') {
-            // Jika pengguna role sekretaris, hanya tampilkan peminjaman yang disetujui
-            $peminjaman = Peminjaman::with('alat')->where('status_peminjaman', 'disetujui')->paginate(10);
-        } elseif ($role == 'masyarakat') {
-            // Jika pengguna role masyarakat, hanya tampilkan peminjaman milik mereka
-            $peminjaman = Peminjaman::with('alat')
-                ->where('user_id', auth()->user()->id) // Pastikan peminjaman terkait dengan pengguna
-                ->paginate(10);
+        foreach ($alat as $item) {
+            $totalDipinjam = $item->peminjaman()->where('status_peminjaman', 'disetujui')->sum('jumlah_alat_di_sewa');
+            $item->jumlah_tersedia -= $totalDipinjam;
+
+            if ($item->jumlah_tersedia <= 0) {
+                $item->status_alat = 'tidak tersedia';
+            } else {
+                $item->status_alat = 'tersedia';
+            }
+            $item->save();
         }
 
-        return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
+        return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman', 'alat'));
     }
+    // public function index()
+    // {
+    //     // Ambil role pengguna saat ini
+    //     $role = auth()->user()->usertype;
+
+    //     if ($role == 'bumdes') {
+    //         // Jika pengguna role bumdes, tampilkan semua peminjaman
+    //         $peminjaman = Peminjaman::with('alat')->paginate(10);
+    //     } elseif ($role == 'sekretaris') {
+    //         // Jika pengguna role sekretaris, hanya tampilkan peminjaman yang disetujui
+    //         $peminjaman = Peminjaman::with('alat')->where('status_peminjaman', 'disetujui')->paginate(10);
+    //     } elseif ($role == 'user') {
+    //         // Jika pengguna role masyarakat, hanya tampilkan peminjaman milik mereka
+    //         $peminjaman = Peminjaman::with('alat')
+    //             ->where('user_id', auth()->user()->id) // Pastikan peminjaman terkait dengan pengguna
+    //             ->paginate(10);
+    //     }
+
+    //     return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
+    // }
 
 
     public function store(Request $request)
@@ -91,6 +91,7 @@ class PeminjamanController extends Controller
             // Buat peminjaman
             $peminjaman = Peminjaman::create([
                 'alat_pertanian_id' => $validated['alat_id'],
+                'user_id' => auth()->id(),
                 'nama_peminjam' => $validated['nama_peminjam'],
                 'tanggal_pinjam' => $validated['tanggal_pinjam'],
                 'tanggal_kembali' => $validated['tanggal_kembali'],
@@ -177,6 +178,7 @@ class PeminjamanController extends Controller
     {
         // Ambil semua peminjaman beserta data alat-nya, terbaru paling atas
         $peminjaman = Peminjaman::with('alat')
+            ->where('status_peminjaman', 'disetujui')
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -184,13 +186,14 @@ class PeminjamanController extends Controller
         return view('dashboard.sekretaris.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
     }
 
-    public function historyMasyarakat()
+    public function history_masyarakat()
     {
-        $peminjamanMasyarakat = Peminjaman::with('alat')
+        $peminjaman = Peminjaman::with('alat')
+            ->where('user_id', auth()->user()->id)
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('dashboard.masyarakat.page.Alat_Pertanian.histori_pemesanan', compact('peminjamanMasyarakat'));
+        return view('dashboard.masyarakat.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
     }
 
     public function update(Request $request, $id)

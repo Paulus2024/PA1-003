@@ -30,6 +30,6 @@ class AlatPertanian extends Model
 
     public function peminjaman()
     {
-        return $this->hasMany(Peminjaman::class, 'alat_pertanian_id');
+        return $this->hasMany(Peminjaman::class, 'alat_pertanian_id', 'id_alat_pertanian');
     }
 }
