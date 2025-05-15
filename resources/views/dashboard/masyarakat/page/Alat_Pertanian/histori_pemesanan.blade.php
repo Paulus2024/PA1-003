@@ -35,60 +35,98 @@
                             <th>Nama Peminjam</th>
                             <th>Tanggal Pinjam</th>
                             <th>Tanggal Kembali</th>
+                            <th>Jumlah Alat Di Sewa</th>
                             <th>Status</th>
-                            <th>Aksi</th>
+                            <th>Kontrol</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($peminjamanMasyarakat as $p)
-                            <!-- Perulangan  -->
+                        @foreach ($peminjaman as $p)
                             <tr>
                                 <td>{{ $p->alat->nama_alat_pertanian }}</td>
                                 <td>{{ $p->nama_peminjam }}</td>
                                 <td>{{ $p->tanggal_pinjam }}</td>
                                 <td>{{ $p->tanggal_kembali }}</td>
-                                <td>{{ $p->alat->status_alat }}</td>
+                                <td>{{ $p->jumlah_alat_di_sewa }}</td>
+                                {{-- <td>{{ $p->alat->status_alat }}</td> --}}
                                 <td>{{ ucfirst($p->status_peminjaman) }}</td>
-                                <td>
-                                    @if ($p->status_alat == 'menunggu')
-                                        <form action="{{ route('peminjaman.approve', $p->id) }}" method="POST"
-                                            class="d-inline">
-                                            @csrf
-                                            @method('PATCH')
-                                            <button class="btn btn-sm btn-success">Setuju</button>
-                                        </form>
-                                    @else
-                                        <span class="text-muted">
-                                            -
-                                        </span>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if ($p->status == 'menunggu')
-                                        <div class="d-flex gap-2">
-                                            <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
-                                                data-bs-target="#editModal{{ $p->alat_pertanian_id }}">
-                                                Edit
-                                            </button>
 
-                                            <form
-                                                action="{{ route('sekretaris.fasilitas.destroy', $p->alat_pertanian_id) }}"
-                                                method="POST">
+                                <td>
+                                    @if ($p->status_peminjaman == 'menunggu')
+                                        <div class="d-flex gap-2">
+                                            <!-- Form Action Untuk Cancle -->
+                                            <form action="{{ route('peminjaman.cancel', $p->id) }}" method="POST"
+                                                class="d-inline">
                                                 @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                                                @method('PATCH')
+                                                <button type="submit" class="btn btn-outline-danger">Batalkan</button>
                                             </form>
+
+                                            <div class="d-flex gap-2">
+                                                <button type="button" class="btn btn-outline-warning"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#editSewa{{ $p->alat_pertanian_id }}">
+                                                    Edit
+                                                </button>
+                                            </div>
                                         </div>
                                     @endif
                                 </td>
                             </tr>
+
+                            <!-- Modal Edit Sewa Alat Pertanian -->
+                            <div class="modal fade" id="editSewa{{ $p->alat_pertanian_id }}" tabindex="-1"
+                                aria-labelledby="EditSewa" aria-hidden="true">
+                                <div class="modal-dialog"><!-- Modal Dialog -->
+                                    <div class="modal-content"><!-- Modal Content -->
+                                        <div class="modal-header"><!-- Modal Header -->
+                                            <h5 class="modal-title" id="editSewa">Edit Sewa Alat Pertanian
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div><!-- Modal Header -->
+
+                                        <div class="modal-body"><!-- Modal Body -->
+                                            <form action="{{ route('peminjaman.update', $p->id) }}" method="POST">
+                                                <!-- Form untuk menyewa alat pertanian -->
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="alat_id" value="{{ $p->alat_pertanian_id }}">
+                                                <div class="mb-3">
+                                                    <label>Nama Peminjam</label>
+                                                    <input type="text" name="nama_peminjam" class="form-control"
+                                                        value="{{ $p->nama_peminjam }}" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Tanggal Pinjam</label>
+                                                    <input type="date" name="tanggal_pinjam" class="form-control"
+                                                        value="{{ $p->tanggal_pinjam }}" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Tanggal Kembali</label>
+                                                    <input type="date" name="tanggal_kembali" class="form-control"
+                                                        value="{{ $p->tanggal_kembali }}" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label>Jumlah Alat Yang Di Sewa</label>
+                                                    <input name="jumlah_alat_di_sewa" min="1" max="2"
+                                                        type="number" id="typeNumber" class="form-control"
+                                                        value="{{ $p->jumlah_alat_di_sewa }}" />
+                                                </div>
+                                                <button class="btn btn-success">Simpan</button>
+                                            </form><!-- Form untuk menyewa alat pertanian -->
+                                        </div><!-- Modal Body -->
+                                    </div><!-- Modal Content -->
+                                </div><!-- Modal Dialog -->
+                            </div>
+                            <!-- Modal Edit Sewa Alat Pertanian -->
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </section><!-- End Projects Section -->
 
-        <a href="{{ route('alat_pertanian.masyarakat') }}" class="btn btn-primary btn-kembali-icon"
+        <a href="{{ route('alat_pertanian.index_masyarakat') }}" class="btn btn-primary btn-kembali-icon"
             title="Lihat Histori Pemesanan">
 
             <i class="bi bi-arrow-left-circle"></i>

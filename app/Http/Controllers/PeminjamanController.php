@@ -12,25 +12,55 @@ use Illuminate\Support\Facades\DB;
 
 class PeminjamanController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        $peminjaman = Peminjaman::with('alat')->paginate(10);
-        return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
+        // Ambil semua data peminjaman beserta relasinya
+        $peminjaman = Peminjaman::with('user', 'alat')->get();
 
-        foreach ($alat as $item) {
-            $totalDipinjam = $item->peminjaman()->where('status_peminjaman', 'disetujui')->sum('jumlah_alat_di_sewa');
-            $item->jumlah_tersedia -= $totalDipinjam;
+        // Ambil semua data alat pertanian
+        $alatList = AlatPertanian::all();
 
-            if ($item->jumlah_tersedia <= 0) {
-                $item->status_alat = 'tidak tersedia';
-            } else {
+        // Update status alat secara otomatis berdasarkan jumlah
+        foreach ($alatList as $item) {
+            if ($item->jumlah > 0) {
                 $item->status_alat = 'tersedia';
+            } else {
+                $item->status_alat = 'tidak_tersedia';
             }
-            $item->save();
+            $item->save(); // Simpan perubahan ke database
         }
 
-        return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman', 'alat'));
+        // Tampilkan ke view
+        return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
     }
+
+    // public function index()
+    // {
+    //     // Ambil role pengguna saat ini
+    //     $role = auth()->user()->usertype;
+
+    //     if ($role == 'bumdes') {
+    //         // Jika pengguna role bumdes, tampilkan semua peminjaman
+    //         $peminjaman = Peminjaman::with('alat')->paginate(10);
+    //     } elseif ($role == 'sekretaris') {
+    //         // Jika pengguna role sekretaris, hanya tampilkan peminjaman yang disetujui
+    //         $peminjaman = Peminjaman::with('alat')->where('status_peminjaman', 'disetujui')->paginate(10);
+    //     } elseif ($role == 'user') {
+    //         // Jika pengguna role masyarakat, hanya tampilkan peminjaman milik mereka
+    //         $peminjaman = Peminjaman::with('alat')
+    //             ->where('user_id', auth()->user()->id) // Pastikan peminjaman terkait dengan pengguna
+    //             ->paginate(10);
+    //     }
+
+    //     return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
+    // }
+
 
     public function store(Request $request)
     {
@@ -41,6 +71,10 @@ class PeminjamanController extends Controller
             'tanggal_kembali' => 'required|date|after_or_equal:tanggal_pinjam',
             'jumlah_alat_di_sewa' => 'required|integer|min:1',
         ]);
+
+        if (!auth()->check()) {
+            return back()->with('error', 'Anda harus login terlebih dahulu untuk meminjam alat.');
+        }
 
         $alat = AlatPertanian::findOrFail($validated['alat_id']);
 
@@ -70,6 +104,7 @@ class PeminjamanController extends Controller
             // Buat peminjaman
             $peminjaman = Peminjaman::create([
                 'alat_pertanian_id' => $validated['alat_id'],
+                'user_id' => auth()->id(),
                 'nama_peminjam' => $validated['nama_peminjam'],
                 'tanggal_pinjam' => $validated['tanggal_pinjam'],
                 'tanggal_kembali' => $validated['tanggal_kembali'],
@@ -79,7 +114,7 @@ class PeminjamanController extends Controller
 
             DB::commit();
 
-            // ✅ DETEKSI ROLE USER
+            //DETEKSI ROLE USER
             $role = auth()->user()->role;
 
             if ($role == 'bumdes') {
@@ -152,14 +187,26 @@ class PeminjamanController extends Controller
         // Kembalikan view khusus histori
         return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
     }
-
-    public function historyMasyarakat()
+    public function history_sekretaris()
     {
-        $peminjamanMasyarakat = Peminjaman::with('alat')
+        // Ambil semua peminjaman beserta data alat-nya, terbaru paling atas
+        $peminjaman = Peminjaman::with('alat')
+            ->where('status_peminjaman', 'disetujui')
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('dashboard.masyarakat.page.Alat_Pertanian.histori_pemesanan', compact('peminjamanMasyarakat'));
+        // Kembalikan view khusus histori
+        return view('dashboard.sekretaris.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
+    }
+
+    public function history_masyarakat()
+    {
+        $peminjaman = Peminjaman::with('alat')
+            ->where('user_id', auth()->user()->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('dashboard.masyarakat.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
     }
 
     public function update(Request $request, $id)
@@ -172,14 +219,45 @@ class PeminjamanController extends Controller
         ]);
 
         $peminjaman = Peminjaman::findOrFail($id);
-        $peminjaman->nama_peminjam = $request->nama_peminjam;
-        $peminjaman->tanggal_pinjam = $request->tanggal_pinjam;
-        $peminjaman->tanggal_kembali = $request->tanggal_kembali;
-        $peminjaman->jumlah_alat_di_sewa = $request->jumlah_alat_di_sewa;
-        $peminjaman->save();
+        $alat = $peminjaman->alat; // relasi dari model Peminjaman ke AlatPertanian
 
-        return back()->with('success', 'Data peminjaman berhasil diperbarui.');
+        DB::beginTransaction();
+        try {
+            // Hitung selisih jumlah alat yang disewa
+            $jumlah_lama = $peminjaman->jumlah_alat_di_sewa;
+            $jumlah_baru = $request->input('jumlah_alat_di_sewa');
+            $selisih = $jumlah_baru - $jumlah_lama;
+
+            // Cek jika alat tersedia cukup saat jumlah disewa bertambah
+            if ($selisih > 0 && $alat->jumlah_tersedia < $selisih) {
+                return back()->withErrors([
+                    'jumlah_alat_di_sewa' => 'Jumlah alat tidak mencukupi. Tersedia: ' . $alat->jumlah_tersedia
+                ])->withInput();
+            }
+
+            // Update stok alat
+            $alat->jumlah_tersedia -= $selisih;
+            $alat->jumlah_tersedia = max(0, $alat->jumlah_tersedia);
+            $alat->status_alat = $alat->jumlah_tersedia > 0 ? 'tersedia' : 'tidak_tersedia';
+            $alat->save();
+
+            // Update data peminjaman
+            $peminjaman->update([
+                'nama_peminjam' => $request->input('nama_peminjam'),
+                'tanggal_pinjam' => $request->input('tanggal_pinjam'),
+                'tanggal_kembali' => $request->input('tanggal_kembali'),
+                'jumlah_alat_di_sewa' => $jumlah_baru,
+            ]);
+
+            DB::commit();
+            return back()->with('success', 'Data peminjaman berhasil diperbarui.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Gagal update peminjaman: ' . $e->getMessage());
+            return back()->with('error', 'Terjadi kesalahan saat memperbarui data.');
+        }
     }
+
 
     // public function destroy($id)
     // {

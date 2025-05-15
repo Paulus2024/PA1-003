@@ -108,7 +108,8 @@
                                         </p>
 
                                         <div class="d-flex justify-content-end">
-                                            <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-outline-warning"
+                                                data-bs-toggle="modal"
                                                 data-bs-target="#SewaAlatPertanian{{ $item->id_alat_pertanian }}">
                                                 Sewa Alat
                                             </button>
@@ -122,7 +123,7 @@
 
                             <!-- Modal Sewa Alat Pertanian -->
                             <div class="modal fade" id="SewaAlatPertanian{{ $item->id_alat_pertanian }}" tabindex="-1"
-                                aria-labelledby="SewaAlatPertanian" aria-hidden="true">
+                                aria-labelledby="TambahAlatPertanian" aria-hidden="true">
                                 <div class="modal-dialog"><!-- Modal Dialog -->
                                     <div class="modal-content"><!-- Modal Content -->
                                         <div class="modal-header"><!-- Modal Header -->
@@ -167,6 +168,7 @@
                                 </div><!-- Modal Dialog -->
                             </div>
                             <!-- Modal Sewa Alat Pertanian -->
+
                         @endforeach
                         <!-- Looping Alat Pertanian -->
 
@@ -176,10 +178,12 @@
 
             </div><!-- End Projects Container -->
 
+
+
         </section><!-- /Projects Section -->
 
         <!-- Tombol Histori Pemesanan (Fixed) -->
-        <a href="{{ route('pemesanan.history') }}" class="btn btn-primary btn-historipemesanan-icon"
+        <a href="{{ route('pemesanan.history.masyarakat') }}" class="btn btn-primary btn-historipemesanan-icon"
             title="Lihat Histori Pemesanan">
 
             <i class="bi bi-clock-history"></i>

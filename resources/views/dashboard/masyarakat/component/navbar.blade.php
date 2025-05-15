@@ -13,7 +13,7 @@
         <li><a href="{{ route('informasi.masyarakat')}}" class="{{Request::is('informasi_masyarakat') ? 'active' : ''}}">Informasi</a></li>
         <li><a href="{{ route('galeri.masyarakat')}}" class="{{Request::is('galeri_masyarakat') ? 'active' : ''}}">Galeri</a></li>
         <li><a href="{{ route('data_pengurus_desa.masyarakat')}}" class="{{Request::is('data_pengurus_desa_masyarakat')}}">Data Pengurus Desa</a></li>
-        <li><a href="{{ route('alat_pertanian.masyarakat')}}" class="{{Request::is('alat_pertanian_masyarakat')}}">Alat Pertanian</a></li>
+        <li><a href="{{ route('alat_pertanian.index_masyarakat')}}" class="{{Request::is('alat_pertanian_masyarakat')}}">Alat Pertanian</a></li>
         <li><a href="{{ route('contact')}}" class="{{Request::is('contact')}}">Contact</a></li>
         {{-- <li><a href="/index_masyarakat" class="{{ request()->is('index_masyarakat') ? 'active' : '' }}">Home</a></li>
         <li><a href="/about_masyarakat" class="{{ request()->is('about_masyarakat') ? 'active' : '' }}">About</a></li>
