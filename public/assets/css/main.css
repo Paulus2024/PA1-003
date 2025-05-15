@@ -1406,27 +1406,20 @@
     color: rgba(255, 255, 255, 0.8);
   }
 
-  .projects .portfolio-content .portfolio-info .preview-link,
-  .projects .portfolio-content .portfolio-info .details-link {
+  .projects .portfolio-content .portfolio-info .preview-link {
     position: absolute;
-    left: calc(50% - 40px);
-    font-size: 26px;
+    left: calc(57% - 40px);
+    font-size: 30px;
     top: calc(50% - 14px);
     color: #fff;
     transition: 0.3s;
     line-height: 1.2;
   }
 
-  .projects .portfolio-content .portfolio-info .preview-link:hover,
-  .projects .portfolio-content .portfolio-info .details-link:hover {
+  .projects .portfolio-content .portfolio-info .preview-link:hover{
     color: var(--accent-color);
   }
 
-  .projects .portfolio-content .portfolio-info .details-link {
-    left: 50%;
-    font-size: 34px;
-    line-height: 0;
-  }
 
   .projects .portfolio-content:hover .portfolio-info {
     opacity: 1;
