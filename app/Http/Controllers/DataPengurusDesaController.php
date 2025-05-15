@@ -17,17 +17,25 @@ class DataPengurusDesaController extends Controller
         return view('dashboard.sekretaris.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
     }
 
-public function index_Bumdes()
-{
-    $data_pengurus_desas = DataPengurusDesa::all(); // Ambil semua
-    return view('dashboard.bumdes.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
-}
+    public function index_Bumdes()
+    {
+        $data_pengurus_desas = DataPengurusDesa::all(); // Ambil semua
+        return view('dashboard.bumdes.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
+    }
+
+        public function index_masyarakat()
+    {
+        $data_pengurus_desas = DataPengurusDesa::all(); // Ambil semua
+        return view('dashboard.bumdes.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
+    }
 
         public function index_pengguna()
     {
         $data_pengurus_desas = DataPengurusDesa::all(); // Ambil semua
         return view('pengguna.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
     }
+
+
 
 
 

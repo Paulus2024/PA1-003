@@ -91,7 +91,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/index_masyarakat', function () {
         return view('dashboard/masyarakat/page/Home/index_home');
     })->middleware('auth');
-    
+
     Route::get('/dashboard', function () {
         return view('dashboard/masyarakat/page/Home/index_home');
     })->name('dashboard');
@@ -200,10 +200,11 @@ Route::middleware(['auth'])->group(function () {
      //   return view('dashboard/bumdes/page/Galeri/index_galeri');
    // });
     Route::get('/galeri_bumdes', [GalleryController::class, 'index_bumdes'])->name('galleries.index_bumdes');
-    
-    Route::get('/data_pengurus_desa_bumdes', function () {
-        return view('dashboard/bumdes/page/Data_Pengurus_Desa/index_data_pengurus_desa');
-    });
+
+        //Route::get('/data_pengurus_desa_bumdes', function () {
+    //    return view('dashboard/bumdes/page/Data_Pengurus_Desa/index_data_pengurus_desa');
+    //});
+    Route::get('/data_pengurus_desa_bumdes', [DataPengurusDesaController::class, 'index_bumdes'])->name('data_pengurus_desa.bumdes');
 
     Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index'])->name('alat_pertanian.index');
     Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index_sekretaris'])->name('alat_pertanian.index_sekretaris');
