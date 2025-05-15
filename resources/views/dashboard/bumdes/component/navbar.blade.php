@@ -19,7 +19,23 @@
         {{-- <li> <a href="{{ route('alat_pertanian.index') }}" class="{{ Request::is('alat_pertanian_bumdes') ? 'active' : ''  }}"></a> </li> --}}
         <li><a href="/alat_pertanian_bumdes" class="{{ Request::is('alat_pertanian_bumdes') ? 'active' : '' }}">Alat Pertanian</a></li>
         <li><a href="/contact_bumdes">Contact</a></li>
-        <li><a href="/login">Login</a></li>
+        @auth
+        <li class="dropdown {{ Request::is('profile*') ? 'active' : '' }}">
+            <a class="dropdown-toggle" href="#" id="navbarBumdes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Bumdes
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarBumdes">
+                <li>
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="submit" class="dropdown-item text-danger">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+        @else
+        <li><a href="/login" class="{{ Request::is('login') ? 'active' : '' }}">Login</a></li>
+        @endauth
     </ul>
     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
     </nav>

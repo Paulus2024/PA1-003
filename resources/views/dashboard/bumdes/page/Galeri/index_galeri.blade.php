@@ -1,34 +1,31 @@
 @extends('dashboard.bumdes.component.main')
 
-@section(section:'bumdes_content')
+@section('bumdes_content')
 <header id="header" class="header d-flex align-items-center fixed-top">
     @include('dashboard.bumdes.component.navbar')
-
-    <style>
-
-    </style>
+    <style></style>
 </header>
 
 <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
     <div class="container position-relative">
-      <h1>Galeri</h1>
-      <nav class="breadcrumbs">
+    <h1>Galeri</h1>
+    <nav class="breadcrumbs">
         <ol>
-          <li><a href="/index_bumdes">Home</a></li>
-          <li class="current">Galeri</li>
+        <li><a href="/index_bumdes">Home</a></li>
+        <li class="current">Galeri</li>
         </ol>
-      </nav>
+    </nav>
     </div>
-  </div><!-- End Page Title -->
+</div>
 
-  <section id="projects" class="projects section">
+<section class="projects section">
         <div class="container">
             <h1 class="text-center mb-4">Galeri Kami</h1>
             <div class="row">
                 @foreach ($galleries as $item)
                     <div class="col-md-4 mb-4">
                         <div class="gallery-item">
-                            <img src="{{ asset('storage/' . $item->gambar_galeri) }}" class="img-fluid" alt="{{ $item->judul_galeri }}">
+                            <img src="{{ asset('storage/' . $item->gambar_galeri) }}" class="img-fluid" alt="Gambar Galeri">
                             <div class="overlay">{{ Str::limit($item->judul_galeri, 50) }}</div>
                         </div>
                     </div>
@@ -37,9 +34,7 @@
         </div>
     </section>
 
-
-  <footer id="footer" class="footer dark-background">
+<footer id="footer" class="footer dark-background">
     @include('pengguna.component.footer')
 </footer>
-
 @endsection

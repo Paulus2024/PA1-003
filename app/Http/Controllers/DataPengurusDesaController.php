@@ -14,26 +14,28 @@ class DataPengurusDesaController extends Controller
     public function index()
     {
         $data_pengurus_desas/*1*/ = DataPengurusDesa::all();//nama variabel bebas = Nama Model::all();
-        return view('dashboard.sekretaris.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas')); //mengambil data dari database dan mengirim ke view| fasilitas.index = nama route| compact('fasilitas') = nama variabel yang dikirim ke view /*1*/
+        return view('dashboard.sekretaris.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
     }
 
-    public function index_masyarakat()
+    public function index_Bumdes()
     {
-        $data_pengurus_desas = DataPengurusDesa::all(); // Atau sesuai model kamu
-        return view('dashboard.masyarakat.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
+        $data_pengurus_desas = DataPengurusDesa::all(); // Ambil semua
+        return view('dashboard.bumdes.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
     }
 
-        public function index_bumdes()
+        public function index_masyarakat()
     {
-        $data_pengurus_desas = DataPengurusDesa::all(); // Atau sesuai model kamu
+        $data_pengurus_desas = DataPengurusDesa::all(); // Ambil semua
         return view('dashboard.bumdes.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
     }
 
         public function index_pengguna()
     {
-        $data_pengurus_desas = DataPengurusDesa::all(); // Atau sesuai model kamu
+        $data_pengurus_desas = DataPengurusDesa::all(); // Ambil semua
         return view('pengguna.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
     }
+
+
 
 
 
