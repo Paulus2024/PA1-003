@@ -24,15 +24,12 @@
         <p>Berikut adalah pengurus desa yang terdaftar:</p>
     </div>
 
-    <div class="container">
-        <div class="row gy-5">
-            @foreach ($data_pengurus_desas as $item)
-            <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="200">
+<div class="container">
+    <div class="row gy-5">
+        @foreach ($data_pengurus_desas as $item)
+            <div class="col-lg-4 col-md-6 member">
                 <div class="member-img">
-                    <img src="{{ asset('storage/' . $item->gambar_data_pengurus_desa) }}"
-                        alt="{{ $item->nama_data_pengurus_desa }}"
-                        class="img-fluid"
-                        style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
+                    <img src="{{ asset('storage/' . $item->gambar_data_pengurus_desa) }}" alt="{{ $item->nama_data_pengurus_desa }}" class="img-fluid" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
                 </div>
                 <div class="member-info text-center">
                     <h4>{{ $item->nama_data_pengurus_desa }}</h4>
@@ -40,10 +37,9 @@
                     <p>{{ $item->deskripsi_data_pengurus_desa }}</p>
                 </div>
             </div>
-            @endforeach
-        </div>
+        @endforeach
     </div>
-</section>
+</div>
 
     <footer id="footer" class="footer dark-background">
         @include('pengguna.component.footer')

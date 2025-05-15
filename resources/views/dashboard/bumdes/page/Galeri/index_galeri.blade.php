@@ -19,20 +19,20 @@
 </div>
 
 <section class="projects section">
-    <div class="container">
-        <h1 class="text-center mb-4">Galeri Kami</h1>
-        <div class="row">
-            @foreach ($galleries as $item)
-                <div class="col-md-4 mb-4">
-                    <div class="gallery-item">
-                        <img src="{{ asset('storage/' . $item->gambar_galeri) }}" class="img-fluid" alt="Gambar Galeri">
-                        <div class="overlay">{{ \Illuminate\Support\Str::limit($item->judul_galeri, 50) }}</div>
+        <div class="container">
+            <h1 class="text-center mb-4">Galeri Kami</h1>
+            <div class="row">
+                @foreach ($galleries as $item)
+                    <div class="col-md-4 mb-4">
+                        <div class="gallery-item">
+                            <img src="{{ asset('storage/' . $item->gambar_galeri) }}" class="img-fluid" alt="Gambar Galeri">
+                            <div class="overlay">{{ Str::limit($item->judul_galeri, 50) }}</div>
+                        </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 <footer id="footer" class="footer dark-background">
     @include('pengguna.component.footer')

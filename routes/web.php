@@ -146,8 +146,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/galleries/{gallery}', [GalleryController::class, 'update'])->name('galleries.update');
     Route::patch('/galleries/{gallery}', [GalleryController::class, 'update']);
     Route::delete('/galleries/{gallery}', [GalleryController::class, 'destroy'])->name('galleries.destroy');
-    Route::get('/galeri_bumdes', [GalleryController::class, 'index_bumdes'])->name('galeri_bumdes');
     Route::get('/galeri', [GalleryController::class, 'index_pengguna'])->name('/galeri');
+    Route::get('/galeri_bumdes', [GalleryController::class, 'index_bumdes'])->name('galleries.index_bumdes');
 
 
     Route::get('/data_pengurus_desa_sekretaris', [DataPengurusDesaController::class, 'index'])->name('data_pengurus_desa.index');
@@ -158,6 +158,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'update'])->name('data_pengurus_desa.update');
     Route::patch('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'update']);
     Route::delete('/data_pengurus_desa_sekretaris/{pengurus}', [DataPengurusDesaController::class, 'destroy'])->name('data_pengurus_desa.destroy');
+    Route::get('/data-pengurus-desa-bumdes', [DataPengurusDesaController::class, 'indexBumdes'])->name('data_pengurus_desa.bumdes');
+
 
     Route::get('/alat_pertanian_sekretaris', [AlatPertanianController::class, 'index_sekretaris'])->name('alat_pertanian_sekretaris');
 
@@ -193,10 +195,11 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard/bumdes/page/Informasi/index_informasi');
     });
 
-    Route::get('/galeri_bumdes', function () {
-        return view('dashboard/bumdes/page/Galeri/index_galeri');
-    });
-
+//Route::get('/galeri_bumdes', function () {
+     //   return view('dashboard/bumdes/page/Galeri/index_galeri');
+   // });
+    Route::get('/galeri_bumdes', [GalleryController::class, 'index_bumdes'])->name('galleries.index_bumdes');
+    
     Route::get('/data_pengurus_desa_bumdes', function () {
         return view('dashboard/bumdes/page/Data_Pengurus_Desa/index_data_pengurus_desa');
     });

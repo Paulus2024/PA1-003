@@ -24,12 +24,11 @@ class GalleryController extends Controller
 
 
 
-    public function index_bumdes()
-    {
-        $galleries = Gallery::all();
-        return view('dashboard.bumdes.page.Galeri.index_galeri', compact('galleries'));
-    }
-
+public function index_bumdes()
+{
+    $galleries = Gallery::all();
+    return view('dashboard.bumdes.page.Galeri.index_galeri', compact('galleries'));
+}
 
         public function index_pengguna()
     {
