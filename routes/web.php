@@ -212,7 +212,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/alat-pertanian/histori/sekretaris', [PeminjamanController::class, 'history_sekretaris'])->name('pemesanan.history.sekretaris');
 
-    Route::post('alat_pertanian/pinjam', [PeminjamanController::class, 'store'])->name('alat_pertanian.pinjam');
+    // Route::post('alat_pertanian/pinjam', [PeminjamanController::class, 'store'])->name('alat_pertanian.pinjam');
+    Route::middleware(['auth'])->group(function () {
+        Route::post('alat_pertanian/pinjam', [PeminjamanController::class, 'store'])->name('alat_pertanian.pinjam');
+    });
+
 
     Route::patch('alat_pertanian/kembali/{id}', [PeminjamanController::class, 'kembalikan'])->name('alat_pertanian.kembali');
 
@@ -240,7 +244,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/fasilitas_masyarakat', [FasilitasDesaController::class, 'index_masyarakat'])->name('fasilitas.masyarakat');
     Route::get('/informasi_masyarakat', [InformasiDesaController::class, 'index_berita_masyarakat'])->name('informasi.masyarakat');
     Route::get('/informasi_pengumuman_masyarakat', [InformasiDesaController::class, 'index_pengumuman_masyarakat'])->name('pengumuman.masyarakat');
-    Route::get('/alat_pertanian_masyarakat', [AlatPertanianController::class, 'index_masyarakat'])->name('alat_pertanian.masyarakat');
+    // Route::get('/alat_pertanian_masyarakat', [AlatPertanianController::class, 'index_masyarakat'])->name('alat_pertanian.masyarakat');
     Route::get('/alat-pertanian/histori-masyarakat', [PeminjamanController::class, 'history_masyarakat'])->name('pemesanan.history.masyarakat');
     Route::get('/galeri_masyarakat', [GalleryController::class, 'index_masyarakat'])->name('galeri.masyarakat');
     Route::get('/data_pengurus_desa_masyarakat', [DataPengurusDesaController::class, 'index_masyarakat'])->name('data_pengurus_desa.masyarakat');

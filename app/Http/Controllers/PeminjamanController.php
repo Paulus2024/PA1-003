@@ -12,25 +12,34 @@ use Illuminate\Support\Facades\DB;
 
 class PeminjamanController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        $peminjaman = Peminjaman::with('alat')->paginate(10);
-        return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
+        // Ambil semua data peminjaman beserta relasinya
+        $peminjaman = Peminjaman::with('user', 'alat')->get();
 
-        foreach ($alat as $item) {
-            $totalDipinjam = $item->peminjaman()->where('status_peminjaman', 'disetujui')->sum('jumlah_alat_di_sewa');
-            $item->jumlah_tersedia -= $totalDipinjam;
+        // Ambil semua data alat pertanian
+        $alatList = AlatPertanian::all();
 
-            if ($item->jumlah_tersedia <= 0) {
-                $item->status_alat = 'tidak tersedia';
-            } else {
+        // Update status alat secara otomatis berdasarkan jumlah
+        foreach ($alatList as $item) {
+            if ($item->jumlah > 0) {
                 $item->status_alat = 'tersedia';
+            } else {
+                $item->status_alat = 'tidak_tersedia';
             }
-            $item->save();
+            $item->save(); // Simpan perubahan ke database
         }
 
-        return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman', 'alat'));
+        // Tampilkan ke view
+        return view('dashboard.bumdes.page.Alat_Pertanian.histori_pemesanan', compact('peminjaman'));
     }
+
     // public function index()
     // {
     //     // Ambil role pengguna saat ini
@@ -62,6 +71,10 @@ class PeminjamanController extends Controller
             'tanggal_kembali' => 'required|date|after_or_equal:tanggal_pinjam',
             'jumlah_alat_di_sewa' => 'required|integer|min:1',
         ]);
+
+        if (!auth()->check()) {
+            return back()->with('error', 'Anda harus login terlebih dahulu untuk meminjam alat.');
+        }
 
         $alat = AlatPertanian::findOrFail($validated['alat_id']);
 
