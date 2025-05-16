@@ -131,6 +131,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/fasilitas_sekretaris/{id_fasilitas}', [FasilitasDesaController::class, 'update'])->name('sekretaris.fasilitas.update');
     Route::delete('/fasilitas_sekretaris/{id_fasilitas}', [FasilitasDesaController::class, 'destroy'])->name('sekretaris.fasilitas.destroy');
 
+    Route::get('/fasilitas_desa_pengguna', [FasilitasDesaController::class, 'index_pengguna'])->name('fasilitas_desa.index_pengguna');
+
     Route::get('/informasi_sekretaris', [InformasiDesaController::class, 'index_berita'])->name('informasi.berita');
     Route::get('/informasi_pengumuman', [InformasiDesaController::class, 'index_pengumuman'])->name('informasi.pengumuman');
     Route::post('/informasi_sekretaris/store', [InformasiDesaController::class, 'store'])->name('sekretaris.informasi.store');
@@ -199,6 +201,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/alat_pertanian_bumdes', [AlatPertanianController::class, 'index'])->name('alat_pertanian.index');
     Route::get('/alat_pertanian_sekretaris', [AlatPertanianController::class, 'index_sekretaris'])->name('alat_pertanian.index_sekretaris');
     Route::get('/alat_pertanian_masyarakat', [AlatPertanianController::class, 'index_masyarakat'])->name('alat_pertanian.index_masyarakat');
+    // Route::get('/alat_pertanian_pengguna', [AlatPertanianController::class, 'index_pengguna'])->name('alat_pertanian.index_pengguna');
 
     Route::post('/alat_pertanian_bumdes/store', [AlatPertanianController::class, 'store'])->name('bumdes.alat_pertanian.store');
 

@@ -1,6 +1,6 @@
 @extends('dashboard.sekretaris.component.main')
 
-@section('sekretaris_content')
+@section(section:'sekretaris_content')
 <header id="header" class="header d-flex align-items-center fixed-top">
     @include('dashboard.sekretaris.component.navbar')
 </header>
@@ -59,44 +59,48 @@
                         </td>
                     </tr>
 
-                    <!-- Modal Edit -->
-                    <div class="modal fade" id="editModal{{ $item->id_data_pengurus_desa }}" tabindex="-1"
-                        aria-labelledby="editModalLabel{{ $item->id_data_pengurus_desa }}" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <form action="{{ route('data_pengurus_desa.update', $item->id_data_pengurus_desa) }}" method="POST" enctype="multipart/form-data" class="modal-content">
-                                @csrf
-                                @method('PUT')
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel{{ $item->id_data_pengurus_desa }}">Edit Data Pengurus</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label class="form-label">Nama</label>
-                                        <input type="text" class="form-control" name="nama_data_pengurus_desa" value="{{ $item->nama_data_pengurus_desa }}" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Jabatan</label>
-                                        <input type="text" class="form-control" name="jabatan_data_pengurus_desa" value="{{ $item->jabatan_data_pengurus_desa }}" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Deskripsi</label>
-                                        <input type="text" class="form-control" name="deskripsi_data_pengurus_desa" value="{{ $item->deskripsi_data_pengurus_desa }}" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Gambar</label>
-                                        <input type="file" class="form-control" name="gambar_data_pengurus_desa">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success">Simpan Perubahan</button>
-                                </div>
-                            </form>
+            <!-- Modal Edit -->
+            <div class="modal fade" id="editModal{{ $item->id_data_pengurus_desa }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id_data_pengurus_desa }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form action="{{ route('data_pengurus_desa.update', $item->id_data_pengurus_desa) }}" method="POST" enctype="multipart/form-data" class="modal-content">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel{{ $item->id_data_pengurus_desa }}">Edit Data Pengurus</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
                         </div>
-                    </div>
-                    @endforeach
-                </tbody>
-            </table>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">Nama</label>
+                                <input type="text" class="form-control" name="nama_data_pengurus_desa" value="{{ $item->nama_data_pengurus_desa }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Jabatan</label>
+                                <input type="text" class="form-control" name="jabatan_data_pengurus_desa" value="{{ $item->jabatan_data_pengurus_desa }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Deskripsi</label>
+                                <input type="text" class="form-control" name="deskripsi_data_pengurus_desa" value="{{ $item->deskripsi_data_pengurus_desa }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Gambar</label>
+                                <input type="file" class="form-control" name="gambar_data_pengurus_desa">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Simpan Perubahan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        <!-- Tombol Tambah -->
+        <div class="col-12 mt-4">
+            <div class="d-grid gap-2">
+                <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#TambahGambar">Tambah Data Pengurus</button>
+            </div>
         </div>
     </div>
 
