@@ -75,28 +75,27 @@
                 </svg>
             </button>
 
-<div class="login-footer">
-    <p>Already have an account? <a href="{{ route('login') }}" class="register-link">Sign in</a></p>
-</div>
+            <div class="login-footer">
+                <p>Already have an account? <a href="{{ route('login') }}" class="register-link">Sign in</a></p>
+            </div>
 
-<div class="social-login">
-    <div class="divider">
-        <span class="divider-line"></span>
-        <span class="divider-text">OR</span>
-        <span class="divider-line"></span>
-    </div>
+            <div class="social-login">
+                <div class="divider">
+                    <span class="divider-line"></span>
+                    <span class="divider-text">OR</span>
+                    <span class="divider-line"></span>
+                </div>
 
-    <a href="{{ url('auth/google') }}" class="social-login-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M21.35 11.1h-9.18v2.92h5.42c-.23 1.32-1.12 2.44-2.39 3.08v2.57h3.87c2.27-2.1 3.58-5.2 3.58-8.57 0-.59-.05-1.17-.14-1.72z"/>
-            <path d="M12.17 22c2.43 0 4.47-.8 5.96-2.18l-3.87-2.57c-.71.48-1.6.76-2.59.76-1.99 0-3.68-1.35-4.29-3.17h-4.01v2.64c1.48 2.93 4.54 4.92 8.8 4.92z"/>
-            <path d="M7.88 14.84a5.033 5.033 0 0 1 0-5.69v-2.64h-4.01a9.973 9.973 0 0 0 0 10.97l4.01-2.64z"/>
-            <path d="M12.17 5.36c1.32 0 2.5.45 3.43 1.34l2.57-2.57c-1.66-1.54-3.82-2.49-6-2.49-4.26 0-7.32 1.99-8.8 4.92l4.01 2.64c.61-1.82 2.3-3.17 4.29-3.17z"/>
-        </svg>
-        Continue with Google
-    </a>
-</div>
-
+                <a href="{{ route('google.login') }}" class="social-login-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21.35 11.1h-9.18v2.92h5.42c-.23 1.32-1.12 2.44-2.39 3.08v2.57h3.87c2.27-2.1 3.58-5.2 3.58-8.57 0-.59-.05-1.17-.14-1.72z"/>
+                        <path d="M12.17 22c2.43 0 4.47-.8 5.96-2.18l-3.87-2.57c-.71.48-1.6.76-2.59.76-1.99 0-3.68-1.35-4.29-3.17h-4.01v2.64c1.48 2.93 4.54 4.92 8.8 4.92z"/>
+                        <path d="M7.88 14.84a5.033 5.033 0 0 1 0-5.69v-2.64h-4.01a9.973 9.973 0 0 0 0 10.97l4.01-2.64z"/>
+                        <path d="M12.17 5.36c1.32 0 2.5.45 3.43 1.34l2.57-2.57c-1.66-1.54-3.82-2.49-6-2.49-4.26 0-7.32 1.99-8.8 4.92l4.01 2.64c.61-1.82 2.3-3.17 4.29-3.17z"/>
+                    </svg>
+                    Continue with Google
+                </a>
+            </div>
         </form>
     </div>
 </div>

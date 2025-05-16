@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -44,7 +43,8 @@ Route::get('/informasi', function () {
     return view('pengguna/page/Informasi/index_informasi');
 });
 
-Route::get('/pengurus', [DataPengurusDesaController::class, 'index_pengguna'])->name('pengurus.index');
+// HAPUS ATAU KOMENTARI ROUTE INI
+// Route::get('/pengurus', [DataPengurusDesaController::class, 'index_pengguna'])->name('pengurus.index');
 
 Route::get('/galeri', [GalleryController::class, 'index_pengguna'])->name('galeri');
 
