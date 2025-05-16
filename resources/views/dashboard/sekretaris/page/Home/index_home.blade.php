@@ -22,7 +22,7 @@
         <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
 
             <div class="carousel-item">
-            <img src="{{URL:: asset('assets/img/hero-carousel/hero-carousel-1.jpg')}}" alt="">
+            <img src="assets/img/hero-carousel/1.jpg')}}" alt="">
             </div>
 
             <div class="carousel-item active">
