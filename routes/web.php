@@ -12,6 +12,7 @@ use App\Http\Controllers\DataPengurusDesaController;
 use App\Http\Controllers\AlatPertanianController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\AboutController; // Corrected class name
+use App\Http\Controllers\GoogleController;
 
 
 /*
@@ -259,3 +260,5 @@ Route::get('/convert-pdf/{filename}', [InformasiDesaController::class, 'convertT
 
 Route::get('/about_masyarakat', [AboutController::class, 'indexMasyarakat'])->name('about.masyarakat');
 
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);

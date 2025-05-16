@@ -26,19 +26,11 @@
             </div>
 
             <div class="carousel-item active">
-            <img src="assets/img/hero-carousel/hero-carousel-2.jpg" alt="">
+            <img src="assets/img/projects/3.jpg" alt="">
             </div>
 
             <div class="carousel-item">
-            <img src="assets/img/hero-carousel/hero-carousel-3.jpg" alt="">
-            </div>
-
-            <div class="carousel-item">
-            <img src="assets/img/hero-carousel/hero-carousel-4.jpg" alt="">
-            </div>
-
-            <div class="carousel-item">
-            <img src="assets/img/hero-carousel/hero-carousel-5.jpg" alt="">
+            <img src="assets/img/projects/2.jpg" alt="">
             </div>
 
             <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">

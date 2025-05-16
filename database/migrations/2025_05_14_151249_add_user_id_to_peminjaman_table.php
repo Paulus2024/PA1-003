@@ -9,18 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::table('peminjaman', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            if (!Schema::hasColumn('peminjaman', 'user_id')) {
+                $table->unsignedBigInteger('user_id');
+            }
         });
     }
 
-    public function down(): void
+    public function down()
     {
         Schema::table('peminjaman', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropColumn('user_id');
+            if (Schema::hasColumn('peminjaman', 'user_id')) {
+                $table->dropColumn('user_id');
+            }
         });
     }
 };
