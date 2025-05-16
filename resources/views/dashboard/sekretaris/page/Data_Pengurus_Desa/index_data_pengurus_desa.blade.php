@@ -1,6 +1,6 @@
 @extends('dashboard.sekretaris.component.main')
 
-@section(section:'sekretaris_content')
+@section('sekretaris_content')
 <header id="header" class="header d-flex align-items-center fixed-top">
     @include('dashboard.sekretaris.component.navbar')
 </header>
@@ -17,83 +17,86 @@
     </div>
 </div>
 
-<section id="team" class="team section">
-
-    <!-- Section Title -->
-    <div class="container section-title" data-aos="fade-up">
-        <h2>Team</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-    </div>
-
-
+<section class="section py-5">
     <div class="container">
-        <div class="row gy-5">
-            @foreach ($data_pengurus_desas as $item)
-            <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="400">
-                <div class="member-img">
-                    <img src="{{ asset('storage/' . $item->gambar_data_pengurus_desa) }}"alt="{{ $item->nama_data_pengurus_desa }}"class="img-fluid" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
-                </div>
-                <div class="member-info text-center">
-                <h4>{{ $item->nama_data_pengurus_desa }}</h4>
-                <span>{{ $item->jabatan_data_pengurus_desa }}</span>
-                <p>{{ $item->deskripsi_data_pengurus_desa }}</p>
-                </div>
-            </div>
-            <div class="d-flex gap-2">
-                <!-- Tombol Edit -->
-                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_data_pengurus_desa }}">
-                    Edit
-                </button>
-                <!-- Form Hapus -->
-                <form action="{{ route('data_pengurus_desa.destroy', $item->id_data_pengurus_desa) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-outline-danger">Hapus</button>
-                </form>
-            </div>
-
-            <!-- Modal Edit -->
-            <div class="modal fade" id="editModal{{ $item->id_data_pengurus_desa }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id_data_pengurus_desa }}" aria-hidden="true">
-                <div class="modal-dialog">
-                    <form action="{{ route('data_pengurus_desa.update', $item->id_data_pengurus_desa) }}" method="POST" enctype="multipart/form-data" class="modal-content">
-                        @csrf
-                        @method('PUT')
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editModalLabel{{ $item->id_data_pengurus_desa }}">Edit Data Pengurus</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label class="form-label">Nama</label>
-                                <input type="text" class="form-control" name="nama_data_pengurus_desa" value="{{ $item->nama_data_pengurus_desa }}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Jabatan</label>
-                                <input type="text" class="form-control" name="jabatan_data_pengurus_desa" value="{{ $item->jabatan_data_pengurus_desa }}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Deskripsi</label>
-                                <input type="text" class="form-control" name="deskripsi_data_pengurus_desa" value="{{ $item->deskripsi_data_pengurus_desa }}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Gambar</label>
-                                <input type="file" class="form-control" name="gambar_data_pengurus_desa">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-success">Simpan Perubahan</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            @endforeach
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Daftar Pengurus</h2>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#TambahGambar">Tambah Data Pengurus</button>
         </div>
 
-        <!-- Tombol Tambah -->
-        <div class="col-12 mt-4">
-            <div class="d-grid gap-2">
-                <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#TambahGambar">Tambah Data Pengurus</button>
-            </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>No</th>
+                        <th>Foto</th>
+                        <th>Nama</th>
+                        <th>Jabatan</th>
+                        <th>Deskripsi</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data_pengurus_desas as $index => $item)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>
+                            <img src="{{ asset('storage/' . $item->gambar_data_pengurus_desa) }}" alt="Foto"
+                                style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%;">
+                        </td>
+                        <td>{{ $item->nama_data_pengurus_desa }}</td>
+                        <td>{{ $item->jabatan_data_pengurus_desa }}</td>
+                        <td>{{ $item->deskripsi_data_pengurus_desa }}</td>
+                        <td>
+                            <div class="d-flex gap-2 justify-content-center">
+                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_data_pengurus_desa }}">Edit</button>
+                                <form action="{{ route('data_pengurus_desa.destroy', $item->id_data_pengurus_desa) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Modal Edit -->
+                    <div class="modal fade" id="editModal{{ $item->id_data_pengurus_desa }}" tabindex="-1"
+                        aria-labelledby="editModalLabel{{ $item->id_data_pengurus_desa }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form action="{{ route('data_pengurus_desa.update', $item->id_data_pengurus_desa) }}" method="POST" enctype="multipart/form-data" class="modal-content">
+                                @csrf
+                                @method('PUT')
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel{{ $item->id_data_pengurus_desa }}">Edit Data Pengurus</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">Nama</label>
+                                        <input type="text" class="form-control" name="nama_data_pengurus_desa" value="{{ $item->nama_data_pengurus_desa }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Jabatan</label>
+                                        <input type="text" class="form-control" name="jabatan_data_pengurus_desa" value="{{ $item->jabatan_data_pengurus_desa }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Deskripsi</label>
+                                        <input type="text" class="form-control" name="deskripsi_data_pengurus_desa" value="{{ $item->deskripsi_data_pengurus_desa }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Gambar</label>
+                                        <input type="file" class="form-control" name="gambar_data_pengurus_desa">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">Simpan Perubahan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -136,6 +139,5 @@
     @include('pengguna.component.footer')
 </footer>
 
-<!-- Tambahkan Script Bootstrap jika belum -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 @endsection

@@ -24,7 +24,7 @@
             <h1 class="text-center mb-4">Tentang Desa Kami</h1>
 
             <!-- Tombol untuk menambah About baru -->
-            <div class="col-12">    
+            <div class="col-12">
                 <div class="d-grid gap-2">
                     <button class="btn btn-success" type="button" data-bs-toggle="modal"
                         data-bs-target="#TambahAbout">Tambah Data About</button>

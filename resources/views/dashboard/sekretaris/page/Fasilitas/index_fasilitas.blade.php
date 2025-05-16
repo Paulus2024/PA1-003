@@ -635,152 +635,148 @@
         @include('dashboard.sekretaris.component.navbar')
     </header>
 
-    <!--Open Page Title-->
     <div class="page-title dark-background" style="background-image: url({{ asset('assets/img/page-title-bg.jpg') }});">
         <div class="container position-relative">
-        <h1>Fasilitas</h1>
-        <nav class="breadcrumbs">
-            <ol>
-            <li><a href="/index_sekretaris">Home</a></li>
-            <li class="current">Fasilitas</li>
-            </ol>
-        </nav>
+            <h1>Fasilitas</h1>
+            <nav class="breadcrumbs">
+                <ol>
+                    <li><a href="/index_sekretaris">Home</a></li>
+                    <li class="current">Fasilitas</li>
+                </ol>
+            </nav>
         </div>
-    </div><!-- End Page Title -->
+    </div>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects section">
-    <div class="container">
-        <!-- Container untuk menampilkan data fasilitas -->
-        <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+    <main id="main">
+        <section id="projects" class="projects section">
+            <div class="container">
+                <!-- Tombol tambah -->
+                <div class="mb-3">
+                    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#TambahGambar">
+                        Tambah Gambar Fasilitas Desa
+                    </button>
+                </div>
 
-        <!-- Lakukan looping data fasilitas -->
-        @foreach ($fasilitas as $item)<!--(nama variable dari controller as tempat penampung sementara data dari $fasilitas)-->
-        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-remodeling">
-            <div class="portfolio-content h-100">
-            <!-- Tampilkan gambar, gunakan asset() agar path sesuai -->
-            <img src="{{ asset('storage/' . $item->gambar_fasilitas) }}" class="img-fluid" alt="{{ $item->nama_fasilitas }}">
-            <div class="portfolio-info">
-                <!-- Bagian Header untuk judul dan tombol -->
-                <div class="d-flex justify-content-between align-items-center">
-                    <h4>{{ $item->nama_fasilitas }}</h4>
-                    <div class="d-flex gap-2">
-                        <!-- Tautan ke halaman edit -->
-                        <!-- Tombol Edit buka modal -->
-                        <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_fasilitas }}">
-                            Edit
-                        </button>
+                <!-- Tabel Fasilitas -->
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Fasilitas</th>
+                                <th>Deskripsi</th>
+                                <th>Lokasi</th>
+                                <th>Gambar</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($fasilitas as $index => $item)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $item->nama_fasilitas }}</td>
+                                    <td>{{ Str::limit($item->deskripsi_fasilitas, 100) }}</td>
+                                    <td>{{ $item->lokasi_fasilitas }}</td>
+                                    <td>
+                                        <a href="{{ asset('storage/' . $item->gambar_fasilitas) }}" target="_blank">
+                                            <img src="{{ asset('storage/' . $item->gambar_fasilitas) }}" alt="{{ $item->nama_fasilitas }}" width="100">
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <!-- Tombol Edit -->
+                                        <button class="btn btn-outline-warning btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_fasilitas }}">
+                                            Edit
+                                        </button>
 
-                        <!-- Form hapus --><!-- A (sesuaikan dengan nama route di web.php) -->
-                        <form action="{{ route('sekretaris.fasilitas.destroy', $item->id_fasilitas) }}" method="POST">
+                                        <!-- Form Hapus -->
+                                        <form action="{{ route('sekretaris.fasilitas.destroy', $item->id_fasilitas) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Yakin ingin menghapus fasilitas ini?')">
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+
+                                <!-- Modal Edit -->
+                                <div class="modal fade" id="editModal{{ $item->id_fasilitas }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id_fasilitas }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <form action="{{ route('sekretaris.fasilitas.update', $item->id_fasilitas) }}" method="POST" enctype="multipart/form-data" class="modal-content">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Edit Fasilitas</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label for="nama_fasilitas" class="form-label">Nama Fasilitas</label>
+                                                    <input type="text" class="form-control" name="nama_fasilitas" value="{{ $item->nama_fasilitas }}" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="deskripsi_fasilitas" class="form-label">Deskripsi</label>
+                                                    <textarea class="form-control" name="deskripsi_fasilitas" rows="3" required>{{ $item->deskripsi_fasilitas }}</textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="lokasi_fasilitas" class="form-label">Lokasi</label>
+                                                    <input type="text" class="form-control" name="lokasi_fasilitas" value="{{ $item->lokasi_fasilitas }}" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="gambar_fasilitas" class="form-label">Gambar</label>
+                                                    <input type="file" class="form-control" name="gambar_fasilitas">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-success">Simpan Perubahan</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Modal Tambah -->
+                <div class="modal fade" id="TambahGambar" tabindex="-1" aria-labelledby="TambahGambarLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form action="{{ route('sekretaris.fasilitas.store') }}" method="POST" enctype="multipart/form-data" class="modal-content">
                             @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="TambahGambarLabel">Tambah Data Fasilitas Baru</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="nama_fasilitas" class="form-label">Nama Fasilitas</label>
+                                    <input type="text" class="form-control" name="nama_fasilitas" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="deskripsi_fasilitas" class="form-label">Deskripsi</label>
+                                    <textarea class="form-control" name="deskripsi_fasilitas" rows="3" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="lokasi_fasilitas" class="form-label">Lokasi</label>
+                                    <input type="text" class="form-control" name="lokasi_fasilitas" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="gambar_fasilitas" class="form-label">Upload Gambar</label>
+                                    <input type="file" class="form-control" name="gambar_fasilitas" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Simpan</button>
+                            </div>
                         </form>
                     </div>
                 </div>
-                <!-- Tampilkan deskripsi singkat -->
-                <p>{{ Str::limit($item->deskripsi_fasilitas, 50) }}</p>
-                <!-- Tautan preview gambar menggunakan glightbox -->
-                <a href="{{ asset('storage/' . $item->gambar_fasilitas) }}" title="{{ $item->nama_fasilitas }}" data-gallery="portfolio-gallery" class="glightbox preview-link">
-                    <i class="bi bi-zoom-in"></i>
-                </a>
             </div>
-            </div>
-        </div><!-- End Portfolio Item -->
-
-        <!-- Open Looping data fasilitas bagian edit -->
-        <div class="modal fade" id="editModal{{ $item->id_fasilitas }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id_fasilitas }}" aria-hidden="true">
-            <div class="modal-dialog">
-                <form action="{{ route('sekretaris.fasilitas.update', $item->id_fasilitas) }}" method="POST" enctype="multipart/form-data" class="modal-content">
-                    @csrf
-                    @method('PUT')
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel{{ $item->id_fasilitas }}">Edit Fasilitas</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="nama_fasilitas" class="form-label">Nama Fasilitas</label>
-                            <input type="text" class="form-control" name="nama_fasilitas" value="{{ $item->nama_fasilitas }}" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="deskripsi_fasilitas" class="form-label">Deskripsi</label>
-                            <textarea class="form-control" name="deskripsi_fasilitas" rows="3" required>{{ $item->deskripsi_fasilitas }}</textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="lokasi_fasilitas" class="form-label">Lokasi</label>
-                            <input type="text" class="form-control" name="lokasi_fasilitas" value="{{ $item->lokasi_fasilitas}}" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="gambar_fasilitas" class="form-label">Gambar</label>
-                            <input type="file" class="form-control" name="gambar_fasilitas">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Simpan Perubahan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        @endforeach
-        <!-- End Looping data fasilitas bagian edit -->
-
-        <!-- Tombol untuk menambah fasilitas baru -->
-        <div class="col-12">
-            <div class="d-grid gap-2">
-                                                <!-- A (sesuaikan dengan nama route di web.php) -->
-                {{-- <a href="{{ route('sekretaris.fasilitas.create') }}" class="btn btn-success" type="button">Tambah Gambar Fasilitas Desa</a> --}}
-                    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#TambahGambar">Tambah Gambar Fasilitas Desa</button>
-                </div>
-        </div>
-
-        </div><!-- End Portfolio Container -->
-    </div>
-
-        <!--Open MODAL Create(Tambah)-->
-    <div class="modal fade" id="TambahGambar" tabindex="-1" aria-labelledby="tambahgambar"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="TambahGambar">Tambah Data Fasiltas Baru</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    {{-- <form action="/upload-gambar" method="POST" enctype="multipart/form-data"> --}}
-                        <form action="{{ route('sekretaris.fasilitas.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                        <div class="mb-3">
-                            <label for="nama_fasilitas" class="form-label">Nama Fasilitas</label>
-                            <input type="text" class="form-control" id="nama_fasilitas" name="nama_fasilitas" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="deskripsi_fasilitas" class="form-label">Deskripsi</label>
-                            <textarea class="form-control" id="deskripsi_fasilitas" name="deskripsi_fasilitas" rows="3" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="lokasi_fasilitas" class="form-label">Lokasi</label>
-                            <input type="text" class="form-control" id="lokasi_fasilitas" name="lokasi_fasilitas" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="gambar_fasilitas" class="form-label">Upload Gambar</label>
-                            <input type="file" class="form-control" id="gambar_fasilitas" name="gambar_fasilitas"
-                                required>
-                        </div>
-                        <button type="submit" class="btn btn-success">Simpan</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-        <!--Close MODAL Create(Tambah)-->
-
-    </section><!-- End Projects Section -->
-
+        </section>
     </main>
 
     <footer id="footer" class="footer dark-background">
         @include('pengguna.component.footer')
     </footer>
 @endsection
+ <!-- #region -->

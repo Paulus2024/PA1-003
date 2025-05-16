@@ -337,224 +337,191 @@
 @extends('dashboard.sekretaris.component.main')
 
 @section('sekretaris_content')
-    <header id="header" class="header d-flex align-items-center fixed-top">
-        @include('dashboard.sekretaris.component.navbar')
-    </header>
+<header id="header" class="header d-flex align-items-center fixed-top">
+    @include('dashboard.sekretaris.component.navbar')
+</header>
 
-    <!--Open Page Title-->
-    <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
-        <div class="container position-relative">
+<!-- Page Title -->
+<div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
+    <div class="container position-relative">
         <h1>Informasi Desa</h1>
         <nav class="breadcrumbs">
             <ol>
-            <li><a href="/index_sekretaris">Home</a></li>
-            <li class="current">Informasi</li>
-            <li class="current">Berita</li>
+                <li><a href="/index_sekretaris">Home</a></li>
+                <li class="current">Informasi</li>
+                <li class="current">Berita</li>
             </ol>
         </nav>
-        </div>
-    </div><!-- End Page Title -->
+    </div>
+</div>
 
-    <section id="blog-pagination" class="blog-pagination section mt-5">
-        <div class="container">
-            <ul class="nav nav-tabs justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('informasi_sekretaris') ? 'active' : '' }}" href="{{ route('informasi.berita') }}"> Berita </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('informasi_pengumuman') ? 'active' : '' }}" href="{{ route('informasi.pengumuman') }}"> Pengumuman </a>
-                </li>
-            </ul>
-        </div>
-    </section><!-- /Blog Pagination Section -->
+<!-- Blog Pagination Tabs -->
+<section id="blog-pagination" class="blog-pagination section mt-5">
+    <div class="container">
+        <ul class="nav nav-tabs justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('informasi_sekretaris') ? 'active' : '' }}" href="{{ route('informasi.berita') }}"> Berita </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('informasi_pengumuman') ? 'active' : '' }}" href="{{ route('informasi.pengumuman') }}"> Pengumuman </a>
+            </li>
+        </ul>
+    </div>
+</section>
 
-    <!-- Blog Posts Section -->
-    <section id="blog-posts" class="blog-posts section">
-        <div class="container">
-            <div class="row gy-4">
-                <!-- Colom Di Looping Aforeach -->
-                @foreach ($berita as $item)
-                    <div class="col-lg-4">
-                        <article class="position-relative h-100">
-                                <div class="post-img position-relative overflow-hidden">
-                                    {{-- <img src="{{ asset('storage/' .$item->lampiran_informasi)}}" class="img-fluid" alt=""> --}}
-                                    <!-- <span class="post-date">December 12</span> -->
-                                    <!--open-->
-                                    @php
-                                        $path = 'storage/' . $item->lampiran_informasi;
-                                        $extension = pathinfo($item->lampiran_informasi, PATHINFO_EXTENSION);
-                                    @endphp
+<!-- Informasi Tabel -->
+<section id="blog-posts" class="blog-posts section">
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>No</th>
+                        <th>Judul</th>
+                        <th>Lampiran</th>
+                        <th>Deskripsi</th>
+                        <th>Kategori</th>
+                        <th>Status</th>
+                        <th>Tanggal</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($berita as $index => $item)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $item->judul_informasi }}</td>
+                            <td>
+                                @php
+                                    $path = 'storage/' . $item->lampiran_informasi;
+                                    $extension = pathinfo($item->lampiran_informasi, PATHINFO_EXTENSION);
+                                @endphp
 
-                                    @if(in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
-                                        <img src="{{ asset($path) }}" class="img-fluid" alt="Gambar Informasi">
-                                    @elseif($extension === 'pdf')
-                                        <iframe src="{{ asset($path) }}" width="100%" height="300px"></iframe>
-                                    @elseif(in_array($extension, ['doc', 'docx']))
-                                        <a href="{{ asset($path) }}" target="_blank">
-                                            <img src="{{ asset('assets/img/icon/word-icon.png') }}" alt="Dokumen Word" style="height:100px;">
-                                            <p>Lihat Dokumen Word</p>
-                                        </a>
-                                    @else
-                                        <a href="{{ asset($path) }}" target="_blank">Download File</a><!-- ini apa -->
-                                    @endif
-                                    <!--close-->
-                                    <span class="post-date">{{ $item->created_at->format('F d') }}</span><!-- waktu  -->
-                                </div>
+                                @if(in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
+                                    <img src="{{ asset($path) }}" alt="Lampiran" style="width: 80px; height: auto;">
+                                @elseif($extension === 'pdf')
+                                    <a href="{{ asset($path) }}" target="_blank">Lihat PDF</a>
+                                @elseif(in_array($extension, ['doc', 'docx']))
+                                    <a href="{{ asset($path) }}" target="_blank">Lihat Word</a>
+                                @else
+                                    <a href="{{ asset($path) }}" target="_blank">Unduh File</a>
+                                @endif
+                            </td>
+                            <td>{{ Str::limit(strip_tags($item->deskripsi_informasi), 50) }}</td>
+                            <td>{{ $item->kategori_informasi }}</td>
+                            <td>{{ $item->status_informasi == 1 ? 'Publish' : 'Draft' }}</td>
+                            <td>{{ $item->created_at->format('d-m-Y') }}</td>
+                            <td>
+                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_informasi }}">
+                                    Edit
+                                </button>
+                                <form action="{{ route('sekretaris.informasi.destroy', $item->id_informasi) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
 
-                            <div class="post-content d-flex flex-column">
-
-                                <h3 class="post-title">{{ $item->judul_informasi }}</h3>
-                                    <p>
-                                        {{ $item->deskripsi_informasi }}
-                                    </p>
-
-                                <div class="d-flex gap-2 mt-2">
-                                    <button type="button" class="btn btn-outline-warning w-50" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_informasi }}">
-                                        Edit
-                                    </button>
-
-                                    <form action="{{ route('sekretaris.informasi.destroy', $item->id_informasi) }}" method="POST" class="w-50" onsubmit="return confirm('apakah anda yakin ingin menghapus data ini ?');">
-                                        {{-- <button type="submit" class="btn btn-outline-danger w-50">Hapus</button> --}}
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger w-100">Hapus</button>
-                                    </form>
-                                </div>
+                        <!-- MODAL Edit -->
+                        <div class="modal fade" id="editModal{{ $item->id_informasi }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id_informasi }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <form action="{{ route('sekretaris.informasi.update', $item->id_informasi) }}" method="POST" enctype="multipart/form-data" class="modal-content">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Edit Data Informasi</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="judul_informasi" class="form-label">Judul Informasi</label>
+                                            <input type="text" class="form-control" name="judul_informasi" value="{{ $item->judul_informasi }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="lampiran_informasi" class="form-label">Lampiran Informasi</label><br>
+                                            @if ($item->lampiran_informasi)
+                                                <p class="text-muted">File sebelumnya: <a href="{{ asset('storage/' . $item->lampiran_informasi) }}" target="_blank">{{ $item->lampiran_informasi }}</a></p>
+                                            @endif
+                                            <input type="file" class="form-control" name="lampiran_informasi">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="deskripsi_informasi" class="form-label">Deskripsi Informasi</label>
+                                            <textarea name="deskripsi_informasi" class="form-control w-100" rows="5">{{ $item->deskripsi_informasi }}</textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Kategori Informasi</label><br>
+                                            <input type="radio" id="berita{{ $item->id_informasi }}" name="kategori_informasi" value="Berita" {{ $item->kategori_informasi == 'Berita' ? 'checked' : '' }}> <label for="berita{{ $item->id_informasi }}">Berita</label><br>
+                                            <input type="radio" id="pengumuman{{ $item->id_informasi }}" name="kategori_informasi" value="Pengumuman" {{ $item->kategori_informasi == 'Pengumuman' ? 'checked' : '' }}> <label for="pengumuman{{ $item->id_informasi }}">Pengumuman</label>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Status Informasi</label><br>
+                                            <input type="radio" id="draft{{ $item->id_informasi }}" name="status_informasi" value="0" {{ $item->status_informasi == 0 ? 'checked' : '' }}> <label for="draft{{ $item->id_informasi }}">Draft</label><br>
+                                            <input type="radio" id="publish{{ $item->id_informasi }}" name="status_informasi" value="1" {{ $item->status_informasi == 1 ? 'checked' : '' }}> <label for="publish{{ $item->id_informasi }}">Publish</label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success">Simpan Perubahan</button>
+                                    </div>
+                                </form>
                             </div>
-                        </article>
-                    </div><!-- End post list item -->
-
-                    <!-- Open MODAL Edit -->
-                    <div class="modal fade" id="editModal{{ $item->id_informasi }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id_informasi }}" aria-hidden="true">
-                        <div class="modal-dialog">                      <!-- id yang ada di route {id_informasi} -->
-                            <form action="{{ route('sekretaris.informasi.update', $item->id_informasi) }}" method="POST" enctype="multipart/form-data" class="modal-content">
-
-                                @csrf
-                                @method('PUT')
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel{{ $item->id_informasi }}">Edit Data Informasi</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label for="judul_informasi" class="form-label">Judul Informasi</label>
-                                        <input type="text" class="form-control" id="judul_informasi" name="judul_informasi" value="{{ $item->judul_informasi }}" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="lampiran_informasi" class="form-label">Lampiran Informasi</label><br>
-                                        @if ($item->lampiran_informasi)
-                                            <p class="text-muted">File sebelumnya: <a href="{{ asset('storage/lampiran_informasi/' . $item->lampiran_informasi) }}" target="_blank">{{ $item->lampiran_informasi }}</a></p>
-                                        @endif
-                                        <input type="file" class="form-control" id="lampiran_informasi" name="lampiran_informasi">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="deskripsi_informasi" class="form-label">Deskripsi Informasi</label><br>
-                                        <textarea name="deskripsi_informasi" id="deskripsi_informasi" class="form-contro w-100" rows="10"> {{ $item->deskripsi_informasi }} </textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="kategori_informasi" class="form-label">Kategori Informasi</label><br>
-                                        <input type="radio" id="berita" name="kategori_informasi" value="Berita" {{ $item->kategori_informasi == 'Berita' ? 'checked' : '' }} required>
-                                        <label for="berita">Berita</label><br>
-                                        <input type="radio" id="pengumuman" name="kategori_informasi" value="Pengumuman" {{ $item->kategori_informasi == 'Pengumuman' ? 'checked' : '' }} required>
-                                        <label for="pengumuman">Pengumuman</label>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="status_informasi" class="form-label">Status Informasi</label><br>
-                                        <input type="radio" id="draft" name="status_informasi" value="0">
-                                        <label for="draft">Draft</label><br>
-                                        <input type="radio" id="publish" name="status_informasi" value="1">
-                                        <label for="publish">Publish</label><br>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success">Simpan Perubahan</button>
-                                </div>
-                            </form>
                         </div>
-                    </div>
-                    <!-- Close MODAL Edit -->
-                @endforeach
-                <!-- End Colom Di Looping Aforeach -->
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
-                <!-- Open Button To Modal -->
-                <div class="col-12">
-                    <div class="d-grid gap-2">
-                                                    <!-- A (sesuaikan dengan nama route di web.php) -->
-                    {{-- <a href="{{ route('sekretaris.fasilitas.create') }}" class="btn btn-success" type="button">Tambah Gambar Fasilitas Desa</a> --}}
-                        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#TambahGambar">Tambah Informasi Desa</button>
+        <!-- Button Tambah -->
+        <div class="col-12 my-4">
+            <div class="d-grid">
+                <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#TambahGambar">Tambah Informasi Desa</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL Create -->
+    <div class="modal fade" id="TambahGambar" tabindex="-1" aria-labelledby="tambahgambar" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="{{ route('sekretaris.informasi.store') }}" method="POST" enctype="multipart/form-data" class="modal-content">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Data Informasi Baru</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="judul_informasi" class="form-label">Judul Informasi</label>
+                        <input type="text" class="form-control" name="judul_informasi" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lampiran_informasi" class="form-label">Lampiran Informasi</label>
+                        <input type="file" class="form-control" name="lampiran_informasi" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="deskripsi_informasi" class="form-label">Deskripsi Informasi</label>
+                        <textarea name="deskripsi_informasi" class="form-control w-100" rows="5"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Kategori Informasi</label><br>
+                        <input type="radio" id="berita" name="kategori_informasi" value="Berita" required> <label for="berita">Berita</label><br>
+                        <input type="radio" id="pengumuman" name="kategori_informasi" value="Pengumuman" required> <label for="pengumuman">Pengumuman</label>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Status Informasi</label><br>
+                        <input type="radio" id="draft" name="status_informasi" value="0" required> <label for="draft">Draft</label><br>
+                        <input type="radio" id="publish" name="status_informasi" value="1" required> <label for="publish">Publish</label>
                     </div>
                 </div>
-                <!-- End Button To Modal -->
-
-            </div>
-        </div>
-
-        <!--Open MODAL Create(Tambah)-->
-        <div class="modal fade" id="TambahGambar" tabindex="-1" aria-labelledby="tambahgambar"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="TambahGambar">Tambah Data Informasi Baru</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- <form action="/upload-gambar" method="POST" enctype="multipart/form-data"> -->
-                        <form action="{{ route('sekretaris.informasi.store') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                            <div class="mb-3">
-                                <label for="judul_informasi" class="form-label">Judul Informasi</label>
-                                <input type="text" class="form-control" id="judul_informasi" name="judul_informasi" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="lampiran_informasi" class="form-label">Lampiran Informasi</label><br>
-                                <input type="file" class="form-control" id="lampiran_informasi" name="lampiran_informasi" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="deskripsi_informasi" class="form-label">Deskripsi Informasi</label><br>
-                                <textarea name="deskripsi_informasi" id="deskripsi_informasi" class="form-control w-100" rows="10"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="kategori_informasi" class="form-label">Kategori Informasi</label><br>
-                                <input type="radio" id="berita" name="kategori_informasi" value="Berita" required>
-                                <label for="berita">Berita</label><br>
-                                <input type="radio" id="pengumuman" name="kategori_informasi" value="Pengumuman" required>
-                                <label for="pengumuman">Pengumuman</label>
-                            </div>
-                            <div class="mb-3">
-                                <label for="status_informasi" class="form-label">Status Informasi</label><br>
-                                <input type="radio" id="draft" name="status_informasi" value="0">
-                                <label for="draft">Draft</label><br>
-                                <input type="radio" id="publish" name="status_informasi" value="1">
-                                <label for="publish">Publish</label><br>
-                            </div>
-                            <button type="submit" class="btn btn-success">Simpan</button>
-                        </form>
-                    </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Simpan</button>
                 </div>
-            </div>
+            </form>
         </div>
-        <!--Close MODAL Create(Tambah)-->
+    </div>
+</section>
 
-    </section><!-- /Blog Posts Section -->
-
-
-
-    <!-- Blog Pagination Section -->
-    {{-- <section id="blog-pagination" class="blog-pagination section">
-        <div class="container">
-            <div class="d-flex justify-content-center">
-                <ul>
-                    <li><a href="{{ route('informasi.berita')}}" class="{{ Request::is('informasi_sekretaris') ? 'active' : '' }}">Berita</a></li>
-                    <li><a href="{{ route('informasi.pengumuman')}}" class="{{ Request::is('informasi_pengumuman') ? 'active' : '' }}">Pengumuman</a></li>
-                </ul>
-            </div>
-        </div>
-    </section> --}}
-    <!-- /Blog Pagination Section -->
-
-    <footer id="footer" class="footer dark-background">
-        @include('pengguna.component.footer')
-    </footer>
-
+<!-- Footer -->
+<footer id="footer" class="footer dark-background">
+    @include('pengguna.component.footer')
+</footer>
 @endsection
