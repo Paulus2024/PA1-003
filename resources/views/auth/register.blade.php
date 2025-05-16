@@ -56,45 +56,10 @@
             </div>
 
             <div class="form-group">
-                <label for="phone" class="form-label">Phone Number</label>
-                <div class="input-wrapper">
-                    <input type="text" id="phone" name="phone" class="form-control"
-                           placeholder="Enter Your Phone Number" required>
-                    <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                    </svg>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="address" class="form-label">Address</label>
-                <div class="input-wrapper">
-                    <input type="text" id="address" name="address" class="form-control"
-                           placeholder="Enter Your Address" required>
-                    <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                </div>
-            </div>
-
-            <div class="form-group">
                 <label for="password" class="form-label">Password</label>
                 <div class="input-wrapper">
                     <input type="password" id="password" name="password" class="form-control"
                            placeholder="Make Your Password" required>
-                    <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                    </svg>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="password_confirmation" class="form-label">Confirm Password</label>
-                <div class="input-wrapper">
-                    <input type="password" id="password_confirmation" name="password_confirmation"
-                           class="form-control" placeholder="Confirm Your Password" required>
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -110,9 +75,28 @@
                 </svg>
             </button>
 
-            <div class="login-footer">
-                <p>Already have an account? <a href="{{ route('login') }}" class="register-link">Sign in</a></p>
-            </div>
+<div class="login-footer">
+    <p>Already have an account? <a href="{{ route('login') }}" class="register-link">Sign in</a></p>
+</div>
+
+<div class="social-login">
+    <div class="divider">
+        <span class="divider-line"></span>
+        <span class="divider-text">OR</span>
+        <span class="divider-line"></span>
+    </div>
+
+    <a href="{{ url('auth/google') }}" class="social-login-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21.35 11.1h-9.18v2.92h5.42c-.23 1.32-1.12 2.44-2.39 3.08v2.57h3.87c2.27-2.1 3.58-5.2 3.58-8.57 0-.59-.05-1.17-.14-1.72z"/>
+            <path d="M12.17 22c2.43 0 4.47-.8 5.96-2.18l-3.87-2.57c-.71.48-1.6.76-2.59.76-1.99 0-3.68-1.35-4.29-3.17h-4.01v2.64c1.48 2.93 4.54 4.92 8.8 4.92z"/>
+            <path d="M7.88 14.84a5.033 5.033 0 0 1 0-5.69v-2.64h-4.01a9.973 9.973 0 0 0 0 10.97l4.01-2.64z"/>
+            <path d="M12.17 5.36c1.32 0 2.5.45 3.43 1.34l2.57-2.57c-1.66-1.54-3.82-2.49-6-2.49-4.26 0-7.32 1.99-8.8 4.92l4.01 2.64c.61-1.82 2.3-3.17 4.29-3.17z"/>
+        </svg>
+        Continue with Google
+    </a>
+</div>
+
         </form>
     </div>
 </div>
@@ -255,6 +239,54 @@
 
 .register-link:hover {
     text-decoration: underline;
+}
+
+.social-login {
+    margin-top: 24px;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background-color: #e2e8f0;
+}
+
+.divider-text {
+    padding: 0 12px;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.social-login-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4a6cf7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.social-login-button:hover {
+    background-color: #3a5bd9;
+}
+
+.social-login-button svg {
+    color: white;
 }
 </style>
 @endsection

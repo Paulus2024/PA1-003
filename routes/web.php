@@ -12,6 +12,7 @@ use App\Http\Controllers\DataPengurusDesaController;
 use App\Http\Controllers\AlatPertanianController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\AboutController; // Corrected class name
+use App\Http\Controllers\GoogleController;
 
 
 /*
@@ -234,7 +235,10 @@ Route::middleware(['auth'])->group(function () {
 // Route Masyarakat (Protected Routes - Authentication Required)
 //=========================================================
 Route::middleware(['auth'])->group(function () {
-    Route::get('/index_masyarakat', [FasilitasDesaController::class, 'index_masyarakat'])->name('index.masyarakat');
+
+    Route::get('/index_masyarakat', function () {
+        return view('dashboard/masyarakat/page/Home/index_home');
+    })->name('index.masyarakat');
     Route::get('/about_masyarakat', function () {
         return view('dashboard.masyarakat.page.About.index_about');
     })->name('about.masyarakat');
@@ -256,3 +260,5 @@ Route::get('/convert-pdf/{filename}', [InformasiDesaController::class, 'convertT
 
 Route::get('/about_masyarakat', [AboutController::class, 'indexMasyarakat'])->name('about.masyarakat');
 
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);

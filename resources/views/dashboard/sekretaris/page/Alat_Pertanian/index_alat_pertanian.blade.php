@@ -104,72 +104,13 @@
                                                 @endif
                                                 | Tersedia: {{ $item->jumlah_tersedia }} / {{ $item->jumlah_alat }}
                                             </p>
-
-                                            <div class="d-flex justify-content-end">
-                                                <button type="button" class="btn btn-outline-warning"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#SewaAlatPertanian{{ $item->id_alat_pertanian }}">
-                                                    Sewa Alat
-                                                </button>
-                                            </div>
                                         </div>
                                         <!-- Status Alat Pertanian dan Jumlah Alat Tersedia -->
                                     </article>
                                 </div>
                                 <!-- Close Content -->
-
-
-                                <!-- Modal Sewa Alat Pertanian -->
-                                <div class="modal fade" id="SewaAlatPertanian{{ $item->id_alat_pertanian }}" tabindex="-1"
-                                    aria-labelledby="TambahAlatPertanian" aria-hidden="true">
-                                    <div class="modal-dialog"><!-- Modal Dialog -->
-                                        <div class="modal-content"><!-- Modal Content -->
-                                            <div class="modal-header"><!-- Modal Header -->
-                                                <h5 class="modal-title" id="SewaAlatPertanian">Sewa Alat Pertanian
-                                                </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div><!-- Modal Header -->
-
-                                            <div class="modal-body"><!-- Modal Body -->
-                                                <form action="{{ route('alat_pertanian.pinjam') }}" method="POST">
-                                                    <!-- Form untuk menyewa alat pertanian -->
-                                                    @csrf
-                                                    <input type="hidden" name="alat_id"
-                                                        value="{{ $item->id_alat_pertanian }}">
-                                                    <div class="mb-3">
-                                                        <label>Nama Peminjam</label>
-                                                        <input type="text" name="nama_peminjam" class="form-control"
-                                                            placeholder="Nama Peminjam" required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label>Tanggal Pinjam</label>
-                                                        <input type="date" name="tanggal_pinjam" class="form-control"
-                                                            required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label>Tanggal Kembali</label>
-                                                        <input type="date" name="tanggal_kembali" class="form-control"
-                                                            required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label>Jumlah Alat Yang Di Sewa</label>
-                                                        <input name="jumlah_alat_di_sewa" min="1" max="2"
-                                                            type="number" id="typeNumber" class="form-control"
-                                                            placeholder="Min 1 & Max 2" />
-                                                    </div>
-                                                    <button class="btn btn-success">Pinjam</button>
-                                                </form><!-- Form untuk menyewa alat pertanian -->
-
-                                            </div><!-- Modal Body -->
-                                        </div><!-- Modal Content -->
-                                    </div><!-- Modal Dialog -->
-                                </div>
-                                <!-- Modal Sewa Alat Pertanian -->
-
                             @endforeach
                             <!-- Looping Alat Pertanian -->
-
                         </div><!-- Close Row Isotope Container -->
 
                     </div><!-- Open Isotope Layout -->
