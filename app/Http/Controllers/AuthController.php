@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Password;
 use App\Models\User;
 
@@ -72,6 +73,15 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
         ]);
+
+        $response = Http::get('https://apilayer.net/api/check', [
+            'access_key' => 'ff73f78f10fd2c0bc68d3752ce98f6c7',
+            'email' => $request->email,
+        ]);
+
+        if (!$response['format_valid'] || !$response['smtp_check']) {
+            return redirect()->back()->with('error', value: 'Email tidak valid atau tidak aktif.');
+        }
 
         User::create([
             'name' => $request->name,
