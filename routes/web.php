@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -44,7 +43,8 @@ Route::get('/informasi', function () {
     return view('pengguna/page/Informasi/index_informasi');
 });
 
-Route::get('/pengurus', [DataPengurusDesaController::class, 'index_pengguna'])->name('pengurus.index');
+// HAPUS ATAU KOMENTARI ROUTE INI
+// Route::get('/pengurus', [DataPengurusDesaController::class, 'index_pengguna'])->name('pengurus.index');
 
 Route::get('/galeri', [GalleryController::class, 'index_pengguna'])->name('galeri');
 
@@ -235,7 +235,10 @@ Route::middleware(['auth'])->group(function () {
 // Route Masyarakat (Protected Routes - Authentication Required)
 //=========================================================
 Route::middleware(['auth'])->group(function () {
-    Route::get('/index_masyarakat', [FasilitasDesaController::class, 'index_masyarakat'])->name('index.masyarakat');
+
+    Route::get('/index_masyarakat', function () {
+        return view('dashboard/masyarakat/page/Home/index_home');
+    })->name('index.masyarakat');
     Route::get('/about_masyarakat', function () {
         return view('dashboard.masyarakat.page.About.index_about');
     })->name('about.masyarakat');
@@ -257,5 +260,5 @@ Route::get('/convert-pdf/{filename}', [InformasiDesaController::class, 'convertT
 
 Route::get('/about_masyarakat', [AboutController::class, 'indexMasyarakat'])->name('about.masyarakat');
 
-Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);

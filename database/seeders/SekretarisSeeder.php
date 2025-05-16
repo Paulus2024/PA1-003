@@ -20,8 +20,6 @@ class SekretarisSeeder extends Seeder
                 'email' => 'sekretaris@gmail.com', // Nilai yang sesuai
                 'password' => Hash::make('admin123'), // Nilai yang sesuai (enkripsi!)
                 'usertype' => 'sekretaris', // Nilai yang sesuai
-                'phone' => '123-456-7890', // Nilai yang sesuai
-                'address' => 'Alamat Default', // Nilai yang sesuai
             ]);
         } else {
             // Opsi: Perbarui user yang sudah ada
