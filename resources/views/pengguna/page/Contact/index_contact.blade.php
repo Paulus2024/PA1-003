@@ -6,7 +6,7 @@
 </header>
 
 <main class="main">
-    <div class="page-title dark-background" style="background-image: url(assets/img/blog/1.jpeg);">
+    <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
       <div class="container position-relative">
         <h1>Contact</h1>
         <nav class="breadcrumbs">

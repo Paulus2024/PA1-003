@@ -14,6 +14,7 @@
         <li><a href="/informasi" class="{{ request()->is('informasi') ? 'active' : '' }}">Informasi</a></li>
         <li><a href="/galeri" class="{{ request()->is('galeri') ? 'active' : '' }}">Galeri</a></li>
         <li><a href="/pengurus" class="{{ request()->is('pengurus') ? 'active' : '' }}">Data Pengurus Desa</a></li>
+        <li><a href="/alat" class="{{ request()->is('alat') ? 'active' : '' }}">Alat Pertanian</a></li>
         <li><a href="/contact" class="{{ request()->is('contact') ? 'active' : '' }}">Contact</a></li>
         <li><a href="/login">Login</a></li>
     </ul>

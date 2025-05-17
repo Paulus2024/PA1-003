@@ -18,13 +18,6 @@ class FasilitasDesaController extends Controller
 
     }
 
-    public function index_pengguna()
-    {
-        $fasilitas/*1*/ = FasilitasDesa::all(); //nama variabel bebas = Nama Model::all();
-        return view('pengguna.page.Fasilitas.index_fasilitas', compact('fasilitas')); //mengambil data dari database dan mengirim ke view| fasilitas.index = nama route| compact('fasilitas') = nama variabel yang dikirim ke view /*1*/
-
-    }
-
     public function index_masyarakat()
     {
         $fasilitas_masyarakat = FasilitasDesa::all();
