@@ -5,18 +5,6 @@
     @include('dashboard.sekretaris.component.navbar')
 </header>
 
-<main class="main">
-    <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
-      <div class="container position-relative">
-        <h1>Contact</h1>
-        <nav class="breadcrumbs">
-          <ol>
-            <li><a href="/index_sekretaris">Home</a></li>
-            <li class="current">Contact</li>
-          </ol>
-        </nav>
-      </div>
-    </div>
 
     <section id="contact" class="contact section">
 
@@ -98,8 +86,5 @@
 
   </main>
 
-  <footer id="footer" class="footer dark-background">
-    @include('pengguna.component.footer')
-</footer>
 
 @endsection

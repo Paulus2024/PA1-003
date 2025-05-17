@@ -5,20 +5,6 @@
         @include('dashboard.sekretaris.component.navbar')
     </header>
 
-    <!--Open Page Title-->
-    <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
-        <div class="container position-relative">
-        <h1>Informasi Desa</h1>
-        <nav class="breadcrumbs">
-            <ol>
-            <li><a href="/index_sekretaris">Home</a></li>
-            <li class="current">Informasi</li>
-            <li class="current">Berita</li>
-            </ol>
-        </nav>
-        </div>
-    </div><!-- End Page Title -->
-
     <section id="blog-pagination" class="blog-pagination section mt-5">
         <div class="container">
             <ul class="nav nav-tabs justify-content-center">
@@ -217,8 +203,5 @@
     </section> --}}
     <!-- /Blog Pagination Section -->
 
-    <footer id="footer" class="footer dark-background">
-        @include('pengguna.component.footer')
-    </footer>
 
 @endsection
