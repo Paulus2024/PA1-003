@@ -86,7 +86,7 @@
                     <span class="divider-line"></span>
                 </div>
 
-                <a href="{{ route('google.login') }}" class="social-login-button">
+                <a href="{{ url('auth/google') }}" class="social-login-button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M21.35 11.1h-9.18v2.92h5.42c-.23 1.32-1.12 2.44-2.39 3.08v2.57h3.87c2.27-2.1 3.58-5.2 3.58-8.57 0-.59-.05-1.17-.14-1.72z"/>
                         <path d="M12.17 22c2.43 0 4.47-.8 5.96-2.18l-3.87-2.57c-.71.48-1.6.76-2.59.76-1.99 0-3.68-1.35-4.29-3.17h-4.01v2.64c1.48 2.93 4.54 4.92 8.8 4.92z"/>

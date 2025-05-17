@@ -9,18 +9,6 @@
         @stack('styles')
     </header>
 
-    <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
-        <div class="container position-relative">
-            <h1>Alat Pertanian</h1>
-            <nav class="breadcrumbs">
-                <ol>
-                    <li><a href="/">Home</a></li>
-                    <li class="current">Alat Pertanian</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-
     <main id="main">
         <section id="projects" class="projects section mb-5 pb-5">
             <div class="container">
@@ -130,7 +118,4 @@
         </a>
     </main>
 
-    <footer id="footer" class="footer dark-background">
-        @include('pengguna.component.footer')
-    </footer>
 @endsection

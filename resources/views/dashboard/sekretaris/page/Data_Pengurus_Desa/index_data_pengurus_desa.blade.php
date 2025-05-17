@@ -5,139 +5,233 @@
     @include('dashboard.sekretaris.component.navbar')
 </header>
 
-<div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
-    <div class="container position-relative">
-        <h1>Data Pengurus Desa</h1>
-        <nav class="breadcrumbs">
-            <ol>
-                <li><a href="/index_sekretaris">Home</a></li>
-                <li class="current">Data Pengurus Desa</li>
-            </ol>
-        </nav>
-    </div>
-</div>
-
-<section class="section py-5">
+<section class="section py-5" style="margin-top: 80px;">
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Daftar Pengurus</h2>
-            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#TambahGambar">Tambah Data Pengurus</button>
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <h2 class="fw-bold text-primary">Daftar Pengurus Desa</h2>
+                <p class="text-muted">Kelola data pengurus desa</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#TambahGambar">
+                    <i class="bi bi-person-plus me-2"></i>Tambah Pengurus
+                </button>
+            </div>
         </div>
 
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover align-middle text-center">
-                <thead class="table-dark">
-                    <tr>
-                        <th>No</th>
-                        <th>Foto</th>
-                        <th>Nama</th>
-                        <th>Jabatan</th>
-                        <th>Deskripsi</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($data_pengurus_desas as $index => $item)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>
-                            <img src="{{ asset('storage/' . $item->gambar_data_pengurus_desa) }}" alt="Foto"
-                                style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%;">
-                        </td>
-                        <td>{{ $item->nama_data_pengurus_desa }}</td>
-                        <td>{{ $item->jabatan_data_pengurus_desa }}</td>
-                        <td>{{ $item->deskripsi_data_pengurus_desa }}</td>
-                        <td>
-                            <div class="d-flex gap-2 justify-content-center">
-                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id_data_pengurus_desa }}">Edit</button>
-                                <form action="{{ route('data_pengurus_desa.destroy', $item->id_data_pengurus_desa) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th width="5%" class="text-center">No</th>
+                                <th width="15%">Foto</th>
+                                <th width="20%">Nama</th>
+                                <th width="20%">Jabatan</th>
+                                <th width="25%">Deskripsi</th>
+                                <th width="15%" class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($data_pengurus_desas as $index => $item)
+                            <tr>
+                                <td class="text-center">{{ $index + 1 }}</td>
+                                <td>
+                                    <img src="{{ asset('storage/' . $item->gambar_data_pengurus_desa) }}"
+                                         alt="Foto {{ $item->nama_data_pengurus_desa }}"
+                                         class="img-thumbnail rounded-circle"
+                                         style="width: 80px; height: 80px; object-fit: cover;">
+                                </td>
+                                <td class="fw-semibold">{{ $item->nama_data_pengurus_desa }}</td>
+                                <td>
+                                    <span class="badge bg-primary rounded-pill">{{ $item->jabatan_data_pengurus_desa }}</span>
+                                </td>
+                                <td class="text-truncate" style="max-width: 250px;" title="{{ $item->deskripsi_data_pengurus_desa }}">
+                                    {{ $item->deskripsi_data_pengurus_desa }}
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <!-- Edit Button -->
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-primary rounded-pill"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editModal{{ $item->id_data_pengurus_desa }}">
+                                            <i class="bi bi-pencil-square me-1"></i> Edit
+                                        </button>
 
-                    <!-- Modal Edit -->
-                    <div class="modal fade" id="editModal{{ $item->id_data_pengurus_desa }}" tabindex="-1"
-                        aria-labelledby="editModalLabel{{ $item->id_data_pengurus_desa }}" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <form action="{{ route('data_pengurus_desa.update', $item->id_data_pengurus_desa) }}" method="POST" enctype="multipart/form-data" class="modal-content">
-                                @csrf
-                                @method('PUT')
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel{{ $item->id_data_pengurus_desa }}">Edit Data Pengurus</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                                        <!-- Delete Button -->
+                                        <form action="{{ route('data_pengurus_desa.destroy', $item->id_data_pengurus_desa) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-outline-danger rounded-pill">
+                                                <i class="bi bi-trash me-1"></i> Hapus
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Edit Modal -->
+                            <div class="modal fade" id="editModal{{ $item->id_data_pengurus_desa }}" tabindex="-1"
+                                aria-labelledby="editModalLabel{{ $item->id_data_pengurus_desa }}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-primary text-white">
+                                            <h5 class="modal-title" id="editModalLabel{{ $item->id_data_pengurus_desa }}">Edit Data Pengurus</h5>
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form action="{{ route('data_pengurus_desa.update', $item->id_data_pengurus_desa) }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="modal-body">
+                                                <div class="text-center mb-4">
+                                                    <img src="{{ asset('storage/' . $item->gambar_data_pengurus_desa) }}"
+                                                         alt="Current Photo"
+                                                         class="img-thumbnail rounded-circle mb-2"
+                                                         style="width: 120px; height: 120px; object-fit: cover;">
+                                                    <p class="text-muted small">Foto saat ini</p>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Nama Lengkap</label>
+                                                    <input type="text"
+                                                           class="form-control rounded-pill"
+                                                           name="nama_data_pengurus_desa"
+                                                           value="{{ $item->nama_data_pengurus_desa }}"
+                                                           required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Jabatan</label>
+                                                    <input type="text"
+                                                           class="form-control rounded-pill"
+                                                           name="jabatan_data_pengurus_desa"
+                                                           value="{{ $item->jabatan_data_pengurus_desa }}"
+                                                           required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Deskripsi</label>
+                                                    <textarea class="form-control"
+                                                              name="deskripsi_data_pengurus_desa"
+                                                              rows="3"
+                                                              required>{{ $item->deskripsi_data_pengurus_desa }}</textarea>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">Ganti Foto</label>
+                                                    <input type="file"
+                                                           class="form-control"
+                                                           name="gambar_data_pengurus_desa"
+                                                           accept="image/*">
+                                                    <small class="text-muted">Biarkan kosong jika tidak ingin mengganti foto</small>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-primary rounded-pill">Simpan Perubahan</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label class="form-label">Nama</label>
-                                        <input type="text" class="form-control" name="nama_data_pengurus_desa" value="{{ $item->nama_data_pengurus_desa }}" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Jabatan</label>
-                                        <input type="text" class="form-control" name="jabatan_data_pengurus_desa" value="{{ $item->jabatan_data_pengurus_desa }}" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Deskripsi</label>
-                                        <input type="text" class="form-control" name="deskripsi_data_pengurus_desa" value="{{ $item->deskripsi_data_pengurus_desa }}" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Gambar</label>
-                                        <input type="file" class="form-control" name="gambar_data_pengurus_desa">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success">Simpan Perubahan</button>
-                                </div>
-                            </form>
+                            </div>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    @if($data_pengurus_desas->isEmpty())
+                    <div class="text-center py-5">
+                        <img src="{{ asset('assets/img/empty.svg') }}" alt="Empty state" width="200" class="mb-3">
+                        <h5 class="text-muted">Belum ada data pengurus</h5>
+                        <p class="text-muted">Tambahkan data pengurus baru dengan menekan tombol "Tambah Pengurus"</p>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Modal -->
+    <div class="modal fade" id="TambahGambar" tabindex="-1" aria-labelledby="modalTitleTambah" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="modalTitleTambah">Tambah Data Pengurus Baru</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('data_pengurus_desa.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text"
+                                   class="form-control rounded-pill"
+                                   name="nama_data_pengurus_desa"
+                                   placeholder="Masukkan nama lengkap"
+                                   required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Jabatan</label>
+                            <input type="text"
+                                   class="form-control rounded-pill"
+                                   name="jabatan_data_pengurus_desa"
+                                   placeholder="Masukkan jabatan"
+                                   required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Deskripsi</label>
+                            <textarea class="form-control"
+                                      name="deskripsi_data_pengurus_desa"
+                                      rows="3"
+                                      placeholder="Masukkan deskripsi singkat"
+                                      required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Upload Foto</label>
+                            <input type="file"
+                                   class="form-control"
+                                   name="gambar_data_pengurus_desa"
+                                   accept="image/*"
+                                   required>
+                            <small class="text-muted">Format yang didukung: JPG, PNG, JPEG. Maksimal 2MB.</small>
                         </div>
                     </div>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Modal Tambah -->
-    <div class="modal fade" id="TambahGambar" tabindex="-1" aria-labelledby="modalTitleTambah" aria-hidden="true">
-        <div class="modal-dialog">
-            <form action="{{ route('data_pengurus_desa.store') }}" method="POST" enctype="multipart/form-data" class="modal-content">
-                @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitleTambah">Tambah Data Pengurus Baru</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label">Nama</label>
-                        <input type="text" class="form-control" name="nama_data_pengurus_desa" required>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary rounded-pill">Simpan Data</button>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Jabatan</label>
-                        <input type="text" class="form-control" name="jabatan_data_pengurus_desa" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Deskripsi</label>
-                        <input type="text" class="form-control" name="deskripsi_data_pengurus_desa" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Upload Gambar</label>
-                        <input type="file" class="form-control" name="gambar_data_pengurus_desa" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </section>
 
-<footer id="footer" class="footer dark-background">
-    @include('pengguna.component.footer')
-</footer>
+<style>
+    .img-thumbnail {
+        transition: transform 0.3s ease;
+    }
+    .img-thumbnail:hover {
+        transform: scale(1.05);
+    }
+    .table-hover tbody tr:hover {
+        background-color: rgba(13, 110, 253, 0.05);
+    }
+    .card {
+        border-radius: 12px;
+    }
+    .text-truncate {
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 @endsection

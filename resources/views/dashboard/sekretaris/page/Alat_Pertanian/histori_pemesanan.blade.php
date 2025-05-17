@@ -11,17 +11,6 @@
     </header>
 
     <!--Open Page Title-->
-    <div class="page-title dark-background" style="background-image: url({{ asset('assets/img/page-title-bg.jpg') }});">
-        <div class="container position-relative">
-            <h1>Histori Pemesanan Alat</h1>
-            <nav class="breadcrumbs">
-                <ol>
-                    <li><a href="/index_bumdes">Home</a></li>
-                    <li class="current">Hisori Pemesanan</li>
-                </ol>
-            </nav>
-        </div>
-    </div><!-- End Page Title -->
 
     <main class="p-4">
         <!-- Projects Section -->
@@ -135,7 +124,5 @@
 
     </main>
 
-    <footer id="footer" class="footer dark-background">
-        @include('pengguna.component.footer')
-    </footer>
+
 @endsection

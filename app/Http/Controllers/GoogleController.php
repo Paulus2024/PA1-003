@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Storage;
-use Str;
 
 class GoogleController extends Controller
 {
@@ -19,34 +17,27 @@ class GoogleController extends Controller
     public function handleGoogleCallback()
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
+            $googleUser = Socialite::driver('google')->stateless()->user();
 
-            $registerUser = User::where("google_id", $googleUser->id)->first();
+            \Log::info('Google user data:', (array) $googleUser);
 
-            if (!$registerUser) {
-                $user = User::updateOrCreate([
-                    'google_id' => $googleUser->id,
-                ], [
-                    'name' => $googleUser->name,
-                    'email' => $googleUser->email,
-                    'password' => bcrypt('user123'),
+            $user = User::where('email', $googleUser->getEmail())->first();
+
+            if (!$user) {
+                \Log::info('User not found, creating new user.');
+
+                $user = User::create([
+                    'name' => $googleUser->getName(),
+                    'email' => $googleUser->getEmail(),
+                    'password' => bcrypt('google_password_default'),
                     'usertype' => 'user',
-                    'photo' => $googleUser->avatar,
                 ]);
 
-                $imageContents = file_get_contents($googleUser->avatar);
-                $imageName = time() . '.jpg';
-                $path = 'profile_photos/' . $imageName;
-                Storage::disk('public')->put($path, $imageContents);
-
-                $user->photo = $imageName; // simpan path lengkap
-                $user->save();
-                Auth::login($user);
-                return redirect('/index_masyarakat');
+                \Log::info('User created:', $user->toArray());
             }
 
-            Auth::login($registerUser);
-            return redirect('/');
+            Auth::login($user);
+            return redirect()->intended('/');
         } catch (\Exception $e) {
             \Log::error('Google login failed: ' . $e->getMessage());
             return redirect('/login')->with('error', 'Login dengan Google gagal: ' . $e->getMessage());
