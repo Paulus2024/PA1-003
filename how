@@ -1,0 +1,264 @@
+[33mcommit d0a3b878b0c52d23c83051d5bc4419bea7247808[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Paulus2024 <reynsanpanjaitan20@gmail.com>
+Date:   Sat May 17 13:12:25 2025 +0700
+
+    Simpan perubahan lokal
+
+[33mcommit f643dd4d9b8936725bcfd2c08754a8c2f0b6ec88[m
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Fri May 16 15:55:10 2025 +0700
+
+    data pengurus
+
+[33mcommit f950494cbca9b77587593ea651748e037be7bdcc[m
+Merge: a75b627 3042107
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Fri May 16 15:52:25 2025 +0700
+
+    Merge branch 'main' of https://github.com/Paulus2024/PA1-003
+
+[33mcommit a75b627455f97efaf8562d9224986216521dba1a[m
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Fri May 16 15:48:06 2025 +0700
+
+    perubaha content
+
+[33mcommit 3042107c2d82c448217367f8c90f179a070cb82f[m
+Merge: f2743df 08f2a8d
+Author: Paulus2024 <reynsanpanjaitan20@gmail.com>
+Date:   Fri May 16 15:40:49 2025 +0700
+
+    Merge branch 'main' of https://github.com/Paulus2024/PA1-003
+
+[33mcommit f2743df4293ba53b9f8d683bda5f36ebb6a5c341[m
+Author: Paulus2024 <reynsanpanjaitan20@gmail.com>
+Date:   Fri May 16 15:28:03 2025 +0700
+
+    update all
+
+[33mcommit 08f2a8dcc0f9cdeefeaf7e206f0cb7173fc9a499[m
+Author: GabeSimanjuntak <gabesimanjuntak102@gmail.com>
+Date:   Fri May 16 15:27:13 2025 +0700
+
+    API
+
+[33mcommit d8d802bf29133eed39ba0732f94fdb2a9cef4b4b[m
+Author: GabeSimanjuntak <gabesimanjuntak102@gmail.com>
+Date:   Fri May 16 12:03:58 2025 +0700
+
+    .
+
+[33mcommit 825717f7d034975a2f2bbd81d0e44d057ad6157b[m
+Author: GabeSimanjuntak <gabesimanjuntak102@gmail.com>
+Date:   Fri May 16 11:45:37 2025 +0700
+
+    new
+
+[33mcommit 0424b95c41a093531412597d11aa6542ae8bd228[m
+Author: GabeSimanjuntak <gabesimanjuntak102@gmail.com>
+Date:   Fri May 16 09:40:33 2025 +0700
+
+    Revert "Merge branch 'main' of https://github.com/Paulus2024/PA1-003"
+    
+    This reverts commit d7432ba41538060982c33c501cf11ba770bf514f, reversing
+    changes made to 5331d99a4d33500723d0df3b18dfb6bca3d21e1e.
+
+[33mcommit df8f73db768e380ec61045b7c2f732d60155e050[m
+Author: GabeSimanjuntak <gabesimanjuntak102@gmail.com>
+Date:   Fri May 16 09:31:48 2025 +0700
+
+    Revert "Merge branch 'main' of https://github.com/Paulus2024/PA1-003"
+    
+    This reverts commit 47061e90d15cb665f27dc5eab769e9fa917cc4a0, reversing
+    changes made to bc81be6763c03e336b9c007fbc356d2507f99b5a.
+
+[33mcommit b0227844cf0ca05412278257bf20922f96f30b5b[m
+Merge: e537a35 d7432ba
+Author: GabeSimanjuntak <gabesimanjuntak102@gmail.com>
+Date:   Fri May 16 09:25:00 2025 +0700
+
+    Merge branch 'main' of https://github.com/Paulus2024/PA1-003
+
+[33mcommit e537a35685ab458dfa751913e2072599b3fcbe89[m
+Author: GabeSimanjuntak <gabesimanjuntak102@gmail.com>
+Date:   Fri May 16 09:24:32 2025 +0700
+
+    Revert "Merge branch 'main' of https://github.com/Paulus2024/PA1-003"
+    
+    This reverts commit 47061e90d15cb665f27dc5eab769e9fa917cc4a0, reversing
+    changes made to bc81be6763c03e336b9c007fbc356d2507f99b5a.
+
+[33mcommit d7432ba41538060982c33c501cf11ba770bf514f[m
+Merge: 5331d99 47061e9
+Author: Paulus2024 <reynsanpanjaitan20@gmail.com>
+Date:   Fri May 16 09:23:28 2025 +0700
+
+    Merge branch 'main' of https://github.com/Paulus2024/PA1-003
+
+[33mcommit 5331d99a4d33500723d0df3b18dfb6bca3d21e1e[m
+Author: Paulus2024 <reynsanpanjaitan20@gmail.com>
+Date:   Fri May 16 09:23:06 2025 +0700
+
+    update all
+
+[33mcommit 47061e90d15cb665f27dc5eab769e9fa917cc4a0[m
+Merge: bc81be6 19d20fe
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Fri May 16 08:48:56 2025 +0700
+
+    Merge branch 'main' of https://github.com/Paulus2024/PA1-003
+
+[33mcommit bc81be6763c03e336b9c007fbc356d2507f99b5a[m
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Fri May 16 08:48:35 2025 +0700
+
+    data
+
+[33mcommit 19d20fea75ee19ac6d9908adfd2a831c282a8f74[m
+Author: GabeSimanjuntak <gabesimanjuntak102@gmail.com>
+Date:   Fri May 16 08:19:14 2025 +0700
+
+    p
+
+[33mcommit 167f7c37a1f6cd63df5516a4d197044ac87cadac[m
+Merge: 7554255 45c4956
+Author: GabeSimanjuntak <gabesimanjuntak102@gmail.com>
+Date:   Thu May 15 21:35:01 2025 +0700
+
+    Merge branch 'main' of https://github.com/Paulus2024/PA1-003
+
+[33mcommit 75542558f5f8884c72f1eee6b512e926916d9ef8[m
+Author: GabeSimanjuntak <gabesimanjuntak102@gmail.com>
+Date:   Thu May 15 21:34:55 2025 +0700
+
+    new
+
+[33mcommit 45c49560123c9b4a9218c70a1f04e21ec8f6bb41[m
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Thu May 15 20:01:09 2025 +0700
+
+    routehome masyarakat
+
+[33mcommit f5013ee383bafdcd10a0728559830f37d81d6c6b[m
+Merge: dfa6abc 37fd2af
+Author: GabeSimanjuntak <gabesimanjuntak102@gmail.com>
+Date:   Thu May 15 19:26:41 2025 +0700
+
+    Merge branch 'main' of https://github.com/Paulus2024/PA1-003
+
+[33mcommit dfa6abc5de86f2d7ed48ce267856fd3b36114917[m
+Author: GabeSimanjuntak <gabesimanjuntak102@gmail.com>
+Date:   Thu May 15 16:29:26 2025 +0700
+
+    Update index_home.blade.php
+
+[33mcommit 37fd2af62bbdad75033c53729a09f219c5f11f1b[m
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Thu May 15 14:46:05 2025 +0700
+
+    memperbaiki css icon zoom in
+
+[33mcommit d14deb56f5d258c6414c6ea8aaea5f4765d32c3d[m
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Thu May 15 14:38:32 2025 +0700
+
+    perbaikan pemesanan bumdes dan seketaris
+    
+    Menghapus more details
+
+[33mcommit 466ba71b828de12b2f6238f1b9a768c33d6b0c02[m
+Merge: a711251 0a21e67
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Thu May 15 09:23:14 2025 +0700
+
+    Merge branch 'main' of https://github.com/Paulus2024/PA1-003
+
+[33mcommit a711251fbe82e3fcf5ba0292cf8a9341243aa233[m
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Thu May 15 09:22:50 2025 +0700
+
+    yessssssssssss
+
+[33mcommit 0a21e67f582ab48ba99b76f4fe9de4685935ddcc[m
+Merge: 37f3db9 e5b5d32
+Author: Paulus2024 <reynsanpanjaitan20@gmail.com>
+Date:   Thu May 15 08:56:34 2025 +0700
+
+    Merge branch 'main' of https://github.com/Paulus2024/PA1-003
+
+[33mcommit 37f3db9de5277b6a9b72ae4884308a5f51d1e223[m
+Author: Paulus2024 <reynsanpanjaitan20@gmail.com>
+Date:   Thu May 15 08:56:29 2025 +0700
+
+    update alat pertanian
+
+[33mcommit e5b5d32bf4343839dd620e8ec8c7e4d9d061ebc1[m
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Thu May 15 08:56:23 2025 +0700
+
+    yessssssssssssss
+
+[33mcommit e3ab97e1d41c5490e8b7c3fce57581e2e7e883a4[m
+Merge: 066314c fbe1032
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Thu May 15 08:42:35 2025 +0700
+
+    Merge branch 'main' of https://github.com/Paulus2024/PA1-003
+
+[33mcommit 066314c84b328c2c91b9aee74565f4b16f4862ab[m
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Thu May 15 08:42:32 2025 +0700
+
+    yessssss
+
+[33mcommit fbe1032567644b0dd5b27c3b7b13015f73b0bb3d[m
+Author: GabeSimanjuntak <gabesimanjuntak102@gmail.com>
+Date:   Thu May 15 08:07:35 2025 +0700
+
+    .
+
+[33mcommit 259cdae52f43076fd77ed4f19568ef5426d9079b[m
+Author: Paulus2024 <reynsanpanjaitan20@gmail.com>
+Date:   Thu May 15 07:47:06 2025 +0700
+
+    update alat pertanian
+
+[33mcommit 076b1a9db04d52a3c6768afddeadeb598cdf8d7a[m
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Wed May 14 21:03:58 2025 +0700
+
+    masik bermasalah
+
+[33mcommit fdf9c798bc38914f766cdb905805326109c84dbc[m
+Author: Paulus2024 <reynsanpanjaitan20@gmail.com>
+Date:   Wed May 14 18:48:40 2025 +0700
+
+    update alat pertanian
+
+[33mcommit 607f6017c90c0b456963df9d4c502b2c570785f6[m
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Wed May 14 15:10:43 2025 +0700
+
+    update
+
+[33mcommit d50a306c2fca686030ad3930bf051932a32de24a[m
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Wed May 14 15:04:47 2025 +0700
+
+    p
+
+[33mcommit acf5ad2ebe155e0effd5516ceebf4193f453bc44[m
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Wed May 14 15:03:50 2025 +0700
+
+    perbaikan
+
+[33mcommit 84650e3c7bf819399aac93f7e1178d5a584d8650[m
+Author: Someone4562 <christoferkevin560@gmail.com>
+Date:   Wed May 14 15:03:08 2025 +0700
+
+    perbaikan
+
+[33mcommit 35b4d6134777b6811b88bdda39e56aa22b50811e[m
+Author: GabeSimanjuntak <gabesimanjuntak102@gmail.com>
+Date:   Wed May 1
