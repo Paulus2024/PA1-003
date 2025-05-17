@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AlatPertanian;
 use App\Models\Peminjaman;
+use App\Models\User;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Gate;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -111,6 +113,20 @@ class PeminjamanController extends Controller
                 'jumlah_alat_di_sewa' => $validated['jumlah_alat_di_sewa'],
                 'status_peminjaman' => 'menunggu',
             ]);
+
+            $admins = User::where('usertype', 'bumdes')->get(); // Ambil semua user dengan role admin (ganti 'admin' sesuai role Anda)
+
+            foreach ($admins as $bumdes) {
+                Notification::create([
+                    'user_id' => $bumdes->id,
+                    'type' => 'peminjaman_baru',
+                    'data' => [
+                        'peminjaman_id' => $peminjaman->id,
+                        'nama_peminjam' => $peminjaman->nama_peminjam,
+                        'alat_pertanian' => $alat->nama_alat_pertanian
+                    ],
+                ]);
+            }
 
             DB::commit();
 
@@ -289,5 +305,11 @@ class PeminjamanController extends Controller
             return back()->with('success', 'Peminjaman dibatalkan.');
         }
         return back()->with('error', 'Peminjaman tidak dapat dibatalkan karena statusnya bukan menunggu.');
+    }
+
+    public function show($id)
+    {
+        $peminjaman = Peminjaman::findOrFail($id);
+        return view('dashboard.bumdes.page.Alat_Pertanian.detail_peminjaman', compact('peminjaman')); // Ganti dengan view yang sesuai
     }
 }

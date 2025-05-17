@@ -2935,3 +2935,16 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
+/*Notifikasi*/
+.dropdown-menu {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-item {
+    padding: 0.5rem 1rem;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}

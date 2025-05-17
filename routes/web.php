@@ -265,3 +265,8 @@ Route::get('/about_masyarakat', [AboutController::class, 'indexMasyarakat'])->na
 
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+//=========================================================
+//notifikasi
+//=========================================================
+Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('peminjaman.show');

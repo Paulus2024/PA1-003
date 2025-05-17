@@ -32,6 +32,34 @@
 <body class="index-page">
 
     <main class="main">
+                <!-- Bagian Notifikasi -->
+                <div class="container">
+                    <div class="d-flex justify-content-end">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Notifikasi
+                                @php
+                                    $unreadNotificationsCount = Auth::user()->notifications()->whereNull('read_at')->count();
+                                @endphp
+                                @if($unreadNotificationsCount > 0)
+                                    <span class="badge bg-danger">{{ $unreadNotificationsCount }}</span>
+                                @endif
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+                                @forelse(Auth::user()->notifications()->latest()->get() as $notification)
+                                    <li class="dropdown-item">
+                                        @if($notification->type === 'peminjaman_baru')
+                                            Peminjaman baru dari {{ $notification->data['nama_peminjam'] }} untuk alat {{ $notification->data['alat_pertanian'] }}
+                                            <a href="{{ route('peminjaman.show', $notification->data['peminjaman_id']) }}">Lihat Detail</a>
+                                        @endif
+                                    </li>
+                                @empty
+                                    <li class="dropdown-item">Tidak ada notifikasi.</li>
+                                @endforelse
+                            </ul>
+                        </div>
+                    </div>
+                </div>
         @yield('bumdes_content')
     </main>
 

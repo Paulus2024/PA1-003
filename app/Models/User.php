@@ -32,7 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
     protected $attributes = [//kotakatik #############################################################################
-        'usertype' => 'bumdes', // Default usertype
+        'usertype' => 'user', // Default usertype
     ];
 
     /**
