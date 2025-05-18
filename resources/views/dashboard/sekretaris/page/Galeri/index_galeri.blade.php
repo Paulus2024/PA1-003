@@ -1,6 +1,29 @@
 @extends('dashboard.sekretaris.component.main')
 
 @section('sekretaris_content')
+<style>
+    body, table, .modal, .btn {
+        font-family: 'Cambria', serif;
+    }
+    .card {
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+    }
+    .img-thumbnail {
+        max-width: 120px;
+        height: auto;
+        border-radius: 4px;
+    }
+    .action-buttons .btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+    }
+</style>
+
 <header id="header" class="header d-flex align-items-center fixed-top">
     @include('dashboard.sekretaris.component.navbar')
 </header>
@@ -19,11 +42,11 @@
             </div>
         </div>
 
-        <div class="card shadow-sm border-0">
+        <div class="card shadow-sm">
             <div class="card-body p-4">
                 <div class="table-responsive">
                     <table class="table table-hover">
-                        <thead class="table-light">
+                        <thead>
                             <tr>
                                 <th width="5%" class="text-center">No</th>
                                 <th width="30%">Judul Galeri</th>
@@ -35,32 +58,27 @@
                             @foreach ($galleries as $index => $item)
                             <tr>
                                 <td class="text-center">{{ $index + 1 }}</td>
-                                <td class="fw-semibold">{{ $item->judul_galeri }}</td>
+                                <td>{{ $item->judul_galeri }}</td>
                                 <td>
                                     <img src="{{ asset('storage/' . $item->gambar_galeri) }}"
                                          alt="Galeri {{ $item->judul_galeri }}"
-                                         class="img-thumbnail"
-                                         width="120"
-                                         style="object-fit: cover; border-radius: 8px;">
+                                         class="img-thumbnail">
                                 </td>
                                 <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-2">
-                                        <!-- Edit Button -->
+                                    <div class="d-flex justify-content-center gap-2 action-buttons">
                                         <button type="button"
-                                                class="btn btn-sm btn-outline-primary rounded-pill"
+                                                class="btn btn-outline-primary rounded-pill"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#editModal{{ $item->id_galeri }}">
                                             <i class="bi bi-pencil-square me-1"></i> Edit
                                         </button>
-
-                                        <!-- Delete Form -->
                                         <form action="{{ route('galleries.destroy', $item->id_galeri) }}"
                                               method="POST"
                                               onsubmit="return confirm('Apakah Anda yakin ingin menghapus gambar ini?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
-                                                    class="btn btn-sm btn-outline-danger rounded-pill">
+                                                    class="btn btn-outline-danger rounded-pill">
                                                 <i class="bi bi-trash me-1"></i> Hapus
                                             </button>
                                         </form>
@@ -74,7 +92,7 @@
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header bg-primary text-white">
-                                            <h5 class="modal-title" id="editModalLabel{{ $item->id_galeri }}">Edit Galeri</h5>
+                                            <h5 class="modal-title">Edit Galeri</h5>
                                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
@@ -100,7 +118,7 @@
                                                     <div class="mt-2">
                                                         <img src="{{ asset('storage/' . $item->gambar_galeri) }}"
                                                              alt="Current Image"
-                                                             class="img-thumbnail"
+                                                             class="img-thumbnail mt-2"
                                                              width="150">
                                                     </div>
                                                 </div>
@@ -167,20 +185,4 @@
         </div>
     </div>
 </section>
-
-<style>
-    .img-thumbnail {
-        transition: transform 0.3s ease;
-    }
-    .img-thumbnail:hover {
-        transform: scale(1.05);
-    }
-    .table-hover tbody tr:hover {
-        background-color: rgba(13, 110, 253, 0.05);
-    }
-    .card {
-        border-radius: 12px;
-    }
-</style>
-
 @endsection
