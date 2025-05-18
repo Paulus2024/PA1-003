@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notifications', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete(); // ID penerima (admin)
-            $table->string('type');      // Tipe notifikasi (misalnya, 'peminjaman_baru')
-            $table->json('data');        // Data terkait (misalnya, {'peminjaman_id': 1})
-            $table->timestamp('read_at')->nullable(); // Kapan dibaca
+            $table->id(); // Ini akan membuat BIGINT UNSIGNED auto-increment
+            $table->string('type');
+            $table->morphs('notifiable');
+            $table->json('data');
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
     }

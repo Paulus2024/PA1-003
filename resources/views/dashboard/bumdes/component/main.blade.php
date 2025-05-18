@@ -2,107 +2,115 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Desa Taon Marisi</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Desa Taon Marisi</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
 
-  <!-- Favicons -->
-  <link href="{{ asset('assets/img/8.png') }}" rel="icon">
-  <link href="{{ asset('assets/img/8.png') }}" rel="apple-touch-icon">
+    <!-- Favicons -->
+    <link href="{{ asset('assets/img/8.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/8.png') }}" rel="apple-touch-icon">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="{{URL:: asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-  <link href="{{URL:: asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-  <link href="{{URL:: asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
-  <link href="{{URL:: asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-  <link href="{{URL:: asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
-<link href="{{URL:: asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="{{ URL::asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
 
-<link href="{{URL:: asset('assets/css/main.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/css/main.css') }}" rel="stylesheet">
 </head>
 
 <body class="index-page">
 
     <main class="main">
-                <!-- Bagian Notifikasi -->
-                <div class="container">
-                    <div class="d-flex justify-content-end">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                Notifikasi
-                                @php
-                                    $unreadNotificationsCount = Auth::user()->notifications()->whereNull('read_at')->count();
-                                @endphp
-                                @if($unreadNotificationsCount > 0)
-                                    <span class="badge bg-danger">{{ $unreadNotificationsCount }}</span>
+
+        <!-- Bagian Notifikasi -->
+        <div class="container">
+            <div class="d-flex justify-content-end">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="notificationDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Notifikasi
+                        @php
+                            $unreadNotificationsCount = Auth::user()->notifications()->whereNull('read_at')->count();
+                        @endphp
+                        @if ($unreadNotificationsCount > 0)
+                            <span class="badge bg-danger">{{ $unreadNotificationsCount }}</span>
+                        @endif
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+                        @forelse(Auth::user()->notifications()->latest()->get() as $notification)
+                            <li class="dropdown-item">
+                                @if ($notification->type === 'App\Notifications\PeminjamanBaru')
+                                    Peminjaman baru dari {{ $notification->data['nama_peminjam'] }} untuk alat
+                                    {{ $notification->data['alat_pertanian'] }}
+                                    <a href="{{ route('peminjaman.show', $notification->data['peminjaman_id']) }}">Lihat
+                                        Detail</a>
                                 @endif
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                                @forelse(Auth::user()->notifications()->latest()->get() as $notification)
-                                    <li class="dropdown-item">
-                                        @if($notification->type === 'peminjaman_baru')
-                                            Peminjaman baru dari {{ $notification->data['nama_peminjam'] }} untuk alat {{ $notification->data['alat_pertanian'] }}
-                                            <a href="{{ route('peminjaman.show', $notification->data['peminjaman_id']) }}">Lihat Detail</a>
-                                        @endif
-                                    </li>
-                                @empty
-                                    <li class="dropdown-item">Tidak ada notifikasi.</li>
-                                @endforelse
-                            </ul>
-                        </div>
-                    </div>
+                            </li>
+                        @empty
+                            <li class="dropdown-item">Tidak ada notifikasi.</li>
+                        @endforelse
+                    </ul>
                 </div>
+            </div>
+        </div>
+        <!-- End Bagian Notifikasi -->
+
         @yield('bumdes_content')
     </main>
 
 
 
-<!-- Vendor JS Files -->
-<script src="{{URL:: asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{URL:: asset('assets/vendor/php-email-form/validate.js') }}"></script>
-<script src="{{URL:: asset('assets/vendor/aos/aos.js') }}"></script>
-<script src="{{URL:: asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
-<script src="{{URL:: asset('assets/vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
-<script src="{{URL:: asset('assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
-<script src="{{URL:: asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
-<script src="{{URL:: asset('assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
+    <!-- Vendor JS Files -->
+    <script src="{{ URL::asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/vendor/php-email-form/validate.js') }}"></script>
+    <script src="{{ URL::asset('assets/vendor/aos/aos.js') }}"></script>
+    <script src="{{ URL::asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
 
-<!-- Main JS File -->
-<script src="{{URL:: asset('assets/js/main.js') }}"></script>
+    <!-- Main JS File -->
+    <script src="{{ URL::asset('assets/js/main.js') }}"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        @if(session('error'))
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: '{{ session('error') }}',
-                timer: 3000,
-                showConfirmButton: false
-            });
-        @endif
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            @if (session('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '{{ session('error') }}',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            @endif
 
-        @if(session('success'))
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: '{{ session('success') }}',
-                timer: 3000,
-                showConfirmButton: false
-            });
-        @endif
-    });
-</script>
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            @endif
+        });
+    </script>
 
 
 </body>

@@ -36,6 +36,10 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+                
+            Route::post('/peminjaman', function (Request $request) {
+                dd($request->all()); // Periksa data yang dikirim ke route /peminjaman
+            });
         });
     }
 

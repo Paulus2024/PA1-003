@@ -153,6 +153,7 @@
                                                     @csrf
                                                     <input type="hidden" name="alat_id"
                                                         value="{{ $item->id_alat_pertanian }}">
+                                                        
                                                     <div class="mb-3">
                                                         <label>Nama Peminjam</label>
                                                         <input type="text" name="nama_peminjam" class="form-control"
@@ -244,10 +245,10 @@
                                                     </div>
 
                                                     <!-- <div class="mb-3">
-                                                                                                                        <label for="status_alat" class="form-lable">Status Alat</label>
-                                                                                                                        <input type="text" class="form-control" name="status_alat" id="status_alat"
-                                                                                                                            placeholder="Status Alat" required>
-                                                                                                                    </div> -->
+                                                                                                                            <label for="status_alat" class="form-lable">Status Alat</label>
+                                                                                                                            <input type="text" class="form-control" name="status_alat" id="status_alat"
+                                                                                                                                placeholder="Status Alat" required>
+                                                                                                                        </div> -->
 
                                                     <div class="mb-3">
                                                         <label for="jumlah_alat" class="form-lable"> <b> Jumlah Alat </b>
