@@ -29,16 +29,13 @@
 </header>
 
 <section id="projects" class="projects section">
-    <div class="container" style="margin-top: 80px;">
+    <div class="container">
         <div class="row mb-4">
             <div class="col-md-8">
                 <h2 class="fw-bold text-primary">Manajemen Galeri</h2>
                 <p class="text-muted">Kelola gambar-gambar galeri kegiatan</p>
-            </div>
-            <div class="col-md-4 text-end">
                 <button class="btn btn-primary rounded-pill" type="button" data-bs-toggle="modal" data-bs-target="#TambahGambar">
-                    <i class="bi bi-plus-circle me-2"></i>Tambah Gambar
-                </button>
+                    <i class="bi bi-plus-circle me-2"></i>Tambah Gambar</button>
             </div>
         </div>
 
@@ -137,11 +134,6 @@
                 </div>
 
                 @if($galleries->isEmpty())
-                <div class="text-center py-5">
-                    <img src="{{ asset('assets/img/empty.svg') }}" alt="Empty state" width="200" class="mb-3">
-                    <h5 class="text-muted">Belum ada gambar galeri</h5>
-                    <p class="text-muted">Tambahkan gambar baru dengan menekan tombol "Tambah Gambar"</p>
-                </div>
                 @endif
             </div>
         </div>
