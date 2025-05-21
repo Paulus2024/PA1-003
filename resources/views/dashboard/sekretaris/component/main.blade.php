@@ -56,16 +56,8 @@
 
 <body>
 
-    <!-- Sidebar -->
-    <!-- Navbar Top -->
-    <nav class="navbar navbar-expand-lg navbar-light shadow-sm fixed-top">
-        <div class="container-fluid">
-            <span class="navbar-brand">Desa Taon Marisi</span>
-        </div>
-    </nav>
-
     <!-- Main Content -->
-    <div class="content pt-5 mt-3">
+    <div class="content pt-3 mt-1">
         @yield('sekretaris_content')
     </div>
 
