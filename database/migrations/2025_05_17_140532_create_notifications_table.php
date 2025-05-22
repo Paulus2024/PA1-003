@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notifications', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id(); // Ini akan membuat BIGINT UNSIGNED auto-increment
             $table->string('type');
-            $table->morphs('notifiable'); 
-            $table->text('data');
+            $table->morphs('notifiable');
+            $table->json('data');
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
