@@ -3,10 +3,11 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Models\Notification; 
+use App\Models\Message;
+use Illuminate\Support\Facades\View;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        View::composer('*', function ($view) {
+            $unreadMessagesCount = Message::where('is_approved', false)->count();
+            $view->with('unreadMessagesCount', $unreadMessagesCount);
         DB::listen(function ($query) {
             Log::info(
                 $query->sql,
@@ -31,9 +35,9 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
-        // Coba periksa apakah ada kode lain yang memengaruhi model Notification
         Notification::creating(function ($notification) {
-            dd($notification); // Periksa model Notification sebelum disimpan
+            dd($notification);
+
         });
     }
-}
+};
