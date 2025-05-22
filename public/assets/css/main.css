@@ -2948,3 +2948,8 @@
 .dropdown-item:hover {
     background-color: #f8f9fa;
 }
+
+.sidebar-nav .badge {
+    font-size: 0.6rem;
+    padding: 4px 6px;
+}

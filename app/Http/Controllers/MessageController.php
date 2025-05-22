@@ -4,27 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Message;
-use Carbon\Carbon;
 
 class MessageController extends Controller
 {
     public function index()
     {
-        $allMessages = Message::where('created_at', '>=', Carbon::now()->subHours(24))
-                              ->latest()
-                              ->get();
-
+        $allMessages = Message::latest()->get();
         return view('pengguna.page.Contact.index_contact', compact('allMessages'));
     }
 
     public function index_masyarakat()
     {
-        $allMessages = Message::where('created_at', '>=', Carbon::now()->subHours(24))
-                              ->latest()
-                              ->get();
-
+        $allMessages = Message::latest()->get();
         return view('dashboard.masyarakat.page.Contact.index_contact', compact('allMessages'));
     }
+
+    public function index_sekretaris()
+    {
+        $allMessages = Message::withTrashed()->latest()->get();
+        return view('dashboard.sekretaris.page.Contact.index_contact', compact('allMessages'));
+    }
+public function destroy($id)
+{
+    $message = Message::findOrFail($id);
+    $message->delete();
+
+    return redirect()->back()->with('success', 'Pesan berhasil dihapus.');
+}
 
     public function store(Request $request)
     {
@@ -34,8 +40,13 @@ class MessageController extends Controller
             'message' => 'required|string',
         ]);
 
-        Message::create($request->only('name', 'email', 'message'));
+        Message::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'message' => $request->message,
+        ]);
 
-        return redirect()->back()->with('success', 'Pesan berhasil dikirim!');
+        return redirect()->back()->with('success', 'Pesan berhasil dikirim.');
     }
+
 }
