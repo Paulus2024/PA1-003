@@ -75,11 +75,15 @@ public function index_bumdes()
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        $gallery = Gallery::findOrFail($id);
-        return view('galleries.edit', compact('gallery'));
-    }
+public function edit(string $id)
+{
+    $gallery = Gallery::findOrFail($id);
+    // Anda tidak perlu return view terpisah jika menggunakan modal
+    // return view('galleries.edit', compact('gallery'));
+
+    // Data sudah dikirimkan ke view index saat menampilkan tabel,
+    //  jadi modal edit bisa langsung diakses di sana
+}
 
     /**
      * Update the specified resource in storage.
@@ -87,10 +91,11 @@ public function index_bumdes()
     public function update(Request $request, string $id)
     {
         $galleries = Gallery::findOrFail($id);
-        $request->validate([
-            'judul_galeri' => 'required|string|max:255',
-            'gambar_galeri' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 'nullable'
-        ]);
+            $request->validate([
+                'judul_galeri' => 'required|string|max:255',
+                'gambar_galeri' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+
 
         $data = [
             'judul_galeri' => $request->input('judul_galeri'),

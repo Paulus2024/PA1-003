@@ -88,7 +88,7 @@ class DataPengurusDesaController extends Controller
     public function edit(string $id)
     {
         $data_pengurus_desas = DataPengurusDesa::findOrFail($id);
-        return view('data_pengurus_desa.edit', compact('pengurus'));
+        return view('data_pengurus_desa.edit', compact('data_pengurus_desas'));
     }
 
     /**
@@ -97,28 +97,31 @@ class DataPengurusDesaController extends Controller
     public function update(Request $request, string $id)
     {
         $data_pengurus_desas = DataPengurusDesa::findOrFail($id);
-        $request->validate([
-            'nama_data_pengurus_desa' => 'required|string|max:255',
-            'jabatan_data_pengurus_desa' => 'required|string|max:255',
-            'deskripsi_data_pengurus_desa' => 'required|string|max:255','nullable',
-            'gambar_data_pengurus_desa' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 'nullable'
-        ]);
+            $request->validate([
+                'nama_data_pengurus_desa' => 'required|string|max:255',
+                'jabatan_data_pengurus_desa' => 'required|string|max:255',
+                'deskripsi_data_pengurus_desa' => 'required|string|max:255',
+                'gambar_data_pengurus_desa' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
 
-        $data = [
-            'nama_data_pengurus_desa' => $request->input('nama_data_pengurus_desa'),
-            'jabatan_data_pengurus_desa' => $request->input('jabatan_data_pengurus_desa'),
-            'deskripsi_data_pengurus_desa' => $request->input('deskripsi_data_pengurus_desa'),
-            'gambar_data_pengurus_desa' => $path ?? null,
-        ];
 
-        if ($request->hasFile('gambar_data_pengurus_desa')) {
-            // Hapus gambar lama jika ada
-            if ($data_pengurus_desas->gambar_data_pengurus_desa) {
-                Storage::disk('public')->delete($data_pengurus_desas->gambar_data_pengurus_desa);
+
+
+            $data = [
+                'nama_data_pengurus_desa' => $request->input('nama_data_pengurus_desa'),
+                'jabatan_data_pengurus_desa' => $request->input('jabatan_data_pengurus_desa'),
+                'deskripsi_data_pengurus_desa' => $request->input('deskripsi_data_pengurus_desa'),
+            ];
+
+            // Update gambar hanya jika ada file baru
+            if ($request->hasFile('gambar_data_pengurus_desa')) {
+                if ($data_pengurus_desas->gambar_data_pengurus_desa) {
+                    Storage::disk('public')->delete($data_pengurus_desas->gambar_data_pengurus_desa);
+                }
+
+                $path = $request->file('gambar_data_pengurus_desa')->store('pengurus', 'public');
+                $data['gambar_data_pengurus_desa'] = $path;
             }
-            $path = $request->file('gambar_data_pengurus_desa')->store('pengurus', 'public');
-            $data['gambar_data_pengurus_desa'] = $path;
-        }
 
         $data_pengurus_desas->update($data);
 
