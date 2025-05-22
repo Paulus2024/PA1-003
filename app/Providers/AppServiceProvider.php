@@ -27,17 +27,18 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $unreadMessagesCount = Message::where('is_approved', false)->count();
             $view->with('unreadMessagesCount', $unreadMessagesCount);
+        });
+
         DB::listen(function ($query) {
-            Log::info(
-                $query->sql,
-                $query->bindings,
-                $query->time
-            );
+            Log::info('Query Executed', [
+                'sql' => $query->sql,
+                'bindings' => $query->bindings,
+                'time' => $query->time
+            ]);
         });
 
         Notification::creating(function ($notification) {
             dd($notification);
-
         });
     }
-};
+}

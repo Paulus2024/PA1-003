@@ -21,7 +21,7 @@ class MessageController extends Controller
 
     public function index_sekretaris()
     {
-        $allMessages = Message::withTrashed()->latest()->get();
+        $allMessages = Message::latest()->get();
         return view('dashboard.sekretaris.page.Contact.index_contact', compact('allMessages'));
     }
 public function destroy($id)

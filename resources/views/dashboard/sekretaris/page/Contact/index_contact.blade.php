@@ -4,183 +4,146 @@
 
 <style>
     :root {
-        --primary-color: #2c3e50;
-        --secondary-color: #4a6fa5;
-        --success-color: #27ae60;
-        --warning-color: #f39c12;
-        --light-bg: #f8fafc;
-        --border-color: #eaeef2;
+        --primary: #4361ee;
+        --gray: #6c757d;
+        --light-gray: #e9ecef;
     }
 
     body {
         font-family: "Cambria", Georgia, serif;
-        color: var(--primary-color);
-        background-color: #f5f7fa;
     }
 
     .message-container {
         max-width: 900px;
         margin: 0 auto;
+        padding: 0 10px;
     }
 
     .message-card {
         background: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        margin-bottom: 20px;
-        overflow: hidden;
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .message-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border-radius: 4px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        margin-bottom: 8px;
+        border-left: 2px solid var(--primary);
+        font-size: 13px;
     }
 
     .message-header {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        padding: 16px 24px;
-        background-color: var(--light-bg);
-        border-bottom: 1px solid var(--border-color);
+        padding: 6px 10px;
+        border-bottom: 1px solid var(--light-gray);
     }
 
     .sender-info {
         display: flex;
         align-items: center;
+        gap: 6px;
     }
 
     .sender-avatar {
-        width: 40px;
-        height: 40px;
+        width: 24px;
+        height: 24px;
         border-radius: 50%;
-        background-color: var(--secondary-color);
+        background-color: var(--primary);
         color: white;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-right: 12px;
         font-weight: bold;
-    }
-
-    .sender-details {
-        line-height: 1.4;
+        font-size: 11px;
+        flex-shrink: 0;
     }
 
     .sender-name {
         font-weight: 600;
-        color: var(--primary-color);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 120px;
     }
 
     .sender-email {
-        color: #7f8c8d;
-        font-size: 0.85rem;
+        color: var(--gray);
+        font-size: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 120px;
     }
 
     .message-time {
-        color: #95a5a6;
-        font-size: 0.85rem;
+        color: var(--gray);
+        font-size: 10px;
+        white-space: nowrap;
     }
 
     .message-body {
-        padding: 20px 24px;
-        line-height: 1.7;
-        border-bottom: 1px solid var(--border-color);
+        padding: 6px 10px;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
     .message-footer {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 14px 24px;
-        background-color: white;
+        padding: 4px 10px;
+        border-top: 1px solid var(--light-gray);
     }
 
     .status-badge {
-        font-size: 0.8rem;
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-weight: 500;
+        font-size: 10px;
+        padding: 1px 6px;
+        border-radius: 8px;
     }
 
     .status-pending {
-        background-color: rgba(243, 156, 18, 0.1);
-        color: var(--warning-color);
+        background-color: #fff3cd;
     }
 
     .status-approved {
-        background-color: rgba(39, 174, 96, 0.1);
-        color: var(--success-color);
-    }
-
-    .action-buttons {
-        display: flex;
-        gap: 10px;
-    }
-
-    .btn {
-        font-size: 0.85rem;
-        padding: 6px 14px;
-        border-radius: 4px;
-        font-weight: 500;
-        transition: all 0.2s;
-        border: none;
-    }
-
-    .btn-approve {
-        background-color: var(--success-color);
-        color: white;
-    }
-
-    .btn-approve:hover {
-        background-color: #219955;
+        background-color: #d4edda;
     }
 
     .btn-delete {
-        background-color: #f8f9fa;
-        color: #e74c3c;
-        border: 1px solid #eaeef2;
+        background: none;
+        border: none;
+        color: #dc3545;
+        padding: 1px 4px;
+        font-size: 10px;
+        cursor: pointer;
+        font-family: "Cambria", Georgia, serif;
     }
 
-    .btn-delete:hover {
-        background-color: #f1f3f5;
+    .page-title {
+        font-size: 15px;
+        margin: 12px 0;
+        display: flex;
+        align-items: center;
+        gap: 6px;
     }
 
     .empty-state {
         text-align: center;
-        padding: 60px 20px;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        padding: 20px 10px;
+        font-size: 12px;
+        color: var(--gray);
     }
 
-    .empty-icon {
-        font-size: 3rem;
-        color: #bdc3c7;
-        margin-bottom: 15px;
+    .alert {
+        font-size: 11px;
+        padding: 6px 10px;
+        margin-bottom: 8px;
     }
 
-    .empty-text {
-        color: #7f8c8d;
-        font-size: 1.1rem;
-    }
-
-    .page-title {
-        font-weight: 600;
-        color: var(--primary-color);
-        margin-bottom: 25px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .page-title .badge {
-        background-color: var(--secondary-color);
-        color: white;
-        font-size: 0.9rem;
-        padding: 4px 10px;
-        border-radius: 20px;
+    @media (max-width: 768px) {
+        .sender-name, .sender-email {
+            max-width: 80px;
+        }
     }
 </style>
 
@@ -188,22 +151,18 @@
     @include('dashboard.sekretaris.component.navbar')
 </header>
 
-<main id="main" class="main" style="margin-top: 100px;">
+<main id="main" class="main" style="margin-top: 65px;">
     <div class="message-container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="page-title">
-                <i class="bi bi-envelope-fill"></i>
-                Pesan Masuk
-                <span class="badge">{{ $allMessages->count() }}</span>
-            </h1>
-        </div>
+        <h5 class="page-title">
+            <i class="bi bi-envelope" style="color: var(--primary);"></i>
+            Pesan ({{ $allMessages->count() }})
+        </h5>
 
         @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show mb-4" role="alert"
-                 style="border-left: 4px solid var(--success-color);">
-                <i class="bi bi-check-circle-fill me-2"></i>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle me-1"></i>
                 {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="padding: 0.4rem;"></button>
             </div>
         @endif
 
@@ -214,50 +173,36 @@
                         <div class="sender-avatar">
                             {{ strtoupper(substr($msg->name, 0, 1)) }}
                         </div>
-                        <div class="sender-details">
+                        <div>
                             <div class="sender-name">{{ $msg->name }}</div>
                             <div class="sender-email">{{ $msg->email }}</div>
                         </div>
                     </div>
                     <div class="message-time">
-                        {{ $msg->created_at->format('d M Y, H:i') }}
+                        {{ $msg->created_at->format('d M H:i') }}
                     </div>
                 </div>
 
                 <div class="message-body">
-                    <p>{{ $msg->message }}</p>
+                    {{ $msg->message }}
                 </div>
 
                 <div class="message-footer">
                     <div>
-                        @if($msg->is_approved)
-                            <span class="status-badge status-approved">
-                                <i class="bi bi-check-circle-fill me-1"></i> Disetujui
-                            </span>
-                        @else
-                            <span class="status-badge status-pending">
-                                <i class="bi bi-clock-fill me-1"></i> Menunggu Persetujuan
-                            </span>
-                        @endif
                     </div>
-                    <div class="action-buttons">
-                        @if(!$msg->is_approved)
-                        @endif
-                            <form action="{{ route('messages.destroy', $msg->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus pesan ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Hapus</button>
-                            </form>
-                    </div>
+                    <form action="{{ route('messages.destroy', $msg->id) }}" method="POST" onsubmit="return confirm('Hapus?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-delete">
+                            ✕ Hapus
+                        </button>
+                    </form>
                 </div>
             </div>
         @empty
             <div class="empty-state">
-                <div class="empty-icon">
-                    <i class="bi bi-envelope-open"></i>
-                </div>
-                <h4 class="empty-text">Belum ada pesan masuk</h4>
-                <p class="text-muted">Semua pesan yang masuk akan muncul di sini</p>
+                <i class="bi bi-envelope-open" style="font-size: 20px;"></i>
+                <p class="mt-1">Tidak ada pesan</p>
             </div>
         @endforelse
     </div>
