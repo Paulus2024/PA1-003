@@ -17,7 +17,7 @@
                         <h2 class="fw-bold text-primary">Daftar Alat Pertanian</h2>
                         <p class="text-muted">Kelola penyewaan alat pertanian desa</p>
                     </div>
-                </div>
+                </div><br><br>
 
                 <div class="card shadow-sm border-0">
                     <div class="card-body p-4">
