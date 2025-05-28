@@ -278,3 +278,5 @@ Route::get('/sekretaris/messages', [MessageController::class, 'index_sekretaris'
 Route::delete('/messages/{id}', [MessageController::class, 'destroy'])->name('messages.destroy');
 Route::get('/contact_sekretaris', [MessageController::class, 'index_sekretaris'])->name('contact.sekretaris');
 
+Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);

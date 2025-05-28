@@ -89,7 +89,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
+        return redirect()->route('index_masyarakat')->with('success', 'Registrasi berhasil!.');
     }
 
     public function login(Request $request)
