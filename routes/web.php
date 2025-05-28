@@ -260,6 +260,7 @@ Route::middleware(['web'])->group(function () {
 //=========================================================
 //notifikasi
 //=========================================================
+
 Route::middleware(['auth', 'web'])->group(function () {
     Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
 
@@ -270,3 +271,10 @@ Route::middleware(['auth', 'web'])->group(function () {
 });
 
 Route::post('/pengembalian/ajukan/{id}', [PeminjamanController::class, 'ajukanPengembalian'])->name('pengembalian.ajukan');
+
+Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
+
+Route::get('/sekretaris/messages', [MessageController::class, 'index_sekretaris'])->name('messages.index_sekretaris');
+Route::delete('/messages/{id}', [MessageController::class, 'destroy'])->name('messages.destroy');
+Route::get('/contact_sekretaris', [MessageController::class, 'index_sekretaris'])->name('contact.sekretaris');
+

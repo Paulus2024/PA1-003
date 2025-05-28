@@ -42,10 +42,16 @@
             <i class="bi bi-tools"></i>
             <span>Alat Pertanian</span>
         </a>
-        <a href="/contact_sekretaris" class="{{ Request::is('contact_sekretaris') ? 'active' : '' }}">
-            <i class="bi bi-telephone"></i>
-            <span>Contact</span>
+        <a href="/contact_sekretaris" class="{{ Request::is('contact_sekretaris') ? 'active' : '' }} position-relative">
+            <i class="bi bi-envelope"></i>
+            <span>Notifikasi</span>
+            @if(isset($unreadMessagesCount) && $unreadMessagesCount > 0)
+                <span class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle">
+                    {{ $unreadMessagesCount }}
+                </span>
+            @endif
         </a>
+
     </nav>
 
     <!-- Account Section -->

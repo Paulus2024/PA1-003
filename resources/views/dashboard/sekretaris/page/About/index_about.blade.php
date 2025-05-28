@@ -1,10 +1,11 @@
 @extends('dashboard.sekretaris.component.main')
 
+@section('sekretaris_content')
 <header id="header" class="header d-flex align-items-center fixed-top">
     @include('dashboard.sekretaris.component.navbar')
 </header>
 
-@section('admin_content')
+
     <div class="container py-4">
         <div class="row">
             <div class="col-lg-12">

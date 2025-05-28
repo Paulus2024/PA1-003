@@ -1,90 +1,211 @@
 @extends('dashboard.sekretaris.component.main')
 
-@section(section:'sekretaris_content')
+@section('sekretaris_content')
+
+<style>
+    :root {
+        --primary: #4361ee;
+        --gray: #6c757d;
+        --light-gray: #e9ecef;
+    }
+
+    body {
+        font-family: "Cambria", Georgia, serif;
+    }
+
+    .message-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 10px;
+    }
+
+    .message-card {
+        background: white;
+        border-radius: 4px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        margin-bottom: 8px;
+        border-left: 2px solid var(--primary);
+        font-size: 13px;
+    }
+
+    .message-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 10px;
+        border-bottom: 1px solid var(--light-gray);
+    }
+
+    .sender-info {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .sender-avatar {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 11px;
+        flex-shrink: 0;
+    }
+
+    .sender-name {
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 120px;
+    }
+
+    .sender-email {
+        color: var(--gray);
+        font-size: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 120px;
+    }
+
+    .message-time {
+        color: var(--gray);
+        font-size: 10px;
+        white-space: nowrap;
+    }
+
+    .message-body {
+        padding: 6px 10px;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .message-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px 10px;
+        border-top: 1px solid var(--light-gray);
+    }
+
+    .status-badge {
+        font-size: 10px;
+        padding: 1px 6px;
+        border-radius: 8px;
+    }
+
+    .status-pending {
+        background-color: #fff3cd;
+    }
+
+    .status-approved {
+        background-color: #d4edda;
+    }
+
+    .btn-delete {
+        background: none;
+        border: none;
+        color: #dc3545;
+        padding: 1px 4px;
+        font-size: 10px;
+        cursor: pointer;
+        font-family: "Cambria", Georgia, serif;
+    }
+
+    .page-title {
+        font-size: 15px;
+        margin: 12px 0;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 20px 10px;
+        font-size: 12px;
+        color: var(--gray);
+    }
+
+    .alert {
+        font-size: 11px;
+        padding: 6px 10px;
+        margin-bottom: 8px;
+    }
+
+    @media (max-width: 768px) {
+        .sender-name, .sender-email {
+            max-width: 80px;
+        }
+    }
+</style>
+
 <header id="header" class="header d-flex align-items-center fixed-top">
     @include('dashboard.sekretaris.component.navbar')
 </header>
 
+<main id="main" class="main" style="margin-top: 65px;">
+    <div class="message-container">
+        <h5 class="page-title">
+            <i class="bi bi-envelope" style="color: var(--primary);"></i>
+            Pesan ({{ $allMessages->count() }})
+        </h5>
 
-    <section id="contact" class="contact section">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-6">
-            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
-              <i class="bi bi-geo-alt"></i>
-              <h3>Address</h3>
-              <p>A108 Adam Street, New York, NY 535022</p>
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle me-1"></i>
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="padding: 0.4rem;"></button>
             </div>
-          </div>
+        @endif
 
-          <div class="col-lg-3 col-md-6">
-            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
-              <i class="bi bi-telephone"></i>
-              <h3>Call Us</h3>
-              <p>+1 5589 55488 55</p>
+        @forelse($allMessages as $msg)
+            <div class="message-card">
+                <div class="message-header">
+                    <div class="sender-info">
+                        <div class="sender-avatar">
+                            {{ strtoupper(substr($msg->name, 0, 1)) }}
+                        </div>
+                        <div>
+                            <div class="sender-name">{{ $msg->name }}</div>
+                            <div class="sender-email">{{ $msg->email }}</div>
+                        </div>
+                    </div>
+                    <div class="message-time">
+                        {{ $msg->created_at->format('d M H:i') }}
+                    </div>
+                </div>
+
+                <div class="message-body">
+                    {{ $msg->message }}
+                </div>
+
+                <div class="message-footer">
+                    <div>
+                    </div>
+                    <form action="{{ route('messages.destroy', $msg->id) }}" method="POST" onsubmit="return confirm('Hapus?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-delete">
+                            ✕ Hapus
+                        </button>
+                    </form>
+                </div>
             </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
-              <i class="bi bi-envelope"></i>
-              <h3>Email Us</h3>
-              <p>info@example.com</p>
+        @empty
+            <div class="empty-state">
+                <i class="bi bi-envelope-open" style="font-size: 20px;"></i>
+                <p class="mt-1">Tidak ada pesan</p>
             </div>
-          </div>
-
-        </div>
-
-        <div class="row gy-4 mt-1">
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-            <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.112121113212!2d98.60123097496523!3d2.3822116575372917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3031f1087b89306f%3A0x9b6c3b0085a0b447!2sTaonmarisi%2C%20Silaen%2C%20Toba%2C%20Sumatera%20Utara!5e0!3m2!1sen!2sid!4v1714317000000!5m2!1sen!2sid"
-            frameborder="0"
-            style="border:0; width: 100%; height: 400px;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-          </div>
-
-          <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
-              <div class="row gy-4">
-
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                </div>
-
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-                </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit" class="btn btn-warning text-white rounded-pill px-4 py-2">Send Message</button>
-                </div>
-
-              </div>
-            </form>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
+        @endforelse
+    </div>
+</main>
 
 @endsection

@@ -5,16 +5,21 @@
         @include('dashboard.sekretaris.component.navbar')
     </header>
 
-    <section class="section py-5" style=" font-family: 'Cambria', serif;">
-        <div class="container">
-            <div class="row mb-4">
-                <div class="col-md-8">
-                    <h2 class="fw-bold text-primary" style="font-family: 'Cambria', serif;">Daftar Pengurus Desa</h2>
-                    <p class="text-muted" style="font-family: 'Cambria', serif;">Kelola data pengurus desa</p>
-                    <button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#TambahGambar" style="font-family: 'Cambria', serif;">
-                        <i class="bi bi-person-plus me-2"></i>Tambah Pengurus</button>
-                </div>
+    <section class="section" style=" font-family: 'Cambria', serif;">
+        <div class="container" style="font-family: 'Cambria', serif;">
+            <div class="section-title">
+                <h2 class="fw-bold text-primary">Daftar Pengurus Desa</h2>
+                <p>Kelola data pengurus desa</p>
             </div>
+
+    <!-- Action Buttons -->
+    <div class="mb-4 d-flex justify-content-between align-items-center">
+        <div>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#TambahGambar">
+                <i class="bi bi-person-plus me-2"></i> Tambah Pengurus
+            </button>
+        </div>
+    </div>
 
             <div class="card shadow-sm border-0">
                 <div class="card-body p-4">

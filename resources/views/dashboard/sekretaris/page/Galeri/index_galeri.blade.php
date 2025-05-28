@@ -29,15 +29,23 @@
 </header>
 
 <section id="projects" class="projects section">
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-md-8">
-                <h2 class="fw-bold text-primary">Manajemen Galeri</h2>
-                <p class="text-muted">Kelola gambar-gambar galeri kegiatan</p>
-                <button class="btn btn-primary rounded-pill" type="button" data-bs-toggle="modal" data-bs-target="#TambahGambar">
-                    <i class="bi bi-plus-circle me-2"></i>Tambah Gambar</button>
+
+    <div class="container" style="font-family: 'Cambria', serif;">
+        <div class="section-title">
+            <h2 class="fw-bold text-primary">Manajemen Galeri</h2>
+            <p>Kelola gambar-gambar galeri kegiatan</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mb-4 d-flex justify-content-between align-items-center">
+            <div>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#TambahGambar">
+                    <i class="bi bi-plus-circle"></i> Tambah Gambar
+                </button>
             </div>
         </div>
+
+
 
         <div class="card shadow-sm">
             <div class="card-body p-4">
