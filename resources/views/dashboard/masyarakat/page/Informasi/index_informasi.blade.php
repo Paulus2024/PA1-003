@@ -1,9 +1,6 @@
 @extends('dashboard.masyarakat.component.main')
 
 @section('masyarakat_content')
-    <header id="header" class="header d-flex align-items-center fixed-top">
-        @include('dashboard.masyarakat.component.navbar')
-    </header>
 
     <!--Open Page Title-->
     <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">

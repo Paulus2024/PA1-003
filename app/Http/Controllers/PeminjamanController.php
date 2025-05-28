@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\PeminjamanBaru;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class PeminjamanController extends Controller
 {
@@ -143,6 +144,8 @@ class PeminjamanController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
+
         Log::info('Mulai memproses peminjaman');
 
         $validated = $request->validate([
@@ -156,7 +159,8 @@ class PeminjamanController extends Controller
         Log::info('Validasi berhasil');
 
         if (!Auth::check()) {
-            return back()->with('error', 'Anda harus login terlebih dahulu untuk meminjam alat.');
+            // return back()->with('error', 'Anda harus login terlebih dahulu untuk meminjam alat.');
+            return redirect()->route('login')->with('error', 'Anda harus login terlebih dahulu untuk meminjam alat.');
         }
 
         $alat = AlatPertanian::find($request->alat_id);
@@ -196,25 +200,34 @@ class PeminjamanController extends Controller
                 'jumlah_alat_di_sewa' => $validated['jumlah_alat_di_sewa'],
                 'status_peminjaman' => 'menunggu',
             ]);
+
+            // Buat notifikasi untuk BUMDes
+            $bumdesUsers = User::where('usertype', 'bumdes')->get();
+            foreach ($bumdesUsers as $bumdesUser) {
+                Notification::create([
+                    'user_id' => $bumdesUser->id,
+                    'peminjaman_id' => $peminjaman->id,
+                    'message' => 'Peminjaman baru dari ' . $peminjaman->nama_peminjam . ' untuk alat ' . $peminjaman->alat->nama_alat_pertanian,
+                    'type' => 'peminjaman_baru'
+                ]);
+            }
+
+            //Buat notifikasi untuk Masyarakat
+            Notification::create([
+                'user_id' => auth()->user()->id,
+                'peminjaman_id' => $peminjaman->id,
+                'message' => 'Atas Nama  ' . $peminjaman->nama_peminjam . ' mangajukan peminjaman untuk alat ' . $peminjaman->alat->nama_alat_pertanian,
+                'type' => 'peminjaman_diajukan'
+            ]);
+
+
             Log::info('Peminjaman berhasil dibuat: ' . $peminjaman->toJson());
 
-            // Kirim notifikasi ke admin
-            try {
-                Log::info('Mulai mengirim notifikasi ke admin');
-                $admins = User::where('usertype', 'bumdes')->get();
-                foreach ($admins as $admin) {
-                    $admin->notify(new PeminjamanBaru($peminjaman, $alat));
-                    Log::info('Notifikasi berhasil dikirim ke admin: ' . $admin->name);
-                }
-                Log::info('Semua notifikasi berhasil dikirim');
-            } catch (\Exception $e) {
-                Log::error('Gagal mengirim notifikasi: ' . $e->getMessage());
-                // Jangan rollback transaksi jika pengiriman notifikasi gagal
-            }
-            // close kirim notifikasi ke admin
 
             Log::info('Commit transaksi database');
             DB::commit();
+
+            // dd(session()->all());
 
             //DETEKSI ROLE USER
             $role = auth()->user()->role;
@@ -229,16 +242,17 @@ class PeminjamanController extends Controller
                 return redirect()->route('alat_pertanian.index_masyarakat')
                     ->with('success', 'Peminjaman berhasil diajukan.');
             } else {
-                return redirect()->back()->with('success', 'Peminjaman berhasil diajukan.');
+                return redirect()->route('alat_pertanian.index_masyarakat') // Ganti dengan route yang sesuai
+                    ->with('success', 'Peminjaman berhasil diajukan.');
             }
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error saat memproses peminjaman: ' . $e->getMessage());
-            return back()->with('error', 'Terjadi kesalahan saat memproses peminjaman.');
+            return redirect()->route('alat_pertanian.index_masyarakat')->with('error', 'Terjadi kesalahan saat memproses peminjaman.');
         }
     }
 
-    public function approve($id)
+    public function approve($id) //untuk persetujuan
     {
         // Otorisasi: Pastikan hanya admin yang bisa menyetujui
         if (Gate::allows('approve-peminjaman')) { // Ganti 'approve-peminjaman' dengan ability yang sesuai
@@ -246,11 +260,49 @@ class PeminjamanController extends Controller
             $pinjam->status_peminjaman = 'disetujui';
             $pinjam->save();
 
+            Cache::forget('user_' . $pinjam->user_id . '_notifications'); // Forget cache berdasarkan user_id peminjam
+
+            // Buat notifikasi untuk Masyarakat (peminjam)
+            Notification::create([
+                'user_id' => $pinjam->user_id, // ID user yang meminjam
+                'peminjaman_id' => $pinjam->id,
+                'message' => 'Peminjaman Anda untuk alat ' . $pinjam->alat->nama_alat_pertanian . ' telah disetujui.',
+                'type' => 'peminjaman_disetujui'
+            ]);
+
+            // Cache::forget('user_' . auth()->id() . '_notifications');
+
             return back()->with('success', 'Peminjaman disetujui');
         } else {
             abort(403, 'Anda tidak memiliki izin untuk menyetujui peminjaman.');
         }
     }
+
+    public function reject($id) //penolakan
+    {
+        // Otorisasi: Pastikan hanya admin yang bisa menolak
+        if (Gate::allows('reject-peminjaman')) { // Ganti 'reject-peminjaman' dengan ability yang sesuai
+            $pinjam = Peminjaman::findOrFail($id);
+            $pinjam->status_peminjaman = 'ditolak';
+            $pinjam->save();
+
+            Cache::forget('user_' . $pinjam->user_id . '_notifications');
+
+            // Buat notifikasi untuk Masyarakat (peminjam)
+            Notification::create([
+                'user_id' => $pinjam->user_id, // ID user yang meminjam
+                'peminjaman_id' => $pinjam->id,
+                'message' => 'Peminjaman Anda untuk alat ' . $pinjam->alat->nama_alat_pertanian . '  sayangnya ditolak.',
+                'type' => 'peminjaman_ditolak'
+            ]);
+
+
+            return back()->with('success', 'Peminjaman ditolak');
+        } else {
+            abort(403, 'Anda tidak memiliki izin untuk menolak peminjaman.');
+        }
+    }
+
 
     public function kembalikan($id)
     {
@@ -383,6 +435,29 @@ class PeminjamanController extends Controller
     public function show($id)
     {
         $peminjaman = Peminjaman::findOrFail($id);
-        return view('dashboard.bumdes.page.Alat_Pertanian.detail_peminjaman', compact('peminjaman')); // Ganti dengan view yang sesuai
+        return view('dashboard.bumdes.page.Alat_Pertanian.detail_peminjaman', compact('peminjaman'));
+    }
+
+    public function ajukanPengembalian(Request $request, $id)
+    {
+        $request->validate([
+            'bukti_pengembalian' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $peminjaman = Peminjaman::findOrFail($id);
+
+        if (auth()->user()->id !== $peminjaman->user_id) {
+            abort(403, 'Anda tidak diizinkan mengajukan pengembalian ini.');
+        }
+
+        $file = $request->file('bukti_pengembalian');
+        $nama_file = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('bukti_pengembalian', $nama_file, 'public');
+
+        $peminjaman->bukti_pengembalian = $path;
+        $peminjaman->status_pengembalian = 'menunggu_verifikasi';
+        $peminjaman->save();
+
+        return back()->with('success', 'Pengembalian berhasil diajukan. Menunggu verifikasi.');
     }
 }

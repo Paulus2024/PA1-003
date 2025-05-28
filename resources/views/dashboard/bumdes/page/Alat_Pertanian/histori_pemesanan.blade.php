@@ -60,6 +60,15 @@
                                                 @csrf @method('PATCH')
                                                 <button class="btn btn-sm btn-success">Setuju</button>
                                             </form>
+
+                                            <!-- Form untuk menolak -->
+                                            <form action="{{ route('peminjaman.reject', $p->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('POST')
+                                                <button class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Yakin ingin menolak peminjaman ini?')">Tolak</button>
+                                            </form>
                                         </div>
                                     @else
                                         <span class="text-muted">
@@ -68,7 +77,8 @@
                                     @endif
                                 </td>
 
-                                <td>
+                                <!-- Mengedit dan menghapus -->
+                                {{-- <td>
                                     @if ($p->status_peminjaman == 'menunggu')
                                         <div class="d-flex gap-2">
                                             <!-- Form Action Untuk Cancle -->
@@ -88,7 +98,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                </td>
+                                </td> --}}
                             </tr>
 
                             <!-- Modal Edit Sewa Alat Pertanian -->
@@ -108,12 +118,11 @@
                                                 <!-- Form untuk menyewa alat pertanian -->
                                                 @csrf
                                                 @method('PUT')
-                                                <input type="hidden" name="alat_id"
-                                                    value="{{ $p->alat_pertanian_id }}">
+                                                <input type="hidden" name="alat_id" value="{{ $p->alat_pertanian_id }}">
                                                 <div class="mb-3">
                                                     <label>Nama Peminjam</label>
                                                     <input type="text" name="nama_peminjam" class="form-control"
-                                                        value="{{ ($p->nama_peminjam) }}" required>
+                                                        value="{{ $p->nama_peminjam }}" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label>Tanggal Pinjam</label>

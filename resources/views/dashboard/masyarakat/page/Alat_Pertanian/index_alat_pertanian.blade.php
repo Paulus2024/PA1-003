@@ -1,18 +1,6 @@
 @extends('dashboard.masyarakat.component.main')
 
 @section('masyarakat_content')
-    <header id="header" class="header d-flex align-items-center fixed-top">
-        @include('dashboard.masyarakat.component.navbar')
-
-        <link rel="stylesheet" href="{{ asset('assets/css/fixed.css') }}">
-        <!-- di head layout utama -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
-        <link href="{{ asset('assets/css/fixed.css') }}" rel="stylesheet">
-        @stack('styles')
-
-    </header>
-
     <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
         <div class="container position-relative">
             <h1>Alat Pertanian</h1>
@@ -61,16 +49,18 @@
                             <!-- Open Content -->
                             <div
                                 class="col-lg-4 col-md-6 portfolio-item isotope-item filter-{{ $item->jenis_alat_pertanian }}">
-                                <article class="position-relative h-100">
+                                <article class="position-relative">
 
                                     <!-- Wrapper konten gambar -->
-                                    <div class="portfolio-content h-100">
+                                    <div class="portfolio-content">
 
                                         <!-- 🔽 Gambar dengan efek hover -->
                                         <div class="img-hover-zoom ratio-box">
-                                            <!-- <img src="assets/img/projects/remodeling-1.jpg" class="img-fluid" alt="Foto Galeri">-->
-                                            <img src="{{ asset('storage/' . $item->gambar_alat) }}" class="img-fluid"
-                                                alt="Foto {{ $item->nama_alat_pertanian }}">
+                                            <div class="image-container">
+                                                <!-- <img src="assets/img/projects/remodeling-1.jpg" class="img-fluid" alt="Foto Galeri">-->
+                                                <img src="{{ asset('storage/' . $item->gambar_alat) }}" class="img-fluid"
+                                                    alt="Foto {{ $item->nama_alat_pertanian }}">
+                                            </div>
                                         </div>
 
                                         <!-- Informasi yang tampil saat hover (jika ada) -->
@@ -108,8 +98,7 @@
                                         </p>
 
                                         <div class="d-flex justify-content-end">
-                                            <button type="button" class="btn btn-outline-warning"
-                                                data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
                                                 data-bs-target="#SewaAlatPertanian{{ $item->id_alat_pertanian }}">
                                                 Sewa Alat
                                             </button>
@@ -168,7 +157,6 @@
                                 </div><!-- Modal Dialog -->
                             </div>
                             <!-- Modal Sewa Alat Pertanian -->
-
                         @endforeach
                         <!-- Looping Alat Pertanian -->
 
@@ -196,4 +184,8 @@
     <footer id="footer" class="footer dark-background">
         @include('pengguna.component.footer')
     </footer>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/isotope-layout@3.0.6/dist/isotope.pkgd.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection

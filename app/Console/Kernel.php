@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Console\Commands\DeleteOldNotifications;//import command
 
 
 class Kernel extends ConsoleKernel
@@ -14,6 +15,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('messages:delete-old')->everyMinute();
+
+        $schedule->command(DeleteOldNotifications::class)//menentukan Command yang akan di jalankan oleh scheduler
+        ->daily(); //jalankan setiap hari.  bisa menggunakan opsi lain seperti hourly(), weekly(), dll.
     }
 
     /**

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -27,6 +27,10 @@
     <link href="{{ URL::asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
+   <!-- Di dashboard.bumdes.component.main.blade.php -->
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="{{ URL::asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+   <script src="{{ URL::asset('assets/js/main.js') }}"></script>
 
     <link href="{{ URL::asset('assets/css/main.css') }}" rel="stylesheet">
 </head>
@@ -34,47 +38,12 @@
 <body class="index-page">
 
     <main class="main">
-
-        <!-- Bagian Notifikasi -->
-        <div class="container">
-            <div class="d-flex justify-content-end">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="notificationDropdown"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Notifikasi
-                        @php
-                            $unreadNotificationsCount = Auth::user()->notifications()->whereNull('read_at')->count();
-                        @endphp
-                        @if ($unreadNotificationsCount > 0)
-                            <span class="badge bg-danger">{{ $unreadNotificationsCount }}</span>
-                        @endif
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                        @forelse(Auth::user()->notifications()->latest()->get() as $notification)
-                            <li class="dropdown-item">
-                                @if ($notification->type === 'App\Notifications\PeminjamanBaru')
-                                    Peminjaman baru dari {{ $notification->data['nama_peminjam'] }} untuk alat
-                                    {{ $notification->data['alat_pertanian'] }}
-                                    <a href="{{ route('peminjaman.show', $notification->data['peminjaman_id']) }}">Lihat
-                                        Detail</a>
-                                @endif
-                            </li>
-                        @empty
-                            <li class="dropdown-item">Tidak ada notifikasi.</li>
-                        @endforelse
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- End Bagian Notifikasi -->
-
         @yield('bumdes_content')
     </main>
 
 
 
     <!-- Vendor JS Files -->
-    <script src="{{ URL::asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ URL::asset('assets/vendor/php-email-form/validate.js') }}"></script>
     <script src="{{ URL::asset('assets/vendor/aos/aos.js') }}"></script>
     <script src="{{ URL::asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
@@ -112,6 +81,105 @@
         });
     </script>
 
+
+</body>
+
+</html> --}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Dashboard Admin - Desa Taon Marisi</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .sidebar {
+            height: 100vh;
+            background-color: #343a40;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 60px;
+            width: 240px;
+        }
+
+        .sidebar a {
+            color: #adb5bd;
+            padding: 12px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background-color: #495057;
+            color: #fff;
+        }
+
+        .content {
+            margin-left: 240px;
+            padding: 20px;
+        }
+
+        .navbar {
+            margin-left: 240px;
+            background-color: #fff;
+            border-bottom: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Main Content -->
+    <div class="content pt-3 mt-1">
+        @yield('bumdes_content')
+    </div>
+
+    <!-- Vendor JS -->
+    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            @if (session('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '{{ session('error') }}',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            @endif
+
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            @endif
+        });
+    </script>
 
 </body>
 

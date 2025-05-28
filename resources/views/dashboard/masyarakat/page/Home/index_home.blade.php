@@ -1,9 +1,6 @@
 @extends('dashboard.masyarakat.component.main')
 
 @section('masyarakat_content')
-    <header id="header" class="header d-flex align-items-center fixed-top">
-        @include('dashboard.masyarakat.component.navbar')
-    </header>
     <!-- Hero Section -->
     <section id="hero" class="hero section dark-background">
 

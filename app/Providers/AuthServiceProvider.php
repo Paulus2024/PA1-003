@@ -28,5 +28,11 @@ class AuthServiceProvider extends ServiceProvider
             // Logika untuk menentukan apakah user boleh menyetujui peminjaman
             return $user->usertype === 'bumdes';
         });
+
+        Gate::define('reject-peminjaman', function ($user) {
+            // Logika untuk menentukan apakah user boleh menolak peminjaman
+            return $user->usertype === 'bumdes';
+        });
+
     }
 }

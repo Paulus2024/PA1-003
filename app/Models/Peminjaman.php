@@ -19,6 +19,10 @@ class Peminjaman extends Model
         'status_peminjaman',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function alat()
     {

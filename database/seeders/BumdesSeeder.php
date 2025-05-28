@@ -17,6 +17,8 @@ class BumdesSeeder extends Seeder
                 'name' => 'Bumdes',
                 'email' => 'bumdes@gmail.com',
                 'password' => Hash::make('admin123'),
+                'phone' => '081234567890',
+                'address' => 'Jl. Contoh Alamat No. 123',
                 'usertype' => 'bumdes',
             ]);
         } else {
