@@ -80,7 +80,7 @@
                         </svg>
                     </div>
                     <h1 class="welcome-title">Selamat Bekerja</h1>
-                    <p class="welcome-subtitle">Sistem Informasi Desa Taonmarisi</p>
+                    <p class="welcome-subtitle">Sistem Informasi BUMDES</p>
 
                     <div class="datetime-container">
                         <div id="date" class="date-display"></div>
@@ -90,7 +90,7 @@
                     <div class="welcome-divider"></div>
 
                     <p class="welcome-message">
-                        Anda login sebagai <strong>BUMDes</strong><br>
+                        Anda login sebagai <strong>BUMDES</strong><br>
                         {{ \Carbon\Carbon::now()->isoFormat('dddd, D MMMM YYYY') }}
                     </p>
                 </div>

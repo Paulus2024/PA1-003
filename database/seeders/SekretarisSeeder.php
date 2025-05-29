@@ -10,21 +10,18 @@ class SekretarisSeeder extends Seeder
 {
     public function run(): void
     {
-        // Pastikan kita tidak membuat duplikat berdasarkan email
         $existing = User::where('email', 'sekretaris@gmail.com')->first();
 
         if (!$existing) {
-            // Buat user dengan semua kolom yang ada di $fillable
             User::create([
-                'name' => 'Sekretaris Utama',  // Nilai yang sesuai
-                'email' => 'sekretaris@gmail.com', // Nilai yang sesuai
-                'password' => Hash::make('admin123'), // Nilai yang sesuai (enkripsi!)
-                'usertype' => 'sekretaris', // Nilai yang sesuai
+                'name' => 'Sekretaris Utama',
+                'email' => 'sekretaris@gmail.com',
+                'password' => Hash::make('admin123'),
+                'usertype' => 'sekretaris',
             ]);
         } else {
-            // Opsi: Perbarui user yang sudah ada
             $existing->update([
-                'name' => 'Sekretaris Utama (Diperbarui)',
+                'name' => 'Sekretaris Utama',
                 'password' => Hash::make('passwordbaru'),
             ]);
         }
