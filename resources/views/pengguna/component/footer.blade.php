@@ -1,83 +1,91 @@
-<div class="container footer-top">
+<div class="container footer-top" style="font-family: 'Cambria', Georgia, serif;">
     <div class="row gy-4">
     <div class="col-lg-4 col-md-6 footer-about">
         <a href="index.html" class="logo d-flex align-items-center">
-        <span class="sitename">UpConstruction</span>
+        <span class="sitename" style="font-family: 'Cambria', Georgia, serif;">UpConstruction</span>
         </a>
-        <div class="footer-contact pt-3">
-        <p>A108 Adam Street</p>
-        <p>New York, NY 535022</p>
-        <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-        <p><strong>Email:</strong> <span>info@example.com</span></p>
+        <div class="footer-contact pt-3" style="font-family: 'Cambria', Georgia, serif;">
+        <p style="font-family: 'Cambria', Georgia, serif;">A108 Adam Street</p>
+        <p style="font-family: 'Cambria', Georgia, serif;">New York, NY 535022</p>
+        <p class="mt-3" style="font-family: 'Cambria', Georgia, serif;"><strong style="font-family: 'Cambria', Georgia, serif;">Phone:</strong> <span style="font-family: 'Cambria', Georgia, serif;">+1 5589 55488 55</span></p>
+        <p style="font-family: 'Cambria', Georgia, serif;"><strong style="font-family: 'Cambria', Georgia, serif;">Email:</strong> <span style="font-family: 'Cambria', Georgia, serif;">info@example.com</span></p>
         </div>
         <div class="social-links d-flex mt-4">
-        <a href=""><i class="bi bi-twitter-x"></i></a>
-        <a href=""><i class="bi bi-facebook"></i></a>
-        <a href=""><i class="bi bi-instagram"></i></a>
-        <a href=""><i class="bi bi-linkedin"></i></a>
+        <a href="" style="font-family: 'Cambria', Georgia, serif;"><i class="bi bi-twitter-x"></i></a>
+        <a href="" style="font-family: 'Cambria', Georgia, serif;"><i class="bi bi-facebook"></i></a>
+        <a href="" style="font-family: 'Cambria', Georgia, serif;"><i class="bi bi-instagram"></i></a>
+        <a href="" style="font-family: 'Cambria', Georgia, serif;"><i class="bi bi-linkedin"></i></a>
         </div>
     </div>
 
     <div class="col-lg-2 col-md-3 footer-links">
-        <h4>Useful Links</h4>
-        <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About us</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Terms of service</a></li>
-        <li><a href="#">Privacy policy</a></li>
+        <h4 style="font-family: 'Cambria', Georgia, serif;">Useful Links</h4>
+        <ul style="font-family: 'Cambria', Georgia, serif;">
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Home</a></li>
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">About us</a></li>
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Services</a></li>
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Terms of service</a></li>
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Privacy policy</a></li>
         </ul>
     </div>
 
     <div class="col-lg-2 col-md-3 footer-links">
-        <h4>Our Services</h4>
-        <ul>
-        <li><a href="#">Web Design</a></li>
-        <li><a href="#">Web Development</a></li>
-        <li><a href="#">Product Management</a></li>
-        <li><a href="#">Marketing</a></li>
-        <li><a href="#">Graphic Design</a></li>
+        <h4 style="font-family: 'Cambria', Georgia, serif;">Our Services</h4>
+        <ul style="font-family: 'Cambria', Georgia, serif;">
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Web Design</a></li>
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Web Development</a></li>
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Product Management</a></li>
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Marketing</a></li>
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Graphic Design</a></li>
         </ul>
     </div>
 
     <div class="col-lg-2 col-md-3 footer-links">
-        <h4>Hic solutasetp</h4>
-        <ul>
-        <li><a href="#">Molestiae accusamus iure</a></li>
-        <li><a href="#">Excepturi dignissimos</a></li>
-        <li><a href="#">Suscipit distinctio</a></li>
-        <li><a href="#">Dilecta</a></li>
-        <li><a href="#">Sit quas consectetur</a></li>
+        <h4 style="font-family: 'Cambria', Georgia, serif;">Hic solutasetp</h4>
+        <ul style="font-family: 'Cambria', Georgia, serif;">
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Molestiae accusamus iure</a></li>
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Excepturi dignissimos</a></li>
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Suscipit distinctio</a></li>
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Dilecta</a></li>
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Sit quas consectetur</a></li>
         </ul>
       </div>
 
     <div class="col-lg-2 col-md-3 footer-links">
-        <h4>Nobis illum</h4>
-        <ul>
-        <li><a href="#">Ipsam</a></li>
-        <li><a href="#">Laudantium dolorum</a></li>
-        <li><a href="#">Dinera</a></li>
-        <li><a href="#">Trodelas</a></li>
-        <li><a href="#">Flexo</a></li>
+        <h4 style="font-family: 'Cambria', Georgia, serif;">Nobis illum</h4>
+        <ul style="font-family: 'Cambria', Georgia, serif;">
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Ipsam</a></li>
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Laudantium dolorum</a></li>
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Dinera</a></li>
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Trodelas</a></li>
+        <li style="font-family: 'Cambria', Georgia, serif;"><a href="#" style="font-family: 'Cambria', Georgia, serif;">Flexo</a></li>
         </ul>
     </div>
 
     </div>
 </div>
 
-<div class="container copyright text-center mt-4">
-    <p>© <span>Copyright</span> <strong class="px-1 sitename">UpConstruction</strong> <span>All Rights Reserved</span></p>
-    <div class="credits">
-    <!-- All the links in the footer should remain intact. -->
-    <!-- You can delete the links only if you've purchased the pro version. -->
-    <!-- Licensing information: https://bootstrapmade.com/license/ -->
-    <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+<div class="container copyright text-center mt-4" style="font-family: 'Cambria', Georgia, serif;">
+    <p style="font-family: 'Cambria', Georgia, serif;">© <span style="font-family: 'Cambria', Georgia, serif;">Copyright</span> <strong class="px-1 sitename" style="font-family: 'Cambria', Georgia, serif;">UpConstruction</strong> <span style="font-family: 'Cambria', Georgia, serif;">All Rights Reserved</span></p>
+    <div class="credits" style="font-family: 'Cambria', Georgia, serif;">
+    Designed by <a href="https://bootstrapmade.com/" style="font-family: 'Cambria', Georgia, serif;">BootstrapMade</a>
     </div>
 </div>
 
 <!-- Scroll Top -->
-<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center" style="font-family: 'Cambria', Georgia, serif;"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- Preloader -->
 <div id="preloader"></div>
+
+<style>
+    /* Ensure all text elements use Cambria */
+    body, div, p, span, a, li, ul, h1, h2, h3, h4, h5, h6, strong {
+        font-family: 'Cambria', Georgia, serif !important;
+    }
+
+    /* Exclude icon fonts */
+    [class^="bi-"], [class*=" bi-"] {
+        font-family: bootstrap-icons !important;
+    }
+</style>
