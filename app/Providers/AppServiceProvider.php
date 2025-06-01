@@ -5,13 +5,11 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Log; // ✅ Tambahkan ini
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-
 use App\Models\Message;
 use Illuminate\Support\Facades\View;
 use App\Models\Notification;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
 
@@ -27,7 +25,6 @@ class AppServiceProvider extends ServiceProvider
 
         Schema::defaultStringLength(191);
 
-        // Debug tebakan plural Laravel
         Log::info('Plural dari peminjaman: ' . Str::plural('peminjaman'));
 
         View::composer('*', function ($view) {
@@ -46,6 +43,5 @@ class AppServiceProvider extends ServiceProvider
         Notification::creating(function ($notification) {
             dd($notification);
         });
-
     }
 }
