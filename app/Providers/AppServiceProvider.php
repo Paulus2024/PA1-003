@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Notification::creating(function ($notification) {
-            dd($notification);
+            //dd($notification);
         });
     }
 }

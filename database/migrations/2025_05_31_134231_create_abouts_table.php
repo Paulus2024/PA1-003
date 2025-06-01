@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('abouts', function (Blueprint $table) {
             $table->id();
-            $table->string('gambar1')->nullable(); // Atau tambahkan validasi required() jika diperlukan
             $table->text('sejarah')->nullable();
-            $table->string('gambar2')->nullable();
             $table->text('visi_misi')->nullable();
             $table->integer('jumlah_penduduk')->nullable();
             $table->string('luas_wilayah')->nullable();
             $table->integer('jumlah_perangkat_desa')->nullable();
+            $table->string('gambar_1')->nullable();
+            $table->string('gambar_2')->nullable();
             $table->timestamps();
         });
     }

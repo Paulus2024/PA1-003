@@ -12,10 +12,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->boolean('is_approved')->default(false);
+            if (!Schema::hasColumn('messages', 'is_approved')) {
+                $table->boolean('is_approved')->default(false);
+            }
         });
     }
-
 
     /**
      * Reverse the migrations.
@@ -23,7 +24,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('messages', function (Blueprint $table) {
-            //
+            if (Schema::hasColumn('messages', 'is_approved')) {
+                $table->dropColumn('is_approved');
+            }
         });
     }
 };

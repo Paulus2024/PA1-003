@@ -23,7 +23,7 @@ class BumdesSeeder extends Seeder
             ]);
         } else {
             $existing->update([
-                'name' => 'Bumdes (Diperbarui)',
+                'name' => 'Bumdes',
                 'password' => Hash::make('passwordbaru'),
             ]);
         }

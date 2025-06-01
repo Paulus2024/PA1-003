@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->softDeletes();
+            $table->softDeletes(); // akan menambahkan kolom deleted_at (nullable timestamp)
         });
     }
 

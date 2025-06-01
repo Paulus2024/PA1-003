@@ -10,9 +10,9 @@ class About extends Model
     use HasFactory;
 
     protected $fillable = [
-        'gambar1',
+        'gambar_1',  // Ubah di sini
         'sejarah',
-        'gambar2',
+        'gambar_2',  // Ubah di sini
         'visi_misi',
         'jumlah_penduduk',
         'luas_wilayah',

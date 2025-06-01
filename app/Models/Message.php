@@ -14,5 +14,6 @@ class Message extends Model
         'name',
         'email',
         'message',
+        'is_approved',
     ];
 }

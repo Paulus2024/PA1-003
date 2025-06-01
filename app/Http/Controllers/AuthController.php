@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Password;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -68,30 +69,60 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
+        Log::info('Pendaftaran dimulai untuk email: ' . $request->email);
 
-                $response = Http::get('https://apilayer.net/api/check', [
+        $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => [
+                    'required',
+                    'string',
+                    'min:8',
+                    'confirmed',
+                    'regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/',
+                ],
+            ],
+            [
+                'password.regex' => 'The password must contain letters and numbers.',
+                'password.confirmed' => 'The password confirmation does not match.'
+            ]
+        );
+
+        Log::info('Validasi berhasil untuk email: ' . $request->email);
+
+        $response = Http::get('https://apilayer.net/api/check', [
             'access_key' => 'ff73f78f10fd2c0bc68d3752ce98f6c7',
             'email' => $request->email,
         ]);
 
+        Log::info('Respons API untuk email: ' . $request->email . ', Respons: ' . json_encode($response->json()));
+
         if (!$response['format_valid'] || !$response['smtp_check']) {
-            return redirect()->back()->with('error', value: 'Email tidak valid atau tidak aktif.');
+            Log::error('Invalid or inactive email.: ' . $request->email);
+            return redirect()->back()->withErrors(['email' => 'Invalid or inactive email.'])->withInput();
+
         }
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
-    }
+        Log::info('Pengguna berhasil dibuat: ' . $request->email);
 
+        Auth::login($user);
+
+        Log::info('Pengguna berhasil login: ' . $request->email);
+
+        try {
+            return redirect()->route('index.masyarakat')->with('success', 'Registrasi berhasil! Silakan login.');
+        } catch (\Exception $e) {
+            Log::error('Gagal melakukan redirect ke index.masyarakat: ' . $e->getMessage());
+            throw $e;
+        }
+    }
     public function login(Request $request)
     {
         $request->validate([
@@ -117,7 +148,6 @@ class AuthController extends Controller
             return redirect('/index_masyarakat');
         }
     }
-
 
     public function logout()
     {

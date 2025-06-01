@@ -92,6 +92,8 @@ Route::middleware(['auth', 'web'])->group(function () {
         return view('dashboard/masyarakat/page/Home/index_home');
     })->name('index.masyarakat');
 
+
+
     Route::get('/dashboard', function () {
         return view('dashboard/masyarakat/page/Home/index_home');
     })->name('dashboard');
@@ -184,6 +186,10 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::get('/about_bumdes', function () {
         return view('dashboard/bumdes/page/About/index_about');
     });
+
+    Route::get('/index_masyarakat', function () {
+        return view('dashboard/masyarakat/page/Home/index_home');
+    })->name('index.masyarakat');
 
     Route::get('/fasilitas_bumdes', function () {
         return view('dashboard/bumdes/page/Fasilitas/index_fasilitas');
