@@ -5,7 +5,7 @@
     @include('pengguna.component.navbar')
 </header>
 
-<div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
+<div class="page-title dark-background" style="background-image: url(assets/img/hero-carousel/2.jpg);">
     <div class="container position-relative">
       <h1>About</h1>
       <nav class="breadcrumbs">
@@ -24,7 +24,7 @@
 
       <div class="row position-relative">
 
-        <div class="col-lg-7 about-img" data-aos="zoom-out" data-aos-delay="200"><img src="assets/img/about.jpg"></div>
+        <div class="col-lg-7 about-img" data-aos="zoom-out" data-aos-delay="200"><img src="assets/img/hero-carousel/WhatsApp Image 2025-05-14 at 20.01.16_25e637f8.jpg"></div>
 
         <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
           <h2 class="inner-title">Desa Taonmarisi</h2>
