@@ -20,16 +20,31 @@ class AboutController extends Controller
         return view('dashboard.sekretaris.page.about.index_about', compact('abouts'));
     }
 
+    public function ShowPublic()
+    {
+        $about = About::first(); // Ambil data About yang pertama
+
+        return view('pengguna.page.about.index_about', compact('about'));
+    }
+
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'gambar_1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        $validatedData = $request->validate([
+            'gambar_1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'sejarah' => 'required',
-            'gambar_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'gambar_2' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'visi_misi' => 'required',
-            'jumlah_penduduk' => 'nullable|integer',
-            'luas_wilayah' => 'nullable|string',
-            'jumlah_perangkat_desa' => 'nullable|integer',
+            'jumlah_penduduk' => 'required|integer',
+            'luas_wilayah' => 'required|string',
+            'jumlah_perangkat_desa' => 'required|integer',
+        ], [
+            'sejarah.required' => 'Sejarah wajib diisi.',
+            'visi_misi.required' => 'Visi & Misi wajib diisi.',
+            'gambar_1.required' => 'Gambar 1 wajib diisi.',
+            'gambar_2.required' => 'Gambar 2 wajib diisi.',
+            'jumlah_penduduk.required' => 'Jumlah Penduduk wajib diisi.',
+            'luas_wilayah.required' => 'Luas Wilayah wajib diisi.',
+            'jumlah_perangkat_desa.required' => 'Jumlah Perangkat Desa wajib diisi.',
         ]);
 
         $data = $request->except(['_token', 'gambar_1', 'gambar_2']);
@@ -46,14 +61,36 @@ class AboutController extends Controller
     {
         $about = About::findOrFail($id);
 
-        $validated = $request->validate([
-            'gambar_1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        $rules = [
             'sejarah' => 'required',
-            'gambar_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'visi_misi' => 'required',
-            'jumlah_penduduk' => 'nullable|integer',
-            'luas_wilayah' => 'nullable|string',
-            'jumlah_perangkat_desa' => 'nullable|integer',
+            'jumlah_penduduk' => 'required|integer',
+            'luas_wilayah' => 'required|string',
+            'jumlah_perangkat_desa' => 'required|integer',
+        ];
+
+        // Validasi gambar_1 hanya jika ada file yang diupload
+        if ($request->hasFile('gambar_1')) {
+            $rules['gambar_1'] = 'image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+        }
+
+        // Validasi gambar_2 hanya jika ada file yang diupload
+        if ($request->hasFile('gambar_2')) {
+            $rules['gambar_2'] = 'image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+        }
+
+        $validatedData = $request->validate($rules, [
+            'sejarah.required' => 'Sejarah wajib diisi.',
+            'visi_misi.required' => 'Visi & Misi wajib diisi.',
+            'jumlah_penduduk.required' => 'Jumlah Penduduk wajib diisi.',
+            'luas_wilayah.required' => 'Luas Wilayah wajib diisi.',
+            'jumlah_perangkat_desa.required' => 'Jumlah Perangkat Desa wajib diisi.',
+            'gambar_1.image' => 'Gambar 1 harus berupa file gambar.',
+            'gambar_1.mimes' => 'Gambar 1 harus berformat: jpeg, png, jpg, gif, svg.',
+            'gambar_1.max' => 'Ukuran Gambar 1 tidak boleh lebih dari 2048 KB.',
+            'gambar_2.image' => 'Gambar 2 harus berupa file gambar.',
+            'gambar_2.mimes' => 'Gambar 2 harus berformat: jpeg, png, jpg, gif, svg.',
+            'gambar_2.max' => 'Ukuran Gambar 2 tidak boleh lebih dari 2048 KB.',
         ]);
 
         $data = $request->except(['_token', '_method', 'gambar_1', 'gambar_2']);
@@ -62,16 +99,11 @@ class AboutController extends Controller
         if ($request->hasFile('gambar_1')) {
             // Upload gambar baru dan hapus yang lama
             $data['gambar_1'] = $this->uploadImage($request, 'gambar_1', 'abouts', $about->gambar_1);
-        } else {
-            // Jika tidak ada gambar baru, gunakan gambar yang sudah ada
-            $data['gambar_1'] = $about->gambar_1;
         }
 
-        // Handle gambar_2 (mirip dengan gambar_1)
+        // Handle gambar_2
         if ($request->hasFile('gambar_2')) {
             $data['gambar_2'] = $this->uploadImage($request, 'gambar_2', 'abouts', $about->gambar_2);
-        } else {
-            $data['gambar_2'] = $about->gambar_2;
         }
 
         $about->update($data);

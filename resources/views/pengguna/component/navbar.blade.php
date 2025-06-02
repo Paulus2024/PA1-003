@@ -7,8 +7,8 @@
 
     <nav id="navmenu" class="navmenu">
     <ul>
-        <li><a href="/"class="{{ request()->is('/') ? 'active' : '' }}">Home</a></li>
-        <li><a href="/about" class="{{ request()->is('about') ? 'active' : '' }}">About</a></li>
+        <li><a href="/" class="{{ request()->is('/') ? 'active' : '' }}">Home</a></li>
+        <li><a href="{{ route('about.showPublic') }}" class="{{ request()->is('about') ? 'active' : '' }}">About</a></li>
         {{--<!-- <li><a href="{{ route('pengunjung.fasilitas.index') }}">Fasilitas1 Desa</a></li> -->--}}
         <li><a href="/fasilitas" class="{{ request()->is('fasilitas') ? 'active' : '' }}">Fasilitas Desa</a></li>
         <li><a href="/informasi" class="{{ request()->is('informasi') ? 'active' : '' }}">Informasi</a></li>

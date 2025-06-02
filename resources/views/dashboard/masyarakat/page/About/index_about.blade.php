@@ -30,7 +30,6 @@
                 <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
                     <h2 class="inner-title">Desa Taonmarisi</h2>
                     <div class="our-story">
-                        <h4>Tahun Berdiri</h4>
                         <h3>History</h3>
                         <p>{!! $about->sejarah !!}</p>
                     </div>
