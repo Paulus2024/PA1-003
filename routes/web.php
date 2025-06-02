@@ -44,8 +44,7 @@ Route::middleware(['web'])->group(function () {
         return view('pengguna/page/Informasi/index_informasi');
     });
 
-    // HAPUS ATAU KOMENTARI ROUTE INI
-    // Route::get('/pengurus', [DataPengurusDesaController::class, 'index_pengguna'])->name('pengurus.index');
+Route::get('/pengurus', [DataPengurusDesaController::class, 'index_pengguna'])->name('pengurus.index');
 
     Route::get('/galeri', [GalleryController::class, 'index_pengguna'])->name('galeri');
 
@@ -245,7 +244,7 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::get('/index_masyarakat', function () {
         return view('dashboard/masyarakat/page/Home/index_home');
     })->name('index.masyarakat');
-    Route::get('/about_masyarakat', [AboutController::class, 'indexMasyarakat'])->name('about.masyarakat');
+    Route::get('/about-masyarakat', [AboutController::class, 'index'])->name('about.masyarakat');
     Route::get('/fasilitas_masyarakat', [FasilitasDesaController::class, 'index_masyarakat'])->name('fasilitas.masyarakat');
     Route::get('/informasi_masyarakat', [InformasiDesaController::class, 'index_berita_masyarakat'])->name('informasi.masyarakat');
     Route::get('/informasi_pengumuman_masyarakat', [InformasiDesaController::class, 'index_pengumuman_masyarakat'])->name('pengumuman.masyarakat');
@@ -306,3 +305,6 @@ Route::middleware(['auth', 'bumdes'])->group(function () {
     Route::get('/admin/pengembalian/verifikasi-list', [PeminjamanController::class, 'adminDaftarPengembalian'])->name('admin.pengembalian.verifikasi.list');
     Route::post('/admin/pengembalian/verifikasi-proses/{id}', [PeminjamanController::class, 'verifikasiPengembalian'])->name('admin.pengembalian.verifikasi.proses');
 });
+
+Route::get('/about', [AboutController::class, 'index'])->name('about.masyarakat');
+

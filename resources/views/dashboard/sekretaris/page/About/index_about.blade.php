@@ -15,7 +15,7 @@
             font-weight: 600;
         }
         .img-thumbnail {
-            max-width: 80px; /* Ukuran thumbnail diperkecil */
+            max-width: 80px;
             height: auto;
             border-radius: 4px;
         }
@@ -23,9 +23,28 @@
             padding: 0.25rem 0.5rem;
             font-size: 0.875rem;
         }
-        .table-responsive { /* Tambahkan class ini jika belum ada */
+        .table-responsive {
             overflow-x: auto;
         }
+
+        /* CSS untuk Validasi */
+        input:invalid,
+        textarea:invalid {
+            border-color: red;
+            box-shadow: 0 0 5px red;
+        }
+
+        input:valid,
+        textarea:valid {
+            border-color: green;
+        }
+
+        input:invalid:focus,
+        textarea:invalid:focus {
+            border-color: red; /* Warna merah saat focus */
+            box-shadow: 0 0 5px red; /* Munculkan shadow saat focus */
+        }
+
     </style>
 
     <header id="header" class="header d-flex align-items-center fixed-top">
@@ -96,15 +115,13 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center gap-2 action-buttons">
-                                                 <button type="button" class="btn btn-outline-primary btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#editModal{{ $about->id }}">
+                                                <button type="button" class="btn btn-outline-primary btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#editModal{{ $about->id }}">
                                                     <i class="bi bi-pencil-square me-1"></i> Edit
                                                 </button>
-                                                <form action="{{ route('abouts.destroy', $about->id) }}"
-                                                      method="POST"
-                                                      onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                <form action="{{ route('abouts.destroy', $about->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                                     @csrf
                                                     @method('DELETE')
-                                                     <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill">
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill">
                                                         <i class="bi bi-trash me-1"></i> Hapus
                                                     </button>
                                                 </form>
@@ -113,68 +130,92 @@
                                     </tr>
 
                                     <!-- Edit Modal -->
-                                    <div class="modal fade" id="editModal{{ $about->id }}" tabindex="-1"
-                                         aria-labelledby="editModalLabel{{ $about->id }}" aria-hidden="true">
+                                    <div class="modal fade" id="editModal{{ $about->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $about->id }}" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header bg-primary text-white">
                                                     <h5 class="modal-title">Edit Data Tentang Desa</h5>
-                                                    <button type="button" class="btn-close btn-close-white"
-                                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form action="{{ route('abouts.update', $about->id) }}" method="POST"
-                                                      enctype="multipart/form-data">
+                                                <form id="editAboutForm{{ $about->id }}" action="{{ route('abouts.update', $about->id) }}" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
+
+                                                    {{-- Tampilan Error --}}
+                                                    @if ($errors->any())
+                                                        <div class="alert alert-danger">
+                                                            <ul>
+                                                                @foreach ($errors->all() as $error)
+                                                                    <li>{{ $error }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    @endif
+
                                                     <div class="modal-body">
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="mb-3">
                                                                     <label for="sejarah" class="form-label">Sejarah</label>
-                                                                    <textarea class="form-control rounded-pill" id="sejarah" name="sejarah" rows="4">{!! $about->sejarah !!}</textarea>
+                                                                    <textarea class="form-control rounded-pill @error('sejarah') is-invalid @enderror" id="sejarah" name="sejarah" rows="4" required pattern=".*\S+.*">{!! old('sejarah', $about->sejarah ?? '') !!}</textarea>
+                                                                    @error('sejarah')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
                                                                 </div>
 
                                                                 <div class="mb-3">
                                                                     <label for="luas_wilayah" class="form-label">Luas Wilayah</label>
-                                                                    <input type="text" class="form-control rounded-pill" id="luas_wilayah" name="luas_wilayah" value="{{ $about->luas_wilayah }}">
+                                                                    <input type="text" class="form-control rounded-pill @error('luas_wilayah') is-invalid @enderror" id="luas_wilayah" name="luas_wilayah" value="{{ old('luas_wilayah', $about->luas_wilayah ?? '') }}" required>
+                                                                    @error('luas_wilayah')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
                                                                 </div>
 
                                                                 <div class="mb-3">
                                                                     <label for="jumlah_penduduk" class="form-label">Jumlah Penduduk</label>
-                                                                    <input type="number" class="form-control rounded-pill" id="jumlah_penduduk" name="jumlah_penduduk" value="{{ $about->jumlah_penduduk }}">
+                                                                    <input type="number" class="form-control rounded-pill @error('jumlah_penduduk') is-invalid @enderror" id="jumlah_penduduk" name="jumlah_penduduk" value="{{ old('jumlah_penduduk', $about->jumlah_penduduk ?? '') }}" required>
+                                                                    @error('jumlah_penduduk')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
                                                                 </div>
 
                                                                 <div class="mb-3">
                                                                     <label for="jumlah_perangkat_desa" class="form-label">Jumlah Perangkat Desa</label>
-                                                                    <input type="number" class="form-control rounded-pill" id="jumlah_perangkat_desa" name="jumlah_perangkat_desa" value="{{ $about->jumlah_perangkat_desa }}">
+                                                                    <input type="number" class="form-control rounded-pill @error('jumlah_perangkat_desa') is-invalid @enderror" id="jumlah_perangkat_desa" name="jumlah_perangkat_desa" value="{{ old('jumlah_perangkat_desa', $about->jumlah_perangkat_desa ?? '') }}" required>
+                                                                    @error('jumlah_perangkat_desa')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="mb-3">
                                                                     <label for="visi_misi" class="form-label">Visi Misi</label>
-                                                                    <textarea class="form-control rounded-pill" id="visi_misi" name="visi_misi" rows="4">{!! $about->visi_misi !!}</textarea>
+                                                                    <textarea class="form-control rounded-pill @error('visi_misi') is-invalid @enderror" id="visi_misi" name="visi_misi" rows="4" required pattern=".*\S+.*">{!! old('visi_misi', $about->visi_misi ?? '') !!}</textarea>
+                                                                    @error('visi_misi')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
                                                                 </div>
 
                                                                 <div class="mb-3">
                                                                     <label for="gambar_1" class="form-label">Gambar 1</label>
-                                                                    <input type="file" class="form-control" id="gambar_1" name="gambar_1" accept="image/*">
+                                                                    <input type="file" class="form-control @error('gambar_1') is-invalid @enderror" id="gambar_1" name="gambar_1" accept="image/*">
                                                                     @if($about->gambar_1)
-                                                                        <img src="{{ asset('storage/' . $about->gambar_1) }}"
-                                                                             alt="Gambar 1"
-                                                                             class="img-thumbnail mt-2"
-                                                                             width="100">
+                                                                        <img src="{{ asset('storage/' . $about->gambar_1) }}" alt="Gambar 1" class="img-thumbnail mt-2" width="100">
                                                                     @endif
+                                                                    @error('gambar_1')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
                                                                 </div>
 
                                                                 <div class="mb-3">
                                                                     <label for="gambar_2" class="form-label">Gambar 2</label>
-                                                                    <input type="file" class="form-control" id="gambar_2" name="gambar_2" accept="image/*">
+                                                                    <input type="file" class="form-control @error('gambar_2') is-invalid @enderror" id="gambar_2" name="gambar_2" accept="image/*">
                                                                     @if($about->gambar_2)
-                                                                        <img src="{{ asset('storage/' . $about->gambar_2) }}"
-                                                                             alt="Gambar 2"
-                                                                             class="img-thumbnail mt-2"
-                                                                             width="100">
+                                                                        <img src="{{ asset('storage/' . $about->gambar_2) }}" alt="Gambar 2" class="img-thumbnail mt-2" width="100">
                                                                     @endif
+                                                                    @error('gambar_2')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -207,45 +248,78 @@
                         <h5 class="modal-title" id="tambahAboutLabel">Tambah Data Tentang Desa</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="{{ route('abouts.store') }}" method="POST" enctype="multipart/form-data">
+                    <form id="tambahAboutForm" action="{{ route('abouts.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+
+                        {{-- Tampilan Error --}}
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="sejarah" class="form-label">Sejarah</label>
-                                        <textarea class="form-control rounded-pill" id="sejarah" name="sejarah" rows="4"></textarea>
+                                        <textarea class="form-control rounded-pill @error('sejarah') is-invalid @enderror" id="sejarah" name="sejarah" rows="4" required pattern=".*\S+.*">{{ old('sejarah') }}</textarea>
+                                        @error('sejarah')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="luas_wilayah" class="form-label">Luas Wilayah</label>
-                                        <input type="text" class="form-control rounded-pill" id="luas_wilayah" name="luas_wilayah">
+                                        <input type="text" class="form-control rounded-pill @error('luas_wilayah') is-invalid @enderror" id="luas_wilayah" name="luas_wilayah" value="{{ old('luas_wilayah') }}" required>
+                                        @error('luas_wilayah')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="jumlah_penduduk" class="form-label">Jumlah Penduduk</label>
-                                        <input type="number" class="form-control rounded-pill" id="jumlah_penduduk" name="jumlah_penduduk">
+                                        <input type="number" class="form-control rounded-pill @error('jumlah_penduduk') is-invalid @enderror" id="jumlah_penduduk" name="jumlah_penduduk" value="{{ old('jumlah_penduduk') }}" required>
+                                        @error('jumlah_penduduk')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="jumlah_perangkat_desa" class="form-label">Jumlah Perangkat Desa</label>
-                                        <input type="number" class="form-control rounded-pill" id="jumlah_perangkat_desa" name="jumlah_perangkat_desa">
+                                        <input type="number" class="form-control rounded-pill @error('jumlah_perangkat_desa') is-invalid @enderror" id="jumlah_perangkat_desa" name="jumlah_perangkat_desa" value="{{ old('jumlah_perangkat_desa') }}" required>
+                                        @error('jumlah_perangkat_desa')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="visi_misi" class="form-label">Visi Misi</label>
-                                        <textarea class="form-control rounded-pill" id="visi_misi" name="visi_misi" rows="4"></textarea>
+                                        <textarea class="form-control rounded-pill @error('visi_misi') is-invalid @enderror" id="visi_misi" name="visi_misi" rows="4" required pattern=".*\S+.*">{{ old('visi_misi') }}</textarea>
+                                        @error('visi_misi')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="gambar_1" class="form-label">Gambar 1</label>
-                                        <input type="file" class="form-control" id="gambar_1" name="gambar_1" accept="image/*">
+                                        <input type="file" class="form-control @error('gambar_1') is-invalid @enderror" id="gambar_1" name="gambar_1" accept="image/*" required>
+                                        @error('gambar_1')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="gambar_2" class="form-label">Gambar 2</label>
-                                        <input type="file" class="form-control" id="gambar_2" name="gambar_2" accept="image/*">
+                                        <input type="file" class="form-control @error('gambar_2') is-invalid @enderror" id="gambar_2" name="gambar_2" accept="image/*" required>
+                                        @error('gambar_2')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
