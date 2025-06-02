@@ -25,7 +25,6 @@ class AppServiceProvider extends ServiceProvider
 
         Schema::defaultStringLength(191);
 
-        // Debug tebakan plural Laravel
         Log::info('Plural dari peminjaman: ' . Str::plural('peminjaman'));
 
         View::composer('*', function ($view) {
@@ -42,8 +41,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Notification::creating(function ($notification) {
-            dd($notification);
+            //dd($notification);
         });
-
     }
 }

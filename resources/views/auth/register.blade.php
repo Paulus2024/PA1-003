@@ -59,12 +59,29 @@
                 <label for="password" class="form-label">Password</label>
                 <div class="input-wrapper">
                     <input type="password" id="password" name="password" class="form-control"
-                           placeholder="Make Your Password" required>
+                           placeholder="Enter Your Password" required>
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                     </svg>
                 </div>
+            </div>
+
+                        <div class="form-group">
+                <label for="password_confirmation" class="form-label">Confirm Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password_confirmation" name="password_confirmation" class="form-control"
+                           placeholder="Re-enter Your Password" required>
+                    <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </div>
+                @error('password_confirmation')
+                    <div class="text-danger mt-1">{{ $message }}</div>
+                @enderror
             </div>
 
             <button type="submit" class="login-button">

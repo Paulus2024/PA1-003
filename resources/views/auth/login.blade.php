@@ -15,6 +15,14 @@
             <p class="login-subtitle">Sign in to continue to your account</p>
         </div>
 
+    @if (session('error'))
+        <div class="alert-error">
+            <ul style="margin: 0; padding-left: 16px;">
+                <li>{{ session('error') }}</li>
+            </ul>
+        </div>
+    @endif
+
         <form method="POST" action="{{ route('login') }}" class="login-form">
             @csrf
 
@@ -103,6 +111,16 @@
     color: #64748b;
     font-size: 14px;
     margin: 0;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    color: #842029;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin: 0 32px 20px;
+    font-size: 14px;
 }
 
 .login-form {

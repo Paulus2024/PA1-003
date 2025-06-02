@@ -58,7 +58,7 @@
 @section('masyarakat_content')
 
     <!--Open Page Title-->
-    <div class="page-title dark-background" style="background-image: url({{ asset('assets/img/page-title-bg.jpg') }});">
+    <div class="page-title dark-background" style="background-image: url({{ asset('assets/img/hero-carousel/2.jpg') }});">
         <div class="container position-relative">
             <h1>Fasilitas</h1>
             <nav class="breadcrumbs">

@@ -1,50 +1,50 @@
 @extends('pengguna.main')
 
 @section('content')
-<header id="header" class="header d-flex align-items-center fixed-top">
+<header id="header" class="header d-flex align-items-center fixed-top" style="font-family: 'Cambria', Georgia, serif;">
     @include('pengguna.component.navbar')
 </header>
 
-<main class="main">
-    <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
-      <div class="container position-relative">
-        <h1>Contact</h1>
-        <nav class="breadcrumbs">
-          <ol>
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Contact</li>
+<main class="main" style="font-family: 'Cambria', Georgia, serif;">
+    <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg); font-family: 'Cambria', Georgia, serif;">
+      <div class="container position-relative" style="font-family: 'Cambria', Georgia, serif;">
+        <h1 style="font-family: 'Cambria', Georgia, serif;">Contact</h1>
+        <nav class="breadcrumbs" style="font-family: 'Cambria', Georgia, serif;">
+          <ol style="font-family: 'Cambria', Georgia, serif;">
+            <li style="font-family: 'Cambria', Georgia, serif;"><a href="index.html" style="font-family: 'Cambria', Georgia, serif;">Home</a></li>
+            <li class="current" style="font-family: 'Cambria', Georgia, serif;">Contact</li>
           </ol>
         </nav>
       </div>
     </div>
 
-    <section id="contact" class="contact section">
+    <section id="contact" class="contact section" style="font-family: 'Cambria', Georgia, serif;">
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="container" data-aos="fade-up" data-aos-delay="100" style="font-family: 'Cambria', Georgia, serif;">
 
         <div class="row gy-4">
 
           <div class="col-lg-6">
-            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200" style="font-family: 'Cambria', Georgia, serif;">
               <i class="bi bi-geo-alt"></i>
-              <h3>Address</h3>
-              <p>A108 Adam Street, New York, NY 535022</p>
+              <h3 style="font-family: 'Cambria', Georgia, serif;">Address</h3>
+              <p style="font-family: 'Cambria', Georgia, serif;">A108 Adam Street, New York, NY 535022</p>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-6">
-            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
+            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300" style="font-family: 'Cambria', Georgia, serif;">
               <i class="bi bi-telephone"></i>
-              <h3>Call Us</h3>
-              <p>+1 5589 55488 55</p>
+              <h3 style="font-family: 'Cambria', Georgia, serif;">Call Us</h3>
+              <p style="font-family: 'Cambria', Georgia, serif;">+1 5589 55488 55</p>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-6">
-            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
+            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400" style="font-family: 'Cambria', Georgia, serif;">
               <i class="bi bi-envelope"></i>
-              <h3>Email Us</h3>
-              <p>info@example.com</p>
+              <h3 style="font-family: 'Cambria', Georgia, serif;">Email Us</h3>
+              <p style="font-family: 'Cambria', Georgia, serif;">info@example.com</p>
             </div>
           </div>
 
@@ -68,15 +68,15 @@
               <div class="row gy-4">
 
                 <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" required style="font-family: 'Cambria', Georgia, serif;">
                 </div>
 
                 <div class="col-md-6">
-                  <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                  <input type="email" name="email" class="form-control" placeholder="Your Email" required style="font-family: 'Cambria', Georgia, serif;">
                 </div>
 
                 <div class="col-md-12">
-                  <textarea name="message" class="form-control" rows="6" placeholder="Message" required></textarea>
+                  <textarea name="message" class="form-control" rows="6" placeholder="Message" required style="font-family: 'Cambria', Georgia, serif;"></textarea>
                 </div>
 
                 <div class="col-md-12 text-center">
@@ -91,6 +91,7 @@
                       font-size: 16px;
                       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
                       transition: all 0.3s ease;
+                      font-family: 'Cambria', Georgia, serif;
                     "
                     onmouseover="this.style.backgroundColor='#e0ac06'"
                     onmouseout="this.style.backgroundColor='#ffc107'">
@@ -118,6 +119,7 @@
         font-size: 14px;
         line-height: 1.4;
         transition: opacity 0.5s ease;
+        font-family: 'Cambria', Georgia, serif;
     ">
     </div>
 
@@ -127,7 +129,7 @@
 
 </main>
 
-<footer id="footer" class="footer dark-background">
+<footer id="footer" class="footer dark-background" style="font-family: 'Cambria', Georgia, serif;">
   @include('pengguna.component.footer')
 </footer>
 
@@ -162,5 +164,19 @@
     showMessage();
     setInterval(showMessage, 3000);
   </script>
+
+<style>
+    /* Apply Cambria to all text elements */
+    body, h1, h2, h3, h4, h5, h6,
+    p, span, a, li, input, textarea,
+    button, label, div {
+        font-family: 'Cambria', Georgia, serif !important;
+    }
+
+    /* Exclude icon fonts */
+    i[class^="bi-"] {
+        font-family: bootstrap-icons !important;
+    }
+</style>
 
 @endsection
