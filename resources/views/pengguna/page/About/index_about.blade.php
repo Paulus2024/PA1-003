@@ -2,7 +2,6 @@
 
 @section('masyarakat_content')
 
-<<<<<<< HEAD
     <div class="page-title dark-background" style="background-image: url({{ asset('assets/img/page-title-bg.jpg') }});">
         <div class="container position-relative">
             <h1>About</h1>
@@ -12,7 +11,6 @@
                     <li class="current">About</li>
                 </ol>
             </nav>
-=======
 <div class="page-title dark-background" style="background-image: url(assets/img/hero-carousel/2.jpg);">
     <div class="container position-relative">
       <h1>About</h1>
@@ -49,7 +47,6 @@
 
 
           </div>
->>>>>>> 784f95a04ed2dac4bc933f55295e8729b3cae248
         </div>
     </div><!-- End Page Title -->
 

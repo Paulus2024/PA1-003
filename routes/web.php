@@ -242,7 +242,7 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::get('/index_masyarakat', function () {
         return view('dashboard/masyarakat/page/Home/index_home');
     })->name('index.masyarakat');
-    Route::get('/about', [AboutController::class, 'ShowPublic'])->name('about.showPublic');
+    Route::get('/about-masyarakat', [AboutController::class, 'index'])->name('about.masyarakat');
     Route::get('/fasilitas_masyarakat', [FasilitasDesaController::class, 'index_masyarakat'])->name('fasilitas.masyarakat');
     Route::get('/informasi_masyarakat', [InformasiDesaController::class, 'index_berita_masyarakat'])->name('informasi.masyarakat');
     Route::get('/informasi_pengumuman_masyarakat', [InformasiDesaController::class, 'index_pengumuman_masyarakat'])->name('pengumuman.masyarakat');
@@ -285,3 +285,5 @@ Route::get('/contact_sekretaris', [MessageController::class, 'index_sekretaris']
 
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+Route::get('/about', [AboutController::class, 'index'])->name('about.masyarakat');
