@@ -14,9 +14,17 @@ class Gallery extends Model
 
 
     protected $fillable = [
+        'user_id',
         'judul_galeri',
         'gambar_galeri'
     ];
+
+    public function user()
+    {
+        // 'user_id' adalah foreign key di tabel 'galleries'
+        // 'id' adalah primary key di tabel 'users' (sesuaikan jika berbeda)
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
     protected $nullable = [
         'create_at',

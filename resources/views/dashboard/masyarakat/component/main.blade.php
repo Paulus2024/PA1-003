@@ -102,7 +102,6 @@
     <!-- Tambahkan kode ini untuk me-load Sweetalert2 JS -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             @if (Session::has('success'))

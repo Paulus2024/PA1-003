@@ -351,5 +351,7 @@
         <a href="{{ route('alat_pertanian.index') }}" class="btn btn-primary btn-kembali" title="Kembali">
             <i class="bi bi-arrow-left"></i>
         </a>
+
+
     </div>
 @endsection

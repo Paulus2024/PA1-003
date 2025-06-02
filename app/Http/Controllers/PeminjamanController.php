@@ -441,23 +441,107 @@ class PeminjamanController extends Controller
     public function ajukanPengembalian(Request $request, $id)
     {
         $request->validate([
-            'bukti_pengembalian' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'bukti_pengembalian' => 'required|image|mimes:jpeg,jpg,png|max:2048', // Validasi file
+        ]);
+
+        $peminjaman = Peminjaman::where('id', $id)
+            ->where('user_id', Auth::id()) // PENTING: Hanya milik user yang login
+            ->firstOrFail();
+
+        // Kondisi tambahan: Cek apakah boleh mengajukan lagi
+        if ($peminjaman->status_pengembalian === 'menunggu_verifikasi' || $peminjaman->status_pengembalian === 'disetujui') {
+            return back()->with('error', 'Anda sudah mengajukan pengembalian untuk item ini atau sudah disetujui.');
+        }
+
+        if ($request->hasFile('bukti_pengembalian')) {
+            $file = $request->file('bukti_pengembalian');
+            $nama_file = time() . '_' . $file->getClientOriginalName();
+            // Simpan file ke 'storage/app/public/bukti_pengembalian'
+            $path = $file->storeAs('bukti_pengembalian', $nama_file, 'public');
+
+            $peminjaman->bukti_pengembalian = $path;
+        }
+
+        $peminjaman->status_pengembalian = 'menunggu_verifikasi'; // Status baru
+        // $peminjaman->status_peminjaman = 'diajukan_kembali'; // Opsional: ubah status utama peminjaman jika perlu
+        $peminjaman->save();
+
+        // Kembali ke halaman form pengembalian dengan pesan sukses
+        return redirect()->route('masyarakat.pengembalian.form', $peminjaman->id)
+            ->with('success', 'Pengajuan pengembalian berhasil dikirim. Mohon tunggu verifikasi dari BUMDes.');
+    }
+    public function adminDaftarPengembalian()
+    {
+        $pengajuanPengembalian = Peminjaman::where('status_pengembalian', 'menunggu_verifikasi')
+            ->with(['user', 'alat']) // Memuat info peminjam dan alat
+            ->orderBy('updated_at', 'asc') // Tampilkan yang paling lama menunggu dulu
+            ->get();
+
+        // View ini untuk menampilkan daftar pengajuan yang perlu diverifikasi BUMDes
+        return view('dashboard.bumdes.page.Alat_Pertanian.daftar_verifikasi_pengembalian', compact('pengajuanPengembalian'));
+    }
+
+    // Di dalam class PeminjamanController
+
+    public function verifikasiPengembalian(Request $request, $id)
+    {
+        $request->validate([
+            'status_verifikasi' => 'required|in:disetujui,ditolak',
+            'catatan_admin' => 'nullable|string|max:500',
         ]);
 
         $peminjaman = Peminjaman::findOrFail($id);
 
-        if (auth()->user()->id !== $peminjaman->user_id) {
-            abort(403, 'Anda tidak diizinkan mengajukan pengembalian ini.');
+        // Hanya proses jika statusnya memang 'menunggu_verifikasi'
+        if ($peminjaman->status_pengembalian !== 'menunggu_verifikasi') {
+            return redirect()->route('admin.pengembalian.verifikasi.list')
+                ->with('error', 'Status pengajuan ini sudah diproses atau tidak valid.');
         }
 
-        $file = $request->file('bukti_pengembalian');
-        $nama_file = time() . '_' . $file->getClientOriginalName();
-        $path = $file->storeAs('bukti_pengembalian', $nama_file, 'public');
+        if ($request->status_verifikasi == 'disetujui') {
+            $peminjaman->status_pengembalian = 'disetujui';
+            $peminjaman->tanggal_kembali_aktual = now(); // Catat tanggal alat benar-benar kembali
+            // $peminjaman->status_peminjaman = 'selesai'; // Ubah status utama peminjaman
+            $peminjaman->save();
 
-        $peminjaman->bukti_pengembalian = $path;
-        $peminjaman->status_pengembalian = 'menunggu_verifikasi';
+            // Kembalikan stok alat jika perlu
+            $alat = $peminjaman->alat;
+            if ($alat) {
+                $alat->jumlah_tersedia += $peminjaman->jumlah_alat_di_sewa;
+                // Pastikan jumlah tersedia tidak melebihi total alat jika ada kolom total alat
+                // if ($alat->jumlah_tersedia > $alat->jumlah_total) {
+                //     $alat->jumlah_tersedia = $alat->jumlah_total;
+                // }
+                $alat->status_alat = $alat->jumlah_tersedia > 0 ? 'tersedia' : 'tidak_tersedia';
+                $alat->save();
+            }
+        } else { // Jika ditolak
+            $peminjaman->status_pengembalian = 'ditolak';
+            // Opsional: jika ditolak, hapus file bukti agar user bisa upload ulang yang baru
+            // if ($peminjaman->bukti_pengembalian) {
+            //     Storage::disk('public')->delete($peminjaman->bukti_pengembalian);
+            //     $peminjaman->bukti_pengembalian = null;
+            // }
+        }
+
+        $peminjaman->catatan_admin = $request->catatan_admin;
         $peminjaman->save();
 
-        return back()->with('success', 'Pengembalian berhasil diajukan. Menunggu verifikasi.');
+        // Kirim notifikasi ke warga (jika ada sistem notifikasi)
+        // ... logika kirim notifikasi ...
+
+        return redirect()->route('admin.pengembalian.verifikasi.list')
+            ->with('success', 'Status pengajuan pengembalian berhasil diperbarui.');
+    }
+
+    public function showFormPengembalianMasyarakat($id)
+    {
+        $peminjaman = Peminjaman::where('id', $id)
+            ->where('user_id', Auth::id()) // PENTING: Hanya milik user yang login
+            ->with('alat') // Memuat info alat
+            ->firstOrFail(); // Error jika tidak ada atau bukan miliknya
+
+        // Kirim data peminjaman ke view formulir
+        return view('dashboard.masyarakat.page.Alat_Pertanian.form_pengembalian', compact('peminjaman'));
     }
 }

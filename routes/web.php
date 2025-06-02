@@ -54,6 +54,7 @@ Route::middleware(['web'])->group(function () {
     });
 
     Route::get('/contact', [MessageController::class, 'index'])->name('contact');
+    // Route::get('/contact_masyarakat', [MessageController::class, 'index_masyarakat'])->name('contact_masyarakat');
     Route::post('/contact', [MessageController::class, 'store']);
 
     //=========================================================
@@ -177,6 +178,7 @@ Route::middleware(['auth', 'web'])->group(function () {
         'update' => 'abouts.update',
         'destroy' => 'abouts.destroy',
     ]);
+
 });
 
 //=========================================================
@@ -248,11 +250,19 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::get('/informasi_masyarakat', [InformasiDesaController::class, 'index_berita_masyarakat'])->name('informasi.masyarakat');
     Route::get('/informasi_pengumuman_masyarakat', [InformasiDesaController::class, 'index_pengumuman_masyarakat'])->name('pengumuman.masyarakat');
     Route::get('/alat_pertanian_masyarakat', [AlatPertanianController::class, 'index_masyarakat'])->name('alat_pertanian.index_masyarakat');
+
     Route::get('/alat-pertanian/histori-masyarakat', [PeminjamanController::class, 'history_masyarakat'])->name('pemesanan.history.masyarakat');
+    // Di dalam grup middleware 'auth' atau grup khusus masyarakat
+    Route::get('/peminjaman-saya/{id}/form-pengembalian', [PeminjamanController::class, 'showFormPengembalianMasyarakat'])->name('masyarakat.pengembalian.form');
+
+    // Route untuk PROSES pengajuan pengembalian (ini sudah kamu punya, pastikan ada)
+    Route::post('/pengembalian/ajukan/{id}', [PeminjamanController::class, 'ajukanPengembalian'])->name('pengembalian.ajukan');
+
+
     Route::get('/galeri_masyarakat', [GalleryController::class, 'index_masyarakat'])->name('galeri.masyarakat');
     Route::get('/data_pengurus_desa_masyarakat', [DataPengurusDesaController::class, 'index_masyarakat'])->name('data_pengurus_desa.masyarakat');
 
-    Route::get('/contact_masyarakat', [MessageController::class, 'index_masyarakat']);
+    Route::get('/contact_masyarakat', [MessageController::class, 'index_masyarakat'])->name('contact_masyarakat');
     Route::post('alat_pertanian/pinjam', [PeminjamanController::class, 'store'])->name('alat_pertanian.pinjam');
 });
 
@@ -276,9 +286,6 @@ Route::middleware(['auth', 'web'])->group(function () {
     // Route::get('/notifikasi', [NotificationController::class, 'index'])->name('notifikasi');
 });
 
-Route::post('/pengembalian/ajukan/{id}', [PeminjamanController::class, 'ajukanPengembalian'])->name('pengembalian.ajukan');
-
-Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
 
 Route::get('/sekretaris/messages', [MessageController::class, 'index_sekretaris'])->name('messages.index_sekretaris');
 Route::delete('/messages/{id}', [MessageController::class, 'destroy'])->name('messages.destroy');
@@ -286,3 +293,16 @@ Route::get('/contact_sekretaris', [MessageController::class, 'index_sekretaris']
 
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+//=========================================================
+// Route Penembalian Alat Pertanian
+//=========================================================
+// Route::post('/pengembalian/ajukan/{id}', [PeminjamanController::class, 'ajukanPengembalian'])->name('pengembalian.ajukan');
+
+// Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
+
+// // routes/web.php
+Route::middleware(['auth', 'bumdes'])->group(function () {
+    Route::get('/admin/pengembalian/verifikasi-list', [PeminjamanController::class, 'adminDaftarPengembalian'])->name('admin.pengembalian.verifikasi.list');
+    Route::post('/admin/pengembalian/verifikasi-proses/{id}', [PeminjamanController::class, 'verifikasiPengembalian'])->name('admin.pengembalian.verifikasi.proses');
+});

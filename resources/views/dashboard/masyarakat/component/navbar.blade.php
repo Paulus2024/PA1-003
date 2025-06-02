@@ -1,29 +1,37 @@
 <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
-    <a href="/index_masyarakat" class="logo d-flex align-items-center">
+    <a href="{{ route('index.masyarakat') }}" class="logo d-flex align-items-center me-auto me-lg-0">
         <img src="{{ asset('assets/img/8.png') }}" alt="Logo">
         <h1 class="sitename">Desa</h1><span><b>Taon Marisi</b></span>
     </a>
 
-    <nav id="navmenu" class="navmenu">
+    <nav id="navmenu" class="navbar navmenu"> {{-- Tambahkan kelas 'navbar' di sini --}}
         <ul>
             <li><a href="{{ route('index.masyarakat') }}"
                     class="{{ Request::is('index_masyarakat') ? 'active' : '' }}">Home</a></li>
             <li><a href="{{ route('about.masyarakat') }}"
                     class="{{ Request::is('about_masyarakat') ? 'active' : '' }}">About</a></li>
-            <li><a href="{{ route('fasilitas.masyarakat') }}"
-                    class="{{ Request::is('fasilitas_masyarakat') ? 'active' : '' }}">Fasilitas Desa</a></li>
+
+            {{-- MULAI: Dropdown "Layanan" untuk mengelompokkan item menu panjang --}}
+            <li class="dropdown"><a href="#"><span>Layanan</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <ul>
+                    <li><a href="{{ route('fasilitas.masyarakat') }}"
+                            class="{{ Request::is('fasilitas_masyarakat') ? 'active' : '' }}">Fasilitas Desa</a></li>
+                    <li><a href="{{ route('data_pengurus_desa.masyarakat') }}"
+                            class="{{ Request::is('data_pengurus_desa_masyarakat') ? 'active' : '' }}">Data Pengurus Desa</a></li>
+                    <li><a href="{{ route('alat_pertanian.index_masyarakat') }}"
+                            class="{{ Request::is('alat_pertanian_masyarakat') ? 'active' : '' }}">Alat Pertanian</a></li>
+                </ul>
+            </li>
+            {{-- AKHIR: Dropdown "Layanan" --}}
+
             <li><a href="{{ route('informasi.masyarakat') }}"
                     class="{{ Request::is('informasi_masyarakat') ? 'active' : '' }}">Informasi</a></li>
             <li><a href="{{ route('galeri.masyarakat') }}"
                     class="{{ Request::is('galeri_masyarakat') ? 'active' : '' }}">Galeri</a></li>
-            <li><a href="{{ route('data_pengurus_desa.masyarakat') }}"
-                    class="{{ Request::is('data_pengurus_desa_masyarakat') }}">Data Pengurus Desa</a></li>
-            <li><a href="{{ route('alat_pertanian.index_masyarakat') }}"
-                    class="{{ Request::is('alat_pertanian_masyarakat') }}">Alat Pertanian</a></li>
-            <li><a href="{{ route('contact') }}" class="{{ Request::is('contact') }}">Contact</a></li>
-            @auth
+            <li><a href="{{ route('contact_masyarakat') }}" class="{{ Request::is('contact_masyarakat') ? 'active' : '' }}">Contact</a></li>
 
+            @auth
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#notificationModal"
                         title="Notifikasi">
@@ -58,3 +66,4 @@
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
     </nav>
+</div>

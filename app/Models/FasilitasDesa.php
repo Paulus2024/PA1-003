@@ -9,14 +9,15 @@ class FasilitasDesa extends Model
 {
     use HasFactory;
 
-    protected $table = 'fasilitas';//Nama Table
-    protected $primaryKey = 'id_fasilitas';//Nama Primary Key
+    protected $table = 'fasilitas'; //Nama Table
+    protected $primaryKey = 'id_fasilitas'; //Nama Primary Key
 
     protected $fillable = [
         'nama_fasilitas',
         'deskripsi_fasilitas',
         'lokasi_fasilitas',
-        'gambar_fasilitas'
+        'gambar_fasilitas',
+        'user_id', // Tambahkan user_id ke fillable
     ];
 
     protected $nullable = [

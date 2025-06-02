@@ -17,11 +17,21 @@ class Peminjaman extends Model
         'tanggal_kembali',
         'jumlah_alat_di_sewa',
         'status_peminjaman',
+        'bukti_pengembalian',
+        'status_pengembalian',
+        'tanggal_kembali_aktual',
+        'catatan_admin',
+    ];
+
+    protected $casts = [
+        'tanggal_pinjam' => 'datetime',
+        'tanggal_kembali' => 'datetime',
+        'tanggal_kembali_aktual' => 'datetime', // PENTING
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function alat()

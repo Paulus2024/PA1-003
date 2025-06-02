@@ -65,4 +65,11 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'usertype' => \App\Http\Middleware\UserTypeMiddleware::class,
     ];
+
+    // app/Http/Kernel.php
+    protected $routeMiddleware = [
+        // ... middleware lain
+        'bumdes' => \App\Http\Middleware\AdminMiddleware::class,
+    ];
+    // ATAU di $middlewareAliases jika ada
 }
