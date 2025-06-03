@@ -10,7 +10,7 @@
             <li><a href="{{ route('index.masyarakat') }}"
                     class="{{ Request::is('index_masyarakat') ? 'active' : '' }}">Home</a></li>
             <li><a href="{{ route('about.masyarakat') }}"
-                    class="{{ Request::is('about_masyarakat') ? 'active' : '' }}">About</a></li>
+                    class="{{ Request::is('about-masyarakat') ? 'active' : '' }}">About</a></li>
 
             {{-- MULAI: Dropdown "Layanan" untuk mengelompokkan item menu panjang --}}
             <li class="dropdown"><a href="#"><span>Layanan</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
