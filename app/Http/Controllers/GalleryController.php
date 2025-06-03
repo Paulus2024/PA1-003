@@ -30,11 +30,11 @@ public function index_bumdes()
     return view('dashboard.bumdes.page.Galeri.index_galeri', compact('galleries'));
 }
 
-        public function index_pengguna()
-    {
-        $galleries = Gallery::all(); // ambil semua galeri
+     public function index_pengguna()
+ {
+     $galleries = Gallery::all(); // ambil semua galeri
         return view('pengguna.page.Galeri.index_galeri', compact('galleries'));
-    }
+ }
 
     /**
      * Show the form for creating a new resource.

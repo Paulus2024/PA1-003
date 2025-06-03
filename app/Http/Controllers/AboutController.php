@@ -9,22 +9,28 @@ use Illuminate\Support\Facades\Auth;
 
 class AboutController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $abouts = About::all();
         return view('dashboard.sekretaris.page.about.index_about', compact('abouts'));
     }
 
-    public function ShowPublic()
+    public function index_masyarakat()
     {
-        $about = About::first(); // Ambil data About yang pertama
+        $abouts = About::all(); // Ambil semua data About
+        return view('dashboard.masyarakat.page.About.index_about', compact('abouts')); // Kirim $abouts
+    }
 
-        return view('pengguna.page.about.index_about', compact('about'));
+    public function index_bumdes()
+    {
+        $abouts = About::all(); // Ambil semua data About
+        return view('dashboard.bumdes.page.About.index_about', compact('abouts')); // Kirim $abouts
+    }
+
+    public function index_pengguna()
+    {
+        $abouts = About::all(); // Ambil semua data About
+        return view('pengguna.page.About.index_about', compact('abouts')); // Kirim $abouts
     }
 
     public function store(Request $request)

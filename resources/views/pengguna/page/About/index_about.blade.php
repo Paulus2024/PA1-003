@@ -1,81 +1,44 @@
-@extends('dashboard.masyarakat.component.main')
+@extends('pengguna.component.main')
 
 @section('masyarakat_content')
 
-<<<<<<< HEAD
     <div class="page-title dark-background" style="background-image: url({{ asset('assets/img/page-title-bg.jpg') }});">
         <div class="container position-relative">
             <h1>About</h1>
             <nav class="breadcrumbs">
                 <ol>
-                    <li><a href="{{ route('index.masyarakat') }}">Home</a></li>
+                    <li><a href="{{ route('home') }}">Home</a></li>
                     <li class="current">About</li>
                 </ol>
             </nav>
-=======
-<div class="page-title dark-background" style="background-image: url(assets/img/hero-carousel/2.jpg);">
-    <div class="container position-relative">
-      <h1>About</h1>
-      <nav class="breadcrumbs">
-        <ol>
-          <li><a href="/">Home</a></li>
-          <li class="current">About</li>
-        </ol>
-      </nav>
-    </div>
-  </div><!-- End Page Title -->
-
-  <!-- About Section -->
-  <section id="about" class="about section">
-
-    <div class="container">
-
-      <div class="row position-relative">
-
-        <div class="col-lg-7 about-img" data-aos="zoom-out" data-aos-delay="200"><img src="assets/img/hero-carousel/WhatsApp Image 2025-05-14 at 20.01.16_25e637f8.jpg"></div>
-
-        <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
-          <h2 class="inner-title">Desa Taonmarisi</h2>
-          <div class="our-story">
-            <h4>Tahun Berdiri</h4>
-            <h3>History</h3>
-            <p>history</p>
-            <ul>
-              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commo</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Duis aute irure dolor in reprehenderit in</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea</span></li>
-            </ul>
-            <p>Vitae autem velit excepturi fugit. Animi ad non. Eligendi et non nesciunt suscipit repellendus porro in quo eveniet. Molestias in maxime doloremque.</p>
-
-
-          </div>
->>>>>>> 784f95a04ed2dac4bc933f55295e8729b3cae248
         </div>
     </div><!-- End Page Title -->
 
     <!-- About Section -->
     <section id="about" class="about section">
         <div class="container">
-            @if($about)
-            <div class="row position-relative">
-                <div class="col-lg-7 about-img" data-aos="zoom-out" data-aos-delay="200">
-                    @if ($about->gambar_1)
-                    <img src="{{ asset('storage/' . $about->gambar_1) }}" class="img-fluid" alt="Gambar 1">
-                    @else
-                    <img src="{{ asset('assets/img/about.jpg') }}" alt="Gambar Default" class="img-fluid">
-                    @endif
-                </div>
+            @if($abouts && count($abouts) > 0)
+                @foreach($abouts as $about)
+                    <div class="row position-relative">
+                        <div class="col-lg-7 about-img" data-aos="zoom-out" data-aos-delay="200">
+                            @if ($about->gambar_1)
+                                <img src="{{ asset('storage/' . $about->gambar_1) }}" class="img-fluid" alt="Gambar 1">
+                            @else
+                                <img src="{{ asset('assets/img/about.jpg') }}" alt="Gambar Default" class="img-fluid">
+                            @endif
+                        </div>
 
-                <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
-                    <h2 class="inner-title">Desa Taonmarisi</h2>
-                    <div class="our-story">
-                        <h3>History</h3>
-                        <p>{!! $about->sejarah !!}</p>
+                        <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
+                            <h2 class="inner-title">Desa Taonmarisi</h2>
+                            <div class="our-story">
+                                <h3>History</h3>
+                                <p>{!! $about->sejarah !!}</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                @endforeach
             @else
-            <p>Tidak ada data About yang tersedia.</p>
+                <p>Tidak ada data About yang tersedia.</p>
             @endif
         </div>
     </section><!-- /About Section -->
@@ -83,43 +46,45 @@
     <!-- Stats Counter Section -->
     <section id="stats-counter" class="stats-counter section">
         <div class="container" data-aos="fade-up" data-aos-delay="100">
-            @if($about)
-            <div class="row gy-4">
-                <div class="col-lg-3 col-md-6">
-                    <div class="stats-item d-flex align-items-center w-100 h-100">
-                        <i class="bi bi-people color-pink flex-shrink-0"></i>
-                        <div>
-                            <p><b>Penduduk</b></p>
-                            <span data-purecounter-start="0" data-purecounter-end="{{ $about->jumlah_penduduk }}" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                        </div>
-                    </div>
-                </div><!-- End Stats Item -->
+            @if($abouts && count($abouts) > 0)
+                @foreach($abouts as $about)
+                    <div class="row gy-4">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="stats-item d-flex align-items-center w-100 h-100">
+                                <i class="bi bi-people color-pink flex-shrink-0"></i>
+                                <div>
+                                    <p><b>Penduduk</b></p>
+                                    <span data-purecounter-start="0" data-purecounter-end="{{ $about->jumlah_penduduk }}" data-purecounter-duration="1"
+                                        class="purecounter"></span>
+                                </div>
+                            </div>
+                        </div><!-- End Stats Item -->
 
-                <div class="col-lg-3 col-md-6">
-                    <div class="stats-item d-flex align-items-center w-100 h-100">
-                        <i class="fas fa-map color-green flex-shrink-0"></i>
-                        <div>
-                            <p><b>Luas Wilayah</b></p>
-                            <span data-purecounter-start="0" data-purecounter-end="{{ $about->luas_wilayah }}" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                        </div>
-                    </div>
-                </div><!-- End Stats Item -->
+                        <div class="col-lg-3 col-md-6">
+                            <div class="stats-item d-flex align-items-center w-100 h-100">
+                                <i class="fas fa-map color-green flex-shrink-0"></i>
+                                <div>
+                                    <p><b>Luas Wilayah</b></p>
+                                    <span data-purecounter-start="0" data-purecounter-end="{{ $about->luas_wilayah }}" data-purecounter-duration="1"
+                                        class="purecounter"></span>
+                                </div>
+                            </div>
+                        </div><!-- End Stats Item -->
 
-                <div class="col-lg-3 col-md-6">
-                    <div class="stats-item d-flex align-items-center w-100 h-100">
-                        <i class="bi bi-people color-pink flex-shrink-0"></i>
-                        <div>
-                            <p><b>Perangkat Desa</b></p>
-                            <span data-purecounter-start="0" data-purecounter-end="{{ $about->jumlah_perangkat_desa }}" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="stats-item d-flex align-items-center w-100 h-100">
+                                <i class="bi bi-people color-pink flex-shrink-0"></i>
+                                <div>
+                                    <p><b>Perangkat Desa</b></p>
+                                    <span data-purecounter-start="0" data-purecounter-end="{{ $about->jumlah_perangkat_desa }}" data-purecounter-duration="1"
+                                        class="purecounter"></span>
+                                </div>
+                            </div>
+                        </div><!-- End Stats Item -->
                     </div>
-                </div><!-- End Stats Item -->
-            </div>
+                @endforeach
             @else
-            <p>Tidak ada data statistik yang tersedia.</p>
+                <p>Tidak ada data statistik yang tersedia.</p>
             @endif
         </div>
     </section><!-- /Stats Counter Section -->
@@ -127,28 +92,15 @@
     <!-- Alt Services Section -->
     <section id="alt-services" class="alt-services section">
         <div class="container">
-            @if($about)
-            <div class="row justify-content-around gy-4">
-                <div class="features-image col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                    @if ($about->gambar_2)
-                    <img src="{{ asset('storage/' . $about->gambar_2) }}" alt="Visi Misi" class="img-fluid">
-                    @else
-                    <img src="{{ asset('assets/img/alt-services.jpg') }}" alt="" class="img-fluid">
-                    @endif
-                </div>
+            @if($abouts && count($abouts) > 0)
+                @foreach($abouts as $about)
+                    <div class="row justify-content-around gy-4">
+                        <div class="features-image col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                            @if ($about->gambar_2)
+                                <img src="{{ asset('storage/' . $about->gambar_2) }}" alt="Visi Misi" class="img-fluid">
+                            @else
+                                <img src="{{ asset('assets/img/alt-services.jpg') }}" alt="" class="img-fluid">
+                            @endif
+                        </div>
 
-                <div class="col-lg-5 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
-                    <h3>VISI & MISI</h3>
-                    <p>{!! $about->visi_misi !!}</p>
-                </div>
-            </div>
-            @else
-            <p>Tidak ada data Visi & Misi yang tersedia.</p>
-            @endif
-        </div>
-    </section><!-- /Alt Services Section -->
-
-    <footer id="footer" class="footer dark-background">
-        @include('pengguna.component.footer')
-    </footer>
-@endsection
+                        <div class="col-lg-5 d-flex flex-column justify-content-center" data-aos

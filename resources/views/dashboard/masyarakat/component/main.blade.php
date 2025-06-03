@@ -1,4 +1,3 @@
-{{-- resources/views/dashboard/masyarakat/component/main.blade.php --}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,8 +45,16 @@
     </main>
 
     {{-- 3. MODAL NOTIFIKASI --}}
+    @if(auth()->check())
+    @php
+        $notes = auth()->user()->notifications()
+        ->whereIn('type', ['peminjaman_disetujui', 'peminjaman_ditolak'])
+        ->latest()
+        ->get();
+    @endphp
+
     <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel"
-        aria-hidden="true">
+         aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header bg-light">
@@ -55,24 +62,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
                 </div>
                 <div class="modal-body">
-                    {{-- query untuk melakukan filter pada notifikasi --}}
-                    @php
-                        $notes = auth()->user()->notifications()
-                        ->whereIn('type', ['peminjaman_disetujui', 'peminjaman_ditolak'])
-                        ->latest()
-                        ->get();
-                    @endphp
-
                     @if ($notes->count())
                         <ul class="list-group">
                             @foreach ($notes as $note)
                                 <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div>
-                                        <div class="fw-bold">{{ $note->message }}</div>
+                                        <div class="fw-bold">{{ $note->data['message'] }}</div>
                                         <small class="text-muted">{{ $note->created_at->diffForHumans() }}</small>
                                     </div>
                                     @if (is_null($note->read_at))
-                                        <form method="POST" action="{{ route('notifications.markAsRead', $note) }}">
+                                        <form method="POST" action="{{ route('notifications.markAsRead', $note->id) }}">
                                             @csrf @method('PATCH')
                                             <button class="btn btn-sm btn-outline-primary">Tandai Sudah Dibaca</button>
                                         </form>
@@ -91,6 +90,7 @@
             </div>
         </div>
     </div>
+@endif
 
     {{-- 4. JS --}}
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
