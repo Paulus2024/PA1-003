@@ -58,7 +58,7 @@
                     {{-- query untuk melakukan filter pada notifikasi --}}
                     @php
                         $notes = auth()->user()->notifications()
-                        ->whereIn('type', ['peminjaman_disetujui', 'peminjaman_ditolak'])
+                        ->whereIn('type', ['peminjaman_baru', 'peminjaman_diajukan']) // Diubah disini
                         ->latest()
                         ->get();
                     @endphp
