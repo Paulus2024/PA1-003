@@ -30,11 +30,9 @@ use App\Http\Controllers\NotificationController;
 Route::middleware(['web'])->group(function () {
     Route::get('/', function () {
         return view('pengguna/page/home/index_home');
-    });
+    })->name('home');
 
-    Route::get('/about', function () {
-        return view('pengguna/page/About/index_about');
-    });
+    Route::get('/about', [AboutController::class, 'index_masyarakat'])->name('about.masyarakat');
 
     Route::get('/alat', function () {
         return view('pengguna/page/Alat_Pertanian/index_alat_pertanian');
@@ -44,7 +42,7 @@ Route::middleware(['web'])->group(function () {
         return view('pengguna/page/Informasi/index_informasi');
     });
 
-Route::get('/pengurus', [DataPengurusDesaController::class, 'index_pengguna'])->name('pengurus.index');
+    Route::get('/pengurus', [DataPengurusDesaController::class, 'index_pengguna'])->name('pengurus.index');
 
     Route::get('/galeri', [GalleryController::class, 'index_pengguna'])->name('galeri');
 
@@ -184,9 +182,7 @@ Route::middleware(['auth', 'web'])->group(function () {
 // Route Admin Bumdes (Protected Routes - Authentication Required)
 //=========================================================
 Route::middleware(['auth', 'web'])->group(function () {
-    Route::get('/about_bumdes', function () {
-        return view('dashboard/bumdes/page/About/index_about');
-    });
+    Route::get('/about_bumdes', [AboutController::class, 'index_bumdes'])->name('about.bumdes');
 
     Route::get('/index_masyarakat', function () {
         return view('dashboard/masyarakat/page/Home/index_home');
@@ -244,7 +240,11 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::get('/index_masyarakat', function () {
         return view('dashboard/masyarakat/page/Home/index_home');
     })->name('index.masyarakat');
+
+   // Route::get('/about_masyarakat', [AboutController::class, 'indexMasyarakat'])->name('about.masyarakat');
+
     Route::get('/about-masyarakat', [AboutController::class, 'index'])->name('about.masyarakat');
+
     Route::get('/fasilitas_masyarakat', [FasilitasDesaController::class, 'index_masyarakat'])->name('fasilitas.masyarakat');
     Route::get('/informasi_masyarakat', [InformasiDesaController::class, 'index_berita_masyarakat'])->name('informasi.masyarakat');
     Route::get('/informasi_pengumuman_masyarakat', [InformasiDesaController::class, 'index_pengumuman_masyarakat'])->name('pengumuman.masyarakat');

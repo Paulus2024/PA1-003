@@ -153,6 +153,19 @@ class GalleryController extends Controller
         return view('dashboard.masyarakat.page.Galeri.index_galeri', compact('galleries'));
     }
 
+<<<<<<< HEAD
+
+
+public function index_bumdes()
+{
+    $galleries = Gallery::all();
+    return view('dashboard.bumdes.page.Galeri.index_galeri', compact('galleries'));
+}
+
+     public function index_pengguna()
+ {
+     $galleries = Gallery::all(); // ambil semua galeri
+=======
     public function index_bumdes()
     {
         $galleries = Gallery::all();
@@ -162,8 +175,9 @@ class GalleryController extends Controller
     public function index_pengguna()
     {
         $galleries = Gallery::all();
+>>>>>>> 7c42151d7880db63d194426690a2925036976c17
         return view('pengguna.page.Galeri.index_galeri', compact('galleries'));
-    }
+ }
 
     /**
      * Show the form for creating a new resource.

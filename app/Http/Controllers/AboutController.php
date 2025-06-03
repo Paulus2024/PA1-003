@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AboutController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $abouts = About::all();
@@ -32,6 +27,96 @@ class AboutController extends Controller
             // return redirect()->route('home')->with('error', 'Informasi "About Us" belum tersedia.');
         }
         return view('pengguna.page.about.index_about', compact('about'));
+
+    public function index_masyarakat()
+
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'gambar_1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'sejarah' => 'required',
+            'gambar_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'visi_misi' => 'required',
+            'jumlah_penduduk' => 'nullable|integer',
+            'luas_wilayah' => 'nullable|string',
+            'jumlah_perangkat_desa' => 'nullable|integer',
+        ]);
+
+        $data = $request->except(['_token', 'gambar_1', 'gambar_2']);
+
+        $data['gambar_1'] = $this->uploadImage($request, 'gambar_1', 'abouts');
+        $data['gambar_2'] = $this->uploadImage($request, 'gambar_2', 'abouts');
+
+        About::create($data);
+
+        return redirect()->route('abouts.index')->with('success', 'Data About berhasil ditambahkan.');
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $about = About::findOrFail($id);
+
+        $validated = $request->validate([
+            'gambar_1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'sejarah' => 'required',
+            'gambar_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'visi_misi' => 'required',
+            'jumlah_penduduk' => 'nullable|integer',
+            'luas_wilayah' => 'nullable|string',
+            'jumlah_perangkat_desa' => 'nullable|integer',
+        ]);
+
+        $data = $request->except(['_token', '_method', 'gambar_1', 'gambar_2']);
+
+        // Handle gambar_1
+        if ($request->hasFile('gambar_1')) {
+            // Upload gambar baru dan hapus yang lama
+            $data['gambar_1'] = $this->uploadImage($request, 'gambar_1', 'abouts', $about->gambar_1);
+        } else {
+            // Jika tidak ada gambar baru, gunakan gambar yang sudah ada
+            $data['gambar_1'] = $about->gambar_1;
+        }
+
+        // Handle gambar_2 (mirip dengan gambar_1)
+        if ($request->hasFile('gambar_2')) {
+            $data['gambar_2'] = $this->uploadImage($request, 'gambar_2', 'abouts', $about->gambar_2);
+        } else {
+            $data['gambar_2'] = $about->gambar_2;
+        }
+
+        $about->update($data);
+
+        return redirect()->route('abouts.index')->with('success', 'Data About berhasil diperbarui!');
+    }
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'gambar_1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'sejarah' => 'required|string',
+            'gambar_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'visi_misi' => 'required|string',
+            'jumlah_penduduk' => 'nullable|integer',
+            'luas_wilayah' => 'nullable|string|max:255',
+            'jumlah_perangkat_desa' => 'nullable|integer',
+
+    public function ShowPublic()
+
+    {
+        $abouts = About::all(); // Ambil semua data About
+        return view('dashboard.masyarakat.page.About.index_about', compact('abouts')); // Kirim $abouts
+    }
+
+    public function index_bumdes()
+    {
+        $abouts = About::all(); // Ambil semua data About
+        return view('dashboard.bumdes.page.About.index_about', compact('abouts')); // Kirim $abouts
+    }
+
+    public function index_pengguna()
+    {
+        $abouts = About::all(); // Ambil semua data About
+        return view('pengguna.page.About.index_about', compact('abouts')); // Kirim $abouts
     }
 
     public function store(Request $request)
