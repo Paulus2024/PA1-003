@@ -11,6 +11,45 @@
                     <li class="current">About</li>
                 </ol>
             </nav>
+<<<<<<< HEAD
+=======
+<div class="page-title dark-background" style="background-image: url(assets/img/hero-carousel/2.jpg);">
+    <div class="container position-relative">
+      <h1>About</h1>
+      <nav class="breadcrumbs">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li class="current">About</li>
+        </ol>
+      </nav>
+    </div>
+  </div><!-- End Page Title -->
+
+  <!-- About Section -->
+  <section id="about" class="about section">
+
+    <div class="container">
+
+      <div class="row position-relative">
+
+        <div class="col-lg-7 about-img" data-aos="zoom-out" data-aos-delay="200"><img src="assets/img/hero-carousel/WhatsApp Image 2025-05-14 at 20.01.16_25e637f8.jpg"></div>
+
+        <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
+          <h2 class="inner-title">Desa Taonmarisi</h2>
+          <div class="our-story">
+            <h4>Tahun Berdiri</h4>
+            <h3>History</h3>
+            <p>history</p>
+            <ul>
+              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commo</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>Duis aute irure dolor in reprehenderit in</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea</span></li>
+            </ul>
+            <p>Vitae autem velit excepturi fugit. Animi ad non. Eligendi et non nesciunt suscipit repellendus porro in quo eveniet. Molestias in maxime doloremque.</p>
+
+
+          </div>
+>>>>>>> 7c42151d7880db63d194426690a2925036976c17
         </div>
     </div><!-- End Page Title -->
 

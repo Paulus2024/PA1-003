@@ -62,6 +62,17 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
                 </div>
                 <div class="modal-body">
+<<<<<<< HEAD
+=======
+                    {{-- query untuk melakukan filter pada notifikasi --}}
+                    @php
+                        $notes = auth()->user()->notifications()
+                        ->whereIn('type', ['peminjaman_baru', 'peminjaman_diajukan']) // Diubah disini
+                        ->latest()
+                        ->get();
+                    @endphp
+
+>>>>>>> 7c42151d7880db63d194426690a2925036976c17
                     @if ($notes->count())
                         <ul class="list-group">
                             @foreach ($notes as $note)
@@ -101,7 +112,6 @@
     <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
     <!-- Tambahkan kode ini untuk me-load Sweetalert2 JS -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
-
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

@@ -192,6 +192,10 @@
                 <div class="card mb-4 p-3">
                     <div class="d-flex justify-content-end">
                         <div class="utility-icons">
+                            <a href="{{ route('admin.pengembalian.verifikasi.list') }}" title="Kembali">
+                                <i class="bi bi-check fs-5"></i>
+                            </a>
+
                             <a href="{{ route('pemesanan.history') }}" title="Riwayat Pemesanan">
                                 <i class="bi bi-clock fs-5"></i>
                             </a>

@@ -72,6 +72,36 @@
                                         </div>
                                     @endif
                                 </td>
+
+                                {{-- Di dalam loop @foreach ($peminjaman as $p) --}}
+                                <td class="action-buttons">
+                                    {{-- Tombol lain yang mungkin sudah ada (misal: batal jika status 'menunggu') --}}
+
+                                    {{-- TOMBOL AJUKAN PENGEMBALIAN --}}
+                                    @if (
+                                        ($p->status_peminjaman == 'disetujui' || $p->status_peminjaman == 'dipinjam') /* Dipinjam atau sudah disetujui */ &&
+                                            ($p->status_pengembalian == null ||
+                                                $p->status_pengembalian == 'ditolak') /* Belum pernah ajukan kembali ATAU pengajuan sebelumnya ditolak */)
+                                        <a href="{{ route('masyarakat.pengembalian.form', $p->id) }}"
+                                            class="btn btn-warning btn-sm" title="Ajukan Pengembalian Alat Ini">
+                                            <i class="bi bi-arrow-return-left"></i> Kembalikan
+                                        </a>
+                                    @elseif($p->status_pengembalian == 'menunggu_verifikasi')
+                                        <a href="{{ route('masyarakat.pengembalian.form', $p->id) }}"
+                                            class="btn btn-info btn-sm" title="Lihat Detail Pengajuan">
+                                            <i class="bi bi-eye"></i> Cek Status
+                                        </a>
+                                    @elseif($p->status_pengembalian == 'disetujui')
+                                        <span class="status-badge status-selesai">Sudah Selesai</span>
+                                        <a href="{{ route('masyarakat.pengembalian.form', $p->id) }}"
+                                            class="btn btn-secondary btn-sm" title="Lihat Detail Pengembalian">
+                                            <i class="bi bi-info-circle"></i> Detail
+                                        </a>
+                                    @endif
+
+                                    {{-- Tombol untuk melihat detail peminjaman awal (jika ada) --}}
+                                    {{-- <a href="{{ route('peminjaman.show', $p->id) }}" class="btn btn-primary btn-sm">Detail</a> --}}
+                                </td>
                             </tr>
 
                             <!-- Modal Edit Sewa Alat Pertanian -->
