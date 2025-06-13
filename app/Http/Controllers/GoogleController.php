@@ -32,8 +32,6 @@ class GoogleController extends Controller
                     'password' => bcrypt('user123'),
                     'usertype' => 'user',
                     'photo' => $googleUser->avatar,
-                    'usertype' => 'user',
-                    'photo' => $googleUser->avatar,
                 ]);
 
                 \Log::info('User created:', $user->toArray());
