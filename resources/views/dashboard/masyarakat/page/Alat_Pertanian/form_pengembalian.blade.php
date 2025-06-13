@@ -1,17 +1,17 @@
 @extends('dashboard.masyarakat.component.main')
 
 @section('masyarakat_content')
-    <div class="page-title dark-background" style="background-image: url({{ asset('assets/img/page-title-bg.jpg') }});">
+    <div class="page-title dark-background" style="background-image: url({{ asset('assets/img/hero-carousel/5.jpg') }});">
         <div class="container position-relative">
             <h1>Histori Pemesanan Alat</h1>
             <nav class="breadcrumbs">
                 <ol>
                     <li><a href="index.masyarakat">Home</a></li>
-                    <li class="current">Histori Pemesanan</li>
+                    <li class="current">Form Pengembalian</li>
                 </ol>
             </nav>
         </div>
-    </div><!-- End Page Title -->
+    </div>
 
     <div class="container mt-4">
         <div class="card">
@@ -75,12 +75,6 @@
                     </div>
                 @endif
 
-                {{-- Tampilkan form pengajuan pengembalian jika:
-                 1. Status peminjaman adalah 'disetujui' ATAU 'dipinjam' (jika ada status ini)
-                 2. DAN Status pengembalian BUKAN 'menunggu_verifikasi' DAN BUKAN 'disetujui'
-                 ATAU
-                 3. Status pengembalian adalah 'ditolak' (agar bisa ajukan ulang)
-            --}}
                 @if (
                     (($peminjaman->status_peminjaman == 'disetujui' || $peminjaman->status_peminjaman == 'dipinjam') &&
                         ($peminjaman->status_pengembalian != 'menunggu_verifikasi' &&
@@ -88,7 +82,6 @@
                         $peminjaman->status_pengembalian == 'ditolak')
                     <hr class="my-4">
                     <h5 class="mb-3">Formulir Pengajuan Pengembalian</h5>
-                    {{-- Style untuk kamera bisa ditaruh di CSS global jika dipakai di banyak tempat --}}
                     <style>
                         #cameraFeed,
                         #snapshotCanvas {
@@ -119,7 +112,6 @@
                                 class="bi bi-camera-fill"></i> Gunakan Kamera</button>
 
                         <div id="cameraContainer" style="display:none;" class="text-center">
-                            {{-- <video id="cameraFeed" autoplay playsinline class="mb-2"></video> --}}
                             <video id="cameraFeed" autoplay playsinline
                                 style="display: block !important;
                                        width: 320px !important;
@@ -130,7 +122,7 @@
                             <button type="button" id="takeSnapshotBtn" class="btn btn-warning"><i class="bi bi-camera"></i>
                                 Ambil Foto</button>
                         </div>
-                        <canvas id="snapshotCanvas"></canvas> {{-- Untuk menggambar foto dengan timestamp --}}
+                        <canvas id="snapshotCanvas"></canvas>
 
                         <div class="mt-3">
                             <label class="form-label">Preview Bukti:</label>
@@ -144,8 +136,6 @@
                     </form>
 
                     <script>
-                        // --- KODE JAVASCRIPT KAMERA YANG SUDAH ADA DI SINI ---
-                        // Pastikan semua const mengambil elemen yang ID-nya ada di HTML di atas
                         const formPengembalian = document.getElementById('formPengembalian');
                         const useCameraBtn = document.getElementById('useCameraBtn');
                         const cameraContainer = document.getElementById('cameraContainer');
@@ -229,7 +219,6 @@
                                     stream = await navigator.mediaDevices.getUserMedia({
                                         video: true
                                     });
-                                    // ... (ulangi bagian sukses di atas)
                                 } catch (fallbackErr) {
                                     console.error("Error accessing fallback camera: ", fallbackErr);
                                     alert("Tidak bisa mengakses kamera (fallback). Error: " + fallbackErr.message);
@@ -248,7 +237,7 @@
                         }
 
                         takeSnapshotBtn.addEventListener('click', () => {
-                            if (!stream || !videoElement.videoWidth) { // Cek videoWidth untuk kesiapan
+                            if (!stream || !videoElement.videoWidth) {
                                 alert('Kamera belum siap atau stream tidak aktif.');
                                 return;
                             }
@@ -326,4 +315,8 @@
             </div>
         </div>
     </div>
+
+    <footer id="footer" class="footer dark-background">
+        @include('pengguna.component.footer')
+    </footer>
 @endsection

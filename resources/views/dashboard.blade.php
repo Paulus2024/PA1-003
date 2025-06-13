@@ -1,4 +1,4 @@
-@extends('pengguna.main')
+{{-- @extends('pengguna.main')
 
 @section(section:'content')
 <header id="header" class="header d-flex align-items-center fixed-top">
@@ -64,4 +64,4 @@
 
     <!-- Preloader -->
     <div id="preloader"></div>
-@endsection
+@endsection --}}

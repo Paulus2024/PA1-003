@@ -26,7 +26,7 @@ class Peminjaman extends Model
     protected $casts = [
         'tanggal_pinjam' => 'datetime',
         'tanggal_kembali' => 'datetime',
-        'tanggal_kembali_aktual' => 'datetime', // PENTING
+        'tanggal_kembali_aktual' => 'datetime', 
     ];
 
     public function user()

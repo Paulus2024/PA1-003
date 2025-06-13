@@ -14,19 +14,25 @@ class DataPengurusDesa extends Model
 
     protected $fillable = [
         'user_id',
+        'jabatan_id', // Ganti 'jabatan_data_pengurus_desa' dengan 'jabatan_id'
         'nama_data_pengurus_desa',
-        'jabatan_data_pengurus_desa',
         'deskripsi_data_pengurus_desa',
         'gambar_data_pengurus_desa',
     ];
 
     public function user()
     {
-        // 'user_id' adalah foreign key di tabel 'data_pengurus_desas'
-        // 'id' adalah primary key di tabel 'users' (sesuaikan jika berbeda)
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    /**
+     * Get the Jabatan associated with the DataPengurusDesa.
+     */
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class, 'jabatan_id', 'id');
+    }
+    
     protected $nullable = [
         'create_at',
         'update_at'

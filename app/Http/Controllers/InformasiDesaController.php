@@ -19,104 +19,124 @@ class InformasiDesaController extends Controller
     //     return view('dashboard.sekretaris.page.Informasi.index_informasi', compact('informasi')); // Mengirim data ke view
     // }
 
-    public function index_pengumuman()
-    {
-        $pengumuman = InformasiDesa::where('kategori_informasi', 'Pengumuman')->get();
-        return view('dashboard.sekretaris.page.Informasi.informasi_pengumuman', compact('pengumuman')); //compact('pengumuman')); // mengarah ke @foreach ($pengumuman as $item)
-    }
+    // public function index_pengumuman()
+    // {
+    //     $pengumuman = InformasiDesa::where('kategori_informasi', 'Pengumuman')->get();
+    //     return view('dashboard.sekretaris.page.Informasi.informasi_pengumuman', compact('pengumuman')); //compact('pengumuman')); // mengarah ke @foreach ($pengumuman as $item)
+    // }
+
+    // public function index_pengumuman_pengguna()
+    // {
+    //     $pengumuman_pengguna = InformasiDesa::where('kategori_informasi', 'Pengumuman')->get();
+    //     return view('pengguna.page.Informasi.informasi_pengumuman', compact('pengumuman_pengguna')); //compact('pengumuman_pengguna')); // mengarah ke @foreach ($pengumuman as $item)
+    // }
 
     public function index_berita()
     {
-        $berita = InformasiDesa::where('kategori_informasi', 'Berita')->get();
+        // $berita = InformasiDesa::where('kategori_informasi', 'Berita')->get();
+        $berita = InformasiDesa::get();
         return view('dashboard.sekretaris.page.Informasi.index_informasi', compact('berita')); //compact('berita')); mengarah ke  @foreach ($berita as $item)
     }
 
     public function index_berita_masyarakat()
     {
-        $berita_masyarakat = InformasiDesa::where('kategori_informasi', 'berita')->get();
+        $berita_masyarakat = InformasiDesa::where('status_informasi', 'publish')
+            // ->where('status_informasi', 'publish') // Pastikan hanya yang publish yang tampil
+            ->orderBy('created_at', 'desc')       // Urutkan dari yang terbaru
+            ->paginate(9); // Ganti get() menjadi paginate(). Angka 9 berarti 9 berita per halaman.
+
         return view('dashboard.masyarakat.page.Informasi.index_informasi', compact('berita_masyarakat'));
     }
 
-    public function index_pengumuman_masyarakat()
+    public function index_berita_pengguna()
     {
-        $pengumuman_masyarakat = InformasiDesa::where('kategori_informasi', 'Pengumuman')->get();
-        return view('dashboard.masyarakat.page.Informasi.informasi_pengumuman', compact('pengumuman_masyarakat'));
+        $berita_pengguna = InformasiDesa::where('kategori_informasi', 'berita')
+            ->where('status_informasi', 'publish') // Hanya tampilkan berita yang sudah di-publish
+            ->orderBy('created_at', 'desc') // Urutkan berdasarkan tanggal terbaru
+            ->get();
+        return view('pengguna.page.Informasi.index_informasi_berita_pengguna', compact('berita_pengguna')); // <-- PASTIKAN NAMA VIEW INI (akan dibuat di langkah 3)
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    // public function create()
+    public function showBerita(string $id_informasi)
+    {
+        $berita = InformasiDesa::where('id_informasi', $id_informasi)
+            // ->where('kategori_informasi', 'berita')
+            ->where('status_informasi', 'publish') // Pastikan hanya berita publish yang bisa dilihat detailnya
+            ->firstOrFail(); // Akan otomatis 404 jika tidak ditemukan
+
+        return view('dashboard.masyarakat.page.Informasi.detail_berita', compact('berita'));
+    }
+
+    // public function index_pengumuman_masyarakat()
     // {
-    //     //
+    //     $pengumuman_masyarakat = InformasiDesa::where('kategori_informasi', 'Pengumuman')->get();
+    //     return view('dashboard.masyarakat.page.Informasi.informasi_pengumuman', compact('pengumuman_masyarakat'));
     // }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
+        // Langkah 1: Validasi (Ini sudah benar dari kode Anda)
         $validated = $request->validate([
-            'judul_informasi'      => 'required|string|max:255',
-            'deskripsi_informasi'  => 'required|string',
-            'kategori_informasi'   => 'required|string|max:255',
-            'lampiran_informasi'   => 'required|file|mimes:jpeg,png,jpg,gif,pdf,doc,docx|max:2048',
-            'status_informasi'     => 'required|boolean',
+            'judul_informasi'     => 'required|string|max:255',
+            'deskripsi_informasi' => 'required|string',
+            // 'kategori_informasi'  => 'required|string|in:Berita,Pengumuman',
+            'lampiran_informasi'  => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,doc,docx|max:2048',
+            'status_informasi'    => 'required|string|in:draft,publish',
         ]);
 
-        //    Simpan File
-        // $file = $request->file('lampiran_informasi');
-        // $path = $file->store('informasi', 'public');
+        // Langkah 2 (PENTING): Siapkan data awal dan tambahkan user_id
+        $dataToCreate = $validated;
+        $dataToCreate['user_id'] = Auth::id(); // <-- INI ADALAH PERBAIKAN UTAMA
 
-        // open simpan file
-        $file = $request->file('lampiran_informasi');
-        $originalName = $file->getClientOriginalName();
-        $extension = $file->getClientOriginalExtension();
-        $filename = time() . '_' . pathinfo($originalName, PATHINFO_FILENAME);
-        $storagePath = storage_path('app/public/informasi');
+        // Langkah 3: Gunakan kembali LOGIKA FILE ANDA untuk memproses lampiran
+        $filePath = null; // Nilai default jika tidak ada file
+        if ($request->hasFile('lampiran_informasi')) {
+            $file = $request->file('lampiran_informasi');
+            $originalName = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
 
-        if (!file_exists($storagePath)) {
-            mkdir($storagePath, 0777, true);
-        }
+            $filename = time() . '_' . pathinfo($originalName, PATHINFO_FILENAME);
+            $storagePath = storage_path('app/public/informasi');
 
-        // Simpan file asli
-        $filePath = $file->storeAs('informasi', $filename . '.' . $extension, 'public');
+            if (!file_exists($storagePath)) {
+                mkdir($storagePath, 0777, true);
+            }
 
-        // Jika Word, konversi ke PDF
-        if (in_array($extension, ['doc', 'docx'])) {
-            $fullInputPath = storage_path("app/public/" . $filePath);
-                // $command = "soffice --headless --convert-to pdf --outdir \"$storagePath\" \"$fullInputPath\"";
-                // exec($command);
-                //perubahan
+            // Simpan file asli
+            $filePath = $file->storeAs('informasi', $filename . '.' . $extension, 'public');
+
+            // Logika konversi Word ke PDF Anda
+            if (in_array($extension, ['doc', 'docx'])) {
+                $fullInputPath = storage_path("app/public/" . $filePath);
                 $command = "\"C:\\Program Files\\LibreOffice\\program\\soffice.exe\" --headless --convert-to pdf --outdir \"$storagePath\" \"$fullInputPath\"";
                 exec($command, $output, $return_var);
-                // dd($command, $output, $return_var);
-                //dd('sampai sini');
 
-
-                // Ubah nama file yang disimpan di database menjadi versi PDF
-                $filePath = 'informasi/' . $filename . '.pdf';
+                if ($return_var === 0 && file_exists($storagePath . '/' . $filename . '.pdf')) {
+                    // Jika konversi berhasil, update path file menjadi path PDF
+                    $filePath = 'informasi/' . $filename . '.pdf';
+                    // Opsional: Hapus file Word asli
+                    // \Illuminate\Support\Facades\Storage::disk('public')->delete('informasi/' . $filename . '.' . $extension);
+                }
+            }
         }
-        //close simpan file
 
-        // simpan ke database
-        InformasiDesa::create([
-            'judul_informasi'      => $validated['judul_informasi'],
-            'deskripsi_informasi'  => $validated['deskripsi_informasi'],
-            'kategori_informasi'   => $validated['kategori_informasi'],
-            'lampiran_informasi'   => $filePath,
-            'status_informasi'     => $validated['status_informasi']
-        ]);
+        // Langkah 4: Masukkan path file final ke dalam data yang akan disimpan
+        $dataToCreate['lampiran_informasi'] = $filePath;
 
-        //berdasarkan kategori
-        if($validated['kategori_informasi'] === 'Berita') {
-            return Redirect()->route('informasi.berita')->with('success', 'Data informasi berhasil ditambahkan!');
-        } elseif($validated['kategori_informasi'] === 'Pengumuman') {
-            return Redirect()->route('informasi.pengumuman')->with('success', 'Data informasi berhasil ditambahkan!');
-        }
+        // Langkah 5: Simpan semua data ke database
+        InformasiDesa::create($dataToCreate);
+
+        // Langkah 6: Redirect (Ini sudah benar dari kode Anda)
+        // if ($validated['kategori_informasi'] === 'Berita') {
+        //     return redirect()->route('informasi.berita')->with('success', 'Data berita berhasil ditambahkan!');
+        // } elseif ($validated['kategori_informasi'] === 'Pengumuman') {
+        //     return redirect()->route('informasi.pengumuman')->with('success', 'Data pengumuman berhasil ditambahkan!');
+        // }
 
         return redirect()->back()->with('success', 'Data informasi berhasil ditambahkan!');
     }
+
 
     /**
      * Display the specified resource.
@@ -152,19 +172,19 @@ class InformasiDesaController extends Controller
         $validated = $request->validate([
             'judul_informasi'      => 'required|string|max:255',
             'deskripsi_informasi'  => 'required|string',
-            'kategori_informasi'   => 'required|string|max:255',
+            // 'kategori_informasi'   => 'required|string|max:255',
             'lampiran_informasi'   => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf,doc,docx|max:2048',
-            'status_informasi'     => 'required|boolean'
+            'status_informasi'     => 'required|string|in:draft,publish'
         ]);
 
         $dataUpdate = [
             'judul_informasi'      => $request->judul_informasi,
             'deskripsi_informasi'  => $request->deskripsi_informasi,
-            'kategori_informasi'   => $request->kategori_informasi,
+            // 'kategori_informasi'   => $request->kategori_informasi,
             'status_informasi'     => $request->status_informasi
         ];
 
-        if($request->hasFile('lampiran_informasi')){
+        if ($request->hasFile('lampiran_informasi')) {
             //Upload Gambar Baru
             // $path = $request->file('lampiran_informasi')->store('informasi', 'public');
             // $dataUpdate['lampiran_informasi'] = $path;
@@ -187,47 +207,30 @@ class InformasiDesaController extends Controller
 
             // Jika Word, konversi ke PDF
             if (in_array($extension, ['doc', 'docx'])) {
-                //ubah path agar jadi format windows
-                $fullInputPath = str_replace( '/', '\\', storage_path("app/public/" . $filePath));
-                $storagePath = str_replace( '/', '\\', storage_path("app/public/informasi"));
-                // ==$command = "soffice --headless --convert-to pdf --outdir \"$storagePath\" \"$fullInputPath\"";
-                // exec($command);
-                //perubahan
-
-                //Jeda sejanak untuk memastikan filenya
-                sleep(1);
-
+                $fullInputPath = storage_path("app/public/" . $filePath);
                 $command = "\"C:\\Program Files\\LibreOffice\\program\\soffice.exe\" --headless --convert-to pdf --outdir \"$storagePath\" \"$fullInputPath\"";
                 exec($command, $output, $return_var);
 
+                // Cek apakah konversi berhasil dan file PDF benar-benar ada
+                // Ini adalah bagian dari logika yang lebih robust yang Anda punya di update(),
+                // sebaiknya terapkan juga di store() untuk konsistensi dan keandalan.
                 $convertedFiles = scandir($storagePath);
                 $foundPdf = null;
-                foreach($convertedFiles as $f){
-                    if(str_contains($f, $filename) && str_ends_with($f, '.pdf')){
+                foreach ($convertedFiles as $f) {
+                    if (str_contains($f, $filename) && str_ends_with($f, '.pdf')) {
                         $foundPdf = $f;
                         break;
                     }
                 }
 
-                if(!$foundPdf){
-                    dd("PDF tidak ditemukan", $convertedFiles, $command, $output, $return_var);
+                if (!$foundPdf) {
+                    // Handle jika PDF tidak ditemukan setelah konversi (misal: log error, atau tetap gunakan file asli)
+                    // dd("PDF tidak ditemukan setelah konversi di store", $convertedFiles, $command, $output, $return_var);
+                    // Untuk saat ini, kita bisa memilih untuk membiarkan $filePath tetap sebagai file aslinya jika konversi gagal.
+                } else {
+                    // Ubah nama file yang disimpan di database menjadi versi PDF yang ditemukan
+                    $filePath = 'informasi/' . $foundPdf;
                 }
-
-                //simpan file yan benar
-                $filePath = 'informasi/' . $foundPdf;
-
-                // $pdfPath = $storagePath . '\\' . $filename . '.pdf';
-                // if (!file_exists($pdfPath)) {
-                //     dd("PDF gagal dibuat", $pdfPath, $output, $return_var);
-                // }
-
-
-                //dd($command, $output, $return_var);// karena ini update, maka pakai ini untuk mengatasi bentrok dengan file lama yang ada
-                //dd('sampai sini');
-
-
-                // Ubah nama file yang disimpan di database menjadi versi PDF
-                // $filePath = 'informasi/' . $filename . '.pdf';
             }
             //close simpan file
 
@@ -237,20 +240,19 @@ class InformasiDesaController extends Controller
             }
 
             $dataUpdate['lampiran_informasi'] = $filePath;
-
         }
 
         $informasi->update($dataUpdate);
 
         // return redirect()->route('sekretaris.informasi.index')->with('success', 'Data informasi berhasil diperbarui!');
-        if ($validated['kategori_informasi'] === 'Berita') {
-            return Redirect()->route('informasi.berita')->with('success', 'Data informasi berhasil diubah!');
-        } elseif ($validated['kategori_informasi'] === 'Pengumuman') {
-            return Redirect()->route('informasi.pengumuman')->with('success', 'Data informasi berhasil diubah!');
-        }
+        // if ($validated['kategori_informasi'] === 'Berita') {
+        //     return Redirect()->route('informasi.berita')->with('success', 'Data informasi berhasil diubah!');
+        // } elseif ($validated['kategori_informasi'] === 'Pengumuman') {
+        //     return Redirect()->route('informasi.pengumuman')->with('success', 'Data informasi berhasil diubah!');
+        // }
 
-        return redirect()->back()->with('success', 'Data informasi berhasil diperbaharui');
-
+        // return redirect()->back()->with('success', 'Data informasi berhasil diperbaharui');
+        return Redirect()->route('informasi.berita')->with('success', 'Data informasi berhasil diubah!');
     }
 
     /**
@@ -259,7 +261,10 @@ class InformasiDesaController extends Controller
     public function destroy(string $id)
     {
         $informasi = InformasiDesa::findOrFail($id);
-        Storage::disk('public')->delete($informasi->lampiran_informasi);
+        // Storage::disk('public')->delete($informasi->lampiran_informasi);
+        if ($informasi->lampiran_informasi) {
+            Storage::disk('public')->delete($informasi->lampiran_informasi);
+        }
 
         //simpan jenis kategori sebelum dihapus
         $kategori = $informasi->kategori_informasi;
@@ -268,13 +273,14 @@ class InformasiDesaController extends Controller
         $informasi->delete();
 
         // return redirect()->route('informasi.berita')->with('success', 'Data berhasil di hapus');
-        if($kategori === 'Berita'){
-            return redirect()->route('informasi.berita')->with('success', 'Data berhasil di hapus');
-        }elseif($kategori === 'Pengumuman'){
-            return redirect()->route('informasi.pengumuman')->with('success', "Data berhasil di hapus");
-        }else{//jika kategori tidak di kenali, maka akan dibuat secara default aja
-            return redirect()->back()->with('success', 'Data berhasil di hapus');
-        }
+        // if ($kategori === 'Berita') {
+        //     return redirect()->route('informasi.berita')->with('success', 'Data berhasil di hapus');
+        // } elseif ($kategori === 'Pengumuman') {
+        //     return redirect()->route('informasi.pengumuman')->with('success', "Data berhasil di hapus");
+        // } else { //jika kategori tidak di kenali, maka akan dibuat secara default aja
+        //     return redirect()->back()->with('success', 'Data berhasil di hapus');
+        // }
+        return redirect()->route('informasi.berita')->with('success', 'Data berhasil di hapus');
     }
 
     public function convertToPdf($filename)

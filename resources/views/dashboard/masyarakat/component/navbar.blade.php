@@ -5,31 +5,44 @@
         <h1 class="sitename">Desa</h1><span><b>Taon Marisi</b></span>
     </a>
 
-    <nav id="navmenu" class="navbar navmenu"> {{-- Tambahkan kelas 'navbar' di sini --}}
+    <nav id="navmenu" class="navbar navmenu">
         <ul>
-            <li><a href="{{ route('index.masyarakat') }}"
-                    class="{{ Request::is('index_masyarakat') ? 'active' : '' }}">Home</a></li>
-            <li><a href="{{ route('about.masyarakat') }}"
-                    class="{{ Request::is('about-masyarakat') ? 'active' : '' }}">About</a></li>
-
-            {{-- MULAI: Dropdown "Layanan" untuk mengelompokkan item menu panjang --}}
-            <li class="dropdown"><a href="#"><span>Layanan</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                <ul>
-                    <li><a href="{{ route('fasilitas.masyarakat') }}"
-                            class="{{ Request::is('fasilitas_masyarakat') ? 'active' : '' }}">Fasilitas Desa</a></li>
-                    <li><a href="{{ route('data_pengurus_desa.masyarakat') }}"
-                            class="{{ Request::is('data_pengurus_desa_masyarakat') ? 'active' : '' }}">Data Pengurus Desa</a></li>
-                    <li><a href="{{ route('alat_pertanian.index_masyarakat') }}"
-                            class="{{ Request::is('alat_pertanian_masyarakat') ? 'active' : '' }}">Alat Pertanian</a></li>
-                </ul>
+            <li>
+                <a href="{{ route('index.masyarakat') }}"
+                    class="{{ Request::is('index_masyarakat') ? 'active' : '' }}" style="font-family: 'Cambria', Georgia, serif;">Home</a>
             </li>
-            {{-- AKHIR: Dropdown "Layanan" --}}
+            <li>
+                <a href="{{ route('about_masyarakat') }}"
+                    class="{{ Request::is('about_masyarakat') ? 'active' : '' }}" style="font-family: 'Cambria', Georgia, serif;">About</a>
+            </li>
 
-            <li><a href="{{ route('informasi.masyarakat') }}"
-                    class="{{ Request::is('informasi_masyarakat') ? 'active' : '' }}">Informasi</a></li>
-            <li><a href="{{ route('galeri.masyarakat') }}"
-                    class="{{ Request::is('galeri_masyarakat') ? 'active' : '' }}">Galeri</a></li>
-            <li><a href="{{ route('contact_masyarakat') }}" class="{{ Request::is('contact_masyarakat') ? 'active' : '' }}">Contact</a></li>
+            <li>
+                <a href="{{ route('fasilitas.masyarakat') }}"
+                    class="{{ Request::is('fasilitas_masyarakat') ? 'active' : '' }}" style="font-family: 'Cambria', Georgia, serif;">Fasilitas Desa</a>
+            </li>
+
+            <li>
+                <a href="{{ route('data_pengurus_desa.masyarakat') }}"
+                    class="{{ Request::is('data_pengurus_desa_masyarakat') ? 'active' : '' }}" style="font-family: 'Cambria', Georgia, serif;">Data Pengurus Desa</a>
+            </li>
+
+            <li>
+                <a href="{{ route('alat_pertanian.index_masyarakat') }}"
+                    class="{{ Request::is('alat_pertanian_masyarakat') ? 'active' : '' }}" style="font-family: 'Cambria', Georgia, serif;">Alat Pertanian</a>
+            </li>
+
+            <li>
+                <a href="{{ route('informasi.masyarakat') }}"
+                    class="{{ Request::is('informasi_masyarakat') ? 'active' : '' }}" style="font-family: 'Cambria', Georgia, serif;">Informasi</a>
+            </li>
+            <li>
+                <a href="{{ route('galeri.masyarakat') }}"
+                    class="{{ Request::is('galeri_masyarakat') ? 'active' : '' }}" style="font-family: 'Cambria', Georgia, serif;">Galeri</a>
+            </li>
+            <li>
+                <a href="{{ route('contact_masyarakat') }}"
+                    class="{{ Request::is('contact_masyarakat') ? 'active' : '' }}" style="font-family: 'Cambria', Georgia, serif;">Contact</a>
+            </li>
 
             @auth
                 <li class="nav-item">
@@ -52,7 +65,10 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="{{ route('profile.show') }}">Profil</a></li>
-                        <li><a class="dropdown-item" href="{{ route('logout') }}"
+                        <li><a class="dropdown-item" href="{{ route('pemesanan.history.masyarakat') }}" class="btn btn-primary btn-historipemesanan-icon"
+                            title="Lihat Histori Pemesanan">Histori Pemesanan</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                         </li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

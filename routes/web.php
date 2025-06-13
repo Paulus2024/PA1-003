@@ -10,9 +10,10 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\DataPengurusDesaController;
 use App\Http\Controllers\AlatPertanianController;
 use App\Http\Controllers\PeminjamanController;
-use App\Http\Controllers\AboutController; // Corrected class name
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\AboutAdditionalSectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,29 +30,42 @@ use App\Http\Controllers\NotificationController;
 //=========================================================
 Route::middleware(['web'])->group(function () {
     Route::get('/', function () {
-        return view('pengguna/page/home/index_home');
+        return view('pengguna/page/Home/index_home');
     })->name('home');
 
-    Route::get('/about', [AboutController::class, 'index_masyarakat'])->name('about.masyarakat');
+    // Route::get('/about', function () {
+    //     return view('pengguna/page/About/index_about');
+    // })->name('about');
 
+    Route::get('/about', [AboutController::class, 'index_pengguna'])->name('about');
+
+    // Route::get('/about', [AboutController::class, 'index_masyarakat'])->name('about.masyarakat');
+
+    Route::get('/informasi_pengguna', [InformasiDesaController::class, 'index_berita_pengguna'])->name('informasi.pengguna');
+    Route::get('/informasi_pengumuman_pengguna', [InformasiDesaController::class, 'index_pengumuman_pengguna'])->name('pengumuman.pengguna');
+
+    Route::get('/informasi/{id_informasi}', [InformasiDesaController::class, 'showBerita'])->name('informasi.showBerita');
+    
     Route::get('/alat', function () {
         return view('pengguna/page/Alat_Pertanian/index_alat_pertanian');
     });
 
-    Route::get('/informasi', function () {
-        return view('pengguna/page/Informasi/index_informasi');
-    });
+    // Route::get('/informasi', function () {
+    //     return view('pengguna/page/Informasi/index_informasi');
+    // });
 
     Route::get('/pengurus', [DataPengurusDesaController::class, 'index_pengguna'])->name('pengurus.index');
 
     Route::get('/galeri', [GalleryController::class, 'index_pengguna'])->name('galeri');
 
-    Route::get('/fasilitas', function () {
-        return view('pengguna/page/Fasilitas/index_fasilitas');
-    });
+    // Route::get('/fasilitas', function () {
+    //     return view('pengguna/page/Fasilitas/index_fasilitas');
+    // });
+    Route::get('/fasilitas', [FasilitasDesaController::class, 'index_pengguna'])->name('fasilitas');
+
 
     Route::get('/contact', [MessageController::class, 'index'])->name('contact');
-    // Route::get('/contact_masyarakat', [MessageController::class, 'index_masyarakat'])->name('contact_masyarakat');
+    Route::get('/contact_masyarakat', [MessageController::class, 'index_masyarakat'])->name('contact_masyarakat');
     Route::post('/contact', [MessageController::class, 'store']);
 
     //=========================================================
@@ -136,6 +150,13 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::post('/informasi_sekretaris/store', [InformasiDesaController::class, 'store'])->name('sekretaris.informasi.store');
     Route::put('/informasi_sekretaris/{id_informasi}', [InformasiDesaController::class, 'update'])->name('sekretaris.informasi.update');
     Route::delete('/informasi_sekretaris/{id_informasi}', [InformasiDesaController::class, 'destroy'])->name('sekretaris.informasi.destroy');
+    // Jika Anda ingin Sekretaris juga bisa melihat detail informasi,
+    // tambahkan ini (opsional, karena `show` publik sudah ada)
+    // Route::get('/informasi_sekretaris/{id}', [InformasiDesaController::class, 'show'])->name('sekretaris.informasi.show');
+    // =========================================================================
+
+    Route::get('/informasi', [InformasiDesaController::class, 'index_berita_pengguna'])->name('informasi');
+    Route::get('/informasi_pengumuman', [InformasiDesaController::class, 'index_pengumuman'])->name('informasi.pengumuman');
 
     Route::get('/galleries', [GalleryController::class, 'index'])->name('galleries.index');
     Route::get('/galleries/create', [GalleryController::class, 'create'])->name('galleries.create');
@@ -243,7 +264,7 @@ Route::middleware(['auth', 'web'])->group(function () {
 
    // Route::get('/about_masyarakat', [AboutController::class, 'indexMasyarakat'])->name('about.masyarakat');
 
-    Route::get('/about-masyarakat', [AboutController::class, 'index'])->name('about.masyarakat');
+    Route::get('/about_masyarakat', [AboutController::class, 'index_masyarakat'])->name('about_masyarakat');
 
     Route::get('/fasilitas_masyarakat', [FasilitasDesaController::class, 'index_masyarakat'])->name('fasilitas.masyarakat');
     Route::get('/informasi_masyarakat', [InformasiDesaController::class, 'index_berita_masyarakat'])->name('informasi.masyarakat');
@@ -279,10 +300,11 @@ Route::middleware(['web'])->group(function () {
 Route::middleware(['auth', 'web'])->group(function () {
     Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
 
-    // Notifikasi
-    Route::patch('/notifications/{notification}/markAsRead', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+    Route::patch('/notifications/{notification}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 
-    // Route::get('/notifikasi', [NotificationController::class, 'index'])->name('notifikasi');
+    Route::get('/notifications/{notification}/read', [NotificationController::class, 'markAsReadAndRedirect'])->name('notifications.markAsReadAndRedirect');
+
+    Route::post('/notifications/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
 });
 
 
@@ -298,7 +320,7 @@ Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallb
 //=========================================================
 // Route::post('/pengembalian/ajukan/{id}', [PeminjamanController::class, 'ajukanPengembalian'])->name('pengembalian.ajukan');
 
-// Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
+Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
 
 // // routes/web.php
 Route::middleware(['auth', 'bumdes'])->group(function () {
@@ -306,5 +328,10 @@ Route::middleware(['auth', 'bumdes'])->group(function () {
     Route::post('/admin/pengembalian/verifikasi-proses/{id}', [PeminjamanController::class, 'verifikasiPengembalian'])->name('admin.pengembalian.verifikasi.proses');
 });
 
-Route::get('/about', [AboutController::class, 'index'])->name('about.masyarakat');
 
+Route::resource('abouts', AboutController::class);
+
+// Nested Resource untuk additional sections
+Route::prefix('abouts/{about}')->name('abouts.')->group(function () {
+    Route::resource('additional-sections', AboutAdditionalSectionController::class);
+});

@@ -24,6 +24,12 @@ class FasilitasDesaController extends Controller
         $fasilitas_masyarakat = FasilitasDesa::all();
         return view('dashboard.masyarakat.page.fasilitas.index_fasilitas', compact('fasilitas_masyarakat'));
     }
+
+    public function index_pengguna()
+    {
+        $fasilitas_pengguna = FasilitasDesa::all();
+        return view('pengguna.page.fasilitas.index_fasilitas', compact('fasilitas_pengguna'));
+    }
     /**
      * Show the form for creating a new resource.
      */

@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             SekretarisSeeder::class,
             BumdesSeeder::class,
             MasyarakatSeeder::class,
+            JabatanSeeder::class,
         ]);
     }
 }

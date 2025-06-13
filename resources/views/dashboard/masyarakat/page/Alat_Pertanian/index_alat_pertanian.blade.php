@@ -1,13 +1,12 @@
 @extends('dashboard.masyarakat.component.main')
 
 @section('masyarakat_content')
-    <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
+<div class="page-title dark-background" style="background-image: url({{ asset('assets/img/hero-carousel/5.jpg') }});">
         <div class="container position-relative">
             <h1>Alat Pertanian</h1>
             <nav class="breadcrumbs">
                 <ol>
                     <li><a href="{{ route('index.masyarakat') }}">Home</a></li>
-                    <li class="current">Projects</li>
                     <li class="current">Alat Pertanian</li>
                 </ol>
             </nav>
@@ -171,12 +170,12 @@
         </section><!-- /Projects Section -->
 
         <!-- Tombol Histori Pemesanan (Fixed) -->
-        <a href="{{ route('pemesanan.history.masyarakat') }}" class="btn btn-primary btn-historipemesanan-icon"
+        {{-- <a href="{{ route('pemesanan.history.masyarakat') }}" class="btn btn-primary btn-historipemesanan-icon"
             title="Lihat Histori Pemesanan">
 
             <i class="bi bi-clock-history"></i>
 
-        </a>
+        </a> --}}
 
 
     </main>

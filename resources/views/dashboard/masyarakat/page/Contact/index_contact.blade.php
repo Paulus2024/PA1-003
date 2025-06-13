@@ -6,8 +6,7 @@
     </header>
 
     <main class="main">
-        <div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
-          <div class="container position-relative">
+        <div class="page-title dark-background" style="background-image: url({{ asset('assets/img/hero-carousel/5.jpg') }});">          <div class="container position-relative">
             <h1>Contact</h1>
             <nav class="breadcrumbs">
               <ol>

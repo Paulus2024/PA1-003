@@ -9,19 +9,18 @@ class About extends Model
 {
     use HasFactory;
 
-    protected $table = 'abouts'; // Nama Table (sesuaikan jika perlu)
-    protected $primaryKey = 'id'; // Nama Primary Key (sesuaikan jika perlu)
+    protected $table = 'abouts';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
-
         'user_id',
-        'gambar_1',  // Ubah di sini
-
+        'kata_sambutan_kepala_desa',
+        'media_file',
         'gambar_1',
-
         'sejarah',
         'gambar_2',
-        'visi_misi',
+        'visi',
+        'misi',
         'jumlah_penduduk',
         'luas_wilayah',
         'jumlah_perangkat_desa',
@@ -30,13 +29,16 @@ class About extends Model
 
     public function user()
     {
-        // 'user_id' adalah foreign key di tabel 'abouts'
-        // 'id' adalah primary key di tabel 'users' (sesuaikan jika berbeda)
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-        protected $nullable = [
+
+    public function additionalSections()
+    {
+        return $this->hasMany(AboutAdditionalSection::class);
+    }
+
+    protected $nullable = [
         'create_at',
         'update_at'
     ];
-
 }

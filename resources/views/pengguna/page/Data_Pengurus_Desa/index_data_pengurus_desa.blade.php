@@ -1,11 +1,11 @@
-@extends('pengguna.main')
+@extends('pengguna.component.main')
 
-@section('content')
+@section('pengguna_content')
 <header id="header" class="header d-flex align-items-center fixed-top">
     @include('pengguna.component.navbar')
 </header>
 
-<div class="page-title dark-background" style="background-image: url(assets/img/page-title-bg.jpg);">
+<div class="page-title dark-background" style="background-image: url(assets/img/hero-carousel/5.jpg);">
     <div class="container position-relative">
         <h1>Data Pengurus Desa</h1>
         <nav class="breadcrumbs">

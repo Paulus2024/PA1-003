@@ -17,7 +17,7 @@ class FasilitasDesa extends Model
         'deskripsi_fasilitas',
         'lokasi_fasilitas',
         'gambar_fasilitas',
-        'user_id', // Tambahkan user_id ke fillable
+        'user_id',
     ];
 
     protected $nullable = [

@@ -1,8 +1,11 @@
 @extends('pengguna.component.main')
 
-@section('masyarakat_content')
+@section('pengguna_content')
+    <header id="header" class="header d-flex align-items-center fixed-top">
+        @include('pengguna.component.navbar')
+    </header>
 
-    <div class="page-title dark-background" style="background-image: url({{ asset('assets/img/page-title-bg.jpg') }});">
+    <div class="page-title dark-background" style="background-image: url({{ asset('assets/img/hero-carousel/5.jpg') }});">
         <div class="container position-relative">
             <h1>About</h1>
             <nav class="breadcrumbs">
@@ -11,53 +14,14 @@
                     <li class="current">About</li>
                 </ol>
             </nav>
-<<<<<<< HEAD
-=======
-<div class="page-title dark-background" style="background-image: url(assets/img/hero-carousel/2.jpg);">
-    <div class="container position-relative">
-      <h1>About</h1>
-      <nav class="breadcrumbs">
-        <ol>
-          <li><a href="/">Home</a></li>
-          <li class="current">About</li>
-        </ol>
-      </nav>
-    </div>
-  </div><!-- End Page Title -->
-
-  <!-- About Section -->
-  <section id="about" class="about section">
-
-    <div class="container">
-
-      <div class="row position-relative">
-
-        <div class="col-lg-7 about-img" data-aos="zoom-out" data-aos-delay="200"><img src="assets/img/hero-carousel/WhatsApp Image 2025-05-14 at 20.01.16_25e637f8.jpg"></div>
-
-        <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
-          <h2 class="inner-title">Desa Taonmarisi</h2>
-          <div class="our-story">
-            <h4>Tahun Berdiri</h4>
-            <h3>History</h3>
-            <p>history</p>
-            <ul>
-              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commo</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Duis aute irure dolor in reprehenderit in</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea</span></li>
-            </ul>
-            <p>Vitae autem velit excepturi fugit. Animi ad non. Eligendi et non nesciunt suscipit repellendus porro in quo eveniet. Molestias in maxime doloremque.</p>
-
-
-          </div>
->>>>>>> 7c42151d7880db63d194426690a2925036976c17
         </div>
-    </div><!-- End Page Title -->
+    </div>
 
     <!-- About Section -->
     <section id="about" class="about section">
         <div class="container">
-            @if($abouts && count($abouts) > 0)
-                @foreach($abouts as $about)
+            @if ($abouts && count($abouts) > 0)
+                @foreach ($abouts as $about)
                     <div class="row position-relative">
                         <div class="col-lg-7 about-img" data-aos="zoom-out" data-aos-delay="200">
                             @if ($about->gambar_1)
@@ -85,38 +49,39 @@
     <!-- Stats Counter Section -->
     <section id="stats-counter" class="stats-counter section">
         <div class="container" data-aos="fade-up" data-aos-delay="100">
-            @if($abouts && count($abouts) > 0)
-                @foreach($abouts as $about)
+            @if ($abouts && count($abouts) > 0)
+                @foreach ($abouts as $about)
                     <div class="row gy-4">
-                        <div class="col-lg-3 col-md-6">
+                        <div class="col-lg-4 col-md-6">
                             <div class="stats-item d-flex align-items-center w-100 h-100">
                                 <i class="bi bi-people color-pink flex-shrink-0"></i>
                                 <div>
                                     <p><b>Penduduk</b></p>
-                                    <span data-purecounter-start="0" data-purecounter-end="{{ $about->jumlah_penduduk }}" data-purecounter-duration="1"
-                                        class="purecounter"></span>
+                                    <span data-purecounter-start="0" data-purecounter-end="{{ $about->jumlah_penduduk }}"
+                                        data-purecounter-duration="1" class="purecounter"></span>
                                 </div>
                             </div>
                         </div><!-- End Stats Item -->
 
-                        <div class="col-lg-3 col-md-6">
+                        <div class="col-lg-4 col-md-6">
                             <div class="stats-item d-flex align-items-center w-100 h-100">
                                 <i class="fas fa-map color-green flex-shrink-0"></i>
                                 <div>
                                     <p><b>Luas Wilayah</b></p>
-                                    <span data-purecounter-start="0" data-purecounter-end="{{ $about->luas_wilayah }}" data-purecounter-duration="1"
-                                        class="purecounter"></span>
+                                    <span data-purecounter-start="0" data-purecounter-end="{{ $about->luas_wilayah }}"
+                                        data-purecounter-duration="1" class="purecounter"></span>
                                 </div>
                             </div>
                         </div><!-- End Stats Item -->
 
-                        <div class="col-lg-3 col-md-6">
+                        <div class="col-lg-4 col-md-6">
                             <div class="stats-item d-flex align-items-center w-100 h-100">
                                 <i class="bi bi-people color-pink flex-shrink-0"></i>
                                 <div>
                                     <p><b>Perangkat Desa</b></p>
-                                    <span data-purecounter-start="0" data-purecounter-end="{{ $about->jumlah_perangkat_desa }}" data-purecounter-duration="1"
-                                        class="purecounter"></span>
+                                    <span data-purecounter-start="0"
+                                        data-purecounter-end="{{ $about->jumlah_perangkat_desa }}"
+                                        data-purecounter-duration="1" class="purecounter"></span>
                                 </div>
                             </div>
                         </div><!-- End Stats Item -->
@@ -128,11 +93,11 @@
         </div>
     </section><!-- /Stats Counter Section -->
 
-    <!-- Alt Services Section -->
+    <!-- Visi Misi -->
     <section id="alt-services" class="alt-services section">
         <div class="container">
-            @if($abouts && count($abouts) > 0)
-                @foreach($abouts as $about)
+            @if ($abouts && count($abouts) > 0)
+                @foreach ($abouts as $about)
                     <div class="row justify-content-around gy-4">
                         <div class="features-image col-lg-6" data-aos="fade-up" data-aos-delay="100">
                             @if ($about->gambar_2)
@@ -142,4 +107,35 @@
                             @endif
                         </div>
 
-                        <div class="col-lg-5 d-flex flex-column justify-content-center" data-aos
+                        <div class="col-lg-5 d-flex flex-column justify-content-center" data-aos="fade-up"
+                            data-aos-delay="200">
+                            <h3>VISI & MISI</h3>
+                            <h4>Visi</h4>
+                            <p>{!! $about->visi !!}</p>
+
+                            <h4>Misi</h4>
+                            @if ($about->misi)
+                                <ol>
+                                    @foreach (explode("\n", $about->misi) as $misi_item)
+                                        @if(trim($misi_item) !== '')<!-- Pastikan Bukan Baris Kosong -->
+                                            <li>{!! trim($misi_item) !!}</li>
+                                        @endif
+                                    @endforeach
+                                </ol>
+                                @else
+                                <p>Tidak ada misi yang tersedia.</p>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <p>Tidak ada data Visi & Misi yang tersedia.</p>
+            @endif
+        </div>
+    </section>
+    <!-- Visi Misi -->
+
+    <footer id="footer" class="footer dark-background">
+        @include('pengguna.component.footer')
+    </footer>
+@endsection

@@ -52,14 +52,14 @@
 
             .card {
                 border-radius: 8px;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
                 border: none;
                 margin-bottom: 25px;
             }
 
             .card-header {
                 background-color: #f8f9fa;
-                border-bottom: 1px solid rgba(0,0,0,.05);
+                border-bottom: 1px solid rgba(0, 0, 0, .05);
                 padding: 15px 20px;
                 font-weight: 600;
             }
@@ -133,11 +133,21 @@
                 border: 1px solid #e0e0e0;
                 padding: 3px;
                 background: white;
+                /* --- Bagian yang dimodifikasi/ditambahkan --- */
+                max-width: 50px;
+                /* Coba perkecil ukuran gambar */
+                height: auto;
+                /* Pastikan rasio aspek terjaga */
+                display: block;
+                /* Agar gambar bisa di-tengah dan mengatur margin */
+                margin: 0 auto;
+                /* Agar gambar berada di tengah sel */
+                /* --- Akhir modifikasi --- */
             }
 
             .modal-header {
                 background-color: #f8f9fa;
-                border-bottom: 1px solid rgba(0,0,0,.05);
+                border-bottom: 1px solid rgba(0, 0, 0, .05);
             }
 
             .modal-title {
@@ -158,7 +168,7 @@
 
             .form-control:focus {
                 border-color: #3498db;
-                box-shadow: 0 0 0 0.2rem rgba(52,152,219,.25);
+                box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, .25);
             }
 
             .notification-badge {
@@ -190,18 +200,20 @@
             <div class="container">
                 <!-- Utility Bar -->
                 <div class="card mb-4 p-3">
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-between align-items-center"> {{-- Menggunakan justify-content-between untuk memisahkan judul dan ikon --}}
+                        <h4 class="mb-0 text-primary"><b>Alat Pertanian</b></h4> {{-- Menambahkan judul di sini --}}
                         <div class="utility-icons">
                             <a href="{{ route('admin.pengembalian.verifikasi.list') }}" title="Kembali">
-                                <i class="bi bi-check fs-5"></i>
+                                <i class="fas fa-check-circle fa-2x" style="color: #808080;"></i>
                             </a>
 
                             <a href="{{ route('pemesanan.history') }}" title="Riwayat Pemesanan">
-                                <i class="bi bi-clock fs-5"></i>
+                                <i class="fas fa-clock fa-2x" style="color: #808080;"></i>
                             </a>
 
-                            <a href="#" class="position-relative" data-bs-toggle="modal" data-bs-target="#notificationModal" title="Notifikasi">
-                                <i class="bi bi-bell fs-5"></i>
+                            <a href="#" class="position-relative" data-bs-toggle="modal"
+                                data-bs-target="#notificationModal" title="Notifikasi">
+                                <i class="fas fa-bell fa-2x" style="color: #808080;"></i>
                                 @php
                                     $unreadNotificationsCount = auth()
                                         ->user()
@@ -220,12 +232,14 @@
                 </div>
 
                 <!-- Notification Modal -->
-                <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+                <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="notificationModalLabel">Notifikasi</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Tutup"></button>
                             </div>
                             <div class="modal-body">
                                 @php
@@ -244,12 +258,17 @@
                                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                                 <div class="ms-2 me-auto">
                                                     <div class="fw-bold">{{ $notification->message }}</div>
-                                                    <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                                                    <small
+                                                        class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
                                                     @if (!$notification->read_at)
-                                                        <form action="{{ route('notifications.markAsRead', $notification->id) }}" method="POST" class="mt-2">
+                                                        <form
+                                                            action="{{ route('notifications.markAsRead', $notification->id) }}"
+                                                            method="POST" class="mt-2">
                                                             @csrf
                                                             @method('PATCH')
-                                                            <button type="submit" class="btn btn-sm btn-outline-primary">Tandai Sudah Dibaca</button>
+                                                            <button type="submit"
+                                                                class="btn btn-sm btn-outline-primary">Tandai Sudah
+                                                                Dibaca</button>
                                                         </form>
                                                     @endif
                                                 </div>
@@ -261,20 +280,15 @@
                                     <div class="text-center text-muted py-3">Tidak ada notifikasi baru</div>
                                 @endif
                             </div>
-                            <div class="modal-footer">
+                            {{-- <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                <a href="#" class="btn btn-primary">Lihat Semua</a>
-                            </div>
+                                <a href="{{ ? }}"
+                                    class="btn btn-primary">Lihat Semua</a>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
 
-                <!-- Page Header -->
-                <div class="page-header">
-                    <h1 class="text-primary"><b>Alat Pertanian</b></h1>
-                    <nav aria-label="breadcrumb">
-                    </nav>
-                </div>
 
                 <!-- Main Content -->
                 <div class="card">
@@ -297,8 +311,9 @@
                                     @foreach ($alat_pertanian as $item)
                                         <tr>
                                             <td>
-                                                <img src="{{ asset('storage/' . $item->gambar_alat) }}" class="img-thumbnail"
-                                                    alt="{{ $item->nama_alat_pertanian }}" width="80">
+                                                <img src="{{ asset('storage/' . $item->gambar_alat) }}"
+                                                    class="img-thumbnail" alt="{{ $item->nama_alat_pertanian }}"
+                                                    width="80">
                                             </td>
                                             <td>{{ $item->nama_alat_pertanian }}</td>
                                             <td>{{ $item->jenis_alat_pertanian }}</td>
@@ -325,7 +340,8 @@
                                                     onsubmit="return confirm('Yakin ingin menghapus alat ini?')">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-outline-danger btn-sm" title="Hapus">
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                        title="Hapus">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
                                                 </form>
@@ -338,7 +354,8 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="EditAlatPertanianLabel">Edit Alat Pertanian</h5>
+                                                        <h5 class="modal-title" id="EditAlatPertanianLabel">Edit Alat
+                                                            Pertanian</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
@@ -350,50 +367,58 @@
                                                             @csrf
                                                             @method('PUT')
                                                             <div class="mb-3">
-                                                                <label for="nama_alat_pertanian" class="form-label"><b>Nama Alat Pertanian</b></label>
+                                                                <label for="nama_alat_pertanian"
+                                                                    class="form-label"><b>Nama Alat Pertanian</b></label>
                                                                 <input type="text" class="form-control"
                                                                     name="nama_alat_pertanian" id="nama_alat_pertanian"
                                                                     value="{{ $item->nama_alat_pertanian }}" required>
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label class="form-label"><b>Jenis Alat Pertanian</b></label><br>
+                                                                <label class="form-label"><b>Jenis Alat
+                                                                        Pertanian</b></label><br>
                                                                 <div class="form-check form-check-inline">
                                                                     <input class="form-check-input" type="radio"
                                                                         name="jenis_alat_pertanian" id="olah_lahan_edit"
                                                                         value="Olah_Lahan"
                                                                         {{ $item->jenis_alat_pertanian == 'Olah_Lahan' ? 'checked' : '' }}
                                                                         required>
-                                                                    <label class="form-check-label" for="olah_lahan_edit">Olah Lahan</label>
+                                                                    <label class="form-check-label"
+                                                                        for="olah_lahan_edit">Olah Lahan</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
                                                                     <input class="form-check-input" type="radio"
                                                                         name="jenis_alat_pertanian" id="pascapanen_edit"
                                                                         value="Pascapanen"
                                                                         {{ $item->jenis_alat_pertanian == 'Pascapanen' ? 'checked' : '' }}>
-                                                                    <label class="form-check-label" for="pascapanen_edit">Pascapanen</label>
+                                                                    <label class="form-check-label"
+                                                                        for="pascapanen_edit">Pascapanen</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
                                                                     <input class="form-check-input" type="radio"
                                                                         name="jenis_alat_pertanian" id="lainnya_edit"
                                                                         value="Lainnya"
                                                                         {{ $item->jenis_alat_pertanian == 'Lainnya' ? 'checked' : '' }}>
-                                                                    <label class="form-check-label" for="lainnya_edit">Lainnya</label>
+                                                                    <label class="form-check-label"
+                                                                        for="lainnya_edit">Lainnya</label>
                                                                 </div>
                                                             </div>
 
                                                             <div class="row">
                                                                 <div class="col-md-6 mb-3">
-                                                                    <label for="harga_sewa" class="form-label"><b>Harga Sewa</b></label>
+                                                                    <label for="harga_sewa" class="form-label"><b>Harga
+                                                                            Sewa</b></label>
                                                                     <div class="input-group">
                                                                         <span class="input-group-text">Rp</span>
                                                                         <input type="text" class="form-control"
                                                                             name="harga_sewa" id="harga_sewa"
-                                                                            value="{{ number_format($item->harga_sewa, 0, ',', '.') }}" required>
+                                                                            value="{{ number_format($item->harga_sewa, 0, ',', '.') }}"
+                                                                            required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6 mb-3">
-                                                                    <label for="jumlah_alat" class="form-label"><b>Jumlah Alat</b></label>
+                                                                    <label for="jumlah_alat" class="form-label"><b>Jumlah
+                                                                            Alat</b></label>
                                                                     <input type="number" class="form-control"
                                                                         name="jumlah_alat" id="jumlah_alat"
                                                                         value="{{ $item->jumlah_alat }}" required>
@@ -401,25 +426,32 @@
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label for="catatan" class="form-label"><b>Catatan Khusus</b></label>
+                                                                <label for="catatan" class="form-label"><b>Catatan
+                                                                        Khusus</b></label>
                                                                 <textarea class="form-control" name="catatan" id="catatan" rows="2">{{ $item->catatan }}</textarea>
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label class="form-label"><b>Gambar Saat Ini</b></label><br>
+                                                                <label class="form-label"><b>Gambar Saat
+                                                                        Ini</b></label><br>
                                                                 <img src="{{ asset('storage/' . $item->gambar_alat) }}"
-                                                                    alt="Gambar Alat" class="img-thumbnail" width="150">
+                                                                    alt="Gambar Alat" class="img-thumbnail"
+                                                                    width="150">
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label for="gambar_alat" class="form-label"><b>Gambar Baru (Opsional)</b></label>
+                                                                <label for="gambar_alat" class="form-label"><b>Gambar Baru
+                                                                        (Opsional)
+                                                                    </b></label>
                                                                 <input type="file" class="form-control"
                                                                     name="gambar_alat" id="gambar_alat">
-                                                                <small class="text-muted">Biarkan kosong jika tidak ingin mengubah gambar</small>
+                                                                <small class="text-muted">Biarkan kosong jika tidak ingin
+                                                                    mengubah gambar</small>
                                                             </div>
 
                                                             <div class="d-grid gap-2 mt-4">
-                                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                                <button type="submit" class="btn btn-primary">Simpan
+                                                                    Perubahan</button>
                                                             </div>
                                                         </form>
                                                     </div>

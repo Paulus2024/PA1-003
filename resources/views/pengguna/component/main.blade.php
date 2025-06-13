@@ -2,40 +2,41 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - UpConstruction Bootstrap Template</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Desa Taon Marisi</title>
+    <link rel="icon" href="{{ asset('assets/img/8.png') }}" type="image/png">
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-  <!-- Vendor CSS Files -->
-  <link href="{{URL:: asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-  <link href="{{URL:: asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-  <link href="{{URL:: asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
-  <link href="{{URL:: asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-  <link href="{{URL:: asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
-  <link href="{{URL:: asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
-  <!-- Open Untuk class="icon-container" -->
-  <!-- <link rel="stylesheet" href="{{URL:: asset('assets/css/button_crud.css') }}"> -->
-  <!-- Close Untuk class="icon-container" -->
+    <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
 
+    <style>
+        .modal {
+            z-index: 1050;
+        }
 
-<link href="{{URL:: asset('assets/css/main.css') }}" rel="stylesheet">
+        .modal-backdrop {
+            z-index: 1040;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs/dist/purecounter_vanilla.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
 </head>
 
 <body class="index-page">
 
     <main class="main">
-        @yield('content')
+        @yield('pengguna_content')
     </main>
 
 

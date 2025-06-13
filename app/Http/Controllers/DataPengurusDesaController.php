@@ -1,152 +1,12 @@
 <?php
 
-// namespace App\Http\Controllers;
-
-// use App\Models\DataPengurusDesa;
-// use Illuminate\Support\Facades\Storage;
-// use Illuminate\Http\Request;
-
-// class DataPengurusDesaController extends Controller
-// {
-//     /**
-//      * Display a listing of the resource.
-//      */
-//     public function index()
-//     {
-//         $data_pengurus_desas/*1*/ = DataPengurusDesa::all();//nama variabel bebas = Nama Model::all();
-//         return view('dashboard.sekretaris.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
-//     }
-
-//     public function index_Bumdes()
-//     {
-//         $data_pengurus_desas = DataPengurusDesa::all(); // Ambil semua
-//         return view('dashboard.bumdes.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
-//     }
-
-//         public function index_masyarakat()
-//     {
-//         $data_pengurus_desas = DataPengurusDesa::all(); // Ambil semua
-//         return view('dashboard.masyarakat.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
-//     }
-
-//         public function index_pengguna()
-//     {
-//         $data_pengurus_desas = DataPengurusDesa::all(); // Ambil semua
-//         return view('pengguna.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
-//     }
-
-
-
-
-
-//     /**
-//      * Show the form for creating a new resource.
-//      */
-//     public function create()
-//     {
-//         //
-//     }
-
-//     /**
-//      * Store a newly created resource in storage.
-//      */
-//     public function store(Request $request)
-// {
-//     $request->validate([
-//         'nama_data_pengurus_desa' => 'required|string|max:255',
-//         'jabatan_data_pengurus_desa' => 'required|string|max:255',
-//         'deskripsi_data_pengurus_desa' => 'required|string',
-//         'gambar_data_pengurus_desa' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-//     ]);
-
-//     $imagePath = null;
-//     if ($request->hasFile('gambar_data_pengurus_desa')) {
-//         $imagePath = $request->file('gambar_data_pengurus_desa')->store('pengurus_images', 'public');
-//     }
-
-//     DataPengurusDesa::create([
-//         'nama_data_pengurus_desa' => $request->nama_data_pengurus_desa,
-//         'jabatan_data_pengurus_desa' => $request->jabatan_data_pengurus_desa,
-//         'deskripsi_data_pengurus_desa' => $request->deskripsi_data_pengurus_desa,
-//         'gambar_data_pengurus_desa' => $imagePath,
-//     ]);
-
-//     return redirect()->route('data_pengurus_desa.index')->with('success', 'Data pengurus berhasil ditambahkan.');
-// }
-
-//     /**
-//      * Display the specified resource.
-//      */
-//     public function show(string $id)
-//     {
-//         //
-//     }
-
-//     /**
-//      * Show the form for editing the specified resource.
-//      */
-//     public function edit(string $id)
-//     {
-//         $data_pengurus_desas = DataPengurusDesa::findOrFail($id);
-//         return view('data_pengurus_desa.edit', compact('data_pengurus_desas'));
-//     }
-
-//     /**
-//      * Update the specified resource in storage.
-//      */
-//     public function update(Request $request, string $id)
-//     {
-//         $data_pengurus_desas = DataPengurusDesa::findOrFail($id);
-//             $request->validate([
-//                 'nama_data_pengurus_desa' => 'required|string|max:255',
-//                 'jabatan_data_pengurus_desa' => 'required|string|max:255',
-//                 'deskripsi_data_pengurus_desa' => 'required|string|max:255',
-//                 'gambar_data_pengurus_desa' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-//             ]);
-
-
-
-
-//             $data = [
-//                 'nama_data_pengurus_desa' => $request->input('nama_data_pengurus_desa'),
-//                 'jabatan_data_pengurus_desa' => $request->input('jabatan_data_pengurus_desa'),
-//                 'deskripsi_data_pengurus_desa' => $request->input('deskripsi_data_pengurus_desa'),
-//             ];
-
-//             // Update gambar hanya jika ada file baru
-//             if ($request->hasFile('gambar_data_pengurus_desa')) {
-//                 if ($data_pengurus_desas->gambar_data_pengurus_desa) {
-//                     Storage::disk('public')->delete($data_pengurus_desas->gambar_data_pengurus_desa);
-//                 }
-
-//                 $path = $request->file('gambar_data_pengurus_desa')->store('pengurus', 'public');
-//                 $data['gambar_data_pengurus_desa'] = $path;
-//             }
-
-//         $data_pengurus_desas->update($data);
-
-//         return redirect()->route('data_pengurus_desa.index')->with('success', 'Data Pengurus Desa Berhasil Diperbarui!');
-//     }
-
-//     /**
-//      * Remove the specified resource from storage.
-//      */
-//     public function destroy(string $id)
-//     {
-//         $data_pengurus_desas = DataPengurusDesa::findOrFail($id);
-//         Storage::disk('public')->delete($data_pengurus_desas->gambar_data_pengurus_desa);
-//         $data_pengurus_desas->delete();
-
-//         return redirect()->route('data_pengurus_desa.index')->with('success', 'Data Pengurus Desa Berhasil Dihapus!');
-//     }
-// }
-
 namespace App\Http\Controllers;
 
 use App\Models\DataPengurusDesa;
+use App\Models\Jabatan; // Import model Jabatan
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // <-- Tambahkan impor Auth facade
+use Illuminate\Support\Facades\Auth;
 
 class DataPengurusDesaController extends Controller
 {
@@ -155,27 +15,76 @@ class DataPengurusDesaController extends Controller
      */
     public function index()
     {
-        // Pertimbangkan untuk hanya menampilkan data yang dibuat oleh user tertentu jika perlu,
-        // atau filter berdasarkan role. Untuk saat ini, mengambil semua.
-        $data_pengurus_desas = DataPengurusDesa::all();
-        return view('dashboard.sekretaris.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
+        // Eager load relasi 'jabatan' untuk menghindari N+1 query problem
+        $data_pengurus_desas = DataPengurusDesa::with('jabatan')->get();
+
+        // Ambil semua jabatan yang belum terisi (untuk modal tambah)
+        $jabatan_tersedia = Jabatan::whereDoesntHave('pengurus')->get();
+
+        // Ambil semua jabatan (untuk modal edit, agar semua opsi jabatan bisa ditampilkan)
+        $semua_jabatan = Jabatan::all();
+
+        return view(
+            'dashboard.sekretaris.page.Data_Pengurus_Desa.index_data_pengurus_desa',
+            compact('data_pengurus_desas', 'jabatan_tersedia', 'semua_jabatan')
+        );
     }
 
     public function index_Bumdes()
     {
-        $data_pengurus_desas = DataPengurusDesa::all();
+        $data_pengurus_desas = DataPengurusDesa::with('jabatan')->get();
         return view('dashboard.bumdes.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
     }
 
+    // public function index_masyarakat()
+    // {
+    //     $data_pengurus_desas = DataPengurusDesa::with('jabatan')->get();
+    //     return view('dashboard.masyarakat.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
+    // }
     public function index_masyarakat()
     {
-        $data_pengurus_desas = DataPengurusDesa::all();
-        return view('dashboard.masyarakat.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
+        // Ambil semua data pengurus dengan relasi jabatannya.
+        $all_pengurus = DataPengurusDesa::with('jabatan')->get();
+
+        // Siapkan variabel untuk setiap kelompok jabatan.
+        $kepala_desa = null;
+        $sekretaris = null;
+        $kasi_collection = collect(); // Gunakan koleksi untuk menampung para Kasi
+        $kaur_collection = collect(); // Gunakan koleksi untuk menampung para Kaur
+        $kadus_collection = collect(); // Gunakan koleksi untuk menampung para Kadus
+
+        // Loop melalui semua pengurus dan kelompokkan berdasarkan nama jabatan.
+        // Catatan: Ini mengasumsikan nama jabatan di database Anda mengandung kata kunci
+        // seperti 'Kepala Desa', 'Sekretaris', 'Kasi', 'Kaur', 'Kadus'.
+        foreach ($all_pengurus as $pengurus) {
+            $jabatan = strtolower($pengurus->jabatan->nama_jabatan);
+
+            if (str_contains($jabatan, 'kepala desa')) {
+                $kepala_desa = $pengurus;
+            } elseif (str_contains($jabatan, 'sekretaris')) {
+                $sekretaris = $pengurus;
+            } elseif (str_contains($jabatan, 'kasi')) {
+                $kasi_collection->push($pengurus);
+            } elseif (str_contains($jabatan, 'kaur')) {
+                $kaur_collection->push($pengurus);
+            } elseif (str_contains($jabatan, 'kadus')) {
+                $kadus_collection->push($pengurus);
+            }
+        }
+
+        // Kirim data yang sudah dikelompokkan ke view.
+        return view('dashboard.masyarakat.page.Data_Pengurus_Desa.index_data_pengurus_desa', [
+            'kepala_desa' => $kepala_desa,
+            'sekretaris' => $sekretaris,
+            'kasi_list' => $kasi_collection,
+            'kaur_list' => $kaur_collection,
+            'kadus_list' => $kadus_collection,
+        ]);
     }
 
     public function index_pengguna()
     {
-        $data_pengurus_desas = DataPengurusDesa::all();
+        $data_pengurus_desas = DataPengurusDesa::with('jabatan')->get();
         return view('pengguna.page.Data_Pengurus_Desa.index_data_pengurus_desa', compact('data_pengurus_desas'));
     }
 
@@ -184,8 +93,7 @@ class DataPengurusDesaController extends Controller
      */
     public function create()
     {
-        // Biasanya di sini Anda akan menampilkan view untuk form create
-        // return view('dashboard.sekretaris.page.Data_Pengurus_Desa.create_data_pengurus_desa');
+        // Metode ini sekarang tidak perlu, karena form tambah ada di index
     }
 
     /**
@@ -195,7 +103,7 @@ class DataPengurusDesaController extends Controller
     {
         $request->validate([
             'nama_data_pengurus_desa' => 'required|string|max:255',
-            'jabatan_data_pengurus_desa' => 'required|string|max:255',
+            'jabatan_id' => 'required|exists:jabatan,id|unique:data_pengurus_desas,jabatan_id',
             'deskripsi_data_pengurus_desa' => 'required|string',
             'gambar_data_pengurus_desa' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -203,15 +111,14 @@ class DataPengurusDesaController extends Controller
         $imagePath = null;
         if ($request->hasFile('gambar_data_pengurus_desa')) {
             $file = $request->file('gambar_data_pengurus_desa');
-            // Buat nama file unik untuk menghindari konflik dan sanitasi nama
             $filename = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
             $imagePath = $file->storeAs('pengurus_images', $filename, 'public');
         }
 
         DataPengurusDesa::create([
-            'user_id' => Auth::id(), // <-- Tambahkan ID pengguna yang sedang login
+            'user_id' => Auth::id(),
+            'jabatan_id' => $request->jabatan_id,
             'nama_data_pengurus_desa' => $request->nama_data_pengurus_desa,
-            'jabatan_data_pengurus_desa' => $request->jabatan_data_pengurus_desa,
             'deskripsi_data_pengurus_desa' => $request->deskripsi_data_pengurus_desa,
             'gambar_data_pengurus_desa' => $imagePath,
         ]);
@@ -224,22 +131,7 @@ class DataPengurusDesaController extends Controller
      */
     public function show(string $id)
     {
-        // $data_pengurus_desa = DataPengurusDesa::findOrFail($id);
-        // return view('path.to.show.view', compact('data_pengurus_desa'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $data_pengurus_desa = DataPengurusDesa::findOrFail($id); // Ubah variabel agar konsisten
-        // Sebaiknya ada pemeriksaan apakah pengguna yang login berhak mengedit data ini
-        // if ($data_pengurus_desa->user_id !== Auth::id() && !Auth::user()->isAdminRole()) { // Contoh otorisasi
-        //     abort(403, 'Akses ditolak.');
-        // }
-        // Pastikan path view 'data_pengurus_desa.edit' benar
-        return view('dashboard.sekretaris.page.Data_Pengurus_Desa.edit_data_pengurus_desa', compact('data_pengurus_desa'));
+        // ... (tidak ada perubahan signifikan)
     }
 
     /**
@@ -247,32 +139,37 @@ class DataPengurusDesaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data_pengurus_desa = DataPengurusDesa::findOrFail($id); // Ubah nama variabel
-        // Sebaiknya ada pemeriksaan otorisasi di sini juga
+        $data_pengurus_desa = DataPengurusDesa::findOrFail($id);
 
-        $request->validate([
+        $rules = [
             'nama_data_pengurus_desa' => 'required|string|max:255',
-            'jabatan_data_pengurus_desa' => 'required|string|max:255',
-            'deskripsi_data_pengurus_desa' => 'required|string', // Max 255 dihilangkan karena deskripsi bisa panjang
-            'gambar_data_pengurus_desa' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // SVG ditambahkan
-        ]);
+            'deskripsi_data_pengurus_desa' => 'required|string',
+            'gambar_data_pengurus_desa' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ];
+
+        // Validasi jabatan_id: wajib ada, harus ada di tabel jabatan,
+        // dan unik kecuali untuk data pengurus yang sedang diupdate ini sendiri.
+        if ($request->jabatan_id != $data_pengurus_desa->jabatan_id) {
+            $rules['jabatan_id'] = 'required|exists:jabatan,id|unique:data_pengurus_desas,jabatan_id';
+        } else {
+            $rules['jabatan_id'] = 'required|exists:jabatan,id';
+        }
+
+        $request->validate($rules);
 
         $data = [
-            // user_id biasanya tidak diubah saat update, kecuali oleh admin dengan logika khusus
+            'jabatan_id' => $request->input('jabatan_id'),
             'nama_data_pengurus_desa' => $request->input('nama_data_pengurus_desa'),
-            'jabatan_data_pengurus_desa' => $request->input('jabatan_data_pengurus_desa'),
             'deskripsi_data_pengurus_desa' => $request->input('deskripsi_data_pengurus_desa'),
         ];
 
         if ($request->hasFile('gambar_data_pengurus_desa')) {
-            // Hapus gambar lama jika ada
             if ($data_pengurus_desa->gambar_data_pengurus_desa && Storage::disk('public')->exists($data_pengurus_desa->gambar_data_pengurus_desa)) {
                 Storage::disk('public')->delete($data_pengurus_desa->gambar_data_pengurus_desa);
             }
-            // Simpan gambar baru
             $file = $request->file('gambar_data_pengurus_desa');
             $filename = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
-            $path = $file->storeAs('pengurus_images', $filename, 'public'); // Konsistenkan direktori ke 'pengurus_images'
+            $path = $file->storeAs('pengurus_images', $filename, 'public');
             $data['gambar_data_pengurus_desa'] = $path;
         }
 
@@ -286,10 +183,8 @@ class DataPengurusDesaController extends Controller
      */
     public function destroy(string $id)
     {
-        $data_pengurus_desa = DataPengurusDesa::findOrFail($id); // Ubah nama variabel
-        // Sebaiknya ada pemeriksaan otorisasi di sini juga
+        $data_pengurus_desa = DataPengurusDesa::findOrFail($id);
 
-        // Hapus gambar dari storage jika ada
         if ($data_pengurus_desa->gambar_data_pengurus_desa && Storage::disk('public')->exists($data_pengurus_desa->gambar_data_pengurus_desa)) {
             Storage::disk('public')->delete($data_pengurus_desa->gambar_data_pengurus_desa);
         }
